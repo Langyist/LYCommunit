@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6250" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="480" height="480"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Default.png" translatesAutoresizingMaskIntoConstraints="NO" id="YjC-3A-JFy">
+                    <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="480" id="2Gt-N5-Pbp"/>
+                        <constraint firstAttribute="width" constant="371" id="ZHN-kR-DDe"/>
+                        <constraint firstAttribute="width" secondItem="YjC-3A-JFy" secondAttribute="height" multiplier="371:480" id="tLv-oL-vhA"/>
+                    </constraints>
+                    <variation key="default">
+                        <mask key="constraints">
+                            <exclude reference="2Gt-N5-Pbp"/>
+                            <exclude reference="ZHN-kR-DDe"/>
+                            <exclude reference="tLv-oL-vhA"/>
+                        </mask>
+                    </variation>
+                    <variation key="widthClass=compact">
+                        <mask key="constraints">
+                            <include reference="2Gt-N5-Pbp"/>
+                            <include reference="ZHN-kR-DDe"/>
+                            <include reference="tLv-oL-vhA"/>
+                        </mask>
+                    </variation>
+                </imageView>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="YjC-3A-JFy" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="0eT-SC-uP6"/>
+                <constraint firstItem="YjC-3A-JFy" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="XYI-Lc-AnJ"/>
+                <constraint firstAttribute="trailing" secondItem="YjC-3A-JFy" secondAttribute="trailing" id="e01-IF-Rya"/>
+                <constraint firstAttribute="bottom" secondItem="YjC-3A-JFy" secondAttribute="bottom" id="zsv-yO-qSS"/>
+            </constraints>
+            <nil key="simulatedStatusBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <variation key="default">
+                <mask key="subviews">
+                    <exclude reference="YjC-3A-JFy"/>
+                </mask>
+                <mask key="constraints">
+                    <exclude reference="0eT-SC-uP6"/>
+                    <exclude reference="XYI-Lc-AnJ"/>
+                    <exclude reference="e01-IF-Rya"/>
+                    <exclude reference="zsv-yO-qSS"/>
+                </mask>
+            </variation>
+            <variation key="widthClass=compact">
+                <mask key="subviews">
+                    <include reference="YjC-3A-JFy"/>
+                </mask>
+                <mask key="constraints">
+                    <include reference="0eT-SC-uP6"/>
+                    <include reference="XYI-Lc-AnJ"/>
+                    <include reference="e01-IF-Rya"/>
+                    <include reference="zsv-yO-qSS"/>
+                </mask>
+            </variation>
+            <point key="canvasLocation" x="697.5" y="461"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="Default.png" width="640" height="1136"/>
+    </resources>
+</document>
