@@ -37,11 +37,12 @@ static NSDictionary  *m_selectCityInfo;
 #pragma mark - Navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    if ([segue.identifier isEqualToString: @"GoLYSelectCommunit"])
-    {
-        LYSelectCommunit *detailViewController = (LYSelectCommunit*) segue.destinationViewController;
-        detailViewController->m_cityinfo = m_selectCityInfo;
-    }
+//    if ([segue.identifier isEqualToString: @"GoLYSelectCommunit"])
+//    {
+//        LYSelectCommunit *detailViewController = (LYSelectCommunit*) segue.destinationViewController;
+//        detailViewController->m_cityinfo = m_selectCityInfo;
+//        detailViewController->m_Refresh = TRUE;
+//    }
 }
 
 #pragma mark - Table view data source 协议函数
@@ -743,43 +744,52 @@ static NSDictionary  *m_selectCityInfo;
     NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:url]];
     //    将请求的url数据放到NSData对象中
     NSData *response = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
+    if(response==nil)
+    {
+        UIAlertView *aler = [[UIAlertView alloc] initWithTitle:@"提示" message:@"没有加载到数据" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+        [aler show];
+    }else
+    {
     //    iOS5自带解析类NSJSONSerialization从response中解析出数据放到字典中
     NSDictionary *weatherDic = [NSJSONSerialization JSONObjectWithData:response options:NSJSONReadingMutableLeaves error:&error];
     //    weatherDic字典中存放的数据也是字典型，从它里面通过键值取值
     NSString *status = [weatherDic objectForKey:@"status"];
     NSLog(@"%@",status);
-    //    UIAlertView *aler = [[UIAlertView alloc] initWithTitle:@"提示" message:status delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
-    //    [aler show];
-    NSDictionary *data = [weatherDic objectForKey:@"data"];
-    m_hotCities =[data objectForKey:@"hotCities"];
-    m_allcities = [data objectForKey:@"cities"];
-    m_Acities = [[NSMutableArray alloc] init];
-    m_Bcities = [[NSMutableArray alloc] init];
-    m_Ccities = [[NSMutableArray alloc] init];
-    m_Dcities = [[NSMutableArray alloc] init];
-    m_Ecities = [[NSMutableArray alloc] init];
-    m_Fcities = [[NSMutableArray alloc] init];
-    m_Gcities = [[NSMutableArray alloc] init];
-    m_Hcities = [[NSMutableArray alloc] init];
-    m_Icities = [[NSMutableArray alloc] init];
-    m_Jcities = [[NSMutableArray alloc] init];
-    m_Kcities = [[NSMutableArray alloc] init];
-    m_Lcities = [[NSMutableArray alloc] init];
-    m_Mcities = [[NSMutableArray alloc] init];
-    m_Ncities = [[NSMutableArray alloc] init];
-    m_Ocities = [[NSMutableArray alloc] init];
-    m_Pcities = [[NSMutableArray alloc] init];
-    m_Qcities = [[NSMutableArray alloc] init];
-    m_Rcities = [[NSMutableArray alloc] init];
-    m_Scities = [[NSMutableArray alloc] init];
-    m_Tcities = [[NSMutableArray alloc] init];
-    m_Ucities = [[NSMutableArray alloc] init];
-    m_Vcities = [[NSMutableArray alloc] init];
-    m_Wcities = [[NSMutableArray alloc] init];
-    m_Xcities = [[NSMutableArray alloc] init];
-    m_Ycities = [[NSMutableArray alloc] init];
-    m_Zcities = [[NSMutableArray alloc] init];
-    
+    if(![status isEqual:@"200"])
+    {
+        UIAlertView *aler = [[UIAlertView alloc] initWithTitle:@"提示" message:status delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+        [aler show];
+    }else
+    {
+        NSDictionary *data = [weatherDic objectForKey:@"data"];
+        m_hotCities =[data objectForKey:@"hotCities"];
+        m_allcities = [data objectForKey:@"cities"];
+        m_Acities = [[NSMutableArray alloc] init];
+        m_Bcities = [[NSMutableArray alloc] init];
+        m_Ccities = [[NSMutableArray alloc] init];
+        m_Dcities = [[NSMutableArray alloc] init];
+        m_Ecities = [[NSMutableArray alloc] init];
+        m_Fcities = [[NSMutableArray alloc] init];
+        m_Gcities = [[NSMutableArray alloc] init];
+        m_Hcities = [[NSMutableArray alloc] init];
+        m_Icities = [[NSMutableArray alloc] init];
+        m_Jcities = [[NSMutableArray alloc] init];
+        m_Kcities = [[NSMutableArray alloc] init];
+        m_Lcities = [[NSMutableArray alloc] init];
+        m_Mcities = [[NSMutableArray alloc] init];
+        m_Ncities = [[NSMutableArray alloc] init];
+        m_Ocities = [[NSMutableArray alloc] init];
+        m_Pcities = [[NSMutableArray alloc] init];
+        m_Qcities = [[NSMutableArray alloc] init];
+        m_Rcities = [[NSMutableArray alloc] init];
+        m_Scities = [[NSMutableArray alloc] init];
+        m_Tcities = [[NSMutableArray alloc] init];
+        m_Ucities = [[NSMutableArray alloc] init];
+        m_Vcities = [[NSMutableArray alloc] init];
+        m_Wcities = [[NSMutableArray alloc] init];
+        m_Xcities = [[NSMutableArray alloc] init];
+        m_Ycities = [[NSMutableArray alloc] init];
+        m_Zcities = [[NSMutableArray alloc] init];
     for (int i= 0;i< [m_allcities count]; i++)
     {
         NSDictionary *temp = [m_allcities objectAtIndex:i];
@@ -867,6 +877,8 @@ static NSDictionary  *m_selectCityInfo;
     }
     [m_messageview removeFromSuperview];
     self.view.userInteractionEnabled = YES;
+    }
+    }
 }
 
 //点击事件
@@ -962,7 +974,12 @@ static NSDictionary  *m_selectCityInfo;
         default:
             break;
     }
+    [LYSelectCommunit Updata:YES];
     [[self navigationController] popViewControllerAnimated:YES];
 }
-
+#pragma mark  - 返回选择的城市信息
++(NSDictionary*)CityInfo
+{
+    return m_selectCityInfo;
+}
 @end

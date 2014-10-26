@@ -7,10 +7,14 @@
 //
 
 #import "LYSelectCommunit.h"
+#import "LYSelectCity.h"
 @interface LYSelectCommunit ()
+
 @end
 @implementation LYSelectCommunit
 @synthesize m_tab,cell,Serch,m_lable_address,m_lable_distance,m_lable_name,m_lable_st;
+static BOOL m_Refresh;//是否刷新界面
+static NSDictionary *          m_cityinfo;//城市信息
 - (void)awakeFromNib
 {
     [super awakeFromNib];
@@ -110,7 +114,6 @@
 {
     NSLog(@"error:%@",error);
 }
-
 //跳转到选择城市界面
 -(void)GoselectCity
 {
@@ -122,12 +125,10 @@
 {
     return 1;
 }
-
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     return m_CommunitylistON.count+m_CommunitylistOF.count;
 }
-
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
 {
     return YES;
@@ -185,8 +186,8 @@
     NSLog(@"%lu",(unsigned long)row);
     if (m_CommunitylistON.count>indexPath.row)
     {
-        m_CommuntiyInfo = [m_CommunitylistON objectAtIndex:indexPath.row];
-        [self performSegueWithIdentifier:@"Gogin" sender:self];
+        m_cityinfo = [m_CommunitylistON objectAtIndex:indexPath.row];
+        [self performSegueWithIdentifier:@"GoLYUserloginView" sender:self];
         
     }else if (m_CommunitylistOF.count>indexPath.row - m_CommunitylistON.count)
     {
@@ -223,13 +224,14 @@
     NSURL *url = [NSURL URLWithString:URLstr];
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc]initWithURL:url cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:10];
     [request setHTTPMethod:@"POST"];//设置请求方式为POST，默认为GET
-    if (m_CommuntiyInfo.count>0)
+    if (m_data.count>0)
     {
         longitude=104.069244;
         latitude=30.545067;
+        m_city_id =[m_data objectForKey:@"id"];
         str = @"city_id=";//设置参数
-        str = [str stringByAppendingFormat:@"%@&name=%@&longitude=%f&latitude=%f", [m_CommuntiyInfo objectForKey:@"id"],m_CommunityName,longitude,latitude];
-    }else if([[m_CommuntiyInfo objectForKey:@"id"] isEqualToString:@""]||[m_CommuntiyInfo objectForKey:@"id"] == nil)
+        str = [str stringByAppendingFormat:@"%@&name=%@&longitude=%f&latitude=%f", m_city_id,m_CommunityName,longitude,latitude];
+    }else if([[m_data objectForKey:@"id"] isEqualToString:@""]||[m_data objectForKey:@"id"] == nil)
     {
         if (m_CommunityName == nil) {
             m_CommunityName = @"";
@@ -272,14 +274,25 @@
             NSLog(@"请开启定位功能！");
         }
         m_CommunityName = @"";
+        m_data = [LYSelectCity CityInfo];
         [m_selectCityButton setTitle: [m_data objectForKey:@"name"] forState: UIControlStateNormal];
         self.view.userInteractionEnabled = YES;
-        [m_View removeFromSuperview];
         [self GetCommunity:@""];
         [self.m_tab reloadData];
         Serch.text= @"";
         m_Refresh = NO;
     }
+}
+
+#pragma  mark -获取小区ID
++(NSDictionary *)GetCommunityInfo
+{
+    return m_cityinfo;
+}
+#pragma mark - 刷新界面
++(void)Updata:(BOOL)sender
+{
+    m_Refresh =  sender;
 }
 @end
 

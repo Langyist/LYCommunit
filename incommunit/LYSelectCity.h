@@ -46,4 +46,5 @@
 @property(nonatomic, retain)IBOutlet UITableView *m_tableview;
 @property(nonatomic, retain)IBOutlet UITableViewCell *m_tablecell;
 @property(nonatomic,retain)IBOutlet UILabel *m_lable;
++(NSDictionary*)CityInfo;
 @end

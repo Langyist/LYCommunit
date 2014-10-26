@@ -15,7 +15,6 @@
     @private    UITableView *       m_tab;
     @private    UITableViewCell *   m_cell;
     @private    UISearchBar *       m_Serch;
-    @public     NSDictionary        *m_data;
     @private    CLLocationManager *locationManager;
     @public float latitude;
     @public float longitude;
@@ -28,11 +27,10 @@
     @private    NSString *          CommunityName;
     @private    NSString *          m_CommunityName;
     @public BOOL m_bl;
-    @public BOOL m_Refresh;//是否刷新界面
-    @public NSDictionary *          m_cityinfo;//城市信息
     @private UIView *               m_View;
-    @public NSDictionary *          m_CommuntiyInfo;
+    @public NSDictionary *          m_data;
     @private NSString *             m_city_name;
+    @private NSString *m_city_id;
 }
 @property(nonatomic, retain)IBOutlet UITableView    *  m_tab;
 @property(nonatomic, retain)IBOutlet UITableViewCell * cell;
@@ -42,5 +40,7 @@
 @property(nonatomic, retain)IBOutlet UILabel *         m_lable_address;
 @property(nonatomic, retain)IBOutlet UILabel *         m_lable_distance;
 @property(nonatomic, retain)IBOutlet UILabel *         m_lable_st;
++(NSDictionary *)GetCommunityInfo;
++(void)Updata:(BOOL)sender;
 @end
 

@@ -13,8 +13,6 @@
 		AD33EC9919FBB13F00FE0C11 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AD33EC9719FBB13F00FE0C11 /* Main.storyboard */; };
 		AD33EC9B19FBB13F00FE0C11 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AD33EC9A19FBB13F00FE0C11 /* Images.xcassets */; };
 		AD33ECAA19FBB13F00FE0C11 /* incommunitTests.m in Sources */ = {isa = PBXBuildFile; fileRef = AD33ECA919FBB13F00FE0C11 /* incommunitTests.m */; };
-		AD33ECB619FBB42D00FE0C11 /* LYnetwork.m in Sources */ = {isa = PBXBuildFile; fileRef = AD33ECB519FBB42D00FE0C11 /* LYnetwork.m */; };
-		AD33ECB919FBBAA200FE0C11 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AD33ECB819FBBAA200FE0C11 /* CoreLocation.framework */; };
 		AD33ECBC19FBBE3600FE0C11 /* LYSelectCity.m in Sources */ = {isa = PBXBuildFile; fileRef = AD33ECBB19FBBE3600FE0C11 /* LYSelectCity.m */; };
 		AD33ECC019FBC39700FE0C11 /* LYUIview.m in Sources */ = {isa = PBXBuildFile; fileRef = AD33ECBF19FBC39700FE0C11 /* LYUIview.m */; };
 		AD33ED0D19FBCA2D00FE0C11 /* 1_03.png in Resources */ = {isa = PBXBuildFile; fileRef = AD33ECC219FBCA2D00FE0C11 /* 1_03.png */; };
@@ -97,6 +95,14 @@
 		AD33ED5F19FBCB6E00FE0C11 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AD33ED5D19FBCB6E00FE0C11 /* Default@2x.png */; };
 		AD33ED6119FBCC0E00FE0C11 /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = AD33ED6019FBCC0E00FE0C11 /* libsqlite3.0.dylib */; };
 		AD33ED6419FBCD3F00FE0C11 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = AD33ED6219FBCD3F00FE0C11 /* LaunchScreen.xib */; };
+		AD62118219FD2FBC009BECA6 /* LYFunctionInterface.m in Sources */ = {isa = PBXBuildFile; fileRef = AD62118119FD2FBC009BECA6 /* LYFunctionInterface.m */; };
+		AD62118619FD3148009BECA6 /* LYUserloginView.m in Sources */ = {isa = PBXBuildFile; fileRef = AD62118519FD3148009BECA6 /* LYUserloginView.m */; };
+		AD6211A019FD42CE009BECA6 /* LYnetwork.m in Sources */ = {isa = PBXBuildFile; fileRef = AD62119919FD42CE009BECA6 /* LYnetwork.m */; };
+		AD6211A119FD42CE009BECA6 /* LYReachability.m in Sources */ = {isa = PBXBuildFile; fileRef = AD62119B19FD42CE009BECA6 /* LYReachability.m */; };
+		AD6211AC19FD46BD009BECA6 /* LeslieAsyncImageDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = AD6211A719FD46BD009BECA6 /* LeslieAsyncImageDownloader.m */; };
+		AD6211AD19FD46BD009BECA6 /* LeslieImageCache.m in Sources */ = {isa = PBXBuildFile; fileRef = AD6211A919FD46BD009BECA6 /* LeslieImageCache.m */; };
+		AD6211AE19FD46BD009BECA6 /* UIImageView+AsyncDownload.m in Sources */ = {isa = PBXBuildFile; fileRef = AD6211AB19FD46BD009BECA6 /* UIImageView+AsyncDownload.m */; };
+		AD6211C819FD4AF0009BECA6 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AD33ECB819FBBAA200FE0C11 /* CoreLocation.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -122,8 +128,6 @@
 		AD33ECA319FBB13F00FE0C11 /* incommunitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = incommunitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		AD33ECA819FBB13F00FE0C11 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AD33ECA919FBB13F00FE0C11 /* incommunitTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = incommunitTests.m; sourceTree = "<group>"; };
-		AD33ECB419FBB42D00FE0C11 /* LYnetwork.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LYnetwork.h; sourceTree = "<group>"; };
-		AD33ECB519FBB42D00FE0C11 /* LYnetwork.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LYnetwork.m; sourceTree = "<group>"; };
 		AD33ECB819FBBAA200FE0C11 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		AD33ECBA19FBBE3600FE0C11 /* LYSelectCity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LYSelectCity.h; sourceTree = "<group>"; };
 		AD33ECBB19FBBE3600FE0C11 /* LYSelectCity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LYSelectCity.m; sourceTree = "<group>"; };
@@ -210,6 +214,29 @@
 		AD33ED5D19FBCB6E00FE0C11 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		AD33ED6019FBCC0E00FE0C11 /* libsqlite3.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.0.dylib; path = usr/lib/libsqlite3.0.dylib; sourceTree = SDKROOT; };
 		AD33ED6319FBCD3F00FE0C11 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
+		AD62118019FD2FBC009BECA6 /* LYFunctionInterface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LYFunctionInterface.h; sourceTree = "<group>"; };
+		AD62118119FD2FBC009BECA6 /* LYFunctionInterface.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LYFunctionInterface.m; sourceTree = "<group>"; };
+		AD62118419FD3148009BECA6 /* LYUserloginView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LYUserloginView.h; sourceTree = "<group>"; };
+		AD62118519FD3148009BECA6 /* LYUserloginView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LYUserloginView.m; sourceTree = "<group>"; };
+		AD62119819FD42CE009BECA6 /* LYnetwork.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LYnetwork.h; sourceTree = "<group>"; };
+		AD62119919FD42CE009BECA6 /* LYnetwork.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LYnetwork.m; sourceTree = "<group>"; };
+		AD62119A19FD42CE009BECA6 /* LYReachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LYReachability.h; sourceTree = "<group>"; };
+		AD62119B19FD42CE009BECA6 /* LYReachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LYReachability.m; sourceTree = "<group>"; };
+		AD6211A619FD46BD009BECA6 /* LeslieAsyncImageDownloader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeslieAsyncImageDownloader.h; sourceTree = "<group>"; };
+		AD6211A719FD46BD009BECA6 /* LeslieAsyncImageDownloader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LeslieAsyncImageDownloader.m; sourceTree = "<group>"; };
+		AD6211A819FD46BD009BECA6 /* LeslieImageCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeslieImageCache.h; sourceTree = "<group>"; };
+		AD6211A919FD46BD009BECA6 /* LeslieImageCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LeslieImageCache.m; sourceTree = "<group>"; };
+		AD6211AA19FD46BD009BECA6 /* UIImageView+AsyncDownload.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+AsyncDownload.h"; sourceTree = "<group>"; };
+		AD6211AB19FD46BD009BECA6 /* UIImageView+AsyncDownload.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+AsyncDownload.m"; sourceTree = "<group>"; };
+		AD6211AF19FD489D009BECA6 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		AD6211B119FD48B5009BECA6 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		AD6211B319FD48D1009BECA6 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
+		AD6211B519FD48E8009BECA6 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		AD6211B719FD48FC009BECA6 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		AD6211B919FD4913009BECA6 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		AD6211BB19FD4927009BECA6 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		AD6211BD19FD493B009BECA6 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
+		AD6211BF19FD496E009BECA6 /* libz.1.2.5.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.1.2.5.dylib; path = usr/lib/libz.1.2.5.dylib; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -217,8 +244,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AD6211C819FD4AF0009BECA6 /* CoreLocation.framework in Frameworks */,
 				AD33ED6119FBCC0E00FE0C11 /* libsqlite3.0.dylib in Frameworks */,
-				AD33ECB919FBBAA200FE0C11 /* CoreLocation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -237,6 +264,7 @@
 			children = (
 				AD33EC8C19FBB13F00FE0C11 /* incommunit */,
 				AD33ECA619FBB13F00FE0C11 /* incommunitTests */,
+				AD33ED6219FBCD3F00FE0C11 /* LaunchScreen.xib */,
 				AD33EC8B19FBB13F00FE0C11 /* Products */,
 				AD33ECB719FBBA4300FE0C11 /* Frameworks */,
 			);
@@ -254,17 +282,19 @@
 		AD33EC8C19FBB13F00FE0C11 /* incommunit */ = {
 			isa = PBXGroup;
 			children = (
-				AD33ED6219FBCD3F00FE0C11 /* LaunchScreen.xib */,
+				AD62119319FD42CE009BECA6 /* network */,
+				AD62118319FD3124009BECA6 /* UserLogin */,
 				AD33ED5819FBCAB500FE0C11 /* Sqllite */,
 				AD33ECC119FBCA2D00FE0C11 /* Image */,
 				AD33ECBD19FBC35B00FE0C11 /* CustomControls */,
-				AD33ECB319FBB36500FE0C11 /* network */,
 				AD33EC9119FBB13F00FE0C11 /* AppDelegate.h */,
 				AD33EC9219FBB13F00FE0C11 /* AppDelegate.m */,
 				AD33EC9419FBB13F00FE0C11 /* LYSelectCommunit.h */,
 				AD33EC9519FBB13F00FE0C11 /* LYSelectCommunit.m */,
 				AD33ECBA19FBBE3600FE0C11 /* LYSelectCity.h */,
 				AD33ECBB19FBBE3600FE0C11 /* LYSelectCity.m */,
+				AD62118019FD2FBC009BECA6 /* LYFunctionInterface.h */,
+				AD62118119FD2FBC009BECA6 /* LYFunctionInterface.m */,
 				AD33EC9719FBB13F00FE0C11 /* Main.storyboard */,
 				AD33EC9A19FBB13F00FE0C11 /* Images.xcassets */,
 				AD33EC8D19FBB13F00FE0C11 /* Supporting Files */,
@@ -298,18 +328,18 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		AD33ECB319FBB36500FE0C11 /* network */ = {
-			isa = PBXGroup;
-			children = (
-				AD33ECB419FBB42D00FE0C11 /* LYnetwork.h */,
-				AD33ECB519FBB42D00FE0C11 /* LYnetwork.m */,
-			);
-			path = network;
-			sourceTree = "<group>";
-		};
 		AD33ECB719FBBA4300FE0C11 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				AD6211BF19FD496E009BECA6 /* libz.1.2.5.dylib */,
+				AD6211BD19FD493B009BECA6 /* OpenGLES.framework */,
+				AD6211BB19FD4927009BECA6 /* Foundation.framework */,
+				AD6211B919FD4913009BECA6 /* UIKit.framework */,
+				AD6211B719FD48FC009BECA6 /* Security.framework */,
+				AD6211B519FD48E8009BECA6 /* SystemConfiguration.framework */,
+				AD6211B319FD48D1009BECA6 /* MobileCoreServices.framework */,
+				AD6211B119FD48B5009BECA6 /* QuartzCore.framework */,
+				AD6211AF19FD489D009BECA6 /* CoreGraphics.framework */,
 				AD33ED6019FBCC0E00FE0C11 /* libsqlite3.0.dylib */,
 				AD33ECB819FBBAA200FE0C11 /* CoreLocation.framework */,
 			);
@@ -417,6 +447,32 @@
 				AD33ED5A19FBCAB500FE0C11 /* LYSqllite.m */,
 			);
 			path = Sqllite;
+			sourceTree = "<group>";
+		};
+		AD62118319FD3124009BECA6 /* UserLogin */ = {
+			isa = PBXGroup;
+			children = (
+				AD62118419FD3148009BECA6 /* LYUserloginView.h */,
+				AD62118519FD3148009BECA6 /* LYUserloginView.m */,
+			);
+			path = UserLogin;
+			sourceTree = "<group>";
+		};
+		AD62119319FD42CE009BECA6 /* network */ = {
+			isa = PBXGroup;
+			children = (
+				AD6211A619FD46BD009BECA6 /* LeslieAsyncImageDownloader.h */,
+				AD6211A719FD46BD009BECA6 /* LeslieAsyncImageDownloader.m */,
+				AD6211A819FD46BD009BECA6 /* LeslieImageCache.h */,
+				AD6211A919FD46BD009BECA6 /* LeslieImageCache.m */,
+				AD6211AA19FD46BD009BECA6 /* UIImageView+AsyncDownload.h */,
+				AD6211AB19FD46BD009BECA6 /* UIImageView+AsyncDownload.m */,
+				AD62119819FD42CE009BECA6 /* LYnetwork.h */,
+				AD62119919FD42CE009BECA6 /* LYnetwork.m */,
+				AD62119A19FD42CE009BECA6 /* LYReachability.h */,
+				AD62119B19FD42CE009BECA6 /* LYReachability.m */,
+			);
+			path = network;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -597,10 +653,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				AD33EC9619FBB13F00FE0C11 /* LYSelectCommunit.m in Sources */,
-				AD33ECB619FBB42D00FE0C11 /* LYnetwork.m in Sources */,
+				AD6211AC19FD46BD009BECA6 /* LeslieAsyncImageDownloader.m in Sources */,
+				AD6211AE19FD46BD009BECA6 /* UIImageView+AsyncDownload.m in Sources */,
+				AD6211A019FD42CE009BECA6 /* LYnetwork.m in Sources */,
 				AD33ED5B19FBCAB500FE0C11 /* LYSqllite.m in Sources */,
 				AD33EC9319FBB13F00FE0C11 /* AppDelegate.m in Sources */,
+				AD62118219FD2FBC009BECA6 /* LYFunctionInterface.m in Sources */,
+				AD6211AD19FD46BD009BECA6 /* LeslieImageCache.m in Sources */,
+				AD6211A119FD42CE009BECA6 /* LYReachability.m in Sources */,
 				AD33ECC019FBC39700FE0C11 /* LYUIview.m in Sources */,
+				AD62118619FD3148009BECA6 /* LYUserloginView.m in Sources */,
 				AD33ECBC19FBBE3600FE0C11 /* LYSelectCity.m in Sources */,
 				AD33EC9019FBB13F00FE0C11 /* main.m in Sources */,
 			);
@@ -639,6 +701,7 @@
 				AD33ED6319FBCD3F00FE0C11 /* Base */,
 			);
 			name = LaunchScreen.xib;
+			path = incommunit;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -678,7 +741,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -713,7 +776,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
@@ -797,6 +860,7 @@
 				AD33ECAF19FBB13F00FE0C11 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		AD33ECB019FBB13F00FE0C11 /* Build configuration list for PBXNativeTarget "incommunitTests" */ = {
 			isa = XCConfigurationList;
@@ -805,6 +869,7 @@
 				AD33ECB219FBB13F00FE0C11 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
