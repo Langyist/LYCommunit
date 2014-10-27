@@ -105,6 +105,9 @@
         case 102:
             [self performSegueWithIdentifier:@"GoTools" sender:self];
             break;
+        case 100:
+            [self performSegueWithIdentifier:@"GoLYBaiduMap" sender:self];
+            break;
         default:
             break;
     }
