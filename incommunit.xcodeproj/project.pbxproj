@@ -103,6 +103,18 @@
 		AD6211AD19FD46BD009BECA6 /* LeslieImageCache.m in Sources */ = {isa = PBXBuildFile; fileRef = AD6211A919FD46BD009BECA6 /* LeslieImageCache.m */; };
 		AD6211AE19FD46BD009BECA6 /* UIImageView+AsyncDownload.m in Sources */ = {isa = PBXBuildFile; fileRef = AD6211AB19FD46BD009BECA6 /* UIImageView+AsyncDownload.m */; };
 		AD6211C819FD4AF0009BECA6 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AD33ECB819FBBAA200FE0C11 /* CoreLocation.framework */; };
+		AD6211CC19FD5583009BECA6 /* LYMyCommunit.m in Sources */ = {isa = PBXBuildFile; fileRef = AD6211CB19FD5583009BECA6 /* LYMyCommunit.m */; };
+		AD6211D019FD598A009BECA6 /* LYToolsMain.m in Sources */ = {isa = PBXBuildFile; fileRef = AD6211CF19FD598A009BECA6 /* LYToolsMain.m */; };
+		AD6211D419FD5C1E009BECA6 /* LYconvenienceMain.m in Sources */ = {isa = PBXBuildFile; fileRef = AD6211D319FD5C1E009BECA6 /* LYconvenienceMain.m */; };
+		AD6211D719FD5D5D009BECA6 /* LYCommonSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = AD6211D619FD5D5D009BECA6 /* LYCommonSettings.m */; };
+		AD6211DA19FD5EFE009BECA6 /* LYPrivacySettings.m in Sources */ = {isa = PBXBuildFile; fileRef = AD6211D919FD5EFE009BECA6 /* LYPrivacySettings.m */; };
+		AD6211DD19FD6F6E009BECA6 /* LYAnnouncement.m in Sources */ = {isa = PBXBuildFile; fileRef = AD6211DC19FD6F6E009BECA6 /* LYAnnouncement.m */; };
+		AD6211E019FD8028009BECA6 /* LYPublicMethods.m in Sources */ = {isa = PBXBuildFile; fileRef = AD6211DF19FD8028009BECA6 /* LYPublicMethods.m */; };
+		AD6211E319FD88DE009BECA6 /* LYAnnouncementDetails.m in Sources */ = {isa = PBXBuildFile; fileRef = AD6211E219FD88DE009BECA6 /* LYAnnouncementDetails.m */; };
+		AD6211E619FD90A8009BECA6 /* LYSignup.m in Sources */ = {isa = PBXBuildFile; fileRef = AD6211E519FD90A8009BECA6 /* LYSignup.m */; };
+		AD6211E919FD9F1C009BECA6 /* LYForgotPassword.m in Sources */ = {isa = PBXBuildFile; fileRef = AD6211E819FD9F1C009BECA6 /* LYForgotPassword.m */; };
+		AD6211EC19FDA63C009BECA6 /* HomepageMain.m in Sources */ = {isa = PBXBuildFile; fileRef = AD6211EB19FDA63C009BECA6 /* HomepageMain.m */; };
+		AD6211EF19FDA95E009BECA6 /* LYReal-name.m in Sources */ = {isa = PBXBuildFile; fileRef = AD6211EE19FDA95E009BECA6 /* LYReal-name.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -237,6 +249,30 @@
 		AD6211BB19FD4927009BECA6 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		AD6211BD19FD493B009BECA6 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		AD6211BF19FD496E009BECA6 /* libz.1.2.5.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.1.2.5.dylib; path = usr/lib/libz.1.2.5.dylib; sourceTree = SDKROOT; };
+		AD6211CA19FD5583009BECA6 /* LYMyCommunit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LYMyCommunit.h; sourceTree = "<group>"; };
+		AD6211CB19FD5583009BECA6 /* LYMyCommunit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LYMyCommunit.m; sourceTree = "<group>"; };
+		AD6211CE19FD598A009BECA6 /* LYToolsMain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LYToolsMain.h; sourceTree = "<group>"; };
+		AD6211CF19FD598A009BECA6 /* LYToolsMain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LYToolsMain.m; sourceTree = "<group>"; };
+		AD6211D219FD5C1E009BECA6 /* LYconvenienceMain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LYconvenienceMain.h; sourceTree = "<group>"; };
+		AD6211D319FD5C1E009BECA6 /* LYconvenienceMain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LYconvenienceMain.m; sourceTree = "<group>"; };
+		AD6211D519FD5D5D009BECA6 /* LYCommonSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LYCommonSettings.h; sourceTree = "<group>"; };
+		AD6211D619FD5D5D009BECA6 /* LYCommonSettings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LYCommonSettings.m; sourceTree = "<group>"; };
+		AD6211D819FD5EFE009BECA6 /* LYPrivacySettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LYPrivacySettings.h; sourceTree = "<group>"; };
+		AD6211D919FD5EFE009BECA6 /* LYPrivacySettings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LYPrivacySettings.m; sourceTree = "<group>"; };
+		AD6211DB19FD6F6E009BECA6 /* LYAnnouncement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LYAnnouncement.h; sourceTree = "<group>"; };
+		AD6211DC19FD6F6E009BECA6 /* LYAnnouncement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LYAnnouncement.m; sourceTree = "<group>"; };
+		AD6211DE19FD8028009BECA6 /* LYPublicMethods.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LYPublicMethods.h; sourceTree = "<group>"; };
+		AD6211DF19FD8028009BECA6 /* LYPublicMethods.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LYPublicMethods.m; sourceTree = "<group>"; };
+		AD6211E119FD88DE009BECA6 /* LYAnnouncementDetails.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LYAnnouncementDetails.h; sourceTree = "<group>"; };
+		AD6211E219FD88DE009BECA6 /* LYAnnouncementDetails.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LYAnnouncementDetails.m; sourceTree = "<group>"; };
+		AD6211E419FD90A8009BECA6 /* LYSignup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LYSignup.h; sourceTree = "<group>"; };
+		AD6211E519FD90A8009BECA6 /* LYSignup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LYSignup.m; sourceTree = "<group>"; };
+		AD6211E719FD9F1C009BECA6 /* LYForgotPassword.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LYForgotPassword.h; sourceTree = "<group>"; };
+		AD6211E819FD9F1C009BECA6 /* LYForgotPassword.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LYForgotPassword.m; sourceTree = "<group>"; };
+		AD6211EA19FDA63C009BECA6 /* HomepageMain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomepageMain.h; sourceTree = "<group>"; };
+		AD6211EB19FDA63C009BECA6 /* HomepageMain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomepageMain.m; sourceTree = "<group>"; };
+		AD6211ED19FDA95E009BECA6 /* LYReal-name.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "LYReal-name.h"; sourceTree = "<group>"; };
+		AD6211EE19FDA95E009BECA6 /* LYReal-name.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "LYReal-name.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -282,6 +318,9 @@
 		AD33EC8C19FBB13F00FE0C11 /* incommunit */ = {
 			isa = PBXGroup;
 			children = (
+				AD6211D119FD5BF0009BECA6 /* Convenience */,
+				AD6211CD19FD5962009BECA6 /* Tools */,
+				AD6211C919FD554E009BECA6 /* Homepage */,
 				AD62119319FD42CE009BECA6 /* network */,
 				AD62118319FD3124009BECA6 /* UserLogin */,
 				AD33ED5819FBCAB500FE0C11 /* Sqllite */,
@@ -295,6 +334,8 @@
 				AD33ECBB19FBBE3600FE0C11 /* LYSelectCity.m */,
 				AD62118019FD2FBC009BECA6 /* LYFunctionInterface.h */,
 				AD62118119FD2FBC009BECA6 /* LYFunctionInterface.m */,
+				AD6211DE19FD8028009BECA6 /* LYPublicMethods.h */,
+				AD6211DF19FD8028009BECA6 /* LYPublicMethods.m */,
 				AD33EC9719FBB13F00FE0C11 /* Main.storyboard */,
 				AD33EC9A19FBB13F00FE0C11 /* Images.xcassets */,
 				AD33EC8D19FBB13F00FE0C11 /* Supporting Files */,
@@ -454,6 +495,10 @@
 			children = (
 				AD62118419FD3148009BECA6 /* LYUserloginView.h */,
 				AD62118519FD3148009BECA6 /* LYUserloginView.m */,
+				AD6211E419FD90A8009BECA6 /* LYSignup.h */,
+				AD6211E519FD90A8009BECA6 /* LYSignup.m */,
+				AD6211E719FD9F1C009BECA6 /* LYForgotPassword.h */,
+				AD6211E819FD9F1C009BECA6 /* LYForgotPassword.m */,
 			);
 			path = UserLogin;
 			sourceTree = "<group>";
@@ -473,6 +518,45 @@
 				AD62119B19FD42CE009BECA6 /* LYReachability.m */,
 			);
 			path = network;
+			sourceTree = "<group>";
+		};
+		AD6211C919FD554E009BECA6 /* Homepage */ = {
+			isa = PBXGroup;
+			children = (
+				AD6211CA19FD5583009BECA6 /* LYMyCommunit.h */,
+				AD6211CB19FD5583009BECA6 /* LYMyCommunit.m */,
+				AD6211EA19FDA63C009BECA6 /* HomepageMain.h */,
+				AD6211EB19FDA63C009BECA6 /* HomepageMain.m */,
+				AD6211ED19FDA95E009BECA6 /* LYReal-name.h */,
+				AD6211EE19FDA95E009BECA6 /* LYReal-name.m */,
+			);
+			path = Homepage;
+			sourceTree = "<group>";
+		};
+		AD6211CD19FD5962009BECA6 /* Tools */ = {
+			isa = PBXGroup;
+			children = (
+				AD6211CE19FD598A009BECA6 /* LYToolsMain.h */,
+				AD6211CF19FD598A009BECA6 /* LYToolsMain.m */,
+				AD6211D519FD5D5D009BECA6 /* LYCommonSettings.h */,
+				AD6211D619FD5D5D009BECA6 /* LYCommonSettings.m */,
+				AD6211D819FD5EFE009BECA6 /* LYPrivacySettings.h */,
+				AD6211D919FD5EFE009BECA6 /* LYPrivacySettings.m */,
+				AD6211DB19FD6F6E009BECA6 /* LYAnnouncement.h */,
+				AD6211DC19FD6F6E009BECA6 /* LYAnnouncement.m */,
+				AD6211E119FD88DE009BECA6 /* LYAnnouncementDetails.h */,
+				AD6211E219FD88DE009BECA6 /* LYAnnouncementDetails.m */,
+			);
+			path = Tools;
+			sourceTree = "<group>";
+		};
+		AD6211D119FD5BF0009BECA6 /* Convenience */ = {
+			isa = PBXGroup;
+			children = (
+				AD6211D219FD5C1E009BECA6 /* LYconvenienceMain.h */,
+				AD6211D319FD5C1E009BECA6 /* LYconvenienceMain.m */,
+			);
+			path = Convenience;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -654,17 +738,29 @@
 			files = (
 				AD33EC9619FBB13F00FE0C11 /* LYSelectCommunit.m in Sources */,
 				AD6211AC19FD46BD009BECA6 /* LeslieAsyncImageDownloader.m in Sources */,
+				AD6211CC19FD5583009BECA6 /* LYMyCommunit.m in Sources */,
 				AD6211AE19FD46BD009BECA6 /* UIImageView+AsyncDownload.m in Sources */,
+				AD6211EF19FDA95E009BECA6 /* LYReal-name.m in Sources */,
+				AD6211E619FD90A8009BECA6 /* LYSignup.m in Sources */,
+				AD6211DA19FD5EFE009BECA6 /* LYPrivacySettings.m in Sources */,
 				AD6211A019FD42CE009BECA6 /* LYnetwork.m in Sources */,
+				AD6211E919FD9F1C009BECA6 /* LYForgotPassword.m in Sources */,
+				AD6211D419FD5C1E009BECA6 /* LYconvenienceMain.m in Sources */,
+				AD6211D719FD5D5D009BECA6 /* LYCommonSettings.m in Sources */,
 				AD33ED5B19FBCAB500FE0C11 /* LYSqllite.m in Sources */,
+				AD6211D019FD598A009BECA6 /* LYToolsMain.m in Sources */,
 				AD33EC9319FBB13F00FE0C11 /* AppDelegate.m in Sources */,
 				AD62118219FD2FBC009BECA6 /* LYFunctionInterface.m in Sources */,
+				AD6211E019FD8028009BECA6 /* LYPublicMethods.m in Sources */,
 				AD6211AD19FD46BD009BECA6 /* LeslieImageCache.m in Sources */,
 				AD6211A119FD42CE009BECA6 /* LYReachability.m in Sources */,
 				AD33ECC019FBC39700FE0C11 /* LYUIview.m in Sources */,
 				AD62118619FD3148009BECA6 /* LYUserloginView.m in Sources */,
+				AD6211E319FD88DE009BECA6 /* LYAnnouncementDetails.m in Sources */,
+				AD6211EC19FDA63C009BECA6 /* HomepageMain.m in Sources */,
 				AD33ECBC19FBBE3600FE0C11 /* LYSelectCity.m in Sources */,
 				AD33EC9019FBB13F00FE0C11 /* main.m in Sources */,
+				AD6211DD19FD6F6E009BECA6 /* LYAnnouncement.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

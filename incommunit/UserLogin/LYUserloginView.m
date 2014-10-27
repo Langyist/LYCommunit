@@ -231,7 +231,7 @@
 
 //忘记密码
 - (IBAction)forgetPsdButton:(id)sender {
-    [self performSegueWithIdentifier:@"GoforgetPassword" sender:self];
+    [self performSegueWithIdentifier:@"GoLYForgotPassword" sender:self];
 }
 
 -(void)viewDidAppear:(BOOL)animated

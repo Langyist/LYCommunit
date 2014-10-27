@@ -45,7 +45,7 @@
 //我的社区
 -(IBAction)GoMycommunit:(id)sender
 {
-    [self performSegueWithIdentifier:@"GoMycommunit" sender:self];
+    [self performSegueWithIdentifier:@"GoLYMyCommunit" sender:self];
 }
 //跳转到物业管理
 - (IBAction)GoManagebutton:(id)sender
@@ -104,7 +104,7 @@
 {
     switch (item.tag) {
         case 101:
-            [self performSegueWithIdentifier:@"Homepage" sender:self];
+            [self performSegueWithIdentifier:@"GoHomepageMain" sender:self];
             break;
         case 102:
             [self performSegueWithIdentifier:@"GoTools" sender:self];
@@ -113,7 +113,6 @@
             break;
     }
 }
-
 //获取网络数据
 -(void)Getdata:(NSString *)url
 {

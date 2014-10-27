@@ -8,6 +8,7 @@
 
 #import "LYSelectCommunit.h"
 #import "LYSelectCity.h"
+#import "LYUIview.h"
 @interface LYSelectCommunit ()
 
 @end
@@ -101,7 +102,7 @@ static NSDictionary *          m_cityinfo;//城市信息
                  [m_selectCityButton setTitle: [[NSString alloc]initWithFormat:@"%@",[[placemark.addressDictionary objectForKey:@"City"] substringToIndex:2] ] forState: UIControlStateNormal];
                  m_city_name  =[[placemark.addressDictionary objectForKey:@"City"] substringToIndex:2];
              }
-             [self GetCommunity:@""];
+             [NSThread detachNewThreadSelector:@selector(GetCommunity:) toTarget:self withObject:nil];
              [self.m_tab reloadData];
              self.view.userInteractionEnabled = YES;
              [m_View removeFromSuperview];
@@ -205,7 +206,7 @@ static NSDictionary *          m_cityinfo;//城市信息
 {
     m_CommunityName = Serch.text;
     [Serch resignFirstResponder];
-    [self GetCommunity:@""];
+    [NSThread detachNewThreadSelector:@selector(GetCommunity:) toTarget:self withObject:nil];
     [self.m_tab reloadData];
     self.view.userInteractionEnabled = YES;
     [m_View removeFromSuperview];
@@ -215,6 +216,7 @@ static NSDictionary *          m_cityinfo;//城市信息
 //搜索小区
 -(void)GetCommunity:(NSString*)URL
 {
+    m_messageView = [LYUIview showProgressAlert:self.view sms:@"正在搜索小区"];
     NSDictionary *plistDic = [[NSBundle mainBundle] infoDictionary];
     NSLog(@"plistDic = %@",plistDic);
     NSString *urlstr = [plistDic objectForKey: @"URL"];
@@ -257,7 +259,11 @@ static NSDictionary *          m_cityinfo;//城市信息
     {
         UIAlertView *ale = [[UIAlertView alloc] initWithTitle:@"提示" message:@"连接网络失败" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
         [ale show];
+        self.view.userInteractionEnabled = YES;
+        [m_messageView removeFromSuperview];
     }
+    self.view.userInteractionEnabled = YES;
+    [m_messageView removeFromSuperview];
 }
 
 #pragma mark - 切换界面进入协议函数
