@@ -841,7 +841,6 @@
     NSDictionary *plistDic = [[NSBundle mainBundle] infoDictionary];
     NSLog(@"plistDic = %@",plistDic);
     NSString *url = [plistDic objectForKey: @"URL"];
-    
     NSError *error;
     //    加载一个NSURL对象
     NSString *urlstr = [[NSString alloc] initWithFormat:@"%@/services/shop/cool?community_id=%@",url,@"1"];
@@ -876,6 +875,8 @@
     //    加载一个NSURL对象
     NSString *urlstr = [[NSString alloc ]initWithFormat:@"%@/services/shop/list?sendable=1&order=%@&longitude=%f&latitude=%f&pageSize=%d&pageOffset=%d&type_id=%@", url,orderstr,longitude,latitude,pagesize,pageoffset,StoreType];
     NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:urlstr]];
+    if(request!=nil)
+    {
     //    将请求的url数据放到NSData对象中
     NSData *response = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
     if(response!=nil)
@@ -890,6 +891,7 @@
     }else
     {
         ///提示框
+    }
     }
 }
 
@@ -909,6 +911,8 @@
     NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:urlstr]];
     //    将请求的url数据放到NSData对象中
     NSData *response = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
+    if (response!=nil) {
+       
     if(response!=nil)
     {
     //    iOS5自带解析类NSJSONSerialization从response中解析出数据放到字典中
@@ -920,6 +924,7 @@
     //    [aler show];
     m_ShopDaquanlist = [weatherDic objectForKey:@"data"];
     [m_ShopDaquan reloadData];
+    }
     }
 }
 
