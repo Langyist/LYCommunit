@@ -216,7 +216,6 @@ static NSDictionary *          m_cityinfo;//城市信息
 //搜索小区
 -(void)GetCommunity:(NSString*)URL
 {
-    m_messageView = [LYUIview showProgressAlert:self.view sms:@"正在搜索小区"];
     NSDictionary *plistDic = [[NSBundle mainBundle] infoDictionary];
     NSLog(@"plistDic = %@",plistDic);
     NSString *urlstr = [plistDic objectForKey: @"URL"];
@@ -235,7 +234,8 @@ static NSDictionary *          m_cityinfo;//城市信息
         str = [str stringByAppendingFormat:@"%@&name=%@&longitude=%f&latitude=%f", m_city_id,m_CommunityName,longitude,latitude];
     }else if([[m_data objectForKey:@"id"] isEqualToString:@""]||[m_data objectForKey:@"id"] == nil)
     {
-        if (m_CommunityName == nil) {
+        if (m_CommunityName == nil)
+        {
             m_CommunityName = @"";
         }
         longitude=104.069244;
@@ -246,24 +246,31 @@ static NSDictionary *          m_cityinfo;//城市信息
     NSData *data = [str dataUsingEncoding:NSUTF8StringEncoding];
     [request setHTTPBody:data];
     //第三步，连接服务器
-    @try {
-        NSData *received = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
-        NSDictionary *weatherDic = [NSJSONSerialization JSONObjectWithData:received options:NSJSONReadingMutableLeaves error:&error];
-        NSString *status = [weatherDic objectForKey:@"status"];
-        NSLog(@"%@",status);
+    NSData *received = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
+    if(received!=nil)
+    {
+    NSDictionary *weatherDic = [NSJSONSerialization JSONObjectWithData:received options:NSJSONReadingMutableLeaves error:&error];
+    if(weatherDic!=nil)
+    {
+    NSString *status = [weatherDic objectForKey:@"status"];
+    NSLog(@"%@",status);
+    if(![status isEqual:@"200"])
+    {
+        UIAlertView *ale = [[UIAlertView alloc] initWithTitle:@"提示" message:@"连接网络失败" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+        [ale show];
+    }else
+    {
         NSDictionary *data1 = [weatherDic objectForKey:@"data"];
         m_CommunitylistON = [data1 objectForKey:@"communities"];
         m_CommunitylistOF = [data1 objectForKey:@"refCommunities"];
     }
-    @catch (NSException *exception)
-    {
-        UIAlertView *ale = [[UIAlertView alloc] initWithTitle:@"提示" message:@"连接网络失败" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
-        [ale show];
-        self.view.userInteractionEnabled = YES;
-        [m_messageView removeFromSuperview];
+    [m_tab reloadData];
     }
-    self.view.userInteractionEnabled = YES;
-    [m_messageView removeFromSuperview];
+    }else
+    {
+        UIAlertView *ale = [[UIAlertView alloc] initWithTitle:@"提示" message:@"获取网络数据失败" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+        [ale show];
+    }
 }
 
 #pragma mark - 切换界面进入协议函数
@@ -289,7 +296,6 @@ static NSDictionary *          m_cityinfo;//城市信息
         m_Refresh = NO;
     }
 }
-
 #pragma  mark -获取小区ID
 +(NSDictionary *)GetCommunityInfo
 {

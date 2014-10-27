@@ -2451,6 +2451,7 @@ CA
                         <outlet property="backView1" destination="LfL-1r-jfu" id="sFa-1y-qcT"/>
                         <outlet property="communitNameLabel" destination="qjw-P4-uae" id="AkT-ac-Y36"/>
                         <outlet property="m_button" destination="MAh-07-qar" id="434-jT-Ky6"/>
+                        <outlet property="m_view" destination="T9O-4G-VfM" id="GAG-1p-fUu"/>
                         <segue destination="5z7-iZ-aVI" kind="push" identifier="Goselectcommunit" id="h8b-UJ-TZd"/>
                     </connections>
                 </viewController>
@@ -2672,7 +2673,7 @@ CA
                         <outlet property="m_RButton" destination="fg0-bG-3uC" id="4Fr-Er-pZV"/>
                         <outlet property="m_VerificationText" destination="XFZ-my-mNo" id="rCW-wC-zh3"/>
                         <outlet property="m_password" destination="ofK-6r-fYH" id="Uoi-rJ-GNa"/>
-                        <segue destination="Vij-FZ-G4h" kind="push" identifier="GoMyCommunity" id="NC9-hq-HWL"/>
+                        <segue destination="Vij-FZ-G4h" kind="push" identifier="GoLYaddCommunit" id="NC9-hq-HWL"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sb1-ru-pHR" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -2700,7 +2701,7 @@ CA
         <!--成为小区居民-->
         <scene sceneID="YSY-VE-L9E">
             <objects>
-                <viewController id="Vij-FZ-G4h" customClass="LYMyCommunity" sceneMemberID="viewController">
+                <viewController id="Vij-FZ-G4h" customClass="LYaddCommunit" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="IXm-EY-w3V"/>
                         <viewControllerLayoutGuide type="bottom" id="dVh-Us-FiG"/>
@@ -2712,19 +2713,25 @@ CA
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="logo.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="u8A-Em-FyN">
                                 <rect key="frame" x="110" y="91" width="100" height="100"/>
                             </imageView>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" usesAttributedText="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="JO3-qx-qoS">
-                                <rect key="frame" x="20" y="199" width="280" height="40"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <attributedString key="attributedText"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </textField>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="地址选择（选填，正确地址有助邻里交流）" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EAf-MF-yE9">
-                                <rect key="frame" x="20" y="247" width="280" height="32"/>
+                                <rect key="frame" x="20" y="264" width="280" height="32"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="FaS-EB-vbA">
+                                <rect key="frame" x="20" y="216" width="280" height="40"/>
+                                <subviews>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" usesAttributedText="YES" placeholder="昵称（必填）" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="JO3-qx-qoS">
+                                        <rect key="frame" x="16" y="0.0" width="262" height="40"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <attributedString key="attributedText"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="a6b-Iy-RbV">
-                                <rect key="frame" x="20" y="325" width="280" height="45"/>
+                                <rect key="frame" x="20" y="405" width="280" height="45"/>
                                 <color key="backgroundColor" red="0.63137257099999999" green="0.89019614459999996" blue="0.054901964960000001" alpha="1" colorSpace="deviceRGB"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="19"/>
                                 <state key="normal" title="完成">
@@ -2740,6 +2747,7 @@ CA
                     </navigationItem>
                     <connections>
                         <outlet property="m_Nickname" destination="JO3-qx-qoS" id="MpB-0U-Oo1"/>
+                        <outlet property="m_button" destination="a6b-Iy-RbV" id="6EM-VH-HJf"/>
                         <outlet property="m_iamgeview" destination="u8A-Em-FyN" id="afh-c6-Yza"/>
                         <outlet property="m_lableinfo" destination="EAf-MF-yE9" id="HKt-pH-m3A"/>
                     </connections>
@@ -3292,10 +3300,10 @@ CA
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="CIe-4m-5oX"/>
-        <segue reference="vk7-fL-aT2"/>
         <segue reference="h8b-UJ-TZd"/>
+        <segue reference="gne-12-lal"/>
         <segue reference="Mx8-Wb-2oh"/>
+        <segue reference="vk7-fL-aT2"/>
         <segue reference="AU3-FO-Ub8"/>
     </inferredMetricsTieBreakers>
 </document>

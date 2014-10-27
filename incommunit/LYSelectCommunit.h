@@ -31,7 +31,6 @@
     @public NSDictionary *          m_data;
     @private NSString *             m_city_name;
     @private NSString *m_city_id;
-    UIView * m_messageView;
 }
 @property(nonatomic, retain)IBOutlet UITableView    *  m_tab;
 @property(nonatomic, retain)IBOutlet UITableViewCell * cell;

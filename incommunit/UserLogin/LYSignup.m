@@ -58,7 +58,7 @@
 -(IBAction)Signup:(id)sender
 {
     //if ([self GetRegistration:@""]) {
-    [self performSegueWithIdentifier:@"GoMyCommunity" sender:self];
+    [self performSegueWithIdentifier:@"GoLYaddCommunit" sender:self];
     //}
 }
 
