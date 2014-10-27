@@ -98,6 +98,10 @@
 		AD3DD3B119FDEE5B00364854 /* LMComBoxView.m in Sources */ = {isa = PBXBuildFile; fileRef = AD3DD3AE19FDEE5B00364854 /* LMComBoxView.m */; };
 		AD3DD3B219FDEE5B00364854 /* LMContainsLMComboxScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = AD3DD3B019FDEE5B00364854 /* LMContainsLMComboxScrollView.m */; };
 		AD3DD3B519FDF36600364854 /* LYaddCommunit.m in Sources */ = {isa = PBXBuildFile; fileRef = AD3DD3B419FDF36600364854 /* LYaddCommunit.m */; };
+		AD3DD3BD19FE13FE00364854 /* DeliveryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AD3DD3B719FE13FE00364854 /* DeliveryCell.xib */; };
+		AD3DD3BE19FE13FE00364854 /* FeaturedCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AD3DD3B819FE13FE00364854 /* FeaturedCell.xib */; };
+		AD3DD3BF19FE13FE00364854 /* LY_DeliveryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AD3DD3BA19FE13FE00364854 /* LY_DeliveryCell.m */; };
+		AD3DD3C019FE13FE00364854 /* LY_FeaturedCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AD3DD3BC19FE13FE00364854 /* LY_FeaturedCell.m */; };
 		AD62118219FD2FBC009BECA6 /* LYFunctionInterface.m in Sources */ = {isa = PBXBuildFile; fileRef = AD62118119FD2FBC009BECA6 /* LYFunctionInterface.m */; };
 		AD62118619FD3148009BECA6 /* LYUserloginView.m in Sources */ = {isa = PBXBuildFile; fileRef = AD62118519FD3148009BECA6 /* LYUserloginView.m */; };
 		AD6211A019FD42CE009BECA6 /* LYnetwork.m in Sources */ = {isa = PBXBuildFile; fileRef = AD62119919FD42CE009BECA6 /* LYnetwork.m */; };
@@ -235,6 +239,12 @@
 		AD3DD3B019FDEE5B00364854 /* LMContainsLMComboxScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LMContainsLMComboxScrollView.m; sourceTree = "<group>"; };
 		AD3DD3B319FDF36600364854 /* LYaddCommunit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LYaddCommunit.h; sourceTree = "<group>"; };
 		AD3DD3B419FDF36600364854 /* LYaddCommunit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LYaddCommunit.m; sourceTree = "<group>"; };
+		AD3DD3B719FE13FE00364854 /* DeliveryCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DeliveryCell.xib; sourceTree = "<group>"; };
+		AD3DD3B819FE13FE00364854 /* FeaturedCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FeaturedCell.xib; sourceTree = "<group>"; };
+		AD3DD3B919FE13FE00364854 /* LY_DeliveryCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LY_DeliveryCell.h; sourceTree = "<group>"; };
+		AD3DD3BA19FE13FE00364854 /* LY_DeliveryCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LY_DeliveryCell.m; sourceTree = "<group>"; };
+		AD3DD3BB19FE13FE00364854 /* LY_FeaturedCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LY_FeaturedCell.h; sourceTree = "<group>"; };
+		AD3DD3BC19FE13FE00364854 /* LY_FeaturedCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LY_FeaturedCell.m; sourceTree = "<group>"; };
 		AD62118019FD2FBC009BECA6 /* LYFunctionInterface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LYFunctionInterface.h; sourceTree = "<group>"; };
 		AD62118119FD2FBC009BECA6 /* LYFunctionInterface.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LYFunctionInterface.m; sourceTree = "<group>"; };
 		AD62118419FD3148009BECA6 /* LYUserloginView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LYUserloginView.h; sourceTree = "<group>"; };
@@ -511,6 +521,19 @@
 			path = LMComBox;
 			sourceTree = "<group>";
 		};
+		AD3DD3B619FE13FE00364854 /* XIB */ = {
+			isa = PBXGroup;
+			children = (
+				AD3DD3B719FE13FE00364854 /* DeliveryCell.xib */,
+				AD3DD3B819FE13FE00364854 /* FeaturedCell.xib */,
+				AD3DD3B919FE13FE00364854 /* LY_DeliveryCell.h */,
+				AD3DD3BA19FE13FE00364854 /* LY_DeliveryCell.m */,
+				AD3DD3BB19FE13FE00364854 /* LY_FeaturedCell.h */,
+				AD3DD3BC19FE13FE00364854 /* LY_FeaturedCell.m */,
+			);
+			path = XIB;
+			sourceTree = "<group>";
+		};
 		AD62118319FD3124009BECA6 /* UserLogin */ = {
 			isa = PBXGroup;
 			children = (
@@ -576,6 +599,7 @@
 		AD6211D119FD5BF0009BECA6 /* Convenience */ = {
 			isa = PBXGroup;
 			children = (
+				AD3DD3B619FE13FE00364854 /* XIB */,
 				AD6211D219FD5C1E009BECA6 /* LYconvenienceMain.h */,
 				AD6211D319FD5C1E009BECA6 /* LYconvenienceMain.m */,
 			);
@@ -667,6 +691,7 @@
 				AD33ED1B19FBCA2D00FE0C11 /* 7_10.png in Resources */,
 				AD33ED3119FBCA2D00FE0C11 /* 删除_03.png in Resources */,
 				AD33ED5219FBCA2D00FE0C11 /* 进度条_06.png in Resources */,
+				AD3DD3BE19FE13FE00364854 /* FeaturedCell.xib in Resources */,
 				AD33ED4E19FBCA2D00FE0C11 /* 设置_03.png in Resources */,
 				AD33ED4619FBCA2D00FE0C11 /* 电话_10.png in Resources */,
 				AD33ED1919FBCA2D00FE0C11 /* 5_10.png in Resources */,
@@ -712,6 +737,7 @@
 				AD33ED5519FBCA2D00FE0C11 /* 首页@2x.png in Resources */,
 				AD33ED1419FBCA2D00FE0C11 /* 3@2x.png in Resources */,
 				AD33ED3F19FBCA2D00FE0C11 /* 星2_06.png in Resources */,
+				AD3DD3BD19FE13FE00364854 /* DeliveryCell.xib in Resources */,
 				AD33ED3819FBCA2D00FE0C11 /* 头像_03.png in Resources */,
 				AD33ED1519FBCA2D00FE0C11 /* 3_10.png in Resources */,
 				AD33ED4B19FBCA2D00FE0C11 /* 蓝色_03.png in Resources */,
@@ -769,6 +795,7 @@
 				AD6211DA19FD5EFE009BECA6 /* LYPrivacySettings.m in Sources */,
 				AD3DD3B519FDF36600364854 /* LYaddCommunit.m in Sources */,
 				AD6211A019FD42CE009BECA6 /* LYnetwork.m in Sources */,
+				AD3DD3C019FE13FE00364854 /* LY_FeaturedCell.m in Sources */,
 				AD6211E919FD9F1C009BECA6 /* LYForgotPassword.m in Sources */,
 				AD6211D419FD5C1E009BECA6 /* LYconvenienceMain.m in Sources */,
 				AD6211D719FD5D5D009BECA6 /* LYCommonSettings.m in Sources */,
@@ -786,6 +813,7 @@
 				AD3DD3B219FDEE5B00364854 /* LMContainsLMComboxScrollView.m in Sources */,
 				AD33ECBC19FBBE3600FE0C11 /* LYSelectCity.m in Sources */,
 				AD33EC9019FBB13F00FE0C11 /* main.m in Sources */,
+				AD3DD3BF19FE13FE00364854 /* LY_DeliveryCell.m in Sources */,
 				AD6211DD19FD6F6E009BECA6 /* LYAnnouncement.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

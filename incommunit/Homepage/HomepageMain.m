@@ -7,9 +7,7 @@
 //
 
 #import "HomepageMain.h"
-
 @interface HomepageMain ()
-
 @end
 
 @implementation HomepageMain

@@ -46,6 +46,12 @@
     UIView *m_messageView;
     NSMutableDictionary * minfo;
     
+    NSThread* myThread01;
+    NSThread* myThread02;
+    NSThread* myThread03;
+    NSThread* myThread04;
+    NSThread* myThread05;
+    
 }
 @property (weak, nonatomic) IBOutlet UIScrollView *_scrollView;
 @property(nonatomic,retain)IBOutlet UITextField *m_textfiled;

@@ -136,14 +136,21 @@
         [request setHTTPBody:data];
         //第三步，连接服务器
         NSData *received = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
-        NSDictionary *weatherDic = [NSJSONSerialization JSONObjectWithData:received options:NSJSONReadingMutableLeaves error:&error];
-        if ([[weatherDic objectForKey:@"status"] isEqualToString:@"200"])
-        {
-            [LYSqllite  wuser:userinfo];
-            [self performSegueWithIdentifier:@"GoLYFunctionInterface" sender:self];
+        if (received!=nil) {
+            NSDictionary *weatherDic = [NSJSONSerialization JSONObjectWithData:received options:NSJSONReadingMutableLeaves error:&error];
+            if ([[weatherDic objectForKey:@"status"] isEqualToString:@"200"])
+            {
+                [LYSqllite  wuser:userinfo];
+                [self performSegueWithIdentifier:@"GoLYFunctionInterface" sender:self];
+            }else
+            {
+                UIAlertView *al =[[UIAlertView alloc]initWithTitle:@"提示" message:[weatherDic objectForKey:@"message"] delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+                [al show];
+            }
+
         }else
         {
-            UIAlertView *al =[[UIAlertView alloc]initWithTitle:@"提示" message:[weatherDic objectForKey:@"message"] delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+            UIAlertView *al =[[UIAlertView alloc]initWithTitle:@"提示" message:@"登陆失败" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
             [al show];
         }
     }

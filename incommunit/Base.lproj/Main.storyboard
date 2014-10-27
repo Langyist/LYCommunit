@@ -344,6 +344,9 @@
                                 <state key="normal" backgroundImage="便民.png">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="ConvenienceMian:" destination="oLB-1p-2Il" eventType="touchUpInside" id="7fl-xV-RL3"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9yP-7n-2eh">
                                 <rect key="frame" x="188" y="222" width="90" height="90"/>
@@ -423,7 +426,7 @@
                         <outlet property="m_imageView" destination="tjf-NE-1SL" id="SF5-h5-fVy"/>
                         <segue destination="Idn-0H-VKw" kind="push" identifier="GoManage" id="cHG-Fy-Y5d"/>
                         <segue destination="lxv-sX-6gl" kind="push" identifier="GoHomepageMain" id="m06-ef-pZ1"/>
-                        <segue destination="Hda-fA-BA4" kind="push" identifier="GOConvenienceMain" id="rz7-Np-3RN"/>
+                        <segue destination="Hda-fA-BA4" kind="push" identifier="GoLYconvenienceMain" id="rz7-Np-3RN"/>
                         <segue destination="rQ2-ZS-Ap4" kind="push" identifier="GoLYMyCommunit" id="mco-0E-l6u"/>
                         <segue destination="PNc-Md-POO" kind="push" identifier="GoTools" id="BIx-bX-bRi"/>
                     </connections>
@@ -1407,7 +1410,7 @@
         <!--周边便民-->
         <scene sceneID="JRH-jt-Sgo">
             <objects>
-                <viewController id="Hda-fA-BA4" customClass="LY_Convenience_Main" sceneMemberID="viewController">
+                <viewController id="Hda-fA-BA4" customClass="LYconvenienceMain" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="XfJ-kS-Rwj"/>
                         <viewControllerLayoutGuide type="bottom" id="qVX-Bb-1kG"/>
@@ -3302,8 +3305,8 @@ CA
     <inferredMetricsTieBreakers>
         <segue reference="h8b-UJ-TZd"/>
         <segue reference="gne-12-lal"/>
+        <segue reference="rz7-Np-3RN"/>
         <segue reference="Mx8-Wb-2oh"/>
         <segue reference="vk7-fL-aT2"/>
-        <segue reference="AU3-FO-Ub8"/>
     </inferredMetricsTieBreakers>
 </document>

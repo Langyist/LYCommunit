@@ -57,13 +57,9 @@
 }
 -(IBAction)ConvenienceMian:(id)sender
 {
-    [self performSegueWithIdentifier:@"GOConvenienceMain" sender:self];
+    [self performSegueWithIdentifier:@"GoLYconvenienceMain" sender:self];
 }
 
--(IBAction)back:(id)sender
-{
-    [self performSegueWithIdentifier:@"GoLogin" sender:self];
-}
 -(void)pageTurn:(UIPageControl *)aPageControl
 {
     int whichPage = (int)aPageControl.currentPage;
