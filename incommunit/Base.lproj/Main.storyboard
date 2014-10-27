@@ -3,7 +3,6 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
-        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
@@ -34,7 +33,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="61" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="3Qx-lH-qBa">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="61" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="3Qx-lH-qBa">
                                 <rect key="frame" x="0.0" y="46" width="320" height="522"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
@@ -98,24 +97,20 @@
                                     <outlet property="delegate" destination="5z7-iZ-aVI" id="vDm-5w-kJS"/>
                                 </connections>
                             </tableView>
-                            <searchBar contentMode="redraw" misplaced="YES" text="" placeholder="搜索小区" translatesAutoresizingMaskIntoConstraints="NO" id="LlY-R7-l9A">
+                            <searchBar contentMode="redraw" text="" placeholder="搜索小区" translatesAutoresizingMaskIntoConstraints="NO" id="LlY-R7-l9A">
                                 <rect key="frame" x="0.0" y="64" width="320" height="44"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="320" id="AKp-AH-p3K"/>
-                                    <constraint firstAttribute="height" constant="44" id="Y6i-qQ-X57"/>
-                                    <constraint firstAttribute="width" secondItem="LlY-R7-l9A" secondAttribute="height" multiplier="80:11" id="wBC-eN-nk3"/>
-                                </constraints>
                                 <textInputTraits key="textInputTraits"/>
                             </searchBar>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="3Qx-lH-qBa" firstAttribute="leading" secondItem="LlY-R7-l9A" secondAttribute="leading" id="1rm-Lg-21a"/>
-                            <constraint firstItem="3Qx-lH-qBa" firstAttribute="bottom" secondItem="IrY-H1-ePj" secondAttribute="top" id="3yu-PG-EaA"/>
-                            <constraint firstItem="LlY-R7-l9A" firstAttribute="top" secondItem="AdU-I2-1AD" secondAttribute="bottom" id="F6v-uw-bAe"/>
-                            <constraint firstItem="3Qx-lH-qBa" firstAttribute="top" secondItem="LlY-R7-l9A" secondAttribute="bottom" constant="-62" id="HhJ-wy-Lki"/>
-                            <constraint firstItem="3Qx-lH-qBa" firstAttribute="trailing" secondItem="LlY-R7-l9A" secondAttribute="trailing" id="VlL-5t-glv"/>
-                            <constraint firstItem="3Qx-lH-qBa" firstAttribute="leading" secondItem="Zic-SU-A7x" secondAttribute="leading" id="lKD-bu-3CB"/>
+                            <constraint firstAttribute="trailing" secondItem="LlY-R7-l9A" secondAttribute="trailing" id="7sb-7F-qDc"/>
+                            <constraint firstItem="LlY-R7-l9A" firstAttribute="top" secondItem="AdU-I2-1AD" secondAttribute="bottom" id="COR-ah-H1D"/>
+                            <constraint firstItem="LlY-R7-l9A" firstAttribute="trailing" secondItem="3Qx-lH-qBa" secondAttribute="trailing" id="YT8-4B-bEp"/>
+                            <constraint firstItem="3Qx-lH-qBa" firstAttribute="leading" secondItem="LlY-R7-l9A" secondAttribute="leading" id="a0O-PH-4Sh"/>
+                            <constraint firstItem="3Qx-lH-qBa" firstAttribute="top" secondItem="AdU-I2-1AD" secondAttribute="bottom" constant="-18" id="h9q-gZ-paI"/>
+                            <constraint firstItem="3Qx-lH-qBa" firstAttribute="bottom" secondItem="IrY-H1-ePj" secondAttribute="top" id="nGd-dv-1Yp"/>
+                            <constraint firstItem="LlY-R7-l9A" firstAttribute="leading" secondItem="Zic-SU-A7x" secondAttribute="leading" id="o6J-ei-BYe"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="h7L-xf-yuH">
@@ -1451,10 +1446,10 @@
             </objects>
             <point key="canvasLocation" x="-2481" y="9318"/>
         </scene>
-        <!--Stores Info-->
+        <!--Shop-->
         <scene sceneID="OqZ-W7-9fe">
             <objects>
-                <viewController id="eQr-JF-HDr" customClass="LY_StoresInfo" sceneMemberID="viewController">
+                <viewController id="eQr-JF-HDr" customClass="LYShop" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="JW7-2g-GAD"/>
                         <viewControllerLayoutGuide type="bottom" id="EJi-id-gSP"/>
@@ -1743,7 +1738,7 @@
         <!--我的购物车-->
         <scene sceneID="fUC-gV-ehI">
             <objects>
-                <viewController id="CRG-7h-As7" customClass="LYSelectStores" sceneMemberID="viewController">
+                <viewController id="CRG-7h-As7" customClass="LYShoppingcart" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="tkB-Bc-tgL"/>
                         <viewControllerLayoutGuide type="bottom" id="aJ3-vQ-QB9"/>
@@ -2019,7 +2014,7 @@ CA
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oKz-vx-JfU" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1445" y="10006"/>
+            <point key="canvasLocation" x="-1482" y="10012"/>
         </scene>
         <!--我的订单-->
         <scene sceneID="KTW-uS-giq">
@@ -3310,9 +3305,9 @@ CA
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="h8b-UJ-TZd"/>
-        <segue reference="gne-12-lal"/>
+        <segue reference="3WF-Py-nPz"/>
         <segue reference="rL3-Fp-Z7X"/>
         <segue reference="vk7-fL-aT2"/>
+        <segue reference="Due-Az-e2m"/>
     </inferredMetricsTieBreakers>
 </document>

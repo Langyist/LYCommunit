@@ -124,6 +124,8 @@
     NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:urll]];
     //    将请求的url数据放到NSData对象中
     NSData *response = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
+    if(response!=nil)
+    {
     //    iOS5自带解析类NSJSONSerialization从response中解析出数据放到字典中
     NSDictionary *weatherDic = [NSJSONSerialization JSONObjectWithData:response options:NSJSONReadingMutableLeaves error:&error];
     //    weatherDic字典中存放的数据也是字典型，从它里面通过键值取值
@@ -155,5 +157,6 @@
     m_page.currentPage = 0;
     [m_page addTarget:self action:@selector(pageTurn:) forControlEvents:UIControlEventValueChanged];
     m_timer = 0;
+    }
 }
 @end

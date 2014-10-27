@@ -1,15 +1,13 @@
 //
 //  LYBaiduMap.m
 //  incommunit
-//
+//  百度地图界面
 //  Created by LANGYI on 14/10/27.
 //  Copyright (c) 2014年 LANGYI. All rights reserved.
 //
 
 #import "LYBaiduMap.h"
-
 @interface LYBaiduMap ()
-
 @end
 
 @implementation LYBaiduMap
@@ -36,8 +34,8 @@
         self.navigationController.navigationBar.translucent = NO;
     }
 }
-
--(void)viewWillAppear:(BOOL)animated {
+-(void)viewWillAppear:(BOOL)animated
+{
     [m_mapview viewWillAppear];
     m_mapview.delegate = self; // 此处记得不用的时候需要置nil，否则影响内存的释放
 }

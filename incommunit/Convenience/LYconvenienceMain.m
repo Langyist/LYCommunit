@@ -10,6 +10,7 @@
 #import "LYSqllite.h"
 #import "LY_FeaturedCell.h"
 #import "LY_DeliveryCell.h"
+#import "LYShop.h"
 #define GRACOLOR colorWithRed:211.0/255.0 green:220.0/255.0 blue:187.0/255.0 alpha:1
 #define REDCOLOR colorWithRed:238.0/255.0 green:145.0/255.0 blue:2.0/255.0 alpha:1
 @interface LYconvenienceMain ()
@@ -847,6 +848,8 @@
     NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:urlstr]];
     //    将请求的url数据放到NSData对象中
     NSData *response = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
+    if(response!=nil)
+    {
     //    iOS5自带解析类NSJSONSerialization从response中解析出数据放到字典中
     NSDictionary *weatherDic = [NSJSONSerialization JSONObjectWithData:response options:NSJSONReadingMutableLeaves error:&error];
     //    weatherDic字典中存放的数据也是字典型，从它里面通过键值取值
@@ -856,6 +859,7 @@
     //    [aler show];
     m_Featuredlist = [weatherDic objectForKey:@"data"];
     [m_Featuredtableview reloadData];
+    }
 }
 
 //获取送餐送货数据
@@ -977,8 +981,8 @@
 {
     if ([segue.identifier isEqualToString: @"Gostoresinfo"])
     {
-//        LY_StoresInfo *detailViewController = (LY_StoresInfo*) segue.destinationViewController;
-//        detailViewController->m_StoresID = self->m_Storesid;
+        LYShop *detailViewController = (LYShop*) segue.destinationViewController;
+        detailViewController->m_StoresID = self->m_Storesid;
     }
 }
 -(void)viewWillDisappear:(BOOL)animated
