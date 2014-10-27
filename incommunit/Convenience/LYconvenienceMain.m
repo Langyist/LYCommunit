@@ -52,7 +52,7 @@
                                                  selector:@selector(GetData:)
                                                    object:nil];
     [myThread01 start];
-   myThread02 = [[NSThread alloc] initWithTarget:self
+    myThread02 = [[NSThread alloc] initWithTarget:self
                                                  selector:@selector(GetdataDelivery:)
                                                    object:nil];
     [myThread02 start];
@@ -905,6 +905,8 @@
     NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:urlstr]];
     //    将请求的url数据放到NSData对象中
     NSData *response = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
+    if(response!=nil)
+    {
     //    iOS5自带解析类NSJSONSerialization从response中解析出数据放到字典中
     NSDictionary *weatherDic = [NSJSONSerialization JSONObjectWithData:response options:NSJSONReadingMutableLeaves error:&error];
     //    weatherDic字典中存放的数据也是字典型，从它里面通过键值取值
@@ -914,6 +916,7 @@
     //    [aler show];
     m_ShopDaquanlist = [weatherDic objectForKey:@"data"];
     [m_ShopDaquan reloadData];
+    }
 }
 
 -(IBAction)GetCellmicroShopdata:(NSString *)URL
@@ -931,6 +934,8 @@
     NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:urlstr]];
     //    将请求的url数据放到NSData对象中
     NSData *response = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
+    if(response!=nil)
+    {
     //    iOS5自带解析类NSJSONSerialization从response中解析出数据放到字典中
     NSDictionary *weatherDic = [NSJSONSerialization JSONObjectWithData:response options:NSJSONReadingMutableLeaves error:&error];
     //    weatherDic字典中存放的数据也是字典型，从它里面通过键值取值
@@ -938,6 +943,7 @@
     NSLog(@"%@",status);
     m_CellmicroShoplist = [weatherDic objectForKey:@"data"];
     [m_CellmicroShop reloadData];
+    }
 }
 
 //获取店铺类型接口
@@ -952,15 +958,18 @@
     NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:urlstr]];
     //    将请求的url数据放到NSData对象中
     NSData *response = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
-    //    iOS5自带解析类NSJSONSerialization从response中解析出数据放到字典中
-    NSDictionary *weatherDic = [NSJSONSerialization JSONObjectWithData:response options:NSJSONReadingMutableLeaves error:&error];
-    //    weatherDic字典中存放的数据也是字典型，从它里面通过键值取值
-    NSString *status = [weatherDic objectForKey:@"status"];
-    NSLog(@"%@",status);
-    //    UIAlertView *aler = [[UIAlertView alloc] initWithTitle:@"提示" message:status delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
-    //    [aler show];
-    m_shoptypelist = [weatherDic objectForKey:@"data"];
-    [m_backtable reloadData];
+    if(response!=nil)
+    {
+        //    iOS5自带解析类NSJSONSerialization从response中解析出数据放到字典中
+        NSDictionary *weatherDic = [NSJSONSerialization JSONObjectWithData:response options:NSJSONReadingMutableLeaves error:&error];
+        //    weatherDic字典中存放的数据也是字典型，从它里面通过键值取值
+        NSString *status = [weatherDic objectForKey:@"status"];
+        NSLog(@"%@",status);
+        //    UIAlertView *aler = [[UIAlertView alloc] initWithTitle:@"提示" message:status delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+        //    [aler show];
+        m_shoptypelist = [weatherDic objectForKey:@"data"];
+        [m_backtable reloadData];
+    }
 }
 
 #pragma UIStoryboardSegue 协议函数
@@ -972,14 +981,14 @@
 //        detailViewController->m_StoresID = self->m_Storesid;
     }
 }
--(void)viewDidAppear:(BOOL)animated
+-(void)viewWillDisappear:(BOOL)animated
 {
-    [myThread01 cancel];
-    [myThread02 cancel];
-    [myThread03 cancel];
-    [myThread04 cancel];
-    [myThread05 cancel];
-    
+//    [myThread01 ];
+//    myThread02.exit;
+////    [myThread02 exit];
+////    [myThread03 exit];
+////    [myThread04 exit];
+////    [myThread05 exit];
 }
 
 @end

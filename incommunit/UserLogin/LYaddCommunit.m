@@ -9,6 +9,7 @@
 #import "LYaddCommunit.h"
 #import "LMContainsLMComboxScrollView.h"
 #import "LYSelectCommunit.h"
+#import "UIActionSheet+Blocks.h"
 #define kDropDownListTag 1000
 @interface LYaddCommunit ()
 {
@@ -60,9 +61,40 @@
     singleRecognizer.numberOfTapsRequired = 2; // 单击
     [self.view addGestureRecognizer:singleRecognizer];
     
+    m_iamgeview.userInteractionEnabled = YES;
+    UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(Photograph)];
+    [m_iamgeview addGestureRecognizer:singleTap];
+    [self.view addSubview:m_iamgeview];
     // Do any additional setup after loading the view.
 }
+-(void)Photograph
+{
+    
+        UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:@"上传照片"
+                                                           delegate:nil
+                                                  cancelButtonTitle:@"取消"
+                                             destructiveButtonTitle:@"拍照"
+                                                  otherButtonTitles:@"相册中选择", nil];
+        [sheet showFromTabBar:[[self tabBarController] tabBar]
+                      handler:^(UIActionSheet *actionSheet, NSInteger buttonIndex) {
+                          
+                          if (buttonIndex == [actionSheet cancelButtonIndex]) {
+                              
+                              NSLog(@"Cancel button index tapped");
+                              
+                          } else if (buttonIndex == [actionSheet destructiveButtonIndex]) {
+                              
+                              NSLog(@"Destructive button index tapped");
+                              //[self getMediaFromSource:UIImagePickerControllerSourceTypeCamera];
+                              
+                          } else  {
+                              //[self getMediaFromSource:UIImagePickerControllerSourceTypePhotoLibrary];
+                              NSLog(@"Button %li tapped", (long)buttonIndex);
+                          }
+                          
+                      }];
 
+}
 -(void)ClickView
 {
     [m_Nickname resignFirstResponder];

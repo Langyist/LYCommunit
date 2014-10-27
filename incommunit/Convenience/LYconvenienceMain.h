@@ -40,13 +40,13 @@
     UITextField *m_ShopDaquantype_id;
     UITextField *m_ShopDaquanorder;
     
-@private CLLocationManager *locationManager;
+    @private CLLocationManager *locationManager;
     float  latitude;
     float  longitude;
     UIView *m_messageView;
     NSMutableDictionary * minfo;
     
-    NSThread* myThread01;
+    NSThread *myThread01;
     NSThread* myThread02;
     NSThread* myThread03;
     NSThread* myThread04;

@@ -102,6 +102,7 @@
 		AD3DD3BE19FE13FE00364854 /* FeaturedCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AD3DD3B819FE13FE00364854 /* FeaturedCell.xib */; };
 		AD3DD3BF19FE13FE00364854 /* LY_DeliveryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AD3DD3BA19FE13FE00364854 /* LY_DeliveryCell.m */; };
 		AD3DD3C019FE13FE00364854 /* LY_FeaturedCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AD3DD3BC19FE13FE00364854 /* LY_FeaturedCell.m */; };
+		AD3DD3C319FE2E4A00364854 /* UIActionSheet+Blocks.m in Sources */ = {isa = PBXBuildFile; fileRef = AD3DD3C219FE2E4A00364854 /* UIActionSheet+Blocks.m */; };
 		AD62118219FD2FBC009BECA6 /* LYFunctionInterface.m in Sources */ = {isa = PBXBuildFile; fileRef = AD62118119FD2FBC009BECA6 /* LYFunctionInterface.m */; };
 		AD62118619FD3148009BECA6 /* LYUserloginView.m in Sources */ = {isa = PBXBuildFile; fileRef = AD62118519FD3148009BECA6 /* LYUserloginView.m */; };
 		AD6211A019FD42CE009BECA6 /* LYnetwork.m in Sources */ = {isa = PBXBuildFile; fileRef = AD62119919FD42CE009BECA6 /* LYnetwork.m */; };
@@ -245,6 +246,8 @@
 		AD3DD3BA19FE13FE00364854 /* LY_DeliveryCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LY_DeliveryCell.m; sourceTree = "<group>"; };
 		AD3DD3BB19FE13FE00364854 /* LY_FeaturedCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LY_FeaturedCell.h; sourceTree = "<group>"; };
 		AD3DD3BC19FE13FE00364854 /* LY_FeaturedCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LY_FeaturedCell.m; sourceTree = "<group>"; };
+		AD3DD3C119FE2E4A00364854 /* UIActionSheet+Blocks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIActionSheet+Blocks.h"; sourceTree = "<group>"; };
+		AD3DD3C219FE2E4A00364854 /* UIActionSheet+Blocks.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIActionSheet+Blocks.m"; sourceTree = "<group>"; };
 		AD62118019FD2FBC009BECA6 /* LYFunctionInterface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LYFunctionInterface.h; sourceTree = "<group>"; };
 		AD62118119FD2FBC009BECA6 /* LYFunctionInterface.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LYFunctionInterface.m; sourceTree = "<group>"; };
 		AD62118419FD3148009BECA6 /* LYUserloginView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LYUserloginView.h; sourceTree = "<group>"; };
@@ -410,6 +413,8 @@
 		AD33ECBD19FBC35B00FE0C11 /* CustomControls */ = {
 			isa = PBXGroup;
 			children = (
+				AD3DD3C119FE2E4A00364854 /* UIActionSheet+Blocks.h */,
+				AD3DD3C219FE2E4A00364854 /* UIActionSheet+Blocks.m */,
 				AD3DD3AC19FDEE5B00364854 /* LMComBox */,
 				AD33ECBE19FBC39700FE0C11 /* LYUIview.h */,
 				AD33ECBF19FBC39700FE0C11 /* LYUIview.m */,
@@ -787,6 +792,7 @@
 			files = (
 				AD33EC9619FBB13F00FE0C11 /* LYSelectCommunit.m in Sources */,
 				AD6211AC19FD46BD009BECA6 /* LeslieAsyncImageDownloader.m in Sources */,
+				AD3DD3C319FE2E4A00364854 /* UIActionSheet+Blocks.m in Sources */,
 				AD3DD3B119FDEE5B00364854 /* LMComBoxView.m in Sources */,
 				AD6211CC19FD5583009BECA6 /* LYMyCommunit.m in Sources */,
 				AD6211AE19FD46BD009BECA6 /* UIImageView+AsyncDownload.m in Sources */,

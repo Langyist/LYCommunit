@@ -1448,25 +1448,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Wlj-JF-mJK" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2436" y="9318"/>
-        </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="wxP-Mb-RjH">
-            <objects>
-                <navigationController definesPresentationContext="YES" id="lD4-63-gpp" sceneMemberID="viewController">
-                    <navigationItem key="navigationItem" id="Lxu-1x-ivJ">
-                        <barButtonItem key="backBarButtonItem" title="   " id="jdy-IS-Q33"/>
-                    </navigationItem>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="p42-Eq-IUf">
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <connections>
-                        <segue destination="Hda-fA-BA4" kind="relationship" relationship="rootViewController" id="AU3-FO-Ub8"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="KHA-mu-v7F" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-2875" y="9318"/>
+            <point key="canvasLocation" x="-2481" y="9318"/>
         </scene>
         <!--Stores Info-->
         <scene sceneID="OqZ-W7-9fe">
@@ -3305,7 +3287,6 @@ CA
     <inferredMetricsTieBreakers>
         <segue reference="h8b-UJ-TZd"/>
         <segue reference="gne-12-lal"/>
-        <segue reference="rz7-Np-3RN"/>
         <segue reference="Mx8-Wb-2oh"/>
         <segue reference="vk7-fL-aT2"/>
     </inferredMetricsTieBreakers>
