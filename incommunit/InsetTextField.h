@@ -11,5 +11,6 @@
 @interface InsetTextField : UITextField
 
 @property(nonatomic) UIEdgeInsets textInset;
+@property(nonatomic) BOOL showBorderLine;
 
 @end

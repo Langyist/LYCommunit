@@ -36,7 +36,7 @@
 {
     [super viewDidLoad];
     
-    [m_Nickname setTextInset:UIEdgeInsetsMake(0, 20, 0, 20)];
+    [m_Nickname setTextInset:UIEdgeInsetsMake(0, 15, 0, 15)];
     
     [m_button.layer setMasksToBounds:YES];
     [m_button.layer setCornerRadius:3.0];
@@ -45,7 +45,7 @@
 
     CALayer *lay  = m_iamgeview.layer;//获取ImageView的层
     [lay setMasksToBounds:YES];
-    [lay setCornerRadius:CGRectGetHeight(m_iamgeview.frame)];
+    [lay setCornerRadius:CGRectGetHeight(m_iamgeview.frame) / 2];
     
     UILabel *customLab = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 100, 30)];
     [customLab setTextColor:[UIColor colorWithRed:(0.0/255) green:(0.0/255) blue:(0.0/255) alpha:1.0]];
@@ -60,11 +60,10 @@
     BuildingData = [[NSArray alloc]initWithObjects:@"栋", nil];
     UnitData = [[NSArray alloc]initWithObjects:@"单元", nil];
     HouseholdsData = [[NSArray alloc]initWithObjects:@"户", nil];
-    bgScrollView = [[LMContainsLMComboxScrollView alloc]initWithFrame:CGRectMake(0, m_lableinfo.frame.origin.y+m_lableinfo.frame.size.height, self.view.frame.size.width, 35)];
+    bgScrollView = [[LMContainsLMComboxScrollView alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(m_lableinfo.frame), self.view.frame.size.width, 35)];
     bgScrollView.backgroundColor = [UIColor clearColor];
     bgScrollView.showsVerticalScrollIndicator = NO;
     bgScrollView.showsHorizontalScrollIndicator = NO;
-    
     [self.view addSubview:bgScrollView];
     [self setUpBgScrollView];
     
@@ -194,9 +193,12 @@
 }
 -(void)setUpBgScrollView
 {
-    for(NSInteger i=0;i<5;i++)
-    {
-        LMComBoxView *comBox = [[LMComBoxView alloc]initWithFrame:CGRectMake(m_lableinfo.frame.origin.x+(m_lableinfo.frame.size.width/5+1)*i, 0, m_lableinfo.frame.size.width/5-1, 35)];
+    for (NSInteger i = 0; i < 5; i++) {
+        LMComBoxView *comBox = [[LMComBoxView alloc] initWithFrame:
+                                CGRectMake(m_lableinfo.frame.origin.x + (m_lableinfo.frame.size.width / 5) * i,
+                                           0,
+                                           m_lableinfo.frame.size.width / 5,
+                                           35)];
         comBox.backgroundColor = [UIColor whiteColor];
         comBox.arrowImgName = @"down_dark0.png";
         NSMutableArray  *itemsArray = [[NSMutableArray alloc]initWithCapacity:1];

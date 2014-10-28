@@ -37,9 +37,9 @@
     [self addSubview:btn];
     
     titleLabel = [[UILabel alloc]initWithFrame:CGRectMake(2, 0, self.frame.size.width-imgW - 5 - 2, self.frame.size.height)];
-    titleLabel.font = [UIFont systemFontOfSize:11];
+    titleLabel.font = [UIFont boldSystemFontOfSize:15];
     titleLabel.backgroundColor = [UIColor clearColor];
-    titleLabel.textAlignment = NSTextAlignmentLeft;
+    titleLabel.textAlignment = NSTextAlignmentCenter;
     titleLabel.textColor = kTextColor;
     [btn addSubview:titleLabel];
     

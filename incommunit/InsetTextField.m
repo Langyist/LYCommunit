@@ -15,6 +15,7 @@
     self = [super initWithFrame:frame];
     if (self) {
         _textInset = UIEdgeInsetsZero;
+        _showBorderLine = YES;
     }
     return self;
 }
@@ -27,18 +28,20 @@
     // Drawing code
     [super drawRect:rect];
     
-    CGContextRef context = UIGraphicsGetCurrentContext();
-    
-    CGContextSetStrokeColorWithColor(context, [[UIColor colorWithRed:212/255.0f green:210/255.0f blue:210/255.0f alpha:1] CGColor]);
-    CGContextSetLineWidth(context, 1.0);
-    //top line
-    CGContextMoveToPoint(context, 0.0, 0.0);
-    CGContextAddLineToPoint(context, self.frame.size.width, 0.0);
-    CGContextDrawPath(context, kCGPathStroke);
-    //bottom line
-    CGContextMoveToPoint(context, 0.0, CGRectGetHeight(self.frame));
-    CGContextAddLineToPoint(context, self.frame.size.width, CGRectGetHeight(self.frame));
-    CGContextDrawPath(context, kCGPathStroke);
+    if (_showBorderLine) {
+        CGContextRef context = UIGraphicsGetCurrentContext();
+        
+        CGContextSetStrokeColorWithColor(context, [[UIColor colorWithRed:212/255.0f green:210/255.0f blue:210/255.0f alpha:1] CGColor]);
+        CGContextSetLineWidth(context, 1.0);
+        //top line
+        CGContextMoveToPoint(context, 0.0, 0.0);
+        CGContextAddLineToPoint(context, self.frame.size.width, 0.0);
+        CGContextDrawPath(context, kCGPathStroke);
+        //bottom line
+        CGContextMoveToPoint(context, 0.0, CGRectGetHeight(self.frame));
+        CGContextAddLineToPoint(context, self.frame.size.width, CGRectGetHeight(self.frame));
+        CGContextDrawPath(context, kCGPathStroke);
+    }
 }
 
 
