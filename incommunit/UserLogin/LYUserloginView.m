@@ -21,6 +21,9 @@
     [m_loginbutton.layer setMasksToBounds:YES];
     [m_loginbutton.layer setCornerRadius:3.0];
     
+    [self modify:userText imageName:@""];
+    [self modify:userText imageName:@""];
+    
     userText.delegate=self;
     passwordtext.delegate=self;
     passwordtext.secureTextEntry = YES;
@@ -41,6 +44,23 @@
     m_communityName.text = [[LYSelectCommunit GetCommunityInfo] objectForKey:@"name"];
     [LYSqllite CreatUserTable];
 }
+
+- (void)modify:(UITextField *)textFiled imageName:(NSString *)imageName {
+    UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:imageName]];
+    imageView.frame = CGRectMake(0.0, 0.0, textFiled.frame.size.height, textFiled.frame.size.height);
+    imageView.contentMode = UIViewContentModeCenter;
+    imageView.backgroundColor = [UIColor colorWithRed:86.0f / 255.0f green:190.0f / 255.0f blue:164.f / 255.0f alpha:1];
+    
+    textFiled.leftView = imageView;
+    textFiled.leftViewMode = UITextFieldViewModeAlways;
+    
+    //textFiled.layer.cornerRadius = 8.0f;
+    
+    //[textFiled setTextInset:UIEdgeInsetsMake(0, 5, 0, 3)];
+    
+    //textFiled.returnKeyType = UIReturnKeyDone;
+}
+
 -(void)ClickView
 {
     [userText resignFirstResponder];

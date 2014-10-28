@@ -116,26 +116,18 @@
         }
     }
     m_storesNumber.text = [[NSString alloc] initWithFormat:@"共%d件商品",number];
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;
 }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    UITableViewCell *oneCell = [tableView cellForRowAtIndexPath: indexPath];
-    if (oneCell.accessoryType == UITableViewCellAccessoryNone)
-    {
-        oneCell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-        UITableViewCell *cell = [self.m_tableView cellForRowAtIndexPath:indexPath];
-        m_imge = (UIImageView *)[cell viewWithTag:100];
-        m_imge.image = [UIImage imageNamed:@"Selected.png"];
-    } else
-    {
-        UITableViewCell *cell = [self.m_tableView cellForRowAtIndexPath:indexPath];
-        m_imge = (UIImageView *)[cell viewWithTag:100];
-        m_imge.image = [UIImage imageNamed:@"Unselected.png"];
-        oneCell.accessoryType = UITableViewCellAccessoryNone;
-    }
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    UITableViewCell *oneCell = [tableView cellForRowAtIndexPath:indexPath];
+    [self changeCheckBox:YES tableViewCell:oneCell];
+}
+
+- (void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath NS_AVAILABLE_IOS(3_0) {
+    UITableViewCell *oneCell = [tableView cellForRowAtIndexPath:indexPath];
+    [self changeCheckBox:NO tableViewCell:oneCell];
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -181,4 +173,18 @@
 {
     [self performSegueWithIdentifier:@"GoSettlement" sender:self];
 }
+
+#pragma mark -
+#pragma mark Method
+
+- (void)changeCheckBox:(BOOL)isSelected tableViewCell:(UITableViewCell *)cell {
+    UIImageView *imageView = (UIImageView *)[cell viewWithTag:100];
+    if (isSelected) {
+        imageView.image = [UIImage imageNamed:@"Selected.png"];
+    }
+    else {
+        imageView.image = [UIImage imageNamed:@"Unselected.png"];
+    }
+}
+
 @end

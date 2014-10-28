@@ -13,7 +13,7 @@
 
 @end
 @implementation LYSelectCommunit
-@synthesize m_tab,cell,Serch,m_lable_address,m_lable_distance,m_lable_name,m_lable_st;
+@synthesize m_tab,Serch,m_lable_address,m_lable_distance,m_lable_name,m_lable_st;
 static BOOL m_Refresh;//是否刷新界面
 static NSDictionary *          m_cityinfo;//城市信息
 - (void)awakeFromNib
@@ -34,14 +34,14 @@ static NSDictionary *          m_cityinfo;//城市信息
     //[LY_Sqllite CreatShoppingcart]; //创建购物车信息表
     self->Serch.delegate=self;
     self.navigationController.navigationBar.barTintColor = [UIColor colorWithRed:(238.0/255) green:(183.0/255) blue:(88.0/255) alpha:1.0];
-    m_selectCityButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 50, 30)];
-    [m_selectCityButton addTarget:self action:@selector(GoselectCity) forControlEvents:UIControlEventTouchUpInside];
-    [m_selectCityButton setTitle: @"成都" forState: UIControlStateNormal];
-    self.navigationItem.titleView = m_selectCityButton;
-    m_selectCityButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
-    [m_selectCityButton setTitleColor:[UIColor grayColor] forState:UIControlStateHighlighted];
-    [m_selectCityButton setTitleColor:[UIColor colorWithRed:(0.0/255) green:(0.0/255) blue:(0.0/255) alpha:1.0] forState:UIControlStateNormal];
-    [m_selectCityButton.titleLabel setFont:[UIFont fontWithName: @"Helvetica"   size : 17.0 ]];
+    //m_selectCityButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 50, 30)];
+    [_selectCityButton addTarget:self action:@selector(GoselectCity) forControlEvents:UIControlEventTouchUpInside];
+    [_selectCityButton setTitle: @"成都" forState: UIControlStateNormal];
+    self.navigationItem.titleView = _selectCityButton;
+    //m_selectCityButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
+    [_selectCityButton setTitleColor:[UIColor grayColor] forState:UIControlStateHighlighted];
+    [_selectCityButton setTitleColor:[UIColor colorWithRed:(0.0/255) green:(0.0/255) blue:(0.0/255) alpha:1.0] forState:UIControlStateNormal];
+    //[m_selectCityButton.titleLabel setFont:[UIFont fontWithName: @"Helvetica"   size : 17.0 ]];
     self->locationManager = [[CLLocationManager alloc] init];
     self->locationManager.delegate = self;
     if([[[UIDevice currentDevice] systemVersion] floatValue]>=8.0)
@@ -96,10 +96,10 @@ static NSDictionary *          m_cityinfo;//城市信息
          {
              if (m_data.count>0)
              {
-                 [m_selectCityButton setTitle: [m_data objectForKey:@"name"] forState: UIControlStateNormal];
+                 [_selectCityButton setTitle: [m_data objectForKey:@"name"] forState: UIControlStateNormal];
              }else
              {
-                 [m_selectCityButton setTitle: [[NSString alloc]initWithFormat:@"%@",[[placemark.addressDictionary objectForKey:@"City"] substringToIndex:2] ] forState: UIControlStateNormal];
+                 [_selectCityButton setTitle: [[NSString alloc]initWithFormat:@"%@",[[placemark.addressDictionary objectForKey:@"City"] substringToIndex:2] ] forState: UIControlStateNormal];
                  m_city_name  =[[placemark.addressDictionary objectForKey:@"City"] substringToIndex:2];
              }
              [NSThread detachNewThreadSelector:@selector(GetCommunity:) toTarget:self withObject:nil];
@@ -151,32 +151,31 @@ static NSDictionary *          m_cityinfo;//城市信息
     m_lable_name = [[UILabel alloc] init];
     m_lable_address=[[UILabel alloc]init];
     m_lable_distance = [[UILabel alloc]init];
-    cell = [[UITableViewCell alloc] init] ;
     m_lable_st=[[UILabel alloc]init];
-    cell = [tableView dequeueReusableCellWithIdentifier:@"Listcell"];
+    
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Listcell" forIndexPath:indexPath];
     m_lable_name = (UILabel *)[cell.contentView viewWithTag:100];
     m_lable_address = (UILabel *)[cell.contentView viewWithTag:101];
     m_lable_distance = (UILabel *)[cell.contentView viewWithTag:102];
     m_lable_st=(UILabel *)[cell.contentView viewWithTag:103];
-    if (m_CommunitylistON.count>indexPath.row)
-    {
+    
+    UIColor *color = [UIColor darkTextColor];
+    NSString *text = @"已开通";
+    if (m_CommunitylistON.count > indexPath.row) {
         Community=[m_CommunitylistON objectAtIndex:indexPath.row];
-        m_lable_st.text =@"已开通";
-        m_lable_st.textColor = [UIColor blueColor];
-        NSLog(@"%@",[Community objectForKey:@"name"]);
-        m_lable_name.text =[Community objectForKey:@"name"];
-        m_lable_address.text =[Community objectForKey:@"address"];
-        m_lable_distance.text =[NSString stringWithFormat:@"%@ m", [Community objectForKey:@"distance"]];
-    }else if (m_CommunitylistOF.count>indexPath.row - m_CommunitylistON.count)
-    {
-        Community=[m_CommunitylistOF objectAtIndex:indexPath.row - m_CommunitylistON.count];
-        m_lable_st.text =@"未开通";
-        m_lable_st.textColor = [UIColor redColor];
-        NSLog(@"%@",[Community objectForKey:@"name"]);
-        m_lable_name.text =[Community objectForKey:@"name"];
-        m_lable_address.text =[Community objectForKey:@"address"];
-        m_lable_distance.text =[NSString stringWithFormat:@"%@ m", [Community objectForKey:@"distance"]];
     }
+    else if (m_CommunitylistOF.count > indexPath.row - m_CommunitylistON.count) {
+        Community=[m_CommunitylistOF objectAtIndex:indexPath.row - m_CommunitylistON.count];
+        color = [UIColor lightGrayColor];
+        text = @"未开通";
+    }
+    m_lable_st.text = text;
+    m_lable_st.textColor = color;
+    m_lable_name.text =[Community objectForKey:@"name"];
+    m_lable_address.text =[Community objectForKey:@"address"];
+    CGFloat distance = [[Community objectForKey:@"distance"] floatValue];
+    m_lable_distance.text =[NSString stringWithFormat:@"%.0fm", distance];
+    
     return cell;
 }
 
@@ -288,7 +287,7 @@ static NSDictionary *          m_cityinfo;//城市信息
         }
         m_CommunityName = @"";
         m_data = [LYSelectCity CityInfo];
-        [m_selectCityButton setTitle: [m_data objectForKey:@"name"] forState: UIControlStateNormal];
+        [_selectCityButton setTitle: [m_data objectForKey:@"name"] forState: UIControlStateNormal];
         self.view.userInteractionEnabled = YES;
         [self GetCommunity:@""];
         [self.m_tab reloadData];

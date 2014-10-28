@@ -11,7 +11,7 @@
 #import <CoreLocation/CLLocationManagerDelegate.h>
 @interface LYSelectCommunit : UIViewController <UITableViewDataSource,UITableViewDelegate,UISearchBarDelegate,CLLocationManagerDelegate>
 {
-    @private    UIButton *          m_selectCityButton;
+    //@private    UIButton *          m_selectCityButton;
     @private    UITableView *       m_tab;
     @private    UITableViewCell *   m_cell;
     @private    UISearchBar *       m_Serch;
@@ -33,7 +33,6 @@
     @private NSString *m_city_id;
 }
 @property(nonatomic, retain)IBOutlet UITableView    *  m_tab;
-@property(nonatomic, retain)IBOutlet UITableViewCell * cell;
 @property(nonatomic, retain)IBOutlet UISearchBar *     Serch;
 @property(nonatomic, retain)IBOutlet UIButton *        selectCityButton;
 @property(nonatomic, retain)IBOutlet UILabel *         m_lable_name;

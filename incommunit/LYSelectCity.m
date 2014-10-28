@@ -492,15 +492,23 @@ static NSDictionary  *m_selectCityInfo;
 }
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
-    UIView* customView = [[UIView alloc] initWithFrame:CGRectMake(0.0, 0.0, self.view.frame.size.width, 15.0)];
-    customView.backgroundColor = [UIColor colorWithRed:(211/255.0) green:(211/255.0) blue:(211/255.0) alpha:1.0];
+    UIView* customView = [[UIView alloc] initWithFrame:CGRectMake(0.0, 0.0, self.view.frame.size.width, 28.0f)];
+    customView.backgroundColor = [UIColor colorWithRed:(233/255.0) green:(232/255.0) blue:(232/255.0) alpha:1.0];
     UILabel * headerLabel = [[UILabel alloc] initWithFrame:CGRectZero];
     headerLabel.backgroundColor = [UIColor clearColor];
     headerLabel.opaque = NO;
     headerLabel.textColor = [UIColor colorWithRed:(65/255.0) green:(65/255.0) blue:(64/255.0) alpha:1.0];
     headerLabel.highlightedTextColor = [UIColor whiteColor];
-    headerLabel.font = [UIFont boldSystemFontOfSize:14];
-    headerLabel.frame = CGRectMake(20.0, 10.0, self.view.frame.size.width, 15.0);
+    headerLabel.font = [UIFont boldSystemFontOfSize:13];
+    headerLabel.frame = CGRectMake(17.0f, 0, self.view.frame.size.width, 28.0f);
+    
+    UIView *sepView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 1.0f)];
+    sepView.backgroundColor = [UIColor colorWithRed:(212/255.0) green:(207/255.0) blue:(207/255.0) alpha:1.0];
+    [customView addSubview:sepView];
+    sepView = [[UIView alloc] initWithFrame:CGRectMake(0, 27, self.view.frame.size.width, 1.0f)];
+    sepView.backgroundColor = [UIColor colorWithRed:(212/255.0) green:(207/255.0) blue:(207/255.0) alpha:1.0];
+    [customView addSubview:sepView];
+    
     switch (section) {
         case 0:
             headerLabel.text = @"GPS定位城市";
@@ -730,7 +738,7 @@ static NSDictionary  *m_selectCityInfo;
 
 - (CGFloat) tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    return 35.0;
+    return 28.0f;
 }
 
 -(void)Getdata:(NSString *)URL
