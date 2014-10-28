@@ -60,37 +60,6 @@
     // Dispose of any resources that can be recreated.
 }
 
-//获取验证码
-- (IBAction)verificationcodeButton:(id)sender {
-    
-    [self.MobilenumberText resignFirstResponder];
-    [self.CodeText resignFirstResponder];
-    [self.passwordText resignFirstResponder];
-    if ([self.MobilenumberText.text  isEqual:@""] || [self.MobilenumberText.text isEqual:nil]) {
-        
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"温馨提示"
-                                                        message:@"手机号码不能为空"
-                                                       delegate:self
-                                              cancelButtonTitle:@"确定"
-                                              otherButtonTitles:nil, nil];
-        [alert show];
-    }
-    //    else if (!(self.MobilenumberText.text.length == 11)){
-    //
-    //        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"温馨提示"
-    //                                                        message:@"请输入正确的手机号码"
-    //                                                       delegate:self
-    //                                              cancelButtonTitle:@"确定"
-    //                                              otherButtonTitles:nil, nil];
-    //        [alert show];
-    //    }
-    else {
-        
-        NSLog(@"手机号:%@",self.MobilenumberText.text);
-        [self Getverificationcode:@""];
-    }
-}
-
 #pragma mark - 访问网络数据
 //获取验证码
 - (void)Getverificationcode:(NSString *)url
@@ -99,52 +68,38 @@
     NSLog(@"plistDic = %@",plistDic);
     NSString *URl = [plistDic objectForKey: @"URL"];
     NSError *error;
-    NSString *urlstr = [[NSString alloc] initWithFormat:@"%@/services/validate_code?phone=%@&type=mod",URl,self.MobilenumberText.text];
+    NSString *urlstr = [[NSString alloc] initWithFormat:@"%@/services/validate_code?phone=%@&type=mod",URl,MobilenumberText.text];
     NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:urlstr]];
     //    将请求的url数据放到NSData对象中
     NSData *response = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
     //    iOS5自带解析类NSJSONSerialization从response中解析出数据放到字典中
     NSDictionary *getcodeDic = [NSJSONSerialization JSONObjectWithData:response options:NSJSONReadingMutableLeaves error:&error];
     NSLog(@"%@",getcodeDic);
+    if (![[getcodeDic objectForKey:@"status"] isEqual:@"201"]) {
+        
+    }else {
+        
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"温馨提示"
+                                                        message:[getcodeDic objectForKey:@"message"]
+                                                       delegate:self
+                                              cancelButtonTitle:@"确认"
+                                              otherButtonTitles:@"取消", nil];
+        [alert show];
+    }
     NSString *codeString = [getcodeDic objectForKey:@"data"];
     NSLog(@"%@",codeString);
     self.CodeText.text = codeString;
-}
-
-//提交
-- (IBAction)SubmitButton:(id)sender {
-    NSDictionary *plistDic = [[NSBundle mainBundle] infoDictionary];
-    NSLog(@"plistDic = %@",plistDic);
-    NSString *URl = [plistDic objectForKey: @"URL"];
-    NSError *error;
-    NSString *urlstr = [[NSString alloc] initWithFormat:@"%@/services/change_pwd?phone=%@&password=%@&validateCode=%@",URl,self.MobilenumberText.text,self.passwordText.text,self.CodeText.text];
-    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:urlstr]];
-    //    将请求的url数据放到NSData对象中
-    NSData *response = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
-    //    iOS5自带解析类NSJSONSerialization从response中解析出数据放到字典中
-    NSDictionary *getcodeDic = [NSJSONSerialization JSONObjectWithData:response options:NSJSONReadingMutableLeaves error:&error];
-    NSLog(@"%@",getcodeDic);
-    NSString *message = [getcodeDic objectForKey:@"message"];
-    NSLog(@"%@",message);
-    
-    [self.navigationController popViewControllerAnimated:YES];
-}
-
-- (IBAction)resignkeyboardButton:(id)sender {
-    [self.MobilenumberText resignFirstResponder];
-    [self.CodeText resignFirstResponder];
-    [self.passwordText resignFirstResponder];
 }
 
 #pragma mark UITextField delegate
 -(BOOL)textFieldShouldReturn:(UITextField *)textField{
     if (textField == self.MobilenumberText) {
         
-        [self.MobilenumberText resignFirstResponder];
-        [self.passwordText becomeFirstResponder];
+        [MobilenumberText resignFirstResponder];
+        [passwordText becomeFirstResponder];
     }
-    else if (textField == self.passwordText) {
-        if ((self.passwordText.text.length < 6)|| (self.passwordText.text.length >12)) {
+    else if (textField == passwordText) {
+        if ((passwordText.text.length < 6)|| (passwordText.text.length >12)) {
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"温馨提示"
                                                             message:@"请输入6-12位新密码"
                                                            delegate:self
@@ -154,13 +109,13 @@
         }else {
             
             NSLog(@"%@",self.passwordText.text);
-            [self.CodeText becomeFirstResponder];
+            [CodeText becomeFirstResponder];
         }
-        [self.passwordText resignFirstResponder];
-    }else if (textField == self.CodeText) {
-        if (!(self.CodeText.text.length == 6)) {
+        [passwordText resignFirstResponder];
+    }else if (textField == CodeText) {
+        if (!(CodeText.text.length == 6)) {
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"温馨提示"
-                                                            message:@"请输入六位验证码"
+                                                            message:@"请输入4位验证码"
                                                            delegate:self
                                                   cancelButtonTitle:@"确定"
                                                   otherButtonTitles:nil, nil];
@@ -169,7 +124,7 @@
             
             NSLog(@"%@",self.CodeText.text);
         }
-        [self.CodeText resignFirstResponder];
+        [CodeText resignFirstResponder];
     }
     
     return YES;
@@ -178,7 +133,7 @@
 //开始编辑输入框
 - (void)textFieldDidBeginEditing:(UITextField *)textField
 {
-    if (textField==self.CodeText) {
+    if (textField==CodeText) {
         NSTimeInterval animationDuration = 0.30f;
         CGRect frame = self.view.frame;
         frame.origin.y -=50;
@@ -192,7 +147,7 @@
 //结束编辑输入框
 - (void)textFieldDidEndEditing:(UITextField *)textField
 {
-    if (textField==self.CodeText)
+    if (textField==CodeText)
     {
         NSTimeInterval animationDuration = 0.30f;
         CGRect frame = self.view.frame;
@@ -210,11 +165,65 @@
 {
     self.navigationController.navigationBar.hidden = YES;
 }
-
+//获取验证码
 - (IBAction)GetVerifyCode:(id)sender {
+    
+    [MobilenumberText resignFirstResponder];
+    [CodeText resignFirstResponder];
+    [passwordText resignFirstResponder];
+    if ([MobilenumberText.text isEqual:@""] || [MobilenumberText.text isEqual:nil]) {
+        
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"温馨提示"
+                                                        message:@"手机号码不能为空"
+                                                       delegate:self
+                                              cancelButtonTitle:@"确定"
+                                              otherButtonTitles:nil, nil];
+        [alert show];
+    }
+    //    else if (!(MobilenumberText.text.length == 11)){
+    //
+    //        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"温馨提示"
+    //                                                        message:@"请输入正确的手机号码"
+    //                                                       delegate:self
+    //                                              cancelButtonTitle:@"确定"
+    //                                              otherButtonTitles:nil, nil];
+    //        [alert show];
+    //    }
+    else {
+        
+        NSLog(@"手机号:%@",self.MobilenumberText.text);
+        [self Getverificationcode:@""];
+    }
 }
-
+//提交
 - (IBAction)done:(id)sender {
+    
+    NSDictionary *plistDic = [[NSBundle mainBundle] infoDictionary];
+    NSLog(@"plistDic = %@",plistDic);
+    NSString *URl = [plistDic objectForKey: @"URL"];
+    NSError *error;
+    NSString *urlstr = [[NSString alloc] initWithFormat:@"%@/services/change_pwd?phone=%@&password=%@&validateCode=%@",URl,MobilenumberText.text,passwordText.text,CodeText.text];
+    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:urlstr]];
+    //    将请求的url数据放到NSData对象中
+    NSData *response = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
+    //    iOS5自带解析类NSJSONSerialization从response中解析出数据放到字典中
+    NSDictionary *getcodeDic = [NSJSONSerialization JSONObjectWithData:response options:NSJSONReadingMutableLeaves error:&error];
+    NSLog(@"%@",getcodeDic);
+    NSString *message = [getcodeDic objectForKey:@"message"];
+    NSLog(@"%@",message);
+    if (![[getcodeDic objectForKey:@"status"] isEqual:@"201"]) {
+        [self.navigationController popViewControllerAnimated:YES];
+    }else {
+        
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"温馨提示"
+                                                        message:[getcodeDic objectForKey:@"message"]
+                                                       delegate:self
+                                              cancelButtonTitle:@"确认"
+                                              otherButtonTitles:@"取消", nil];
+        [alert show];
+    }
+    
+    
 }
 
 @end
