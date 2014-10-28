@@ -132,6 +132,8 @@
 		F10340C719FF4FCF00C5CB4E /* ic_username.png in Resources */ = {isa = PBXBuildFile; fileRef = F10340C519FF4FCF00C5CB4E /* ic_username.png */; };
 		F10340CB19FF51DD00C5CB4E /* UIImage+Scale.m in Sources */ = {isa = PBXBuildFile; fileRef = F10340CA19FF51DD00C5CB4E /* UIImage+Scale.m */; };
 		F10340CE19FF5BC500C5CB4E /* InsetTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = F10340CD19FF5BC500C5CB4E /* InsetTextField.m */; };
+		F10340D119FF7B1700C5CB4E /* CustomToolbarItem.m in Sources */ = {isa = PBXBuildFile; fileRef = F10340D019FF7B1700C5CB4E /* CustomToolbarItem.m */; };
+		F10340D319FF7B3400C5CB4E /* CustomToolbarItem.xib in Resources */ = {isa = PBXBuildFile; fileRef = F10340D219FF7B3400C5CB4E /* CustomToolbarItem.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -379,6 +381,9 @@
 		F10340CA19FF51DD00C5CB4E /* UIImage+Scale.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Scale.m"; sourceTree = "<group>"; };
 		F10340CC19FF5BC500C5CB4E /* InsetTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InsetTextField.h; sourceTree = "<group>"; };
 		F10340CD19FF5BC500C5CB4E /* InsetTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InsetTextField.m; sourceTree = "<group>"; };
+		F10340CF19FF7B1700C5CB4E /* CustomToolbarItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomToolbarItem.h; sourceTree = "<group>"; };
+		F10340D019FF7B1700C5CB4E /* CustomToolbarItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomToolbarItem.m; sourceTree = "<group>"; };
+		F10340D219FF7B3400C5CB4E /* CustomToolbarItem.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CustomToolbarItem.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -791,6 +796,9 @@
 				F10340CD19FF5BC500C5CB4E /* InsetTextField.m */,
 				F10340C919FF51DD00C5CB4E /* UIImage+Scale.h */,
 				F10340CA19FF51DD00C5CB4E /* UIImage+Scale.m */,
+				F10340CF19FF7B1700C5CB4E /* CustomToolbarItem.h */,
+				F10340D019FF7B1700C5CB4E /* CustomToolbarItem.m */,
+				F10340D219FF7B3400C5CB4E /* CustomToolbarItem.xib */,
 			);
 			name = WidgetExtern;
 			sourceTree = "<group>";
@@ -912,6 +920,7 @@
 				AD33ED5F19FBCB6E00FE0C11 /* Default@2x.png in Resources */,
 				AD33ED3219FBCA2D00FE0C11 /* 删除_07.png in Resources */,
 				AD33ED3E19FBCA2D00FE0C11 /* 收藏_03.png in Resources */,
+				F10340D319FF7B3400C5CB4E /* CustomToolbarItem.xib in Resources */,
 				AD33ED1019FBCA2D00FE0C11 /* 2@2x.png in Resources */,
 				AD33ED3A19FBCA2D00FE0C11 /* 小区交流.png in Resources */,
 				AD33ED3B19FBCA2D00FE0C11 /* 工具_07.png in Resources */,
@@ -998,6 +1007,7 @@
 				AD6211D019FD598A009BECA6 /* LYToolsMain.m in Sources */,
 				AD33EC9319FBB13F00FE0C11 /* AppDelegate.m in Sources */,
 				AD62118219FD2FBC009BECA6 /* LYFunctionInterface.m in Sources */,
+				F10340D119FF7B1700C5CB4E /* CustomToolbarItem.m in Sources */,
 				F10340CB19FF51DD00C5CB4E /* UIImage+Scale.m in Sources */,
 				AD6211E019FD8028009BECA6 /* LYPublicMethods.m in Sources */,
 				AD6211AD19FD46BD009BECA6 /* LeslieImageCache.m in Sources */,

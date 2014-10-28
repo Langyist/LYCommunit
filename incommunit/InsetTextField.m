@@ -10,14 +10,26 @@
 
 @implementation InsetTextField
 
+- (id)initWithCoder:(NSCoder *)aDecoder {
+    self = [super initWithCoder:aDecoder];
+    if (self) {
+        [self initData];
+    }
+    return self;
+}
+
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
     if (self) {
-        _textInset = UIEdgeInsetsZero;
-        _showBorderLine = YES;
+        [self initData];
     }
     return self;
+}
+
+- (void)initData {
+    _textInset = UIEdgeInsetsZero;
+    _showBorderLine = YES;
 }
 
 

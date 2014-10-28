@@ -37,6 +37,7 @@
 {
     [super viewDidLoad];
     
+    [m_Nickname setShowBorderLine:NO];
     [m_Nickname setTextInset:UIEdgeInsetsMake(0, 15, 0, 15)];
     
     [m_button.layer setMasksToBounds:YES];
