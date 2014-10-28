@@ -19,4 +19,7 @@
 @property(nonatomic,retain)IBOutlet UITextField *m_Nickname;
 @property(nonatomic,retain)IBOutlet UIImageView *m_iamgeview;
 @property(nonatomic,retain)IBOutlet UIButton *m_button;
+
+@property(nonatomic,copy) NSString *lastChosenMediaType;
+
 @end

@@ -43,6 +43,16 @@
     self.CodeText.keyboardType = UIKeyboardTypeNamePhonePad;
     self.CodeText.delegate = self;
     self.passwordText.delegate = self;
+    
+    UITapGestureRecognizer *tapgesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(downkeyboardGesture)];
+    [self.view addGestureRecognizer:tapgesture];
+}
+//点击空白关闭键盘
+- (void)downkeyboardGesture {
+    
+    [self.MobilenumberText resignFirstResponder];
+    [self.CodeText resignFirstResponder];
+    [self.passwordText resignFirstResponder];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -164,6 +174,38 @@
     
     return YES;
 }
+
+//开始编辑输入框
+- (void)textFieldDidBeginEditing:(UITextField *)textField
+{
+    if (textField==self.CodeText) {
+        NSTimeInterval animationDuration = 0.30f;
+        CGRect frame = self.view.frame;
+        frame.origin.y -=50;
+        //frame.size.height +=60;
+        self.view.frame = frame;
+        [UIView beginAnimations:@"ResizeView" context:nil];
+        [UIView setAnimationDuration:animationDuration];
+        [UIView commitAnimations];
+    }
+}
+//结束编辑输入框
+- (void)textFieldDidEndEditing:(UITextField *)textField
+{
+    if (textField==self.CodeText)
+    {
+        NSTimeInterval animationDuration = 0.30f;
+        CGRect frame = self.view.frame;
+        frame.origin.y +=50;
+        //frame.size.height -=60;
+        self.view.frame = frame;
+        [UIView beginAnimations:@"ResizeView" context:nil];
+        [UIView setAnimationDuration:animationDuration];
+        self.view.frame = frame;
+        [UIView commitAnimations];
+    }
+}
+
 -(void)viewWillDisappear:(BOOL)animated
 {
     self.navigationController.navigationBar.hidden = YES;

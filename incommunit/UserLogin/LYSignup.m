@@ -47,7 +47,10 @@
     self.navigationItem.titleView = customLab;
     self.navigationController.navigationBar.hidden = NO;
     self.navigationController.navigationBar.tintColor= [UIColor colorWithRed:(0.0/255) green:(0.0/255) blue:(0.0/255) alpha:1.0];
-    // Do any additional setup after loading the view.
+    
+    m_Phone.delegate = self;
+    m_VerificationText.delegate = self;
+    m_password.delegate = self;
 }
 -(void)ClickView
 {
@@ -74,16 +77,6 @@
         [self GetRegistrationCode: @""];
     }
 }
-/*
- #pragma mark - Navigation
- 
- // In a storyboard-based application, you will often want to do a little preparation before navigation
- - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
- {
- // Get the new view controller using [segue destinationViewController].
- // Pass the selected object to the new view controller.
- }
- */
 
 #pragma mark - 访问网络数据
 //获取注册码
@@ -173,4 +166,52 @@
 {
     self.navigationController.navigationBar.hidden = YES;
 }
+
+#pragma mark UITextField delegate 
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    if (textField == m_Phone) {
+        [m_Phone resignFirstResponder];
+        [m_password becomeFirstResponder];
+    }else if (textField == m_password) {
+        
+        [m_password resignFirstResponder];
+        [m_VerificationText becomeFirstResponder];
+    }else if (textField == m_VerificationText) {
+        
+        [m_VerificationText resignFirstResponder];
+    }
+    return YES;
+}
+
+//开始编辑输入框
+- (void)textFieldDidBeginEditing:(UITextField *)textField
+{
+    if (textField==m_VerificationText) {
+        NSTimeInterval animationDuration = 0.30f;
+        CGRect frame = self.view.frame;
+        frame.origin.y -=50;
+        //frame.size.height +=60;
+        self.view.frame = frame;
+        [UIView beginAnimations:@"ResizeView" context:nil];
+        [UIView setAnimationDuration:animationDuration];
+        [UIView commitAnimations];
+    }
+}
+//结束编辑输入框
+- (void)textFieldDidEndEditing:(UITextField *)textField
+{
+    if (textField==m_VerificationText)
+    {
+        NSTimeInterval animationDuration = 0.30f;
+        CGRect frame = self.view.frame;
+        frame.origin.y +=50;
+        //frame.size.height -=60;
+        self.view.frame = frame;
+        [UIView beginAnimations:@"ResizeView" context:nil];
+        [UIView setAnimationDuration:animationDuration];
+        self.view.frame = frame;
+        [UIView commitAnimations];
+    }
+}
+
 @end
