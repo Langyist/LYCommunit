@@ -97,7 +97,7 @@
     //搜索
     m_deliverSearch = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, m_view02.frame.size.width, 40)];
     m_deliverSearch.delegate = self;
-    m_deliverSearch.placeholder = @"收索店铺";
+    m_deliverSearch.placeholder = @"搜索店铺";
     m_Deliverytableview.tableHeaderView = m_deliverSearch;
     
     //送餐送货下拉菜单View
@@ -162,7 +162,7 @@
     //搜索
     m_shopSearch = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, m_view02.frame.size.width, 40)];
     m_shopSearch.delegate = self;
-    m_shopSearch.placeholder = @"收索店铺";
+    m_shopSearch.placeholder = @"搜索店铺";
     m_ShopDaquan.tableHeaderView = m_shopSearch;
     
     //店铺大全下拉菜单
