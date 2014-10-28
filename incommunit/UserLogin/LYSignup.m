@@ -23,6 +23,12 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    UIEdgeInsets inset = UIEdgeInsetsMake(0, 25, 0, 25);
+    [m_Phone setTextInset:inset];
+    [m_VerificationText setTextInset:inset];
+    [m_password setTextInset:inset];
+    
     m_dTime = 60;
     [m_NetButton.layer setMasksToBounds:YES];
     [m_NetButton.layer setCornerRadius:3.0];

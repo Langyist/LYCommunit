@@ -7,12 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "InsetTextField.h"
 
 @interface LYSignup : UIViewController<UITextFieldDelegate>
 {
-    UITextField * m_Phone;
-    UITextField *m_VerificationText;
-    UITextField *m_password;
+    InsetTextField * m_Phone;
+    InsetTextField *m_VerificationText;
+    InsetTextField *m_password;
     NSString *m_VerificationCode;
     @public BOOL bcbool ;
     UIButton * m_NetButton;
@@ -20,9 +21,9 @@
     int m_dTime;
     NSTimer *m_timer;
 }
-@property(nonatomic,retain)IBOutlet UITextField *m_Phone;
-@property(nonatomic,retain)IBOutlet UITextField *m_VerificationText;
-@property(nonatomic,retain)IBOutlet UITextField *m_password;
+@property(nonatomic,retain)IBOutlet InsetTextField *m_Phone;
+@property(nonatomic,retain)IBOutlet InsetTextField *m_VerificationText;
+@property(nonatomic,retain)IBOutlet InsetTextField *m_password;
 @property(nonatomic,retain)IBOutlet UIButton * m_NetButton;
 @property(nonatomic,retain)IBOutlet UIButton * m_RButton;
 @end

@@ -131,6 +131,7 @@
 		F10340C619FF4FCF00C5CB4E /* ic_password.png in Resources */ = {isa = PBXBuildFile; fileRef = F10340C419FF4FCF00C5CB4E /* ic_password.png */; };
 		F10340C719FF4FCF00C5CB4E /* ic_username.png in Resources */ = {isa = PBXBuildFile; fileRef = F10340C519FF4FCF00C5CB4E /* ic_username.png */; };
 		F10340CB19FF51DD00C5CB4E /* UIImage+Scale.m in Sources */ = {isa = PBXBuildFile; fileRef = F10340CA19FF51DD00C5CB4E /* UIImage+Scale.m */; };
+		F10340CE19FF5BC500C5CB4E /* InsetTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = F10340CD19FF5BC500C5CB4E /* InsetTextField.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -376,6 +377,8 @@
 		F10340C519FF4FCF00C5CB4E /* ic_username.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_username.png; sourceTree = "<group>"; };
 		F10340C919FF51DD00C5CB4E /* UIImage+Scale.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Scale.h"; sourceTree = "<group>"; };
 		F10340CA19FF51DD00C5CB4E /* UIImage+Scale.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Scale.m"; sourceTree = "<group>"; };
+		F10340CC19FF5BC500C5CB4E /* InsetTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InsetTextField.h; sourceTree = "<group>"; };
+		F10340CD19FF5BC500C5CB4E /* InsetTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InsetTextField.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -784,6 +787,8 @@
 		F10340C819FF51C200C5CB4E /* WidgetExtern */ = {
 			isa = PBXGroup;
 			children = (
+				F10340CC19FF5BC500C5CB4E /* InsetTextField.h */,
+				F10340CD19FF5BC500C5CB4E /* InsetTextField.m */,
 				F10340C919FF51DD00C5CB4E /* UIImage+Scale.h */,
 				F10340CA19FF51DD00C5CB4E /* UIImage+Scale.m */,
 			);
@@ -999,6 +1004,7 @@
 				AD6211A119FD42CE009BECA6 /* LYReachability.m in Sources */,
 				AD33ECC019FBC39700FE0C11 /* LYUIview.m in Sources */,
 				AD62118619FD3148009BECA6 /* LYUserloginView.m in Sources */,
+				F10340CE19FF5BC500C5CB4E /* InsetTextField.m in Sources */,
 				AD6211E319FD88DE009BECA6 /* LYAnnouncementDetails.m in Sources */,
 				AD6211EC19FDA63C009BECA6 /* HomepageMain.m in Sources */,
 				AD3DD3B219FDEE5B00364854 /* LMContainsLMComboxScrollView.m in Sources */,

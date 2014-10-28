@@ -159,14 +159,14 @@ static NSDictionary *          m_cityinfo;//城市信息
     m_lable_distance = (UILabel *)[cell.contentView viewWithTag:102];
     m_lable_st=(UILabel *)[cell.contentView viewWithTag:103];
     
-    UIColor *color = [UIColor darkTextColor];
+    UIColor *color = [UIColor greenColor];
     NSString *text = @"已开通";
     if (m_CommunitylistON.count > indexPath.row) {
         Community=[m_CommunitylistON objectAtIndex:indexPath.row];
     }
     else if (m_CommunitylistOF.count > indexPath.row - m_CommunitylistON.count) {
         Community=[m_CommunitylistOF objectAtIndex:indexPath.row - m_CommunitylistON.count];
-        color = [UIColor lightGrayColor];
+        color = [UIColor redColor];
         text = @"未开通";
     }
     m_lable_st.text = text;

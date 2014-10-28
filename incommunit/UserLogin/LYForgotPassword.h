@@ -7,17 +7,19 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "InsetTextField.h"
 @interface LYForgotPassword :UIViewController<UITextFieldDelegate>
 {
-    UITextField *MobilenumberText;
-    UITextField *CodeText;
-    UITextField *passwordText;
+    InsetTextField *MobilenumberText;
+    InsetTextField *CodeText;
+    InsetTextField *passwordText;
     UIButton *codeButton;
     UIButton *submitButton;
 }
-@property(nonatomic,retain)IBOutlet UITextField *MobilenumberText;
-@property(nonatomic,retain)IBOutlet UITextField *CodeText;
-@property(nonatomic,retain)IBOutlet UITextField *passwordText;
+
+@property(nonatomic,retain)IBOutlet InsetTextField *MobilenumberText;
+@property(nonatomic,retain)IBOutlet InsetTextField *CodeText;
+@property(nonatomic,retain)IBOutlet InsetTextField *passwordText;
 @property(nonatomic,retain)IBOutlet UIButton *codeButton;
 @property(nonatomic,retain)IBOutlet UIButton *submitButton;
 @end
