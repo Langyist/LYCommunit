@@ -128,6 +128,9 @@
 		AD6211E919FD9F1C009BECA6 /* LYForgotPassword.m in Sources */ = {isa = PBXBuildFile; fileRef = AD6211E819FD9F1C009BECA6 /* LYForgotPassword.m */; };
 		AD6211EC19FDA63C009BECA6 /* HomepageMain.m in Sources */ = {isa = PBXBuildFile; fileRef = AD6211EB19FDA63C009BECA6 /* HomepageMain.m */; };
 		AD6211EF19FDA95E009BECA6 /* LYReal-name.m in Sources */ = {isa = PBXBuildFile; fileRef = AD6211EE19FDA95E009BECA6 /* LYReal-name.m */; };
+		F10340C619FF4FCF00C5CB4E /* ic_password.png in Resources */ = {isa = PBXBuildFile; fileRef = F10340C419FF4FCF00C5CB4E /* ic_password.png */; };
+		F10340C719FF4FCF00C5CB4E /* ic_username.png in Resources */ = {isa = PBXBuildFile; fileRef = F10340C519FF4FCF00C5CB4E /* ic_username.png */; };
+		F10340CB19FF51DD00C5CB4E /* UIImage+Scale.m in Sources */ = {isa = PBXBuildFile; fileRef = F10340CA19FF51DD00C5CB4E /* UIImage+Scale.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -369,6 +372,10 @@
 		AD6211EB19FDA63C009BECA6 /* HomepageMain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomepageMain.m; sourceTree = "<group>"; };
 		AD6211ED19FDA95E009BECA6 /* LYReal-name.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "LYReal-name.h"; sourceTree = "<group>"; };
 		AD6211EE19FDA95E009BECA6 /* LYReal-name.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "LYReal-name.m"; sourceTree = "<group>"; };
+		F10340C419FF4FCF00C5CB4E /* ic_password.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_password.png; sourceTree = "<group>"; };
+		F10340C519FF4FCF00C5CB4E /* ic_username.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_username.png; sourceTree = "<group>"; };
+		F10340C919FF51DD00C5CB4E /* UIImage+Scale.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Scale.h"; sourceTree = "<group>"; };
+		F10340CA19FF51DD00C5CB4E /* UIImage+Scale.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Scale.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -415,6 +422,7 @@
 		AD33EC8C19FBB13F00FE0C11 /* incommunit */ = {
 			isa = PBXGroup;
 			children = (
+				F10340C819FF51C200C5CB4E /* WidgetExtern */,
 				AD3DD3C419FE348600364854 /* BaiduMap */,
 				AD6211D119FD5BF0009BECA6 /* Convenience */,
 				AD6211CD19FD5962009BECA6 /* Tools */,
@@ -501,6 +509,8 @@
 		AD33ECC119FBCA2D00FE0C11 /* Image */ = {
 			isa = PBXGroup;
 			children = (
+				F10340C419FF4FCF00C5CB4E /* ic_password.png */,
+				F10340C519FF4FCF00C5CB4E /* ic_username.png */,
 				AD33ED5C19FBCB6E00FE0C11 /* Default.png */,
 				AD33ED5D19FBCB6E00FE0C11 /* Default@2x.png */,
 				AD33ECC219FBCA2D00FE0C11 /* 1_03.png */,
@@ -771,6 +781,15 @@
 			path = Convenience;
 			sourceTree = "<group>";
 		};
+		F10340C819FF51C200C5CB4E /* WidgetExtern */ = {
+			isa = PBXGroup;
+			children = (
+				F10340C919FF51DD00C5CB4E /* UIImage+Scale.h */,
+				F10340CA19FF51DD00C5CB4E /* UIImage+Scale.m */,
+			);
+			name = WidgetExtern;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -927,10 +946,12 @@
 				AD33ED4F19FBCA2D00FE0C11 /* 购物车.png in Resources */,
 				AD33ED3919FBCA2D00FE0C11 /* 小三角_11.png in Resources */,
 				AD33ED4319FBCA2D00FE0C11 /* 物业管理--物业公告_02.png in Resources */,
+				F10340C619FF4FCF00C5CB4E /* ic_password.png in Resources */,
 				AD33ED2219FBCA2D00FE0C11 /* ic_default_no_data.png in Resources */,
 				AD33ED0E19FBCA2D00FE0C11 /* 1_10.png in Resources */,
 				AD33ED0D19FBCA2D00FE0C11 /* 1_03.png in Resources */,
 				AD33ED1819FBCA2D00FE0C11 /* 4_10.png in Resources */,
+				F10340C719FF4FCF00C5CB4E /* ic_username.png in Resources */,
 				AD33ED2E19FBCA2D00FE0C11 /* 主页_07.png in Resources */,
 				AD33EC9B19FBB13F00FE0C11 /* Images.xcassets in Resources */,
 				AD33ED1119FBCA2D00FE0C11 /* 2_03.png in Resources */,
@@ -972,6 +993,7 @@
 				AD6211D019FD598A009BECA6 /* LYToolsMain.m in Sources */,
 				AD33EC9319FBB13F00FE0C11 /* AppDelegate.m in Sources */,
 				AD62118219FD2FBC009BECA6 /* LYFunctionInterface.m in Sources */,
+				F10340CB19FF51DD00C5CB4E /* UIImage+Scale.m in Sources */,
 				AD6211E019FD8028009BECA6 /* LYPublicMethods.m in Sources */,
 				AD6211AD19FD46BD009BECA6 /* LeslieImageCache.m in Sources */,
 				AD6211A119FD42CE009BECA6 /* LYReachability.m in Sources */,

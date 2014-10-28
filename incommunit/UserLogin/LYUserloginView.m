@@ -9,6 +9,7 @@
 #import"LYSqllite.h"
 #import "LYSelectCommunit.h"
 #import "LYReachability.h"
+#import "UIImage+Scale.h"
 @interface LYUserloginView ()
 @end
 
@@ -21,8 +22,8 @@
     [m_loginbutton.layer setMasksToBounds:YES];
     [m_loginbutton.layer setCornerRadius:3.0];
     
-    [self modify:userText imageName:@""];
-    [self modify:userText imageName:@""];
+    [self modify:userText imageName:@"ic_username" size:CGSizeMake(31, 32)];
+    [self modify:passwordtext imageName:@"ic_password" size:CGSizeMake(29, 37)];
     
     userText.delegate=self;
     passwordtext.delegate=self;
@@ -45,13 +46,21 @@
     [LYSqllite CreatUserTable];
 }
 
-- (void)modify:(UITextField *)textFiled imageName:(NSString *)imageName {
-    UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:imageName]];
-    imageView.frame = CGRectMake(0.0, 0.0, textFiled.frame.size.height, textFiled.frame.size.height);
-    imageView.contentMode = UIViewContentModeCenter;
-    imageView.backgroundColor = [UIColor colorWithRed:86.0f / 255.0f green:190.0f / 255.0f blue:164.f / 255.0f alpha:1];
+- (void)modify:(UITextField *)textFiled imageName:(NSString *)imageName size:(CGSize)iconSize {
     
-    textFiled.leftView = imageView;
+    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, textFiled.frame.size.height * 1.2, textFiled.frame.size.height)];
+    
+    UIImage *image = [UIImage imageNamed:imageName];
+    image = [UIImage imageWithImage:image scaledToSize:CGSizeMake(iconSize.width / 2, iconSize.height / 2)];
+    
+    UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
+    imageView.frame = CGRectMake(0.0, 0.0, iconSize.width / 2, iconSize.height / 2);
+    imageView.center = CGPointMake(textFiled.frame.size.height / 2, textFiled.frame.size.height / 2);
+    imageView.contentMode = UIViewContentModeCenter;
+    //imageView.backgroundColor = [UIColor colorWithRed:86.0f / 255.0f green:190.0f / 255.0f blue:164.f / 255.0f alpha:1];
+    [view addSubview:imageView];
+    
+    textFiled.leftView = view;
     textFiled.leftViewMode = UITextFieldViewModeAlways;
     
     //textFiled.layer.cornerRadius = 8.0f;
