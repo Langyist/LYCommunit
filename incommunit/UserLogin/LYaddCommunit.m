@@ -35,6 +35,9 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    [m_Nickname setTextInset:UIEdgeInsetsMake(0, 20, 0, 20)];
+    
     [m_button.layer setMasksToBounds:YES];
     [m_button.layer setCornerRadius:3.0];
     
@@ -42,7 +45,7 @@
 
     CALayer *lay  = m_iamgeview.layer;//获取ImageView的层
     [lay setMasksToBounds:YES];
-    [lay setCornerRadius:50.0];
+    [lay setCornerRadius:CGRectGetHeight(m_iamgeview.frame)];
     
     UILabel *customLab = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 100, 30)];
     [customLab setTextColor:[UIColor colorWithRed:(0.0/255) green:(0.0/255) blue:(0.0/255) alpha:1.0]];
@@ -64,6 +67,7 @@
     
     [self.view addSubview:bgScrollView];
     [self setUpBgScrollView];
+    
     UITapGestureRecognizer* singleRecognizer;
     singleRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(ClickView)];
     singleRecognizer.numberOfTapsRequired = 2; // 单击
@@ -72,7 +76,8 @@
     m_iamgeview.userInteractionEnabled = YES;
     UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(Photograph)];
     [m_iamgeview addGestureRecognizer:singleTap];
-    [self.view addSubview:m_iamgeview];
+    
+    //[self.view addSubview:m_iamgeview];
     // Do any additional setup after loading the view.
 }
 -(void)Photograph
@@ -271,6 +276,9 @@
         self.view.frame = frame;
         [UIView commitAnimations];
     }
+}
+
+- (IBAction)done:(id)sender {
 }
 
 @end

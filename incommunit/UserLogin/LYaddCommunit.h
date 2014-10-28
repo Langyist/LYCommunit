@@ -8,15 +8,16 @@
 
 #import <UIKit/UIKit.h>
 #import "LMComBoxView.h"
+#import "InsetTextField.h"
 @interface LYaddCommunit : UIViewController<LMComBoxViewDelegate>
 {
     UILabel *m_lableinfo;
-    UITextField *m_Nickname;
+    InsetTextField *m_Nickname;
     UIImageView *m_iamgeview;
     UIButton *m_button;
 }
 @property(nonatomic,retain)IBOutlet UILabel *m_lableinfo;
-@property(nonatomic,retain)IBOutlet UITextField *m_Nickname;
+@property(nonatomic,retain)IBOutlet InsetTextField *m_Nickname;
 @property(nonatomic,retain)IBOutlet UIImageView *m_iamgeview;
 @property(nonatomic,retain)IBOutlet UIButton *m_button;
 

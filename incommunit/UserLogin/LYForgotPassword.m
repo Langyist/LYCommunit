@@ -211,4 +211,10 @@
     self.navigationController.navigationBar.hidden = YES;
 }
 
+- (IBAction)GetVerifyCode:(id)sender {
+}
+
+- (IBAction)done:(id)sender {
+}
+
 @end
