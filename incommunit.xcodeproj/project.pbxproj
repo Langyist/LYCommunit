@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		AD30F7D61A00D97A00C8709E /* LYProductinformation.m in Sources */ = {isa = PBXBuildFile; fileRef = AD30F7D51A00D97A00C8709E /* LYProductinformation.m */; };
 		AD33EC9019FBB13F00FE0C11 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = AD33EC8F19FBB13F00FE0C11 /* main.m */; };
 		AD33EC9319FBB13F00FE0C11 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = AD33EC9219FBB13F00FE0C11 /* AppDelegate.m */; };
 		AD33EC9619FBB13F00FE0C11 /* LYSelectCommunit.m in Sources */ = {isa = PBXBuildFile; fileRef = AD33EC9519FBB13F00FE0C11 /* LYSelectCommunit.m */; };
@@ -148,8 +147,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		AD30F7D41A00D97A00C8709E /* LYProductinformation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LYProductinformation.h; sourceTree = "<group>"; };
-		AD30F7D51A00D97A00C8709E /* LYProductinformation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LYProductinformation.m; sourceTree = "<group>"; };
 		AD33EC8A19FBB13F00FE0C11 /* incommunit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = incommunit.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AD33EC8E19FBB13F00FE0C11 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AD33EC8F19FBB13F00FE0C11 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -788,8 +785,6 @@
 				AD3DD40B19FE466600364854 /* LYShop.m */,
 				AD3DD40D19FE498600364854 /* LYShoppingcart.h */,
 				AD3DD40E19FE498600364854 /* LYShoppingcart.m */,
-				AD30F7D41A00D97A00C8709E /* LYProductinformation.h */,
-				AD30F7D51A00D97A00C8709E /* LYProductinformation.m */,
 			);
 			path = Convenience;
 			sourceTree = "<group>";
@@ -1024,7 +1019,6 @@
 				AD6211EC19FDA63C009BECA6 /* HomepageMain.m in Sources */,
 				AD3DD3B219FDEE5B00364854 /* LMContainsLMComboxScrollView.m in Sources */,
 				AD33ECBC19FBBE3600FE0C11 /* LYSelectCity.m in Sources */,
-				AD30F7D61A00D97A00C8709E /* LYProductinformation.m in Sources */,
 				AD33EC9019FBB13F00FE0C11 /* main.m in Sources */,
 				AD3DD3BF19FE13FE00364854 /* LY_DeliveryCell.m in Sources */,
 				AD3DD40C19FE466600364854 /* LYShop.m in Sources */,
