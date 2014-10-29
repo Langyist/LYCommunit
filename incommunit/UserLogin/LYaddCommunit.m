@@ -71,7 +71,7 @@
     
     UITapGestureRecognizer* singleRecognizer;
     singleRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(ClickView)];
-    singleRecognizer.numberOfTapsRequired = 2; // 单击
+    singleRecognizer.numberOfTapsRequired = 1; // 单击
     [self.view addGestureRecognizer:singleRecognizer];
     
     m_iamgeview.userInteractionEnabled = YES;
@@ -285,18 +285,18 @@
 - (IBAction)done:(id)sender {
     
     NSLog(@"完成");
-    NSDictionary *plistDic = [[NSBundle mainBundle] infoDictionary];
-    NSLog(@"plistDic = %@",plistDic);
-    NSString *URl = [plistDic objectForKey: @"URL"];
-    NSError *error;
-    NSString *urlstr;
-//    NSString *urlstr = [[NSString alloc] initWithFormat:@"%@/services/reg_community/user_id=%@&community_id=%@&nick_name=%@&head=%@&l1=%@&l2=%@&l3=%@&l4=%@&l5=%@",URl,,[[LYSelectCommunit GetCommunityInfo] objectForKey:@"id"],,];
-    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:urlstr]];
-    //    将请求的url数据放到NSData对象中
-    NSData *response = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
-    //    iOS5自带解析类NSJSONSerialization从response中解析出数据放到字典中
-    NSDictionary *getcodeDic = [NSJSONSerialization JSONObjectWithData:response options:NSJSONReadingMutableLeaves error:&error];
-    NSLog(@"%@",getcodeDic);
+//    NSDictionary *plistDic = [[NSBundle mainBundle] infoDictionary];
+//    NSLog(@"plistDic = %@",plistDic);
+//    NSString *URl = [plistDic objectForKey: @"URL"];
+//    NSError *error;
+//    NSString *urlstr;
+////    NSString *urlstr = [[NSString alloc] initWithFormat:@"%@/services/reg_community/user_id=%@&community_id=%@&nick_name=%@&head=%@&l1=%@&l2=%@&l3=%@&l4=%@&l5=%@",URl,,[[LYSelectCommunit GetCommunityInfo] objectForKey:@"id"],,];
+//    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:urlstr]];
+//    //    将请求的url数据放到NSData对象中
+//    NSData *response = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
+//    //    iOS5自带解析类NSJSONSerialization从response中解析出数据放到字典中
+//    NSDictionary *getcodeDic = [NSJSONSerialization JSONObjectWithData:response options:NSJSONReadingMutableLeaves error:&error];
+//    NSLog(@"%@",getcodeDic);
 }
 
 @end
