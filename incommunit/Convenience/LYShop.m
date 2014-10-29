@@ -9,6 +9,7 @@
 #import "LYShop.h"
 #import "LMContainsLMComboxScrollView.h"
 #import "LYSqllite.h"
+#import "LYProductinformation.h"
 #define kDropDownListTag 1000
 @interface LYShop ()
 {
@@ -156,7 +157,7 @@
     NSLog(@"%lu",(unsigned long)row);
     if (indexPath.row>1) {
         NSMutableDictionary *Goodsinfo =[m_Goodslist objectAtIndex:indexPath.row-2];
-        m_Goodsid = Goodsinfo;
+        m_Goodsid =  m_Goodsid = [[NSString alloc] initWithFormat:@"%@",[Goodsinfo objectForKey:@"id"]];
         [self performSegueWithIdentifier:@"GoProductDetails" sender:self];
     }
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
@@ -183,9 +184,9 @@
 {
     if ([segue.identifier isEqualToString: @"GoProductDetails"])
     {
-//        LYProductDetails *detailViewController = (LYProductDetails*) segue.destinationViewController;
-//        detailViewController->m_GoodsID = self->m_Goodsid;
-//        detailViewController->m_storesinfo = self->m_stores;
+        LYProductinformation *detailViewController = (LYProductinformation*) segue.destinationViewController;
+        detailViewController->m_GoodsID = self->m_Goodsid;
+       // detailViewController->m_storesinfo = self->m_stores;
     }
 }
 
