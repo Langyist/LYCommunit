@@ -39,7 +39,7 @@
     UIButton * m_ShoppingCartButton;
     UIAlertView *m_addshopcatalert;
     
-    NSMutableDictionary *m_Goodsid;//商品ID
+    NSString *m_Goodsid;//商品ID
     
     UITabBar *m_tabBar;
     

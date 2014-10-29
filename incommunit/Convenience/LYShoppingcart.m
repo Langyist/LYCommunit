@@ -13,9 +13,6 @@
 @end
 
 @implementation LYShoppingcart
-{
-  NSDictionary * selectCell;
-}
 
 @synthesize m_tableView,m_storesNumber;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -30,12 +27,13 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
     number= 0;
-    selectCell = [[NSDictionary alloc] init];
     m_textfiledlist = [[NSMutableArray alloc] init];
     self.m_tableView.allowsSelectionDuringEditing = YES;
     Goodslist = [LYSqllite GetGoods];
 }
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
@@ -65,7 +63,7 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     NSMutableArray *temp = [Goodslist objectAtIndex:section];
-    return temp.count+1;
+    return temp.count + 1;
 }
 
 - (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -73,61 +71,85 @@
     return UITableViewCellEditingStyleNone;
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    UITableViewCell *cell ;
-    NSMutableArray *tempinfo = [Goodslist objectAtIndex:indexPath.section];
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    UITableViewCell *cell;
+    NSMutableArray  *tempinfo = [Goodslist objectAtIndex:indexPath.section];
     static NSString *CellIdentifier;
+    
     if (indexPath.row == 0) {
+        
         CellIdentifier = @"selectStoresCell";
-        if (cell == nil)
-        {
-            NSDictionary * temp = [tempinfo objectAtIndex:indexPath.row];
-            cell = (UITableViewCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-            m_imge = (UIImageView *)[cell viewWithTag:100];
-            [m_imge setImage:[UIImage imageNamed:@"Unselected.png"]];
-            UILabel *name = (UILabel *)[cell viewWithTag:101];
-            name.text = [temp objectForKey:@"Storesname"];
+        
+        NSDictionary * temp = [tempinfo objectAtIndex:indexPath.row];
+        
+        cell = (UITableViewCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+        UIImageView *imageView  = (UIImageView *)[cell viewWithTag:100];
+        UILabel     *name       = (UILabel *)[cell viewWithTag:101];
+        
+        NSString *imageName = @"Selected";
+        for (NSDictionary *goodsInfo in tempinfo) {
+            if (![[goodsInfo objectForKey:@"isSelected"] boolValue]) {
+                imageName = @"Unselected";
+                break;
+            }
         }
-    }else
-    {
-        CellIdentifier = @"selectGoodsCell";
-        if (cell == nil)
-        {
-            NSDictionary * temp = [tempinfo objectAtIndex:indexPath.row-1];
-            cell = (UITableViewCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-            m_imge = (UIImageView *)[cell viewWithTag:100];
-            [m_imge setImage:[UIImage imageNamed:@"Unselected.png"]];
-            UILabel *name = (UILabel *)[cell viewWithTag:102];
-            name.text = [temp objectForKey:@"name"];
-            UITextField *quantityfl = (UITextField *)[cell viewWithTag:105];
-            quantityfl.text = [temp objectForKey:@"quantity"];
-            UILabel *pricelb = (UILabel *)[cell viewWithTag:103];
-            pricelb.text = [[NSString alloc] initWithFormat:@"￥%@.00",[temp objectForKey:@"price"]];
-            UIButton *LessButton = [[UIButton alloc] init];
-            LessButton = (UIButton *)[cell viewWithTag:106];
-            LessButton.tag = indexPath.row-1;
-            
-            UIButton *addButton = [[UIButton alloc] init];
-            addButton = (UIButton *)[cell viewWithTag:104];
-            addButton.tag = indexPath.row-1;
-            [m_textfiledlist addObject:quantityfl];
-            number ++;
-        }
+        [imageView  setImage:[UIImage imageNamed:imageName]]; // 是否全选
+        [name       setText:[temp objectForKey:@"Storesname"]]; // 商店名称
     }
-    m_storesNumber.text = [[NSString alloc] initWithFormat:@"共%d件商品",number];
+    else {
+        
+        CellIdentifier = @"selectGoodsCell";
+        
+        NSDictionary * temp = [tempinfo objectAtIndex:indexPath.row - 1];
+        
+        cell = (UITableViewCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+        
+        UIImageView *imageView  = (UIImageView *)[cell viewWithTag:100];
+        UILabel     *name       = (UILabel *)[cell viewWithTag:102];
+        UITextField *quantityfl = (UITextField *)[cell viewWithTag:105];
+        UILabel     *pricelb    = (UILabel *)[cell viewWithTag:103];
+        
+        NSString *imageName = @"Selected";
+        if (![[temp objectForKey:@"isSelected"] boolValue]) {
+            imageName = @"Unselected";
+        }
+        [imageView  setImage:[UIImage imageNamed:imageName]]; // 是否选择
+        [name       setText:[temp objectForKey:@"name"]]; // 商品名字
+        [quantityfl setText:[temp objectForKey:@"quantity"]]; // 选择数量
+        CGFloat price = [[temp objectForKey:@"price"] floatValue];
+        [pricelb    setText:[[NSString alloc] initWithFormat:@"￥%.02f", price]]; // 价格，小数点两位精度
+        
+        UIButton *LessButton = [[UIButton alloc] init];
+        LessButton = (UIButton *)[cell viewWithTag:106];
+        LessButton.tag = indexPath.row - 1;
+        
+        UIButton *addButton = [[UIButton alloc] init];
+        addButton = (UIButton *)[cell viewWithTag:104];
+        addButton.tag = indexPath.row - 1;
+        [m_textfiledlist addObject:quantityfl];
+    }
+
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *oneCell = [tableView cellForRowAtIndexPath:indexPath];
-    [self changeCheckBox:YES tableViewCell:oneCell];
-}
-
-- (void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath NS_AVAILABLE_IOS(3_0) {
-    UITableViewCell *oneCell = [tableView cellForRowAtIndexPath:indexPath];
-    [self changeCheckBox:NO tableViewCell:oneCell];
+    NSMutableArray  *tempinfo = [Goodslist objectAtIndex:indexPath.section];
+    BOOL isSelected = NO;
+    if (indexPath.row == 0) {
+        for (NSDictionary *goodsInfo in tempinfo) {
+            if (![[goodsInfo objectForKey:@"isSelected"] boolValue]) {
+                isSelected = YES;
+                break;
+            }
+        }
+    }
+    else {
+        NSDictionary * temp = [tempinfo objectAtIndex:indexPath.row - 1];
+        isSelected = ![[temp objectForKey:@"isSelected"] boolValue];
+    }
+    [self changeDataSelected:indexPath isSelected:isSelected];
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -177,14 +199,38 @@
 #pragma mark -
 #pragma mark Method
 
-- (void)changeCheckBox:(BOOL)isSelected tableViewCell:(UITableViewCell *)cell {
-    UIImageView *imageView = (UIImageView *)[cell viewWithTag:100];
-    if (isSelected) {
-        imageView.image = [UIImage imageNamed:@"Selected.png"];
+- (void)changeDataSelected:(NSIndexPath *)indexPath isSelected:(BOOL)selected {
+    NSMutableArray *newGoodsList = [[NSMutableArray alloc] init];
+    NSMutableArray *tempGoodList = [Goodslist objectAtIndex:indexPath.section];
+    if (indexPath.row == 0) {
+        // 重新设置所有项目的选中值;
+        for (NSInteger index = 0; index < [tempGoodList count]; index++) {
+            NSMutableDictionary *tempGoodsInfo = [NSMutableDictionary dictionaryWithDictionary:[tempGoodList objectAtIndex:index]];
+            [tempGoodsInfo setObject:[NSNumber numberWithBool:selected] forKey:@"isSelected"];
+            [newGoodsList addObject:tempGoodsInfo];
+        }
     }
     else {
-        imageView.image = [UIImage imageNamed:@"Unselected.png"];
+        newGoodsList = tempGoodList;
+        
+        // 重新设置当前项目的选中值;
+        NSMutableDictionary *tempGoodsInfo = [NSMutableDictionary dictionaryWithDictionary:[newGoodsList objectAtIndex:indexPath.row - 1]];
+        [tempGoodsInfo setObject:[NSNumber numberWithBool:selected] forKey:@"isSelected"];
+        [newGoodsList setObject:tempGoodsInfo atIndexedSubscript:indexPath.row - 1];
     }
+    
+    [Goodslist setObject:newGoodsList atIndexedSubscript:indexPath.section];
+    [m_tableView reloadSections:[NSIndexSet indexSetWithIndex:indexPath.section] withRowAnimation:UITableViewRowAnimationNone];
+    
+    number = 0;
+    for (NSArray *listOne in Goodslist) {
+        for (NSDictionary *goodsInfo in listOne) {
+            if ([[goodsInfo objectForKey:@"isSelected"] boolValue]) {
+                number += 1;
+            }
+        }
+    }
+    m_storesNumber.text = [[NSString alloc] initWithFormat:@"共%d件商品", number];
 }
 
 @end
