@@ -14,7 +14,6 @@
 @implementation LYForgotPassword
 @synthesize MobilenumberText,CodeText,codeButton,passwordText,submitButton;
 - (void)viewDidLoad {
-    
     [super viewDidLoad];
     
     UIEdgeInsets inset = UIEdgeInsetsMake(0, 25, 0, 25);

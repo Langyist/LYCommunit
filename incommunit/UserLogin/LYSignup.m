@@ -64,14 +64,14 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-//下一步button
+
 -(IBAction)Signup:(id)sender
 {
     //if ([self GetRegistration:@""]) {
     [self performSegueWithIdentifier:@"GoLYaddCommunit" sender:self];
     //}
 }
-//获取验证码
+
 -(IBAction)GetRcode:(id)sender
 {
     if (m_Phone.text!=nil&&![m_Phone.text isEqual:@""]) {
@@ -83,6 +83,7 @@
 //获取注册码
 -(BOOL)GetRegistrationCode:(NSString *)url
 {
+    
     m_timer =  [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(Countdown) userInfo:nil repeats:YES];
     BOOL bc;
     NSDictionary *plistDic = [[NSBundle mainBundle] infoDictionary];

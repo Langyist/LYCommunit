@@ -10,10 +10,7 @@
 #import "LYSelectCommunit.h"
 #import "LYReachability.h"
 #import "UIImage+Scale.h"
-@interface LYUserloginView () {
-    
-    NSThread* myThread;
-}
+@interface LYUserloginView ()
 @end
 
 @implementation LYUserloginView
@@ -101,29 +98,41 @@
 -(IBAction)login:(NSString*)user password:(NSString *)password
 {
     [passwordtext resignFirstResponder];
+    NSThread* myThread = [[NSThread alloc] initWithTarget:self selector:@selector(startlogin:) object:nil];
+    [myThread start];
     LYReachability *r = [LYReachability reachabilityWithHostName:@"www.baidu.com"];
-    
+    switch ([r currentReachabilityStatus])
+    {
+        case NotReachable:
+        {
+            UIAlertView *alert =[[UIAlertView alloc]initWithTitle:@"提示" message:@"当前没有可用网络" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+            [alert show];
+            [myThread cancel];
+            [login stopAnimating];
+            [login setHidesWhenStopped:YES];
+            return;
+        }
+            break;
+        case ReachableViaWWAN:
+        {
+            UIAlertView *alert =[[UIAlertView alloc]initWithTitle:@"提示" message:@"当前使用的是3G网络是否继续" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"继续", nil];
+            [alert show];
+        }
+            // 使用3G网络
+            break;
+        case ReachableViaWiFi:
+            // 使用WiFi网络
+            break;
+    }
     if ([userText.text isEqual:@""]||userText.text==nil) {
-        UIAlertView *aler = [[UIAlertView alloc] initWithTitle:@"提示"
-                                                       message:@"用户不能为空"
-                                                      delegate:self
-                                             cancelButtonTitle:@"确定"
-                                             otherButtonTitles:nil, nil];
+        UIAlertView *aler = [[UIAlertView alloc] initWithTitle:@"提示" message:@"用户不能为空" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
         [aler show];
-        
     }else if ([passwordtext.text isEqual:@""]||passwordtext.text==nil)
     {
-        UIAlertView *aler = [[UIAlertView alloc] initWithTitle:@"提示"
-                                                       message:@"密码不能为空"
-                                                      delegate:self
-                                             cancelButtonTitle:@"确定"
-                                             otherButtonTitles:nil, nil];
+        UIAlertView *aler = [[UIAlertView alloc] initWithTitle:@"提示" message:@"密码不能为空" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
         [aler show];
-    }
-    else
+    }else
     {
-        myThread = [[NSThread alloc] initWithTarget:self selector:@selector(startlogin:) object:nil];
-        [myThread start];
         userinfo = [[NSMutableDictionary alloc] init];
         if ([[LYSelectCommunit GetCommunityInfo] objectForKey:@"name"] ==nil||[[[LYSelectCommunit GetCommunityInfo] objectForKey:@"name"]isEqual:@"null"])
         {
@@ -140,9 +149,6 @@
             [userinfo setValue:[[LYSelectCommunit GetCommunityInfo] objectForKey:@"distance"] forKey:@"communitdistance"];
             [userinfo setValue:[[LYSelectCommunit GetCommunityInfo] objectForKey:@"max_level"] forKey:@"communitmax_level"];
         }
-        
-        
-        
         NSDictionary *plistDic = [[NSBundle mainBundle] infoDictionary];
         NSLog(@"plistDic = %@",plistDic);
         NSString *urlstr = [plistDic objectForKey: @"URL"];
@@ -167,115 +173,20 @@
                 [self performSegueWithIdentifier:@"GoLYFunctionInterface" sender:self];
             }else
             {
-                UIAlertView *al =[[UIAlertView alloc]initWithTitle:@"提示"
-                                                           message:[weatherDic objectForKey:@"message"]
-                                                          delegate:self
-                                                 cancelButtonTitle:@"确定"
-                                                 otherButtonTitles:nil, nil];
+                UIAlertView *al =[[UIAlertView alloc]initWithTitle:@"提示" message:[weatherDic objectForKey:@"message"] delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
                 [al show];
             }
-            
+
         }else
         {
-            UIAlertView *al =[[UIAlertView alloc]initWithTitle:@"提示"
-                                                       message:@"登陆失败"
-                                                      delegate:self
-                                             cancelButtonTitle:@"确定"
-                                             otherButtonTitles:nil, nil];
+            UIAlertView *al =[[UIAlertView alloc]initWithTitle:@"提示" message:@"登陆失败" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
             [al show];
         }
     }
-    
-    switch ([r currentReachabilityStatus])
-    {
-        case NotReachable:
-        {
-            UIAlertView *alert =[[UIAlertView alloc]initWithTitle:@"提示"
-                                                          message:@"当前没有可用网络"
-                                                         delegate:self
-                                                cancelButtonTitle:@"确定"
-                                                otherButtonTitles:nil, nil];
-            [alert show];
-            [myThread cancel];
-            [login stopAnimating];
-            [login setHidesWhenStopped:YES];
-            return;
-        }
-            break;
-        case ReachableViaWWAN:
-        {
-            UIAlertView *alert =[[UIAlertView alloc]initWithTitle:@"提示"
-                                                          message:@"当前使用的是3G网络是否继续"
-                                                         delegate:self
-                                                cancelButtonTitle:@"取消"
-                                                otherButtonTitles:@"继续", nil];
-            [alert show];
-        }
-            // 使用3G网络
-            break;
-        case ReachableViaWiFi:
-            // 使用WiFi网络
-            break;
-    }
-    
     [myThread cancel];
     [login stopAnimating];
     [login setHidesWhenStopped:YES];
 }
-
-+ (BOOL)isMobileNumber:(NSString *)mobileNum {
-    /**
-     * 手机号码
-     * 移动：134[0-8],135,136,137,138,139,150,151,157,158,159,182,187,188
-     * 联通：130,131,132,152,155,156,185,186
-     * 电信：133,1349,153,180,189
-     */
-    NSString * MOBILE = @"^1(3[0-9]|5[0-35-9]|8[025-9])\\d{8}$";
-    /**
-     10         * 中国移动：China Mobile
-     11         * 134[0-8],135,136,137,138,139,150,151,157,158,159,182,187,188
-     12         */
-    NSString * CM = @"^1(34[0-8]|(3[5-9]|5[017-9]|8[278])\\d)\\d{7}$";
-    /**
-     15         * 中国联通：China Unicom
-     16         * 130,131,132,152,155,156,185,186
-     17         */
-    NSString * CU = @"^1(3[0-2]|5[256]|8[56])\\d{8}$";
-    /**
-     20         * 中国电信：China Telecom
-     21         * 133,1349,153,180,189
-     22         */
-    NSString * CT = @"^1((33|53|8[09])[0-9]|349)\\d{7}$";
-    /**
-     25         * 大陆地区固话及小灵通
-     26         * 区号：010,020,021,022,023,024,025,027,028,029
-     27         * 号码：七位或八位
-     28         */
-    // NSString * PHS = @"^0(10|2[0-5789]|\\d{3})\\d{7,8}$";
-    /**
-     20         * 中国电信：China Telecom
-     21         * 133,1349,153,180,189
-     22         */
-    NSString * CQ = @"^142\\d{8}$";
-    
-    NSPredicate *regextestmobile = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", MOBILE];
-    NSPredicate *regextestcm = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", CM];
-    NSPredicate *regextestcu = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", CU];
-    NSPredicate *regextestct = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", CT];
-    NSPredicate *regextestcq = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", CQ];
-    
-    if (([regextestmobile evaluateWithObject:mobileNum] == YES)
-        || ([regextestcm evaluateWithObject:mobileNum] == YES)
-        || ([regextestct evaluateWithObject:mobileNum] == YES)
-        || ([regextestcu evaluateWithObject:mobileNum] == YES)
-        || ([regextestcq evaluateWithObject:mobileNum] == YES)) {
-        return YES;
-    }
-    else {
-        return NO;
-    }
-}
-
 -(IBAction)startlogin:(id)sender
 {
     [login setHidesWhenStopped:NO];
@@ -291,7 +202,7 @@
     }else if(textField==passwordtext)
     {
         [textField resignFirstResponder];
-//        [self login:userText.text password:passwordtext.text];
+        [self login:userText.text password:passwordtext.text];
     }
     return YES;
 }
