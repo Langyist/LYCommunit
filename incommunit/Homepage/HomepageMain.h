@@ -8,9 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-@interface HomepageMain : UIViewController<UITableViewDelegate,UITableViewDataSource>
-{
-    UITableView *m_tableview;
+@interface HomepageMain : UITableViewController {
+ 
 }
-@property(nonatomic,retain)IBOutlet UITableView *m_tableview;
+
 @end
