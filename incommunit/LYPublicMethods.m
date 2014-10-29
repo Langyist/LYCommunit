@@ -9,10 +9,10 @@
 #import "LYPublicMethods.h"
 
 @implementation LYPublicMethods
-+(NSString *)timeFormatted:(int)totalSeconds
++(NSString *)timeFormatted:(long int)totalSeconds
 {
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    dateFormatter.timeZone = [NSTimeZone timeZoneWithName:@"shanghai"];
+    //dateFormatter.timeZone = [NSTimeZone timeZoneWithName:@"shanghai"];
     [dateFormatter setDateFormat:@"yyyy年MM月dd日"];
     NSDate *theday = [NSDate dateWithTimeIntervalSince1970:totalSeconds];
     NSString *day = [dateFormatter stringFromDate:theday];

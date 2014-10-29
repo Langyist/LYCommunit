@@ -32,7 +32,7 @@
     
     m_tableView.delegate = self;
     m_tableView.dataSource = self;
-    [self getAnnouncement:@""];
+    [NSThread detachNewThreadSelector:@selector(getAnnouncement:) toTarget:self withObject:nil];
 }
 
 #pragma mark UITableView delegate
@@ -62,8 +62,18 @@
     
     UILabel *time = (UILabel *)[cell viewWithTag:104];
     NSString *times = [[NSString alloc]initWithFormat:@"%@",[temp objectForKey:@"create_time"]];
-    times = [LYPublicMethods timeFormatted:[times intValue]];
+    times = [LYPublicMethods timeFormatted:[times longLongValue]];
     time.text = times;
+    
+    UIImageView *topview = [[UIImageView alloc] init];
+    topview = (UIImageView *)[cell viewWithTag:101];
+    if ([[[NSString alloc]initWithFormat:@"%@",[temp objectForKey:@"top"]]isEqual:@"1"])
+    {
+        topview.hidden = NO;
+    }else
+    {
+         topview.hidden = YES;
+    }
     return cell;
 }
 
@@ -103,6 +113,7 @@
     NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:urlstr]];
     //    将请求的url数据放到NSData对象中
     NSData *response = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
+    if (response!=nil) {
     //    iOS5自带解析类NSJSONSerialization从response中解析出数据放到字典中
     NSDictionary *weatherDic = [NSJSONSerialization JSONObjectWithData:response options:NSJSONReadingMutableLeaves error:&error];
     //    weatherDic字典中存放的数据也是字典型，从它里面通过键值取值
@@ -114,6 +125,8 @@
     }
     notification = [weatherDic objectForKey:@"data"];
     NSLog(@"%@",notification);
+    [m_tableView  reloadData];
+    }
 }
 
 @end

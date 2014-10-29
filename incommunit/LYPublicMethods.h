@@ -9,5 +9,5 @@
 #import <Foundation/Foundation.h>
 
 @interface LYPublicMethods : NSObject
-+(NSString *)timeFormatted:(int)totalSeconds;
++(NSString *)timeFormatted:(long int)totalSeconds;
 @end
