@@ -50,6 +50,10 @@
     //物业公告
     m_view01 = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.m_scrollView.frame.size.width, self.m_scrollView.frame.size.height)];
     m_AnntableVeiw = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.m_scrollView.frame.size.height)];
+    UINib *nib = [UINib nibWithNibName:@"AnnouncementCellNo" bundle:nil];
+    [m_AnntableVeiw registerNib:nib forCellReuseIdentifier:@"AnnouncementNoCellidentifier"];
+    UINib *nib1 = [UINib nibWithNibName:@"AnnouncementCell" bundle:nil];
+    [m_AnntableVeiw registerNib:nib1 forCellReuseIdentifier:@"AnnouncementCellidentifier"];
     m_AnntableVeiw.separatorStyle = UITableViewCellSeparatorStyleNone;
     m_AnntableVeiw.delegate = self;
     m_AnntableVeiw.dataSource = self;
@@ -358,7 +362,7 @@
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (tableView == m_AnntableVeiw) {
-        return 145;
+        return 133;
     }
     else if (tableView == m_InfotableView) {
         
@@ -398,26 +402,25 @@
         LY_AnnouncementCell *cell;
         LY_AnnouncementNoCell *NoCell;
         if ([[[NSString alloc] initWithFormat:@"%@",[temp objectForKey:@"top"]]isEqual:@"0"]) {
-            UINib *nib = [UINib nibWithNibName:@"AnnouncementCellNo" bundle:nil];
-            [tableView registerNib:nib forCellReuseIdentifier:@"AnnouncementNoCellidentifier"];
+            
             NoCell = [tableView dequeueReusableCellWithIdentifier:@"AnnouncementNoCellidentifier"];
-            [UINib nibWithNibName:@"AnnouncementCell" bundle:nil];
             NoCell.lable1.text = [temp objectForKey:@"name"];
-            NoCell.lable2.text =  [temp objectForKey:@"content"];
-            NoCell.lable3.text =  [[NSString alloc]initWithFormat:@"%@",[temp objectForKey:@"create_time"]];
+            //NoCell.lable2.text =  [temp objectForKey:@"content"];
+            [NoCell setTextContent:[temp objectForKey:@"content"]];
+            //NoCell.lable3.text =  [[NSString alloc]initWithFormat:@"%@",[temp objectForKey:@"create_time"]];
+            [NoCell setTimestamp:[temp objectForKey:@"create_time"]];
             NoCell.selectionStyle = UITableViewCellSelectionStyleNone;
             return NoCell;
             
         }else if ([[[NSString alloc] initWithFormat:@"%@",[temp objectForKey:@"top"]]isEqual:@"1"])
         {
-            UINib *nib = [UINib nibWithNibName:@"AnnouncementCell" bundle:nil];
-            [tableView registerNib:nib forCellReuseIdentifier:@"AnnouncementCellidentifier"];
+            
             cell = [tableView dequeueReusableCellWithIdentifier:@"AnnouncementCellidentifier"];
-            [UINib nibWithNibName:@"AnnouncementCell" bundle:nil];
             cell.lable1.text = [temp objectForKey:@"name"];
             //cell.lable2.text =  [temp objectForKey:@"content"];
-            [cell setTextContent:@"123slkjflasjdfoisjdfl;askdnfnasldfjasoijeogjl;skjflasjfioasldkfasjgasjkdflajlksdjfasjdkfjlasdf;lasjdflkajdslfjaljdflkajdfjalsj"];
-            cell.lable3.text =  [[NSString alloc]initWithFormat:@"%@",[temp objectForKey:@"create_time"]];
+            [cell setTextContent:[temp objectForKey:@"content"]];
+            //cell.lable3.text =  [[NSString alloc]initWithFormat:@"%@",[temp objectForKey:@"create_time"]];
+            [cell setTimestamp:[temp objectForKey:@"create_time"]];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
             return cell;
         }

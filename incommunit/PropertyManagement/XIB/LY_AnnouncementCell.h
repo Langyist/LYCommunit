@@ -24,5 +24,6 @@
 @property(copy, nonatomic) UIImage *m_iamge;
 
 - (void)setTextContent:(NSString *)text;
+- (void)setTimestamp:(NSString *)timestamp;
 
 @end

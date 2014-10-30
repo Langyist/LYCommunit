@@ -22,4 +22,8 @@
 @property (strong, nonatomic) IBOutlet UILabel *lable3;
 @property (strong, nonatomic) IBOutlet UILabel *label4;
 @property(copy, nonatomic) UIImage *m_iamge;
+
+- (void)setTextContent:(NSString *)text;
+- (void)setTimestamp:(NSString *)timestamp;
+
 @end
