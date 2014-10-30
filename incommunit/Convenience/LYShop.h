@@ -9,6 +9,11 @@
 #import <UIKit/UIKit.h>
 #import "LMComBoxView.h"
 #import "UIImageView+AsyncDownload.h"
+
+@interface storeslist : UITableViewCell
+
+@end
+
 @interface LYShop : UITableViewController<UITextFieldDelegate,UITabBarDelegate,LMComBoxViewDelegate>
 {
     UITableView * m_tableview;

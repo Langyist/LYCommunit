@@ -11,6 +11,7 @@
 #import "LYSqllite.h"
 #import "LYProductinformation.h"
 #import "CustomToolbarItem.h"
+#import "StoreslistTableViewCell.h"
 #define kDropDownListTag 1000
 @interface LYShop ()
 {
@@ -22,9 +23,23 @@
 @end
 @implementation LYShop
 @synthesize m_imageScrollView,m_imageView,Item;
+
+- (id)initWithStyle:(UITableViewStyle)style
+{
+    self = [super initWithStyle:style];
+    if (self) {
+        // Custom initialization
+    }
+    return self;
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    UINib *nib = [UINib nibWithNibName:@"StoreslistTableViewCell" bundle:nil];
+    [self.tableView registerNib:nib forCellReuseIdentifier:@"StoreslistTableViewCell"];
+    
     tempgoodstype = [[NSMutableArray alloc] init];
     m_stores = [[NSMutableDictionary alloc] init];
     [m_stores  setValue:m_StoresID forKey:@"id"];
@@ -90,49 +105,46 @@
     [super didReceiveMemoryWarning];
 }
 #pragma mark - tableView协议函数
-// Customize the number of sections in the table view.
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
-    return 1;
-}
 
 // Customize the number of rows in the table view.
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return m_Goodslist.count+6;
+    return m_Goodslist.count + 6;
 }
 // Customize the appearance of table view cells.
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell *cell ;
-    if (indexPath.row < 5)
+    if (indexPath.row < 6)
     {
         cell = [super tableView:tableView cellForRowAtIndexPath:indexPath];
         if (m_storesinfo!=nil) {
-        switch (indexPath.row) {
-            case 1:
-                _shopSummary.text = [m_storesinfo objectForKey:@"description"];
-                break;
-            case 2:
-                _youhui.text = [m_storesinfo objectForKey:@"send_info"];
-                break;
-            case 3:
-                _address.text = [[NSString alloc] initWithFormat:@"地址：%@",[m_storesinfo objectForKey:@"address"]];
-                break;
-            case 4:
-                _phoneNumber.text = [[NSString alloc]initWithFormat:@"电话：%@",[m_storesinfo objectForKey:@"phone"]] ;
-                break;
-            default:
-                break;
+            switch (indexPath.row) {
+                case 1:
+                    _shopSummary.text = [m_storesinfo objectForKey:@"description"];
+                    break;
+                case 2:
+                    _youhui.text = [m_storesinfo objectForKey:@"send_info"];
+                    break;
+                case 3:
+                    _address.text = [[NSString alloc] initWithFormat:@"地址：%@",[m_storesinfo objectForKey:@"address"]];
+                    break;
+                case 4:
+                    _phoneNumber.text = [[NSString alloc]initWithFormat:@"电话：%@",[m_storesinfo objectForKey:@"phone"]] ;
+                    break;
+                case 5:
+                {
+                    
+                }
+                    break;
+                default:
+                    break;
+            }
         }
-
     }
-    }else if (indexPath.row == 5)
+    else
     {
-        cell = [super tableView:tableView cellForRowAtIndexPath:indexPath];
-    }else
-    {
-        cell = [tableView dequeueReusableCellWithIdentifier:@"storeslist" forIndexPath:indexPath];
+        StoreslistTableViewCell *storeslistTableViewCell = [tableView dequeueReusableCellWithIdentifier:@"StoreslistTableViewCell" forIndexPath:indexPath];
         m_Goodspice=(UIImageView *)[cell viewWithTag:104];
         m_GoodsName = (UILabel *)[cell viewWithTag:105];
         m_GoodsChan =(UILabel *)[cell viewWithTag:106];
@@ -151,6 +163,8 @@
 //        m_GoodsName.text = [Goodsinfo objectForKey:@"name"];
 //        m_GoodsChan.text = [[NSString alloc]initWithFormat:@"点赞次数：%@",[Goodsinfo objectForKey:@"like"]];
 //        m_Price.text = [[NSString alloc]initWithFormat:@"￥%@.00",[Goodsinfo objectForKey:@"price"]];
+        
+        cell = storeslistTableViewCell;
     }
     return cell;
 }
@@ -169,11 +183,41 @@
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.row > 5) {
-        return 88;
+    if (indexPath.row < 6) {
+        return [super tableView:tableView heightForRowAtIndexPath:indexPath];
     }
     else {
-        return [super tableView:tableView heightForRowAtIndexPath:indexPath];
+        return 88;
+    }
+}
+
+#pragma mark - overwrite
+
+-(BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return NO;
+}
+
+-(BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return NO;
+}
+
+-(UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return UITableViewCellEditingStyleNone;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView indentationLevelForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    int section = indexPath.section;
+    int row = indexPath.section;
+    
+    // if dynamic section make all rows the same indentation level as row 0
+    if (row < 6) {
+        return [super tableView:tableView indentationLevelForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:section]];
+    } else {
+        return [super tableView:tableView indentationLevelForRowAtIndexPath:indexPath];
     }
 }
 
@@ -225,7 +269,7 @@
     customLab.font = [UIFont boldSystemFontOfSize:17];
     customLab.textAlignment = NSTextAlignmentCenter;
     self.navigationItem.titleView = customLab;
-    m_tabBar.delegate = self;
+    //m_tabBar.delegate = self;
     [self serachGoods:@""];
     }
 }

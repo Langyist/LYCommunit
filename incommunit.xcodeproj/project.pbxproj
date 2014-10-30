@@ -149,6 +149,8 @@
 		F10340D319FF7B3400C5CB4E /* CustomToolbarItem.xib in Resources */ = {isa = PBXBuildFile; fileRef = F10340D219FF7B3400C5CB4E /* CustomToolbarItem.xib */; };
 		F12DAE321A0231E700591CB5 /* send_info.png in Resources */ = {isa = PBXBuildFile; fileRef = F12DAE301A0231E700591CB5 /* send_info.png */; };
 		F12DAE331A0231E700591CB5 /* shop_introduce.png in Resources */ = {isa = PBXBuildFile; fileRef = F12DAE311A0231E700591CB5 /* shop_introduce.png */; };
+		F142314E1A024E3F0088ED59 /* StoreslistTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F142314C1A024E3F0088ED59 /* StoreslistTableViewCell.m */; };
+		F142314F1A024E3F0088ED59 /* StoreslistTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F142314D1A024E3F0088ED59 /* StoreslistTableViewCell.xib */; };
 		F15AE49A1A0208180084009C /* 黄色小三角_03.png in Resources */ = {isa = PBXBuildFile; fileRef = F15AE4991A0208180084009C /* 黄色小三角_03.png */; };
 /* End PBXBuildFile section */
 
@@ -424,6 +426,9 @@
 		F10340D219FF7B3400C5CB4E /* CustomToolbarItem.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CustomToolbarItem.xib; sourceTree = "<group>"; };
 		F12DAE301A0231E700591CB5 /* send_info.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = send_info.png; sourceTree = "<group>"; };
 		F12DAE311A0231E700591CB5 /* shop_introduce.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = shop_introduce.png; sourceTree = "<group>"; };
+		F142314B1A024E3F0088ED59 /* StoreslistTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StoreslistTableViewCell.h; sourceTree = "<group>"; };
+		F142314C1A024E3F0088ED59 /* StoreslistTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StoreslistTableViewCell.m; sourceTree = "<group>"; };
+		F142314D1A024E3F0088ED59 /* StoreslistTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StoreslistTableViewCell.xib; sourceTree = "<group>"; };
 		F15AE4991A0208180084009C /* 黄色小三角_03.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "黄色小三角_03.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -673,6 +678,9 @@
 				AD3DD3BA19FE13FE00364854 /* LY_DeliveryCell.m */,
 				AD3DD3BB19FE13FE00364854 /* LY_FeaturedCell.h */,
 				AD3DD3BC19FE13FE00364854 /* LY_FeaturedCell.m */,
+				F142314B1A024E3F0088ED59 /* StoreslistTableViewCell.h */,
+				F142314C1A024E3F0088ED59 /* StoreslistTableViewCell.m */,
+				F142314D1A024E3F0088ED59 /* StoreslistTableViewCell.xib */,
 			);
 			path = XIB;
 			sourceTree = "<group>";
@@ -975,6 +983,7 @@
 				AD33ED4E19FBCA2D00FE0C11 /* 设置_03.png in Resources */,
 				AD33ED4619FBCA2D00FE0C11 /* 电话_10.png in Resources */,
 				AD33ED1919FBCA2D00FE0C11 /* 5_10.png in Resources */,
+				F142314F1A024E3F0088ED59 /* StoreslistTableViewCell.xib in Resources */,
 				AD33ED2519FBCA2D00FE0C11 /* ic_my_orders.png in Resources */,
 				AD33ED1219FBCA2D00FE0C11 /* 2_10.png in Resources */,
 				AD33ED5419FBCA2D00FE0C11 /* 首页.png in Resources */,
@@ -1113,6 +1122,7 @@
 				F10340CE19FF5BC500C5CB4E /* InsetTextField.m in Sources */,
 				AD6211E319FD88DE009BECA6 /* LYAnnouncementDetails.m in Sources */,
 				AD6211EC19FDA63C009BECA6 /* HomepageMain.m in Sources */,
+				F142314E1A024E3F0088ED59 /* StoreslistTableViewCell.m in Sources */,
 				AD3DD3B219FDEE5B00364854 /* LMContainsLMComboxScrollView.m in Sources */,
 				AD33ECBC19FBBE3600FE0C11 /* LYSelectCity.m in Sources */,
 				AD30F7D61A00D97A00C8709E /* LYProductinformation.m in Sources */,
