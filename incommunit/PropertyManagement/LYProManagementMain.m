@@ -15,7 +15,9 @@
 //#import "LYReplyMessage.h"
 #import "LYSelectCommunit.h"
 #import "LY_AnnouncementNoCell.h"
-@interface LYProManagementMain ()
+@interface LYProManagementMain () {
+    UIView *m_liuView;
+}
 @end
 @implementation LYProManagementMain
 @synthesize m_segment;
@@ -23,12 +25,32 @@
 {
     [super viewDidLoad];
     self.navigationController.navigationBar.tintColor= [UIColor colorWithRed:(0.0/255) green:(0.0/255) blue:(0.0/255) alpha:1.0];
+    
     [m_segment addTarget:self action:@selector(doSomethingInSegment:)forControlEvents:UIControlEventValueChanged];
+    CGRect rect = CGRectMake(0, 0, 1, 1);
+    UIGraphicsBeginImageContext(rect.size);
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    CGContextSetFillColorWithColor(context, [[UIColor clearColor] CGColor]);
+    CGContextFillRect(context, rect);
+    UIImage *transparentImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    [self.m_segment setBackgroundImage:transparentImage forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
+    [self.m_segment setTitleTextAttributes:@{
+                                             NSForegroundColorAttributeName : [UIColor colorWithRed:63/255.0f green:62/255.0f blue:62/255.0f alpha:1]
+                                             }
+                                  forState:UIControlStateNormal];
+    [self.m_segment setTitleTextAttributes:@{
+                                             NSForegroundColorAttributeName : [UIColor colorWithRed:230/255.0f green:163/255.0f blue:44/255.0f alpha:1]
+                                             }
+                                  forState:UIControlStateSelected];
+    
     self.m_scrollView.contentSize = CGSizeMake(self.m_scrollView.frame.size.width * 3, self.m_scrollView.frame.size.height);
     [self.m_scrollView setScrollEnabled:NO];
     //物业公告
     m_view01 = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.m_scrollView.frame.size.width, self.m_scrollView.frame.size.height)];
-    m_AnntableVeiw = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
+    m_AnntableVeiw = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.m_scrollView.frame.size.height)];
+    m_AnntableVeiw.separatorStyle = UITableViewCellSeparatorStyleNone;
     m_AnntableVeiw.delegate = self;
     m_AnntableVeiw.dataSource = self;
     [m_view01 addSubview:m_AnntableVeiw];
@@ -69,7 +91,7 @@
     
     [m_view03 addSubview:m_ACView];
     
-    UIView *m_liuView = [[UIView alloc] initWithFrame:CGRectMake(0, m_ACView.frame.size.height+12, 320, 50)];
+    m_liuView = [[UIView alloc] initWithFrame:CGRectMake(0, m_ACView.frame.size.height+12, 320, 50)];
     m_liuView.backgroundColor = [UIColor whiteColor];
     m_liuView.layer.borderWidth = 0.1;
     
@@ -82,7 +104,7 @@
     GLview.backgroundColor = [UIColor grayColor];
     [m_liuView addSubview:GLview];
     
-    UIButton *m_liuButton = [[UIButton alloc] initWithFrame:CGRectMake(200, 2, 100, 36)];
+    UIButton * m_liuButton = [[UIButton alloc] initWithFrame:CGRectMake(200, 2, 100, 36)];
     [m_liuButton setTitle:@"我要留言" forState:UIControlStateNormal];
     [m_liuButton addTarget:self action:@selector(liuButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
     m_liuButton.backgroundColor = [UIColor colorWithRed:(118.0/255) green:(238.0/255) blue:(0.0/255) alpha:1.0];
@@ -158,6 +180,27 @@
     [NSThread detachNewThreadSelector:@selector(GetPropertyServiceData:) toTarget:self withObject:nil];
     [NSThread detachNewThreadSelector:@selector(Getnotification:) toTarget:self withObject:nil];
 }
+
+- (void)viewDidAppear:(BOOL)animated {
+    CGFloat newTableHeight = self.m_scrollView.frame.size.height;
+    
+    CGRect newFrame = m_AnntableVeiw.frame;
+    newFrame.size.height = newTableHeight;
+    m_AnntableVeiw.frame = newFrame;
+    
+    newFrame = m_InfotableView.frame;
+    newFrame.size.height = newTableHeight;
+    m_InfotableView.frame = newFrame;
+    
+    newFrame = m_ACtableView.frame;
+    newFrame.size.height = newTableHeight - CGRectGetMaxY(m_liuView.frame);
+    m_ACtableView.frame = newFrame;
+    
+    newFrame = m_MaintableView.frame;
+    newFrame.size.height = newTableHeight;
+    m_MaintableView.frame = newFrame;
+}
+
 //手势
 -(void)m_view01leftSwipe:(UISwipeGestureRecognizer *)recognizer
 {
@@ -372,7 +415,8 @@
             cell = [tableView dequeueReusableCellWithIdentifier:@"AnnouncementCellidentifier"];
             [UINib nibWithNibName:@"AnnouncementCell" bundle:nil];
             cell.lable1.text = [temp objectForKey:@"name"];
-            cell.lable2.text =  [temp objectForKey:@"content"];
+            //cell.lable2.text =  [temp objectForKey:@"content"];
+            [cell setTextContent:@"123slkjflasjdfoisjdfl;askdnfnasldfjasoijeogjl;skjflasjfioasldkfasjgasjkdflajlksdjfasjdkfjlasdf;lasjdflkajdslfjaljdflkajdfjalsj"];
             cell.lable3.text =  [[NSString alloc]initWithFormat:@"%@",[temp objectForKey:@"create_time"]];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
             return cell;
