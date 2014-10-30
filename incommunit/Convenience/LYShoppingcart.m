@@ -19,7 +19,6 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        // Custom initialization
     }
     return self;
 }
@@ -27,7 +26,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
     number= 0;
     m_textfiledlist = [[NSMutableArray alloc] init];
     self.m_tableView.allowsSelectionDuringEditing = YES;
@@ -71,50 +69,51 @@
     return UITableViewCellEditingStyleNone;
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
     UITableViewCell *cell;
     NSMutableArray  *tempinfo = [Goodslist objectAtIndex:indexPath.section];
     static NSString *CellIdentifier;
-    
-    if (indexPath.row == 0) {
-        
+    if (indexPath.row == 0)
+    {
         CellIdentifier = @"selectStoresCell";
-        
         NSDictionary * temp = [tempinfo objectAtIndex:indexPath.row];
-        
         cell = (UITableViewCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
         UIImageView *imageView  = (UIImageView *)[cell viewWithTag:100];
         UILabel     *name       = (UILabel *)[cell viewWithTag:101];
-        
         NSString *imageName = @"Selected";
-        for (NSDictionary *goodsInfo in tempinfo) {
-            if (![[goodsInfo objectForKey:@"isSelected"] boolValue]) {
+        for (NSDictionary *goodsInfo in tempinfo)
+        {
+            if (![[goodsInfo objectForKey:@"isSelected"] boolValue])
+            {
                 imageName = @"Unselected";
                 break;
             }
         }
         [imageView  setImage:[UIImage imageNamed:imageName]]; // 是否全选
-        [name       setText:[temp objectForKey:@"Storesname"]]; // 商店名称
+        [name setText:[temp objectForKey:@"Storesname"]]; // 商店名称
     }
     else {
-        
         CellIdentifier = @"selectGoodsCell";
-        
         NSDictionary * temp = [tempinfo objectAtIndex:indexPath.row - 1];
-        
         cell = (UITableViewCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
-        
         UIImageView *imageView  = (UIImageView *)[cell viewWithTag:100];
+        UIImageView *pimageview =(UIImageView *)[cell viewWithTag:101];
         UILabel     *name       = (UILabel *)[cell viewWithTag:102];
         UITextField *quantityfl = (UITextField *)[cell viewWithTag:105];
         UILabel     *pricelb    = (UILabel *)[cell viewWithTag:103];
-        
         NSString *imageName = @"Selected";
-        if (![[temp objectForKey:@"isSelected"] boolValue]) {
+        if (![[temp objectForKey:@"isSelected"] boolValue])
+        {
             imageName = @"Unselected";
         }
         [imageView  setImage:[UIImage imageNamed:imageName]]; // 是否选择
+        NSString *imageUrl = [temp objectForKey:@"logo"];
+        if (imageUrl!=nil && ![imageUrl isEqualToString:@"(null)"])
+        {
+            NSURL *url = [NSURL URLWithString:imageUrl];
+            [pimageview setImageWithURL:url placeholderImage:nil];
+        }
         [name       setText:[temp objectForKey:@"name"]]; // 商品名字
         [quantityfl setText:[temp objectForKey:@"quantity"]]; // 选择数量
         CGFloat price = [[temp objectForKey:@"price"] floatValue];
@@ -198,8 +197,8 @@
 
 #pragma mark -
 #pragma mark Method
-
-- (void)changeDataSelected:(NSIndexPath *)indexPath isSelected:(BOOL)selected {
+- (void)changeDataSelected:(NSIndexPath *)indexPath isSelected:(BOOL)selected
+{
     NSMutableArray *newGoodsList = [[NSMutableArray alloc] init];
     NSMutableArray *tempGoodList = [Goodslist objectAtIndex:indexPath.section];
     if (indexPath.row == 0) {

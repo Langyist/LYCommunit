@@ -17,7 +17,7 @@
     [super viewDidLoad];
     NSThread *myThread01 = [[NSThread alloc] initWithTarget:self
                                          selector:@selector(GetProductDetails:)
-                                           object:nil];
+                                           object:self];
     [myThread01 start];
     // Do any additional setup after loading the view.
 }
@@ -26,9 +26,9 @@
     [m_textField resignFirstResponder];
 }
 
-- (void)didReceiveMemoryWarning {
+- (void)didReceiveMemoryWarning
+{
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 /*
  #pragma mark - Navigation
@@ -40,78 +40,71 @@
  }
  */
 
-
 #pragma mark - 获取网络数据
--(void)GetProductDetails:(NSString *)URL
+-(void)GetProductDetails:(LYProductinformation *)obj
 {
     NSDictionary *plistDic = [[NSBundle mainBundle] infoDictionary];
     NSLog(@"plistDic = %@",plistDic);
     NSString *url = [plistDic objectForKey: @"URL"];
     NSError *error;
-    //    加载一个NSURL对象
     NSString *urlstr = [[NSString alloc] initWithFormat:@"%@/services/shop/commodity_detail?id=%@",url,m_GoodsID];
     NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:urlstr]];
-    //    将请求的url数据放到NSData对象中
     NSData *response = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
     if(response!=nil)
     {
-    //    iOS5自带解析类NSJSONSerialization从response中解析出数据放到字典中
-    NSDictionary *weatherDic = [NSJSONSerialization JSONObjectWithData:response options:NSJSONReadingMutableLeaves error:&error];
-    //    weatherDic字典中存放的数据也是字典型，从它里面通过键值取值
-    NSString *status = [weatherDic objectForKey:@"status"];
-    NSLog(@"%@",status);
-    m_ProductDetails = [weatherDic objectForKey:@"data"];
-    dispatch_async(dispatch_get_main_queue(), ^{
-            [self Updata];
+        NSDictionary *weatherDic = [NSJSONSerialization JSONObjectWithData:response options:NSJSONReadingMutableLeaves error:&error];
+        NSString *status = [weatherDic objectForKey:@"status"];
+        NSLog(@"%@",status);
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self Updata:[weatherDic objectForKey:@"data"]];
         });
     }
 }
 
 -(IBAction)SetChan:(NSString *)URL
 {
-    if ([[[NSString alloc]initWithFormat:@"%@",[m_ProductDetails objectForKey:@"isLike"]]isEqual:@"1"])
-    {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"你已经赞过该商品" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:@"取消赞", nil];
-        [alert show];
-    }else
-    {
-        NSDictionary *plistDic = [[NSBundle mainBundle] infoDictionary];
-        NSLog(@"plistDic = %@",plistDic);
-        NSString *url = [plistDic objectForKey: @"URL"];
-        NSError *error;
-        NSString *urlstr = [[NSString alloc] initWithFormat:@"%@/services/shop/commodity_like?id=%@",url,m_GoodsID];
-        NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:urlstr]];
-        NSData *response = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
-        if (response!=nil)
-        {
-            NSDictionary *weatherDic = [NSJSONSerialization JSONObjectWithData:response options:NSJSONReadingMutableLeaves error:&error];
-            NSString *status = [weatherDic objectForKey:@"status"];
-            if (![[weatherDic objectForKey:@"status"]isEqual:@"200"]) {
-                UIAlertView * alert = [[UIAlertView alloc] initWithTitle:@"提示" message:[weatherDic objectForKey:@"message"] delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
-                [alert show];
-            }
-            NSLog(@"%@",status);
-            m_ProductDetails = [weatherDic objectForKey:@"data"];
-
-        }
-    }
+//    if ([[[NSString alloc]initWithFormat:@"%@",[m_ProductDetails objectForKey:@"isLike"]]isEqual:@"1"])
+//    {
+//        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"你已经赞过该商品" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:@"取消赞", nil];
+//        [alert show];
+//    }else
+//    {
+//        NSDictionary *plistDic = [[NSBundle mainBundle] infoDictionary];
+//        NSLog(@"plistDic = %@",plistDic);
+//        NSString *url = [plistDic objectForKey: @"URL"];
+//        NSError *error;
+//        NSString *urlstr = [[NSString alloc] initWithFormat:@"%@/services/shop/commodity_like?id=%@",url,m_GoodsID];
+//        NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:urlstr]];
+//        NSData *response = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
+//        if (response!=nil)
+//        {
+//            NSDictionary *weatherDic = [NSJSONSerialization JSONObjectWithData:response options:NSJSONReadingMutableLeaves error:&error];
+//            NSString *status = [weatherDic objectForKey:@"status"];
+//            if (![[weatherDic objectForKey:@"status"]isEqual:@"200"])
+//            {
+//                UIAlertView * alert = [[UIAlertView alloc] initWithTitle:@"提示" message:[weatherDic objectForKey:@"message"] delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+//                [alert show];
+//            }
+//            NSLog(@"%@",status);
+//            m_ProductDetails = [weatherDic objectForKey:@"data"];
+//        }
+//    }
 }
 
--(void)Updata
+//刷新数据
+-(void)Updata:(NSDictionary *)dic
 {
-    if(m_ProductDetails!=nil)
+    if(dic!=nil)
     {
-        m_GoodsName.text = [m_ProductDetails objectForKey:@"name"];
-        m_Price.text = [[NSString alloc]initWithFormat:@"￥%@.00",[m_ProductDetails objectForKey:@"price"]];
-        m_Introduction.text = [m_ProductDetails objectForKey:@"description"];
-        m_Introduction.editable =NO;
-        
+        m_GoodsName.text = [dic objectForKey:@"name"];
+        m_Price.text = [[NSString alloc]initWithFormat:@"￥%@.00",[dic objectForKey:@"price"]];
+        m_Introduction.text = [dic objectForKey:@"description"];
+       // m_Introduction.editable =NO;
         UITapGestureRecognizer* singleRecognizer;
         singleRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(ClickView)];
         singleRecognizer.numberOfTapsRequired = 1; // 单击
         [self.view addGestureRecognizer:singleRecognizer];
     }
-
 }
 
 -(IBAction)add:(id)sender

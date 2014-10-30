@@ -104,7 +104,6 @@
 		AD3DD3BF19FE13FE00364854 /* LY_DeliveryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AD3DD3BA19FE13FE00364854 /* LY_DeliveryCell.m */; };
 		AD3DD3C019FE13FE00364854 /* LY_FeaturedCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AD3DD3BC19FE13FE00364854 /* LY_FeaturedCell.m */; };
 		AD3DD3C319FE2E4A00364854 /* UIActionSheet+Blocks.m in Sources */ = {isa = PBXBuildFile; fileRef = AD3DD3C219FE2E4A00364854 /* UIActionSheet+Blocks.m */; };
-		AD3DD40519FE348600364854 /* libbaidumapapi.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AD3DD40319FE348600364854 /* libbaidumapapi.a */; };
 		AD3DD40619FE348600364854 /* mapapi.bundle in Resources */ = {isa = PBXBuildFile; fileRef = AD3DD40419FE348600364854 /* mapapi.bundle */; };
 		AD3DD40919FE362D00364854 /* LYBaiduMap.mm in Sources */ = {isa = PBXBuildFile; fileRef = AD3DD40819FE362D00364854 /* LYBaiduMap.mm */; };
 		AD3DD40C19FE466600364854 /* LYShop.m in Sources */ = {isa = PBXBuildFile; fileRef = AD3DD40B19FE466600364854 /* LYShop.m */; };
@@ -129,6 +128,19 @@
 		AD6211E919FD9F1C009BECA6 /* LYForgotPassword.m in Sources */ = {isa = PBXBuildFile; fileRef = AD6211E819FD9F1C009BECA6 /* LYForgotPassword.m */; };
 		AD6211EC19FDA63C009BECA6 /* HomepageMain.m in Sources */ = {isa = PBXBuildFile; fileRef = AD6211EB19FDA63C009BECA6 /* HomepageMain.m */; };
 		AD6211EF19FDA95E009BECA6 /* LYReal-name.m in Sources */ = {isa = PBXBuildFile; fileRef = AD6211EE19FDA95E009BECA6 /* LYReal-name.m */; };
+		AD7FBA8D1A0214E2008CC80A /* LYProManagementMain.m in Sources */ = {isa = PBXBuildFile; fileRef = AD7FBA8C1A0214E2008CC80A /* LYProManagementMain.m */; };
+		AD7FBAAE1A0216FF008CC80A /* ACCell1.xib in Resources */ = {isa = PBXBuildFile; fileRef = AD7FBA9E1A0216FF008CC80A /* ACCell1.xib */; };
+		AD7FBAAF1A0216FF008CC80A /* AnnouncementCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AD7FBA9F1A0216FF008CC80A /* AnnouncementCell.xib */; };
+		AD7FBAB01A0216FF008CC80A /* AnnouncementCellNo.xib in Resources */ = {isa = PBXBuildFile; fileRef = AD7FBAA01A0216FF008CC80A /* AnnouncementCellNo.xib */; };
+		AD7FBAB11A0216FF008CC80A /* InfoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AD7FBAA11A0216FF008CC80A /* InfoCell.xib */; };
+		AD7FBAB21A0216FF008CC80A /* InfoCell1.xib in Resources */ = {isa = PBXBuildFile; fileRef = AD7FBAA21A0216FF008CC80A /* InfoCell1.xib */; };
+		AD7FBAB31A0216FF008CC80A /* LY_ACCell1.m in Sources */ = {isa = PBXBuildFile; fileRef = AD7FBAA41A0216FF008CC80A /* LY_ACCell1.m */; };
+		AD7FBAB41A0216FF008CC80A /* LY_AnnouncementCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AD7FBAA61A0216FF008CC80A /* LY_AnnouncementCell.m */; };
+		AD7FBAB51A0216FF008CC80A /* LY_AnnouncementNoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AD7FBAA81A0216FF008CC80A /* LY_AnnouncementNoCell.m */; };
+		AD7FBAB61A0216FF008CC80A /* LY_InfoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AD7FBAAA1A0216FF008CC80A /* LY_InfoCell.m */; };
+		AD7FBAB71A0216FF008CC80A /* LY_MaintenanceCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AD7FBAAC1A0216FF008CC80A /* LY_MaintenanceCell.m */; };
+		AD7FBAB81A0216FF008CC80A /* MaintenanceCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AD7FBAAD1A0216FF008CC80A /* MaintenanceCell.xib */; };
+		AD7FBABB1A021919008CC80A /* LYPostcomment.m in Sources */ = {isa = PBXBuildFile; fileRef = AD7FBABA1A021919008CC80A /* LYPostcomment.m */; };
 		F10340C619FF4FCF00C5CB4E /* ic_password.png in Resources */ = {isa = PBXBuildFile; fileRef = F10340C419FF4FCF00C5CB4E /* ic_password.png */; };
 		F10340C719FF4FCF00C5CB4E /* ic_username.png in Resources */ = {isa = PBXBuildFile; fileRef = F10340C519FF4FCF00C5CB4E /* ic_username.png */; };
 		F10340CB19FF51DD00C5CB4E /* UIImage+Scale.m in Sources */ = {isa = PBXBuildFile; fileRef = F10340CA19FF51DD00C5CB4E /* UIImage+Scale.m */; };
@@ -379,6 +391,26 @@
 		AD6211EB19FDA63C009BECA6 /* HomepageMain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomepageMain.m; sourceTree = "<group>"; };
 		AD6211ED19FDA95E009BECA6 /* LYReal-name.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "LYReal-name.h"; sourceTree = "<group>"; };
 		AD6211EE19FDA95E009BECA6 /* LYReal-name.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "LYReal-name.m"; sourceTree = "<group>"; };
+		AD7FBA8B1A0214E2008CC80A /* LYProManagementMain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LYProManagementMain.h; sourceTree = "<group>"; };
+		AD7FBA8C1A0214E2008CC80A /* LYProManagementMain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LYProManagementMain.m; sourceTree = "<group>"; };
+		AD7FBA9E1A0216FF008CC80A /* ACCell1.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ACCell1.xib; sourceTree = "<group>"; };
+		AD7FBA9F1A0216FF008CC80A /* AnnouncementCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AnnouncementCell.xib; sourceTree = "<group>"; };
+		AD7FBAA01A0216FF008CC80A /* AnnouncementCellNo.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AnnouncementCellNo.xib; sourceTree = "<group>"; };
+		AD7FBAA11A0216FF008CC80A /* InfoCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = InfoCell.xib; sourceTree = "<group>"; };
+		AD7FBAA21A0216FF008CC80A /* InfoCell1.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = InfoCell1.xib; sourceTree = "<group>"; };
+		AD7FBAA31A0216FF008CC80A /* LY_ACCell1.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LY_ACCell1.h; sourceTree = "<group>"; };
+		AD7FBAA41A0216FF008CC80A /* LY_ACCell1.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LY_ACCell1.m; sourceTree = "<group>"; };
+		AD7FBAA51A0216FF008CC80A /* LY_AnnouncementCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LY_AnnouncementCell.h; sourceTree = "<group>"; };
+		AD7FBAA61A0216FF008CC80A /* LY_AnnouncementCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LY_AnnouncementCell.m; sourceTree = "<group>"; };
+		AD7FBAA71A0216FF008CC80A /* LY_AnnouncementNoCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LY_AnnouncementNoCell.h; sourceTree = "<group>"; };
+		AD7FBAA81A0216FF008CC80A /* LY_AnnouncementNoCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LY_AnnouncementNoCell.m; sourceTree = "<group>"; };
+		AD7FBAA91A0216FF008CC80A /* LY_InfoCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LY_InfoCell.h; sourceTree = "<group>"; };
+		AD7FBAAA1A0216FF008CC80A /* LY_InfoCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LY_InfoCell.m; sourceTree = "<group>"; };
+		AD7FBAAB1A0216FF008CC80A /* LY_MaintenanceCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LY_MaintenanceCell.h; sourceTree = "<group>"; };
+		AD7FBAAC1A0216FF008CC80A /* LY_MaintenanceCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LY_MaintenanceCell.m; sourceTree = "<group>"; };
+		AD7FBAAD1A0216FF008CC80A /* MaintenanceCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MaintenanceCell.xib; sourceTree = "<group>"; };
+		AD7FBAB91A021919008CC80A /* LYPostcomment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LYPostcomment.h; sourceTree = "<group>"; };
+		AD7FBABA1A021919008CC80A /* LYPostcomment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LYPostcomment.m; sourceTree = "<group>"; };
 		F10340C419FF4FCF00C5CB4E /* ic_password.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_password.png; sourceTree = "<group>"; };
 		F10340C519FF4FCF00C5CB4E /* ic_username.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_username.png; sourceTree = "<group>"; };
 		F10340C919FF51DD00C5CB4E /* UIImage+Scale.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Scale.h"; sourceTree = "<group>"; };
@@ -397,7 +429,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				AD6211C819FD4AF0009BECA6 /* CoreLocation.framework in Frameworks */,
-				AD3DD40519FE348600364854 /* libbaidumapapi.a in Frameworks */,
 				AD33ED6119FBCC0E00FE0C11 /* libsqlite3.0.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -435,6 +466,7 @@
 		AD33EC8C19FBB13F00FE0C11 /* incommunit */ = {
 			isa = PBXGroup;
 			children = (
+				AD7FBA8A1A0214B7008CC80A /* PropertyManagement */,
 				F10340C819FF51C200C5CB4E /* WidgetExtern */,
 				AD3DD3C419FE348600364854 /* BaiduMap */,
 				AD6211D119FD5BF0009BECA6 /* Convenience */,
@@ -797,6 +829,41 @@
 			path = Convenience;
 			sourceTree = "<group>";
 		};
+		AD7FBA8A1A0214B7008CC80A /* PropertyManagement */ = {
+			isa = PBXGroup;
+			children = (
+				AD7FBA8B1A0214E2008CC80A /* LYProManagementMain.h */,
+				AD7FBA8C1A0214E2008CC80A /* LYProManagementMain.m */,
+				AD7FBAB91A021919008CC80A /* LYPostcomment.h */,
+				AD7FBABA1A021919008CC80A /* LYPostcomment.m */,
+				AD7FBA8E1A021623008CC80A /* XIB */,
+			);
+			path = PropertyManagement;
+			sourceTree = "<group>";
+		};
+		AD7FBA8E1A021623008CC80A /* XIB */ = {
+			isa = PBXGroup;
+			children = (
+				AD7FBA9E1A0216FF008CC80A /* ACCell1.xib */,
+				AD7FBA9F1A0216FF008CC80A /* AnnouncementCell.xib */,
+				AD7FBAA01A0216FF008CC80A /* AnnouncementCellNo.xib */,
+				AD7FBAA11A0216FF008CC80A /* InfoCell.xib */,
+				AD7FBAA21A0216FF008CC80A /* InfoCell1.xib */,
+				AD7FBAA31A0216FF008CC80A /* LY_ACCell1.h */,
+				AD7FBAA41A0216FF008CC80A /* LY_ACCell1.m */,
+				AD7FBAA51A0216FF008CC80A /* LY_AnnouncementCell.h */,
+				AD7FBAA61A0216FF008CC80A /* LY_AnnouncementCell.m */,
+				AD7FBAA71A0216FF008CC80A /* LY_AnnouncementNoCell.h */,
+				AD7FBAA81A0216FF008CC80A /* LY_AnnouncementNoCell.m */,
+				AD7FBAA91A0216FF008CC80A /* LY_InfoCell.h */,
+				AD7FBAAA1A0216FF008CC80A /* LY_InfoCell.m */,
+				AD7FBAAB1A0216FF008CC80A /* LY_MaintenanceCell.h */,
+				AD7FBAAC1A0216FF008CC80A /* LY_MaintenanceCell.m */,
+				AD7FBAAD1A0216FF008CC80A /* MaintenanceCell.xib */,
+			);
+			path = XIB;
+			sourceTree = "<group>";
+		};
 		F10340C819FF51C200C5CB4E /* WidgetExtern */ = {
 			isa = PBXGroup;
 			children = (
@@ -912,17 +979,21 @@
 				AD33ED4A19FBCA2D00FE0C11 /* 绿色_06.png in Resources */,
 				AD33ED4C19FBCA2D00FE0C11 /* 订单.png in Resources */,
 				AD33ED1719FBCA2D00FE0C11 /* 4@2x.png in Resources */,
+				AD7FBAB01A0216FF008CC80A /* AnnouncementCellNo.xib in Resources */,
 				AD3DD40619FE348600364854 /* mapapi.bundle in Resources */,
 				AD33ED0F19FBCA2D00FE0C11 /* 2.png in Resources */,
 				AD33ED1F19FBCA2D00FE0C11 /* goods.jpg in Resources */,
 				AD33EC9919FBB13F00FE0C11 /* Main.storyboard in Resources */,
 				AD33ED2C19FBCA2D00FE0C11 /* V_07.png in Resources */,
+				AD7FBAB21A0216FF008CC80A /* InfoCell1.xib in Resources */,
 				AD33ED1E19FBCA2D00FE0C11 /* down_dark0.png in Resources */,
 				AD33ED4219FBCA2D00FE0C11 /* 点赞_03.png in Resources */,
 				AD33ED1A19FBCA2D00FE0C11 /* 6_10.png in Resources */,
 				AD33ED1619FBCA2D00FE0C11 /* 4.png in Resources */,
+				AD7FBAB11A0216FF008CC80A /* InfoCell.xib in Resources */,
 				AD33ED3419FBCA2D00FE0C11 /* 加入购物车_13.png in Resources */,
 				AD33ED5719FBCA2D00FE0C11 /* 黄色_03.png in Resources */,
+				AD7FBAB81A0216FF008CC80A /* MaintenanceCell.xib in Resources */,
 				AD33ED2619FBCA2D00FE0C11 /* ic_share_to_friends.png in Resources */,
 				AD33ED3019FBCA2D00FE0C11 /* 减少_07.png in Resources */,
 				AD33ED5F19FBCB6E00FE0C11 /* Default@2x.png in Resources */,
@@ -955,9 +1026,11 @@
 				AD33ED5119FBCA2D00FE0C11 /* 购物车_13.png in Resources */,
 				AD33ED3C19FBCA2D00FE0C11 /* 我的订单_13.png in Resources */,
 				AD33ED4019FBCA2D00FE0C11 /* 星_06.png in Resources */,
+				AD7FBAAF1A0216FF008CC80A /* AnnouncementCell.xib in Resources */,
 				AD33ED6419FBCD3F00FE0C11 /* LaunchScreen.xib in Resources */,
 				AD33ED5619FBCA2D00FE0C11 /* 首页_13.png in Resources */,
 				AD33ED3519FBCA2D00FE0C11 /* 图片_02.png in Resources */,
+				AD7FBAAE1A0216FF008CC80A /* ACCell1.xib in Resources */,
 				AD33ED2419FBCA2D00FE0C11 /* ic_default_shop_image.png in Resources */,
 				AD33ED4719FBCA2D00FE0C11 /* 男_06.png in Resources */,
 				AD33ED2319FBCA2D00FE0C11 /* ic_default_shop.png in Resources */,
@@ -1005,19 +1078,25 @@
 				AD6211EF19FDA95E009BECA6 /* LYReal-name.m in Sources */,
 				AD6211E619FD90A8009BECA6 /* LYSignup.m in Sources */,
 				AD6211DA19FD5EFE009BECA6 /* LYPrivacySettings.m in Sources */,
+				AD7FBAB71A0216FF008CC80A /* LY_MaintenanceCell.m in Sources */,
 				AD3DD3B519FDF36600364854 /* LYaddCommunit.m in Sources */,
 				AD6211A019FD42CE009BECA6 /* LYnetwork.m in Sources */,
 				AD3DD3C019FE13FE00364854 /* LY_FeaturedCell.m in Sources */,
 				AD6211E919FD9F1C009BECA6 /* LYForgotPassword.m in Sources */,
 				AD6211D419FD5C1E009BECA6 /* LYconvenienceMain.m in Sources */,
 				AD6211D719FD5D5D009BECA6 /* LYCommonSettings.m in Sources */,
+				AD7FBAB51A0216FF008CC80A /* LY_AnnouncementNoCell.m in Sources */,
+				AD7FBAB31A0216FF008CC80A /* LY_ACCell1.m in Sources */,
+				AD7FBAB41A0216FF008CC80A /* LY_AnnouncementCell.m in Sources */,
 				AD3DD40919FE362D00364854 /* LYBaiduMap.mm in Sources */,
 				AD33ED5B19FBCAB500FE0C11 /* LYSqllite.m in Sources */,
 				AD6211D019FD598A009BECA6 /* LYToolsMain.m in Sources */,
 				AD33EC9319FBB13F00FE0C11 /* AppDelegate.m in Sources */,
 				AD62118219FD2FBC009BECA6 /* LYFunctionInterface.m in Sources */,
 				F10340D119FF7B1700C5CB4E /* CustomToolbarItem.m in Sources */,
+				AD7FBABB1A021919008CC80A /* LYPostcomment.m in Sources */,
 				F10340CB19FF51DD00C5CB4E /* UIImage+Scale.m in Sources */,
+				AD7FBAB61A0216FF008CC80A /* LY_InfoCell.m in Sources */,
 				AD6211E019FD8028009BECA6 /* LYPublicMethods.m in Sources */,
 				AD6211AD19FD46BD009BECA6 /* LeslieImageCache.m in Sources */,
 				AD6211A119FD42CE009BECA6 /* LYReachability.m in Sources */,
@@ -1031,6 +1110,7 @@
 				AD30F7D61A00D97A00C8709E /* LYProductinformation.m in Sources */,
 				AD33EC9019FBB13F00FE0C11 /* main.m in Sources */,
 				AD3DD3BF19FE13FE00364854 /* LY_DeliveryCell.m in Sources */,
+				AD7FBA8D1A0214E2008CC80A /* LYProManagementMain.m in Sources */,
 				AD3DD40C19FE466600364854 /* LYShop.m in Sources */,
 				AD6211DD19FD6F6E009BECA6 /* LYAnnouncement.m in Sources */,
 			);

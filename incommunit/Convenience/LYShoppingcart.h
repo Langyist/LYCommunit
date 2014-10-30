@@ -6,6 +6,7 @@
 //  Copyright (c) 2014年 LANGYI. All rights reserved.
 //
 #import <UIKit/UIKit.h>
+#import "UIImageView+AsyncDownload.h"
 @interface LYShoppingcart : UIViewController<UITableViewDataSource,UITableViewDelegate>
 {
     UITableView *m_tableView ;

@@ -10,14 +10,15 @@
 
 @interface LYProductinformation : UIViewController
 {
-@public NSString * m_GoodsID; //上铺ID
-NSDictionary* m_ProductDetails;
-UIImageView * m_iamgeview;
-UILabel *m_GoodsName; //商品名字
-UILabel *m_Price;//商品价格
-UITextView *m_Introduction; //商品介绍
-UITextField *m_textField;
+    @public NSString * m_GoodsID; //上铺ID
+    NSDictionary* m_ProductDetails;
+    UIImageView * m_iamgeview;
+    UILabel *m_GoodsName; //商品名字
+    UILabel *m_Price;//商品价格
+    UITextView *m_Introduction; //商品介绍
+    UITextField *m_textField;
 }
+@property(nonatomic,strong)NSDictionary* m_ProductDetails;
 @property(nonatomic,retain)IBOutlet UIImageView *m_iamgeview;
 @property(nonatomic,retain)IBOutlet UILabel *m_GoodsName;
 @property(nonatomic,retain)IBOutlet UILabel *m_Price;
