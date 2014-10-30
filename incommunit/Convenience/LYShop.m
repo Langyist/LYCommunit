@@ -32,9 +32,6 @@
     Goodstype = [[NSArray alloc] init];
     categoryid = @"";
     order = @"";
-    //[self Getstoresdata:@""];
-    [NSThread detachNewThreadSelector:@selector(Getstoresdata:) toTarget:self withObject:nil];
-    //[self Getstoresdata:@""];
     self.navigationController.navigationBar.barTintColor = [UIColor colorWithRed:(238.0/255) green:(183.0/255) blue:(88.0/255) alpha:1.0];
     self.navigationController.navigationBar.tintColor= [UIColor colorWithRed:(240.0/255) green:(174.0/255) blue:(64.0/255) alpha:1.0];
     
@@ -54,6 +51,7 @@
                       ,[self createFixableItem:10]
                       ,nil];
     [self setToolbarItems:array animated:YES];
+    [NSThread detachNewThreadSelector:@selector(Getstoresdata:) toTarget:self withObject:nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -90,7 +88,6 @@
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 #pragma mark - tableView协议函数
 // Customize the number of sections in the table view.
@@ -107,21 +104,34 @@
 // Customize the appearance of table view cells.
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell = [[UITableViewCell alloc] init] ;
-    if (indexPath.row < 5) {
+    UITableViewCell *cell ;
+    if (indexPath.row < 5)
+    {
         cell = [super tableView:tableView cellForRowAtIndexPath:indexPath];
-    }
-    else if (indexPath.row == 5) {
+        if (m_storesinfo!=nil) {
         switch (indexPath.row) {
-            case 0:
-
+            case 1:
+                _shopSummary.text = [m_storesinfo objectForKey:@"description"];
                 break;
-                
+            case 2:
+                _youhui.text = [m_storesinfo objectForKey:@"send_info"];
+                break;
+            case 3:
+                _address.text = [[NSString alloc] initWithFormat:@"地址：%@",[m_storesinfo objectForKey:@"address"]];
+                break;
+            case 4:
+                _phoneNumber.text = [[NSString alloc]initWithFormat:@"电话：%@",[m_storesinfo objectForKey:@"phone"]] ;
+                break;
             default:
                 break;
         }
+
     }
-    else {
+    }else if (indexPath.row == 5)
+    {
+        cell = [super tableView:tableView cellForRowAtIndexPath:indexPath];
+    }else
+    {
         cell = [tableView dequeueReusableCellWithIdentifier:@"storeslist" forIndexPath:indexPath];
         m_Goodspice=(UIImageView *)[cell viewWithTag:104];
         m_GoodsName = (UILabel *)[cell viewWithTag:105];
@@ -229,15 +239,15 @@
     NSError *error;
     NSString *urlstr = [[NSString alloc] initWithFormat:@"%@/services/shop/commodity_list?shop_id=%@&category_id=%@&order=%@&pageSize=10&pageOffset=0",url,m_StoresID,categoryid,order];
     NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:urlstr]];
-    NSData *response = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
-    if(response!=nil)
+    NSData *response1 = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
+    if(response1!=nil)
     {
-    NSDictionary *weatherDic = [NSJSONSerialization JSONObjectWithData:response options:NSJSONReadingMutableLeaves error:&error];
-    NSString *status = [weatherDic objectForKey:@"status"];
-    m_Goodslist = [weatherDic objectForKey:@"data"];
-    NSLog(@"%@",status);
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [m_tableview reloadData];
+        NSDictionary *weatherDic = [NSJSONSerialization JSONObjectWithData:response1 options:NSJSONReadingMutableLeaves error:&error];
+        NSString *status = [weatherDic objectForKey:@"status"];
+        m_Goodslist = [weatherDic objectForKey:@"data"];
+        NSLog(@"%@",status);
+        dispatch_async(dispatch_get_main_queue(), ^{
+        [self.tableView reloadData];
         // 更新UI
     });
     }
