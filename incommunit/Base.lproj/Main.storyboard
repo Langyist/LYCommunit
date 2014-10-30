@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6245" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="ffd-6x-mAq">
     <dependencies>
+        <deployment defaultVersion="1808" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6238"/>
     </dependencies>
     <scenes>
@@ -397,7 +398,7 @@
                         <outlet property="m_imageScrollView" destination="bhf-ms-uoy" id="4nt-6Y-vK8"/>
                         <outlet property="m_imageView" destination="tjf-NE-1SL" id="SF5-h5-fVy"/>
                         <outlet property="titleButton" destination="Zga-Ji-KEf" id="9qw-oY-ISn"/>
-                        <segue destination="Idn-0H-VKw" kind="push" identifier="GoManage" id="cHG-Fy-Y5d"/>
+                        <segue destination="Idn-0H-VKw" kind="push" identifier="GoLYProManagementMain" id="cHG-Fy-Y5d"/>
                         <segue destination="Hda-fA-BA4" kind="push" identifier="GoLYconvenienceMain" id="rz7-Np-3RN"/>
                         <segue destination="rQ2-ZS-Ap4" kind="push" identifier="GoLYMyCommunit" id="mco-0E-l6u"/>
                         <segue destination="kla-OM-V0W" kind="push" identifier="GoLYBaiduMap" id="x2r-l6-Sk7"/>
@@ -412,7 +413,7 @@
         <!--物业管理-->
         <scene sceneID="ydB-kW-mez">
             <objects>
-                <viewController id="Idn-0H-VKw" customClass="LY_ManageView" sceneMemberID="viewController">
+                <viewController id="Idn-0H-VKw" customClass="LYProManagementMain" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="hOi-VW-57E">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
