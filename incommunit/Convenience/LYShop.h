@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "LMComBoxView.h"
 #import "UIImageView+AsyncDownload.h"
-@interface LYShop : UIViewController<UITableViewDataSource,UITableViewDelegate,UITextFieldDelegate,UITabBarDelegate,LMComBoxViewDelegate>
+@interface LYShop : UITableViewController<UITextFieldDelegate,UITabBarDelegate,LMComBoxViewDelegate>
 {
     UITableView * m_tableview;
     UITextField *m_textfiled;
@@ -48,9 +48,14 @@
     UIView *m_viewms;
     NSMutableDictionary *m_stores;//上铺ID和上铺名字
 }
-@property (nonatomic,retain)IBOutlet UITableView *m_tableview;
 @property (nonatomic,retain)IBOutlet UIScrollView *m_imageScrollView;
 @property (nonatomic,retain)IBOutlet UIImageView  *m_imageView;
 @property(nonatomic,retain)IBOutlet UINavigationItem   *Item;
-@property(nonatomic,retain)IBOutlet UITabBar *m_tabBar;
+@property (weak, nonatomic) IBOutlet UILabel *shopSummary;
+@property (weak, nonatomic) IBOutlet UILabel *youhui;
+@property (weak, nonatomic) IBOutlet UILabel *address;
+@property (weak, nonatomic) IBOutlet UILabel *phoneNumber;
+- (IBAction)all:(id)sender;
+- (IBAction)autoSort:(id)sender;
+
 @end

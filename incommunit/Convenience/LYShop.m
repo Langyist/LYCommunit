@@ -10,6 +10,7 @@
 #import "LMContainsLMComboxScrollView.h"
 #import "LYSqllite.h"
 #import "LYProductinformation.h"
+#import "CustomToolbarItem.h"
 #define kDropDownListTag 1000
 @interface LYShop ()
 {
@@ -20,7 +21,7 @@
 }
 @end
 @implementation LYShop
-@synthesize m_tableview,m_imageScrollView,m_imageView,Item,m_tabBar;
+@synthesize m_imageScrollView,m_imageView,Item;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -34,6 +35,56 @@
     //[self Getstoresdata:@""];
     [NSThread detachNewThreadSelector:@selector(Getstoresdata:) toTarget:self withObject:nil];
     //[self Getstoresdata:@""];
+    self.navigationController.navigationBar.barTintColor = [UIColor colorWithRed:(238.0/255) green:(183.0/255) blue:(88.0/255) alpha:1.0];
+    self.navigationController.navigationBar.tintColor= [UIColor colorWithRed:(240.0/255) green:(174.0/255) blue:(64.0/255) alpha:1.0];
+    
+    UIBarButtonItem *mapItem = [self createCustomItem:@"首页" imageName:@"首页" selector:@selector(jumpToPage:) tag:100];
+    UIBarButtonItem *mineItem = [self createCustomItem:@"个人主页" imageName:@"2" selector:@selector(jumpToPage:) tag:101];
+    UIBarButtonItem *toolItem = [self createCustomItem:@"购物车" imageName:@"购物车" selector:@selector(jumpToPage:) tag:102];
+    UIBarButtonItem *orderItem = [self createCustomItem:@"我的订单" imageName:@"订单" selector:@selector(jumpToPage:) tag:103];
+    NSArray *array = [NSArray arrayWithObjects:
+                      [self createFixableItem:10]
+                      ,mapItem
+                      ,[self createFixableItem:0]
+                      ,mineItem
+                      ,[self createFixableItem:0]
+                      ,toolItem
+                      ,[self createFixableItem:0]
+                      ,orderItem
+                      ,[self createFixableItem:10]
+                      ,nil];
+    [self setToolbarItems:array animated:YES];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [self.navigationController setToolbarHidden:NO];
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [self.navigationController setToolbarHidden:YES];
+}
+
+- (UIBarButtonItem *)createFixableItem:(NSInteger)width {
+    UIBarButtonItem *item = nil;
+    UIBarButtonSystemItem type = UIBarButtonSystemItemFlexibleSpace;
+    if (width > 0) {
+        type = UIBarButtonSystemItemFixedSpace;
+    }
+    item = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:type target:nil action:nil];
+    item.width = width;
+    return item;
+}
+
+- (UIBarButtonItem *)createCustomItem:(NSString *)title imageName:(NSString *)imageName selector:(SEL)selector tag:(NSInteger)tag {
+    NSArray *nibViews = [[NSBundle mainBundle] loadNibNamed:@"CustomToolbarItem" owner:self options:nil];
+    CustomToolbarItem *customItem = [nibViews objectAtIndex:0];
+    customItem.tag = tag;
+    customItem.autoresizingMask = UIViewAutoresizingNone;
+    [customItem setImage:[UIImage imageNamed:imageName] forState:UIControlStateNormal];
+    [customItem setTitle:title forState:UIControlStateNormal];
+    [customItem addTarget:self action:selector forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithCustomView:customItem];
+    return item;
 }
 
 - (void)didReceiveMemoryWarning
@@ -51,101 +102,35 @@
 // Customize the number of rows in the table view.
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return m_Goodslist.count+2;
+    return m_Goodslist.count+6;
 }
 // Customize the appearance of table view cells.
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell *cell = [[UITableViewCell alloc] init] ;
-    switch (indexPath.row) {
-        case 0:
-        {
-            
-            m_StoreIntroduction = [[UILabel alloc] init];
-            m_DistributionRules = [[UILabel alloc] init];
-            m_Address = [[UIButton alloc] init];
-            m_Phone = [[UIButton alloc] init];
-            cell = [tableView dequeueReusableCellWithIdentifier:@"storesinfo"];
-            [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
-            
-            m_imageScrollView = (UIScrollView *)[cell viewWithTag:105];
-            NSMutableArray *temparray = [m_storesinfo objectForKey:@"commodities"];
-            m_imageScrollView.contentSize = CGSizeMake(temparray.count * 320.0f, m_imageScrollView.frame.size.height);
-            m_imageScrollView.pagingEnabled = YES;
-            m_imageScrollView.showsHorizontalScrollIndicator = NO;
-            m_imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0.0f,  0.0f, m_imageScrollView.frame.size.width, m_imageScrollView.frame.size.height)];
-            
-            for (int i = 0; i<temparray.count; i++)
-            {
-                NSDictionary *tempdic = [temparray objectAtIndex:i];
-                NSString *imageUrl = [tempdic objectForKey:@"cover_path"];
-                if (imageUrl!=nil && ![imageUrl isEqualToString:@""])
-                {
-                    NSURL *url = [NSURL URLWithString:imageUrl];
-                    [m_imageView setImageWithURL:url placeholderImage:nil];
-                }
-                [m_imageScrollView addSubview:m_imageView];
-            }
-            m_StoreIntroduction = (UILabel *)[cell viewWithTag:100];
-            m_DistributionRules = (UILabel *)[cell viewWithTag:101];
-            m_Address = (UIButton *)[cell viewWithTag:102];
-            m_Phone=(UIButton *)[cell viewWithTag:103];
-            m_StoreIntroduction .text =  [m_storesinfo objectForKey:@"description"];
-            m_DistributionRules.text = [m_storesinfo objectForKey:@"send_info"];
-            [m_Address setTitle: [[NSString alloc] initWithFormat:@"地址：%@",[m_storesinfo objectForKey:@"address"]] forState: UIControlStateNormal];
-            [m_Phone setTitle: [[NSString alloc]initWithFormat:@"电话：%@",[m_storesinfo objectForKey:@"phone"]] forState: UIControlStateNormal];
-        }
-            break;
-        case 1:
-        {
-            cell = [tableView dequeueReusableCellWithIdentifier:@"storesselect"];
-            [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
-            
-            //            UIButton *allButton = [[UIButton alloc] initWithFrame:CGRectMake(10, 6, 150, 30)];
-            //            [cell addSubview:allButton];
-            //
-            //            UILabel *allLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, allButton.frame.size.width, allButton.frame.size.height)];
-            //            allLabel.text = @"全部";
-            //            [allButton addSubview:allLabel];
-            //
-            //            UIImageView *i = [[UIImageView alloc] initWithFrame:CGRectMake(allButton.frame.size.width - 20, allButton.frame.size.height - 20, 15, 15)];
-            //            image.image = [UIImage imageNamed:@""];
-            //            [allButton addSubview:image];
-            
-            if (tempgoodstype.count>0) {
-                [self setUpBgScrollView];
-            }
-        }
-            break;
-        default:
-        {
-            [cell setSelectionStyle:UITableViewCellSelectionStyleBlue];
-            NSDictionary *Goodsinfo =[m_Goodslist objectAtIndex:indexPath.row-2];
-            m_Goodspice = [[UIImageView alloc] init];
-            m_GoodsName = [[UILabel alloc] init];
-            m_GoodsChan = [[UILabel alloc] init];
-            m_ShoppingCartButton = [[UIButton alloc] init];
-            m_Price = [[UILabel alloc] init];
-            cell = [tableView dequeueReusableCellWithIdentifier:@"storeslist"];
-            m_Goodspice=(UIImageView *)[cell viewWithTag:104];
-            m_GoodsName = (UILabel *)[cell viewWithTag:105];
-            m_GoodsChan =(UILabel *)[cell viewWithTag:106];
-            m_Price= (UILabel *)[cell viewWithTag:107];
-            m_ShoppingCartButton = (UIButton *)[cell viewWithTag:110];
-            m_ShoppingCartButton.tag = indexPath.row-2;
-            [m_ShoppingCartButton addTarget:self action:@selector(addShoppingCart:)
-                           forControlEvents:UIControlEventTouchUpInside];
-            NSString *imageUrl = [Goodsinfo objectForKey:@"cover_path"];
-            if (imageUrl!=nil && ![imageUrl isEqualToString:@""])
-            {
-                NSURL *url = [NSURL URLWithString:imageUrl];
-                [m_Goodspice setImageWithURL:url placeholderImage:nil];
-            }
-            m_GoodsName.text = [Goodsinfo objectForKey:@"name"];
-            m_GoodsChan.text = [[NSString alloc]initWithFormat:@"点赞次数：%@",[Goodsinfo objectForKey:@"like"]];
-            m_Price.text = [[NSString alloc]initWithFormat:@"￥%@.00",[Goodsinfo objectForKey:@"price"]];
-        }
-            break;
+    if (indexPath.row <= 5) {
+        cell = [super tableView:tableView cellForRowAtIndexPath:indexPath];
+    }
+    else {
+        cell = [tableView dequeueReusableCellWithIdentifier:@"storeslist" forIndexPath:indexPath];
+        m_Goodspice=(UIImageView *)[cell viewWithTag:104];
+        m_GoodsName = (UILabel *)[cell viewWithTag:105];
+        m_GoodsChan =(UILabel *)[cell viewWithTag:106];
+        m_Price= (UILabel *)[cell viewWithTag:107];
+        m_ShoppingCartButton = (UIButton *)[cell viewWithTag:110];
+        m_ShoppingCartButton.tag = indexPath.row-6;
+        [m_ShoppingCartButton addTarget:self action:@selector(addShoppingCart:)
+                       forControlEvents:UIControlEventTouchUpInside];
+        
+//        NSString *imageUrl = [Goodsinfo objectForKey:@"cover_path"];
+//        if (imageUrl!=nil && ![imageUrl isEqualToString:@""])
+//        {
+//            NSURL *url = [NSURL URLWithString:imageUrl];
+//            [m_Goodspice setImageWithURL:url placeholderImage:nil];
+//        }
+//        m_GoodsName.text = [Goodsinfo objectForKey:@"name"];
+//        m_GoodsChan.text = [[NSString alloc]initWithFormat:@"点赞次数：%@",[Goodsinfo objectForKey:@"like"]];
+//        m_Price.text = [[NSString alloc]initWithFormat:@"￥%@.00",[Goodsinfo objectForKey:@"price"]];
     }
     return cell;
 }
@@ -154,8 +139,8 @@
 {
     NSUInteger row = [indexPath row];
     NSLog(@"%lu",(unsigned long)row);
-    if (indexPath.row>1) {
-        NSMutableDictionary *Goodsinfo =[m_Goodslist objectAtIndex:indexPath.row-2];
+    if (indexPath.row > 5) {
+        NSMutableDictionary *Goodsinfo =[m_Goodslist objectAtIndex:indexPath.row-6];
         m_Goodsid =  m_Goodsid = [[NSString alloc] initWithFormat:@"%@",[Goodsinfo objectForKey:@"id"]];
         [self performSegueWithIdentifier:@"GoProductDetails" sender:self];
     }
@@ -164,17 +149,11 @@
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    switch (indexPath.row)
-    {
-        case 0:
-            return 240;
-            break;
-        case 1:
-            return 40;
-            break;
-        default:
-            return 90;
-            break;
+    if (indexPath.row > 5) {
+        return 88;
+    }
+    else {
+        return [super tableView:tableView heightForRowAtIndexPath:indexPath];
     }
 }
 
@@ -324,9 +303,9 @@
 }
 
 #pragma mark UItabBar 协议函数
--(void)tabBar:(UITabBar *)tabBar didSelectItem:(UITabBarItem *)item
+- (void)jumpToPage:(CustomToolbarItem *)sender
 {
-    switch (item.tag) {
+    switch (sender.tag) {
         case 100:
             [self performSegueWithIdentifier:@"BackMian" sender:self];
             break;
@@ -367,4 +346,9 @@
 }
 
 
+- (IBAction)all:(id)sender {
+}
+
+- (IBAction)autoSort:(id)sender {
+}
 @end
