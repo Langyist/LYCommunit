@@ -2039,7 +2039,7 @@
                                                     <color key="textColor" red="0.24705882352941178" green="0.24705882352941178" blue="0.24313725490196078" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="send_info.png" id="Hja-W6-8eJ">
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="shop_introduce.png" id="Hja-W6-8eJ">
                                                     <rect key="frame" x="17" y="13" width="18" height="18"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 </imageView>
@@ -3820,6 +3820,7 @@
         <image name="logo.jpg" width="400" height="300"/>
         <image name="logo.png" width="329" height="200"/>
         <image name="send_info.png" width="30" height="32"/>
+        <image name="shop_introduce.png" width="30" height="25"/>
         <image name="便民.png" width="128" height="122"/>
         <image name="减少_07.png" width="41" height="51"/>
         <image name="删除_07.png" width="21" height="21"/>
