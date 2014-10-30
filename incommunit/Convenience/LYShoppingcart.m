@@ -156,10 +156,10 @@
 {
     if (indexPath.row == 0)
     {
-        return 50;
+        return 44;
     }else
     {
-        return 74;
+        return 60;
     }
 }
 
