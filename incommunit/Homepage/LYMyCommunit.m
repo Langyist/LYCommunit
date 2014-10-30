@@ -79,9 +79,10 @@
         UIAlertView *al = [[UIAlertView alloc] initWithTitle:@"提示" message:@"加载网络数据失败" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
         [al show];
     }
-    //[m_view setNeedsDisplay];
-    [self updata];
-    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self updata];
+        // 更新UI
+    });
 }
 #pragma mark - Segues
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
