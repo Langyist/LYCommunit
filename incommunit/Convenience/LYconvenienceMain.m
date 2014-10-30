@@ -925,7 +925,10 @@
     NSString *status = [weatherDic objectForKey:@"status"];
     NSLog(@"%@",status);
     m_Deliverylist = [weatherDic objectForKey:@"data"];
-    [m_Deliverytableview reloadData];
+    dispatch_async(dispatch_get_main_queue(), ^{
+             [m_Deliverytableview reloadData];
+            // 更新UI
+        });
     }else
     {
         ///提示框
@@ -961,7 +964,10 @@
     //    UIAlertView *aler = [[UIAlertView alloc] initWithTitle:@"提示" message:status delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
     //    [aler show];
     m_ShopDaquanlist = [weatherDic objectForKey:@"data"];
-    [m_ShopDaquan reloadData];
+    dispatch_async(dispatch_get_main_queue(), ^{
+            [m_ShopDaquan reloadData];
+            // 更新UI
+        });
     }
     }
 }
@@ -989,7 +995,10 @@
     NSString *status = [weatherDic objectForKey:@"status"];
     NSLog(@"%@",status);
     m_CellmicroShoplist = [weatherDic objectForKey:@"data"];
-    [m_CellmicroShop reloadData];
+    dispatch_async(dispatch_get_main_queue(), ^{
+            [m_CellmicroShop reloadData];
+            // 更新UI
+        });
     }
 }
 
@@ -1015,7 +1024,10 @@
         //    UIAlertView *aler = [[UIAlertView alloc] initWithTitle:@"提示" message:status delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
         //    [aler show];
         m_shoptypelist = [weatherDic objectForKey:@"data"];
-        [m_backtable reloadData];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [m_backtable reloadData];
+            // 更新UI
+        });
     }
 }
 
@@ -1028,14 +1040,4 @@
         detailViewController->m_StoresID = self->m_Storesid;
     }
 }
--(void)viewWillDisappear:(BOOL)animated
-{
-//    [myThread01 ];
-//    myThread02.exit;
-////    [myThread02 exit];
-////    [myThread03 exit];
-////    [myThread04 exit];
-////    [myThread05 exit];
-}
-
 @end

@@ -18,11 +18,8 @@
     NSString *categoryid ;
     NSString *order;
 }
-
 @end
-
 @implementation LYShop
-
 @synthesize m_tableview,m_imageScrollView,m_imageView,Item,m_tabBar;
 - (void)viewDidLoad
 {
@@ -34,8 +31,8 @@
     Goodstype = [[NSArray alloc] init];
     categoryid = @"";
     order = @"";
-    [self Getstoresdata:@""];
-    //[NSThread detachNewThreadSelector:@selector(Getstoresdata:) toTarget:self withObject:nil];
+    //[self Getstoresdata:@""];
+    [NSThread detachNewThreadSelector:@selector(Getstoresdata:) toTarget:self withObject:nil];
     //[self Getstoresdata:@""];
 }
 
@@ -138,9 +135,11 @@
             m_ShoppingCartButton.tag = indexPath.row-2;
             [m_ShoppingCartButton addTarget:self action:@selector(addShoppingCart:)
                            forControlEvents:UIControlEventTouchUpInside];
-            if([self getImageFromURL:[Goodsinfo objectForKey:@"cover_path"]]!=nil)
+            NSString *imageUrl = [Goodsinfo objectForKey:@"cover_path"];
+            if (imageUrl!=nil && ![imageUrl isEqualToString:@""])
             {
-                [m_Goodspice setImage:[self getImageFromURL:[Goodsinfo objectForKey:@"cover_path"]]];
+                NSURL *url = [NSURL URLWithString:imageUrl];
+                [m_Goodspice setImageWithURL:url placeholderImage:nil];
             }
             m_GoodsName.text = [Goodsinfo objectForKey:@"name"];
             m_GoodsChan.text = [[NSString alloc]initWithFormat:@"点赞次数：%@",[Goodsinfo objectForKey:@"like"]];
@@ -197,13 +196,13 @@
     NSDictionary *plistDic = [[NSBundle mainBundle] infoDictionary];
     NSLog(@"plistDic = %@",plistDic);
     NSString *url = [plistDic objectForKey: @"URL"];
-    
     NSError *error;
     //    加载一个NSURL对象
     NSString *urlstr = [[NSString alloc] initWithFormat:@"%@/services/shop/detail?id=%@",url,m_StoresID];
     NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:urlstr]];
     //    将请求的url数据放到NSData对象中
     NSData *response = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
+    if (response!=nil) {
     //    iOS5自带解析类NSJSONSerialization从response中解析出数据放到字典中
     NSDictionary *weatherDic = [NSJSONSerialization JSONObjectWithData:response options:NSJSONReadingMutableLeaves error:&error];
     //    weatherDic字典中存放的数据也是字典型，从它里面通过键值取值
@@ -228,8 +227,8 @@
     customLab.textAlignment = NSTextAlignmentCenter;
     self.navigationItem.titleView = customLab;
     m_tabBar.delegate = self;
-    
-    [NSThread detachNewThreadSelector:@selector(serachGoods:) toTarget:self withObject:nil];
+    [self serachGoods:@""];
+    }
 }
 
 -(void)serachGoods:(NSString *)URL
@@ -242,11 +241,18 @@
     NSString *urlstr = [[NSString alloc] initWithFormat:@"%@/services/shop/commodity_list?shop_id=%@&category_id=%@&order=%@&pageSize=10&pageOffset=0",url,m_StoresID,categoryid,order];
     NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:urlstr]];
     NSData *response = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
+    if(response!=nil)
+    {
     NSDictionary *weatherDic = [NSJSONSerialization JSONObjectWithData:response options:NSJSONReadingMutableLeaves error:&error];
     NSString *status = [weatherDic objectForKey:@"status"];
     m_Goodslist = [weatherDic objectForKey:@"data"];
     NSLog(@"%@",status);
-    [m_tableview reloadData];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [m_tableview reloadData];
+        // 更新UI
+    });
+    }
+    
 }
 //获取网络图片
 -(UIImage *) getImageFromURL:(NSString *)fileURL
@@ -256,15 +262,7 @@
     NSData * data = [NSData dataWithContentsOfURL:[NSURL URLWithString:fileURL]];
     result = [UIImage imageWithData:data];
     return result;
-    
 }
-//返回
--(IBAction)back:(id)sender
-{
-    [self dismissViewControllerAnimated:YES completion:^{
-        NSLog(@"移除");}];
-}
-
 #pragma mark 添加购物车
 -(IBAction)addShoppingCart:(id)sender
 {
