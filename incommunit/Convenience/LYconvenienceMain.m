@@ -30,6 +30,8 @@
     
     NSInteger lastIndex;
     NSInteger selectCount;
+    
+    NSMutableArray *arrow;
 }
 
 @end
@@ -47,6 +49,9 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    arrow = [[NSMutableArray alloc] init];
+    
     StoreType = @"";
     orderstr  = @"";
     myThread01 = [[NSThread alloc] initWithTarget:self
@@ -70,6 +75,25 @@
                                                    object:nil];
     [myThread05 start];
     [m_messageView removeFromSuperview];
+    
+    CGRect rect = CGRectMake(0, 0, 1, 1);
+    UIGraphicsBeginImageContext(rect.size);
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    CGContextSetFillColorWithColor(context, [[UIColor clearColor] CGColor]);
+    CGContextFillRect(context, rect);
+    UIImage *transparentImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    [self.m_segment setBackgroundImage:transparentImage forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
+    [self.m_segment setTitleTextAttributes:@{
+                                             NSForegroundColorAttributeName : [UIColor colorWithRed:63/255.0f green:62/255.0f blue:62/255.0f alpha:1]
+                                             }
+                                  forState:UIControlStateNormal];
+    [self.m_segment setTitleTextAttributes:@{
+                                             NSForegroundColorAttributeName : [UIColor colorWithRed:230/255.0f green:163/255.0f blue:44/255.0f alpha:1]
+                                             }
+                                  forState:UIControlStateSelected];
+    
     self.navigationController.navigationBar.tintColor= [UIColor colorWithRed:(0.0/255) green:(0.0/255) blue:(0.0/255) alpha:1.0];
     [LYSqllite CreatShoppingcart];
     m_textfiled.delegate=self;
@@ -81,6 +105,11 @@
     m_Featuredtableview = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self._scrollView.frame.size.height)];
     m_Featuredtableview.dataSource = self;
     m_Featuredtableview.delegate = self;
+    m_Featuredtableview.separatorStyle = UITableViewCellSeparatorStyleNone;
+    UIView *footerView = [[UIView alloc] init];
+    [footerView setBackgroundColor:[UIColor clearColor]];
+    footerView.frame = CGRectMake(0, 0, 10, 10);
+    m_Featuredtableview.tableFooterView = footerView;
     [m_view01 addSubview:m_Featuredtableview];
     [self._scrollView addSubview:m_view01];
     //送餐送回
@@ -91,9 +120,11 @@
     [m_view02 addSubview:m_Deliverytableview];
     [self._scrollView addSubview:m_view02];
     
-    UIImageView *buttonimageView = [[UIImageView alloc] initWithFrame:CGRectMake(148, 18, 10, 10)];
+    UIImageView *buttonimageView = [[UIImageView alloc] initWithFrame:CGRectMake(148, 14, 10, 10)];
     buttonimageView.image = [UIImage imageNamed:@"小三角_11"];
     [m_segment addSubview:buttonimageView];
+    buttonimageView.tag = @"1";
+    [arrow addObject:buttonimageView];
     //搜索
     m_deliverSearch = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, m_view02.frame.size.width, 40)];
     m_deliverSearch.delegate = self;
@@ -156,8 +187,10 @@
     [m_view03 addSubview:m_ShopDaquan];
     [self._scrollView addSubview:m_view03];
     
-    UIImageView *shopimageView = [[UIImageView alloc] initWithFrame:CGRectMake(228, 18, 10, 10)];
+    UIImageView *shopimageView = [[UIImageView alloc] initWithFrame:CGRectMake(228, 14, 10, 10)];
     shopimageView.image = [UIImage imageNamed:@"小三角_11"];
+    shopimageView.tag = @"2";
+    [arrow addObject:shopimageView];
     [m_segment addSubview:shopimageView];
     //搜索
     m_shopSearch = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, m_view02.frame.size.width, 40)];
@@ -407,6 +440,15 @@
 #pragma mark - Plain Segmented Control 协议函数
 -(void)doSomethingInSegment:(UISegmentedControl *)Seg
 {
+    for (UIImageView *imageView in arrow) {
+        if ([imageView.tag integerValue] == Seg.selectedSegmentIndex) {
+            [imageView setImage:[UIImage imageNamed:@"黄色小三角_03"]];
+        }
+        else {
+            [imageView setImage:[UIImage imageNamed:@"小三角_11"]];
+        }
+    }
+    
     m_backView.hidden = YES;
     m_shopView.hidden = YES;
     [m_deviButton removeFromSuperview];
@@ -423,10 +465,6 @@
         {
             [self._scrollView setContentOffset:CGPointMake(1* self.view.frame.size.width,0) animated:YES];
             m_backView.hidden = YES;
-            
-            UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(70, 20, 10, 10)];
-            imageView.image = [UIImage imageNamed:@"小三角_11"];
-            
             
             m_deviButton = [[UIButton alloc] initWithFrame:CGRectMake(80, 67, 80, 29)];
             m_deviButton.backgroundColor = [UIColor clearColor];
@@ -600,21 +638,22 @@
         }
         NSDictionary *Featinfo = [m_Deliverylist objectAtIndex:indexPath.row];
         LY_DeliveryCell *cell = [tableView dequeueReusableCellWithIdentifier:@"DeliveryCellidentifiter"];
+        cell.m_imageview.layer.cornerRadius = 3;
+        cell.m_imageview.clipsToBounds = YES;
         NSString *imageUrl = [Featinfo objectForKey:@"logo"];
         if (imageUrl!=nil && ![imageUrl isEqualToString:@""])
         {
             NSURL *url = [NSURL URLWithString:imageUrl];
             [cell.m_imageview setImageWithURL:url placeholderImage:nil];
         }
-        cell.m_name.text =[Featinfo objectForKey:@"name"];
-        cell.m_call_number.text = [[NSString alloc]initWithFormat:@"%@",[Featinfo objectForKey:@"call_number"]];
-        cell.m_send_info.text =[Featinfo objectForKey:@"send_info"];
-        cell.m_distance.text =[[NSString alloc]initWithFormat:@"%@ m",[Featinfo objectForKey:@"distance"]];
+        [cell setStoreName:[Featinfo objectForKey:@"name"]];
+        [cell setCallNumber:[[Featinfo objectForKey:@"call_number"] integerValue]];
+        [cell setDistance:[[Featinfo objectForKey:@"distance"] integerValue]];
         if ([[[NSString alloc] initWithFormat:@"%@",[Featinfo objectForKey:@"sendable"]]isEqualToString:@"1"]) {
-            cell.m_sendable.text = @"支持配送/";
+            cell.m_sendable.text = [NSString stringWithFormat:@"支持配送/%@", [Featinfo objectForKey:@"send_info"]];
         }else
         {
-            cell.m_sendable.text = @"不支持配送/";
+            cell.m_sendable.text = [NSString stringWithFormat:@"不支持配送/%@", [Featinfo objectForKey:@"send_info"]];
         }
         if ([[[NSString alloc] initWithFormat:@"%@",[Featinfo objectForKey:@"hui"]] isEqualToString:@"1"]) {
             cell.m_hui.hidden = NO;
@@ -633,23 +672,22 @@
         }
         NSDictionary *Featinfo = [m_ShopDaquanlist objectAtIndex:indexPath.row];
         LY_DeliveryCell *cell = [tableView dequeueReusableCellWithIdentifier:@"DeliveryCellidentifiter"];
-        
+        cell.m_imageview.layer.cornerRadius = 3;
+        cell.m_imageview.clipsToBounds = YES;
         NSString *imageUrl = [Featinfo objectForKey:@"logo"];
         if (imageUrl!=nil && ![imageUrl isEqualToString:@""])
         {
             NSURL *url = [NSURL URLWithString:imageUrl];
             [cell.m_imageview setImageWithURL:url placeholderImage:nil];
         }
-        cell.m_name.text =[Featinfo objectForKey:@"name"];
-        cell.m_call_number.text = [[NSString alloc]initWithFormat:@"%@",[Featinfo objectForKey:@"call_number"]];
-        cell.m_send_info.text =[Featinfo objectForKey:@"send_info"];
-        cell.m_distance.text =[[NSString alloc]initWithFormat:@"%@ m",[Featinfo objectForKey:@"distance"]];
-        if ([[[NSString alloc] initWithFormat:@"%@",[Featinfo objectForKey:@"sendable"]]isEqualToString:@"1"])
-        {
-            cell.m_sendable.text = @"支持配送/";
+        [cell setStoreName:[Featinfo objectForKey:@"name"]];
+        [cell setCallNumber:[[Featinfo objectForKey:@"call_number"] integerValue]];
+        [cell setDistance:[[Featinfo objectForKey:@"distance"] integerValue]];
+        if ([[[NSString alloc] initWithFormat:@"%@",[Featinfo objectForKey:@"sendable"]]isEqualToString:@"1"]) {
+            cell.m_sendable.text = [NSString stringWithFormat:@"支持配送/%@", [Featinfo objectForKey:@"send_info"]];
         }else
         {
-            cell.m_sendable.text = @"不支持配送/";
+            cell.m_sendable.text = [NSString stringWithFormat:@"不支持配送/%@", [Featinfo objectForKey:@"send_info"]];
         }
         if ([[[NSString alloc] initWithFormat:@"%@",[Featinfo objectForKey:@"hui"]] isEqualToString:@"1"]) {
             cell.m_hui.hidden = NO;
@@ -668,22 +706,22 @@
         }
         NSDictionary *Featinfo = [m_CellmicroShoplist objectAtIndex:indexPath.row];
         LY_DeliveryCell *cell = [tableView dequeueReusableCellWithIdentifier:@"DeliveryCellidentifiter"];
+        cell.m_imageview.layer.cornerRadius = 3;
+        cell.m_imageview.clipsToBounds = YES;
         NSString *imageUrl = [Featinfo objectForKey:@"logo"];
         if (imageUrl!=nil && ![imageUrl isEqualToString:@""])
         {
             NSURL *url = [NSURL URLWithString:imageUrl];
             [cell.m_imageview setImageWithURL:url placeholderImage:nil];
         }
-        cell.m_name.text =[Featinfo objectForKey:@"name"];
-        cell.m_call_number.text = [[NSString alloc]initWithFormat:@"%@",[Featinfo objectForKey:@"call_number"]];
-        cell.m_send_info.text =[Featinfo objectForKey:@"send_info"];
-        cell.m_distance.text =[[NSString alloc]initWithFormat:@"%@ m",[Featinfo objectForKey:@"distance"]];
-        if ([[[NSString alloc] initWithFormat:@"%@",[Featinfo objectForKey:@"sendable"]]isEqualToString:@"1"])
-        {
-            cell.m_sendable.text = @"支持配送/";
+        [cell setStoreName:[Featinfo objectForKey:@"name"]];
+        [cell setCallNumber:[[Featinfo objectForKey:@"call_number"] integerValue]];
+        [cell setDistance:[[Featinfo objectForKey:@"distance"] integerValue]];
+        if ([[[NSString alloc] initWithFormat:@"%@",[Featinfo objectForKey:@"sendable"]]isEqualToString:@"1"]) {
+            cell.m_sendable.text = [NSString stringWithFormat:@"支持配送/%@", [Featinfo objectForKey:@"send_info"]];
         }else
         {
-            cell.m_sendable.text = @"不支持配送/";
+            cell.m_sendable.text = [NSString stringWithFormat:@"不支持配送/%@", [Featinfo objectForKey:@"send_info"]];
         }
         if ([[[NSString alloc] initWithFormat:@"%@",[Featinfo objectForKey:@"hui"]] isEqualToString:@"1"]) {
             cell.m_hui.hidden = YES;
@@ -805,16 +843,16 @@
 {
     if (tableView == m_Featuredtableview)
     {
-        return 100;
+        return 138;
     }else if (tableView == m_Deliverytableview)
     {
-        return 86;
+        return 79;
     } if (tableView == m_ShopDaquan)
     {
-        return 86;
+        return 79;
     }if (tableView == m_CellmicroShop)
     {
-        return 86;
+        return 79;
     }
     else
     {

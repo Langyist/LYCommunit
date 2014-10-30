@@ -135,6 +135,7 @@
 		F10340CE19FF5BC500C5CB4E /* InsetTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = F10340CD19FF5BC500C5CB4E /* InsetTextField.m */; };
 		F10340D119FF7B1700C5CB4E /* CustomToolbarItem.m in Sources */ = {isa = PBXBuildFile; fileRef = F10340D019FF7B1700C5CB4E /* CustomToolbarItem.m */; };
 		F10340D319FF7B3400C5CB4E /* CustomToolbarItem.xib in Resources */ = {isa = PBXBuildFile; fileRef = F10340D219FF7B3400C5CB4E /* CustomToolbarItem.xib */; };
+		F15AE49A1A0208180084009C /* 黄色小三角_03.png in Resources */ = {isa = PBXBuildFile; fileRef = F15AE4991A0208180084009C /* 黄色小三角_03.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -387,6 +388,7 @@
 		F10340CF19FF7B1700C5CB4E /* CustomToolbarItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomToolbarItem.h; sourceTree = "<group>"; };
 		F10340D019FF7B1700C5CB4E /* CustomToolbarItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomToolbarItem.m; sourceTree = "<group>"; };
 		F10340D219FF7B3400C5CB4E /* CustomToolbarItem.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CustomToolbarItem.xib; sourceTree = "<group>"; };
+		F15AE4991A0208180084009C /* 黄色小三角_03.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "黄色小三角_03.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -520,6 +522,7 @@
 		AD33ECC119FBCA2D00FE0C11 /* Image */ = {
 			isa = PBXGroup;
 			children = (
+				F15AE4991A0208180084009C /* 黄色小三角_03.png */,
 				F10340C419FF4FCF00C5CB4E /* ic_password.png */,
 				F10340C519FF4FCF00C5CB4E /* ic_username.png */,
 				AD33ED5C19FBCB6E00FE0C11 /* Default.png */,
@@ -973,6 +976,7 @@
 				F10340C719FF4FCF00C5CB4E /* ic_username.png in Resources */,
 				AD33ED2E19FBCA2D00FE0C11 /* 主页_07.png in Resources */,
 				AD33EC9B19FBB13F00FE0C11 /* Images.xcassets in Resources */,
+				F15AE49A1A0208180084009C /* 黄色小三角_03.png in Resources */,
 				AD33ED1119FBCA2D00FE0C11 /* 2_03.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

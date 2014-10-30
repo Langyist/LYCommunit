@@ -26,4 +26,13 @@
 @property (strong, nonatomic) IBOutlet UILabel *m_sendable;
 @property (strong, nonatomic) IBOutlet UILabel *m_hui;
 @property(copy, nonatomic) UIImage *m_iamge;
+@property (weak, nonatomic) IBOutlet UIImageView *distanceImage;
+
+// new set data function
+// 设置店名
+- (void)setStoreName:(NSString *)name;
+// 设置拨打次数
+- (void)setCallNumber:(NSInteger)callNumber;
+// 设置距离
+- (void)setDistance:(NSInteger)meter;
 @end
