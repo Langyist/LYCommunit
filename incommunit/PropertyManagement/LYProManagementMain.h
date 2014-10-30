@@ -27,7 +27,6 @@
     
     //物业交流
     UITableView *m_ACtableView;
-    
     NSArray *propertyExchangeArray;
     NSArray *messageBoardListArray;
     NSDictionary *specifyMessageDictionary;

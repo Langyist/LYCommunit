@@ -10,13 +10,9 @@
 #import "LYPublicMethods.h"
 #import "LYAnnouncementDetails.h"
 @interface LYAnnouncement ()
-
 @end
-
 @implementation LYAnnouncement
-
 @synthesize m_tableView;
-
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -29,7 +25,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
     m_tableView.delegate = self;
     m_tableView.dataSource = self;
     [NSThread detachNewThreadSelector:@selector(getAnnouncement:) toTarget:self withObject:nil];
@@ -91,13 +86,12 @@
 #pragma mark - Navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-        if ([segue.identifier isEqualToString: @"GoLYAnnouncementDetails"])
-        {
-            LYAnnouncementDetails *detailViewController = (LYAnnouncementDetails*) segue.destinationViewController;
-            detailViewController->m_announMessage = m_ANNinfo;
-        }
+    if ([segue.identifier isEqualToString: @"GoLYAnnouncementDetails"])
+    {
+        LYAnnouncementDetails *detailViewController = (LYAnnouncementDetails*) segue.destinationViewController;
+        detailViewController->m_announMessage = m_ANNinfo;
+    }
 }
-
 
 #pragma mark 获取网络数据
 -(void)getAnnouncement:(NSString *)URL
@@ -125,7 +119,11 @@
     }
     notification = [weatherDic objectForKey:@"data"];
     NSLog(@"%@",notification);
-    [m_tableView  reloadData];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [m_tableView  reloadData];
+            // 更新UI
+        });
+    
     }
 }
 

@@ -22,10 +22,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [self GetInfomationInquiryData:@""];
-    [self GetPropertyExchangeData:@""];
-    [self GetPropertyServiceData:@""];
-    [self Getnotification:@""];
     self.navigationController.navigationBar.tintColor= [UIColor colorWithRed:(0.0/255) green:(0.0/255) blue:(0.0/255) alpha:1.0];
     [m_segment addTarget:self action:@selector(doSomethingInSegment:)forControlEvents:UIControlEventValueChanged];
     self.m_scrollView.contentSize = CGSizeMake(self.m_scrollView.frame.size.width * 3, self.m_scrollView.frame.size.height);
@@ -157,7 +153,10 @@
     [recognizer setDirection:(UISwipeGestureRecognizerDirectionRight)];
     [m_view04 addGestureRecognizer:recognizer];
     
-    //[self Getnotification:@""];
+    [NSThread detachNewThreadSelector:@selector(GetInfomationInquiryData:) toTarget:self withObject:nil];
+    [NSThread detachNewThreadSelector:@selector(GetPropertyExchangeData:) toTarget:self withObject:nil];
+    [NSThread detachNewThreadSelector:@selector(GetPropertyServiceData:) toTarget:self withObject:nil];
+    [NSThread detachNewThreadSelector:@selector(Getnotification:) toTarget:self withObject:nil];
 }
 //手势
 -(void)m_view01leftSwipe:(UISwipeGestureRecognizer *)recognizer
@@ -231,19 +230,15 @@
 - (void)liuButtonPressed:(UIButton *)sender
 {
     [self performSegueWithIdentifier:@"Postcomment" sender:self];
-    
     NSLog(@"我要留言");
 }
 //我要报修
 - (void)repairButtonPressed:(UIButton *)sender {
-    
     [self performSegueWithIdentifier:@"repair" sender:self];
     NSLog(@"我要报修");
 }
 
-
 #pragma mark - Plain Segmented Control 协议函数
-
 -(void)doSomethingInSegment:(UISegmentedControl *)Seg
 {
     switch (Seg.selectedSegmentIndex)
@@ -384,8 +379,8 @@
         }
         
         
-    }else if (tableView == m_InfotableView) {
-        
+    }else if (tableView == m_InfotableView)
+    {
         switch (indexPath.section) {
             case 0:
             {
@@ -403,10 +398,9 @@
             default:
             {
                 //NSDictionary *temp = [expressInfomationArray objectAtIndex:indexPath.row];
-                UINib *nib = [UINib nibWithNibName:@"InfoCell1" bundle:nil];
+                UINib *nib = [UINib nibWithNibName:@"InfoCell" bundle:nil];
                 [tableView registerNib:nib forCellReuseIdentifier:@"InfoCellindentfier"];
                 LY_InfoCell *cell = [tableView dequeueReusableCellWithIdentifier:@"InfoCellindentfier"];
-                
                 //                cell.nameLabel.text = [temp objectForKey:@"name"];
                 //                cell.numberLabel.text = [NSString stringWithFormat:@"%@件",[temp objectForKey:@"count"]];
                 //                if ([[temp objectForKey:@"status"] isEqualToString:@"0"])
@@ -441,11 +435,9 @@
         for (int i = 0; i < [[specifyMessageDictionary objectForKey:@"replies"] count]; ++i)
         {
             NSDictionary *dic = [[specifyMessageDictionary objectForKey:@"replies"] objectAtIndex:i];
-            
             UILabel *nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(75, 56 + i * 20, 80, 20)];
             nameLabel.text = [NSString stringWithFormat:@"%@:",[dic objectForKey:@"nick_name"]];
             [cell addSubview:nameLabel];
-            
             UILabel *contentLabel = [[UILabel alloc] initWithFrame:CGRectMake(160, 56 + i * 20, 100, 20)];
             contentLabel.text = [dic objectForKey:@"content"]; //需要考虑换行或者显示...
             [cell addSubview:contentLabel];
@@ -453,28 +445,23 @@
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         return cell;
     }
-    else if (tableView == m_MaintableView) {
-        
+    else if (tableView == m_MaintableView)
+    {
         NSDictionary *tempDic = [propertyService objectAtIndex:indexPath.row];
         IDNumber =[[tempDic objectForKey:@"id"] integerValue];
         [NSThread detachNewThreadSelector:@selector(GetPropertyServiceDetailData:) toTarget:self withObject:nil];
         UINib *nib = [UINib nibWithNibName:@"MaintenanceCell" bundle:nil];
         [tableView registerNib:nib forCellReuseIdentifier:@"Maintenanceidentifier"];
         LY_MaintenanceCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Maintenanceidentifier"];
-        
         cell.headNameLabel.text = [specifyPropertyService  objectForKey:@"name"];
-        
         NSString *imageUrl = [specifyPropertyService  objectForKey:@"image_path"];
         if (imageUrl!=nil && ![imageUrl isEqualToString:@""])
         {
             NSURL *url = [NSURL URLWithString:imageUrl];
             [cell.avatarImageView setImageWithURL:url placeholderImage:nil];
         }
-        
         cell.nameLabel.text = [specifyPropertyService  objectForKey:@"nick_name"];
         cell.addressLabel.text = [specifyPropertyService objectForKey:@"position"];
-        
-        
         cell.timeLabel.text =  [NSString stringWithFormat:@"%@",[specifyPropertyService objectForKey:@"create_time"]];
         cell.detailLabel.text = [specifyPropertyService  objectForKey:@"description"];
         NSString *statusString = [NSString stringWithFormat:@"%@",[specifyPropertyService objectForKey:@"status"]];
@@ -500,20 +487,19 @@
     return nil;
 }
 
-
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
     
-    if (tableView == m_AnntableVeiw) {
+    if (tableView == m_AnntableVeiw)
+    {
         return nil;
     }
-    else if (tableView == m_InfotableView) {
+    else if (tableView == m_InfotableView)
+    {
         UIView *m_headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 50)];//创建一个视图（v_headerView）
         m_headerView.backgroundColor = [UIColor whiteColor];
-        
         UIView *m_downView = [[UIView alloc] initWithFrame:CGRectMake(10, 49, 315, 1)];
         m_downView.backgroundColor = [UIColor redColor];
         [m_headerView addSubview:m_downView];
-        
         UILabel *m_headerLab = [[UILabel alloc] initWithFrame:CGRectMake(10, 1, 80, 48)];
         m_headerLab.layer.cornerRadius = 5;
         m_headerLab.layer.borderWidth = 0.1;
@@ -521,7 +507,6 @@
         m_headerLab.textColor = [UIColor redColor];
         m_headerLab.font = [UIFont systemFontOfSize:20];
         [m_headerView addSubview:m_headerLab];
-        
         UILabel *m_addressLabel = [[UILabel alloc] initWithFrame:CGRectMake(170, 15, 150, 20)];
         m_addressLabel.textColor = [UIColor blackColor];
         m_addressLabel.font = [UIFont systemFontOfSize:15];
@@ -535,7 +520,6 @@
             m_headerLab.text = @"快递信息";
             //m_addressLabel.text = [[expressInfomationArray objectAtIndex:0] objectForKey:@"phone"]; //电话
         }
-        
         return m_headerView;//将视图（v_headerView）返回
     }
     else if (tableView == m_ACtableView) {
@@ -574,7 +558,6 @@
     if (tableView == m_AnntableVeiw) {
         selectedDictionary = [notification objectAtIndex:indexPath.row];
         [self performSegueWithIdentifier:@"NInformation" sender:self];
-        
     }
     if(tableView == m_ACtableView)
     {
@@ -602,34 +585,29 @@
 }
 
 #pragma mark 获取网络数据
+//获取物业公告信息
 -(BOOL)Getnotification:(NSString *)URL
 {
     NSDictionary *plistDic = [[NSBundle mainBundle] infoDictionary];
     NSLog(@"plistDic = %@",plistDic);
     NSString *url = [plistDic objectForKey: @"URL"];
     NSError *error;
-    //    加载一个NSURL对象
     NSString *urlstr =[[NSString alloc] initWithFormat:@"%@/services/wuye/notice/list",url] ;
-    //NSString *urlstr = [NSString stringWithFormat:@"%@/inCommunity/services/wuye/notice/list",URL];
-    
     NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:urlstr]];
-    //    将请求的url数据放到NSData对象中
     NSData *response = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
-    //    iOS5自带解析类NSJSONSerialization从response中解析出数据放到字典中
     NSDictionary *weatherDic = [NSJSONSerialization JSONObjectWithData:response options:NSJSONReadingMutableLeaves error:&error];
-    //    weatherDic字典中存放的数据也是字典型，从它里面通过键值取值
     NSString *status = [weatherDic objectForKey:@"status"];
     if (![status isEqual:@"200"])
     {
-        UIAlertView *al = [[UIAlertView alloc] initWithTitle:@"提示" message:[weatherDic objectForKey:@"message"] delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
-        [al show];
+        NSLog(@"%@",[weatherDic objectForKey:@"status"]);
         return false;
     }
     NSLog(@"%@",status);
-    //    UIAlertView *aler = [[UIAlertView alloc] initWithTitle:@"提示" message:status delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
-    //    [aler show];
     notification = [weatherDic objectForKey:@"data"];
-    [m_AnntableVeiw reloadData];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [m_AnntableVeiw reloadData];
+        // 更新UI
+    });
     return true;
 }
 
@@ -651,24 +629,14 @@
     NSDictionary *parseData = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingMutableLeaves error:&error];
     if (nil != error)
     {
-        [m_messageView removeFromSuperview];
-        self.view.userInteractionEnabled = YES;
         return NO;
     }
     if (![[parseData objectForKey:@"status"] isEqualToString:@"200"])
     {
-        UIAlertView *al = [[UIAlertView alloc] initWithTitle:@"提示"
-                                                     message:[parseData objectForKey:@"message"]
-                                                    delegate:self
-                                           cancelButtonTitle:@"确定"
-                                           otherButtonTitles:nil, nil];
-        [al show];
-        [m_messageView removeFromSuperview];
-        self.view.userInteractionEnabled = YES;
+        NSLog(@"%@",[parseData objectForKey:@"status"]);
         return NO;
     }
     propertyExpenseArray = [parseData objectForKey:@"data"];
-    //快递
     urlString = nil;
     request = nil;
     responseData = nil;
@@ -684,146 +652,102 @@
     parseData = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingMutableLeaves error:&error];
     if (nil != error)
     {
-        //错误码
         return NO;
     }
     if (![[parseData objectForKey:@"status"] isEqualToString:@"200"])
     {
-        UIAlertView *al = [[UIAlertView alloc] initWithTitle:@"提示"
-                                                     message:[parseData objectForKey:@"message"]
-                                                    delegate:self
-                                           cancelButtonTitle:@"确定"
-                                           otherButtonTitles:nil, nil];
-        [al show];
-        [m_messageView removeFromSuperview];
-        self.view.userInteractionEnabled = YES;
+        NSLog(@"%@",[parseData objectForKey:@"status"]);
         return NO;
     }
     expressInfomationArray = [parseData objectForKey:@"data"];
-    [m_InfotableView reloadData];
-    [m_messageView removeFromSuperview];
-    self.view.userInteractionEnabled = YES;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [m_InfotableView reloadData];
+        // 更新UI
+    });
     return YES;
 }
 
 //获取"物业交流"的相关数据
 -(BOOL)GetPropertyExchangeData:(NSString*)URL
 {
-    
     NSDictionary *plistDic = [[NSBundle mainBundle] infoDictionary];
     NSLog(@"plistDic = %@",plistDic);
     NSString *url = [plistDic objectForKey: @"URL"];
     NSError *error;
-    
     //物管联系方式
     NSString *urlString = [NSString stringWithFormat:@"%@/services/wuye/contacts",url];
     NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:urlString]];
     NSData *responseData = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:&error];
     if (nil != error)
     {
-        //错误码
-        [m_messageView removeFromSuperview];
-        self.view.userInteractionEnabled = YES;
         return NO;
     }
     NSDictionary *parseData = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingMutableLeaves error:&error];
     if (nil != error)
     {
-        //错误码
-        [m_messageView removeFromSuperview];
-        self.view.userInteractionEnabled = YES;
         return NO;
     }
     if (![[parseData objectForKey:@"status"] isEqualToString:@"200"])
     {
-        UIAlertView *al = [[UIAlertView alloc] initWithTitle:@"提示"
-                                                     message:[parseData objectForKey:@"message"]
-                                                    delegate:self
-                                           cancelButtonTitle:@"确定"
-                                           otherButtonTitles:nil, nil];
-        [al show];
-        [m_messageView removeFromSuperview];
-        self.view.userInteractionEnabled = YES;
+        NSLog(@"%@",[parseData objectForKey:@"status"]);
         return NO;
     }
     propertyExchangeArray = [parseData objectForKey:@"data"];
-    
     //留言薄
     urlString = nil;
     request = nil;
     responseData = nil;
-    
     urlString = [NSString stringWithFormat:@"%@/services/wuye/message/list",url];
     request = [NSURLRequest requestWithURL:[NSURL URLWithString:urlString]];
     responseData = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:&error];
     if (nil != error)
     {
-        //错误码
-        [m_messageView removeFromSuperview];
-        self.view.userInteractionEnabled = YES;
         return NO;
     }
     parseData = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingMutableLeaves error:&error];
     if (nil != error)
     {
-        //错误码
-        [m_messageView removeFromSuperview];
-        self.view.userInteractionEnabled = YES;
         return NO;
     }
     if (![[parseData objectForKey:@"status"] isEqualToString:@"200"])
-    {
-        UIAlertView *al = [[UIAlertView alloc] initWithTitle:@"提示"
-                                                     message:[parseData objectForKey:@"message"]
-                                                    delegate:self
-                                           cancelButtonTitle:@"确定"
-                                           otherButtonTitles:nil, nil];
-        [al show];
-        [m_messageView removeFromSuperview];
-        self.view.userInteractionEnabled = YES;
-        return NO;
+    {        return NO;
     }
     messageBoardListArray = [parseData objectForKey:@"data"];
-    [m_messageView removeFromSuperview];
-    self.view.userInteractionEnabled = YES;
-    [m_ACtableView  reloadData];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [m_ACtableView  reloadData];
+        // 更新UI
+    });
     return YES;
 }
-
 //获取"物业维修"的相关数据
 -(BOOL)GetPropertyServiceData:(NSString*)URL
 {
     NSDictionary *plistDic = [[NSBundle mainBundle] infoDictionary];
     NSLog(@"plistDic = %@",plistDic);
     NSString *url = [plistDic objectForKey: @"URL"];
-    
     NSError *error;
     NSString *urlString = [NSString stringWithFormat:@"%@/inCommunity/services/wuye/service/list",url];
     NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:urlString]];
     NSData *responseData = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:&error];
     if (nil != error)
     {
-        //错误码
         return NO;
     }
     NSDictionary *parseData = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingMutableLeaves error:&error];
     if (nil != error)
     {
-        //错误码
         return NO;
     }
     if (![[parseData objectForKey:@"status"] isEqualToString:@"200"])
     {
-        UIAlertView *al = [[UIAlertView alloc] initWithTitle:@"提示"
-                                                     message:[parseData objectForKey:@"message"]
-                                                    delegate:self
-                                           cancelButtonTitle:@"确定"
-                                           otherButtonTitles:nil, nil];
-        [al show];
+        NSLog(@"%@",[parseData objectForKey:@"status"]);
         return NO;
     }
     propertyService= [parseData objectForKey:@"data"];
-    [m_MaintableView reloadData];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [m_MaintableView reloadData];
+        // 更新UI
+    });
     return YES;
 }
 
@@ -832,30 +756,22 @@
     NSDictionary *plistDic = [[NSBundle mainBundle] infoDictionary];
     NSLog(@"plistDic = %@",plistDic);
     NSString *url = [plistDic objectForKey: @"URL"];
-    
     NSError *error;
     NSString *urlString = [NSString stringWithFormat:@"%@/services/wuye/service/detail?id=%ld",url,(long)IDNumber];
     NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:urlString]];
     NSData *responseData = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:&error];
     if (nil != error)
     {
-        //错误码
         return NO;
     }
     NSDictionary *parseData = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingMutableLeaves error:&error];
     if (nil != error)
     {
-        //错误码
         return NO;
     }
     if (![[parseData objectForKey:@"status"] isEqualToString:@"200"])
     {
-        UIAlertView *al = [[UIAlertView alloc] initWithTitle:@"提示"
-                                                     message:[parseData objectForKey:@"message"]
-                                                    delegate:self
-                                           cancelButtonTitle:@"确定"
-                                           otherButtonTitles:nil, nil];
-        [al show];
+       NSLog(@"%@",[parseData objectForKey:@"status"]);
         return NO;
     }
     specifyPropertyService= [parseData objectForKey:@"data"];
@@ -873,27 +789,23 @@
     NSData *responseData = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:&error];
     if (nil != error)
     {
-        //错误码
         return NO;
     }
     NSDictionary *parseData = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingMutableLeaves error:&error];
     if (nil != error)
     {
-        //错误码
         return NO;
     }
     if (![[parseData objectForKey:@"status"] isEqualToString:@"200"])
     {
-        UIAlertView *al = [[UIAlertView alloc] initWithTitle:@"提示"
-                                                     message:[parseData objectForKey:@"message"]
-                                                    delegate:self
-                                           cancelButtonTitle:@"确定"
-                                           otherButtonTitles:nil, nil];
-        [al show];
+        NSLog(@"%@",[parseData objectForKey:@"status"]);
         return NO;
     }
     specifyMessageDictionary= [parseData objectForKey:@"data"];
-    [m_AnntableVeiw reloadData];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [m_AnntableVeiw reloadData];
+        // 更新UI
+    });
     return YES;
 }
 @end

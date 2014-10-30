@@ -225,7 +225,6 @@
             [temp setValue:[NSString stringWithUTF8String:strText01] forKey:@"StoresName"];
             [Storeslist addObject:temp];
         }
-        
     }
     
     for (int i = 0; i<Storeslist.count; i++)
@@ -276,4 +275,10 @@
     sqlite3_close(tempdatabase);
     return backlist ;
 }
+
+-(void)Modifystate
+{
+
+}
+
 @end

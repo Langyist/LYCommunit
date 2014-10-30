@@ -25,10 +25,10 @@ static NSDictionary  *m_selectCityInfo;
     self.navigationItem.titleView = customLab;
     self.navigationController.navigationBar.barTintColor = [UIColor colorWithRed:(238.0/255) green:(183.0/255) blue:(88.0/255) alpha:1.0];
     self.navigationController.navigationBar.tintColor= [UIColor colorWithRed:(0.0/255) green:(0.0/255) blue:(0.0/255) alpha:1.0];
-    [self Getdata:@""];
+    [NSThread detachNewThreadSelector:@selector(Getdata:) toTarget:self withObject:nil];
     self.navigationItem.rightBarButtonItem.title = @"返回";
-    
 }
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
@@ -883,8 +883,10 @@ static NSDictionary  *m_selectCityInfo;
             [m_Zcities addObject:temp];
         }
     }
-    [m_messageview removeFromSuperview];
-    self.view.userInteractionEnabled = YES;
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.m_tableview reloadData];
+            // 更新UI
+        });
     }
     }
 }

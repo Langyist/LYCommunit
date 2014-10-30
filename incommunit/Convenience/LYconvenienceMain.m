@@ -895,7 +895,10 @@
     //    UIAlertView *aler = [[UIAlertView alloc] initWithTitle:@"提示" message:status delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
     //    [aler show];
     m_Featuredlist = [weatherDic objectForKey:@"data"];
-    [m_Featuredtableview reloadData];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [m_Featuredtableview reloadData];
+            // 更新UI
+        });
     }
 }
 
@@ -953,7 +956,6 @@
     //    将请求的url数据放到NSData对象中
     NSData *response = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
     if (response!=nil) {
-       
     if(response!=nil)
     {
     //    iOS5自带解析类NSJSONSerialization从response中解析出数据放到字典中

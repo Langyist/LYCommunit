@@ -102,10 +102,9 @@
 //跳转到物业管理
 - (IBAction)GoManagebutton:(id)sender
 {
-//    if ( [[[LY_ManageView alloc] init] Getnotification:@""])
-//    {
-//        [self performSegueWithIdentifier:@"GoManage" sender:self];
-//    }
+ 
+    [self performSegueWithIdentifier:@"GoLYProManagementMain" sender:self];
+    
 }
 -(IBAction)ConvenienceMian:(id)sender
 {

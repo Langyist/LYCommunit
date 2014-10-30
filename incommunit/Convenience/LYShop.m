@@ -108,8 +108,18 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell *cell = [[UITableViewCell alloc] init] ;
-    if (indexPath.row <= 5) {
+    if (indexPath.row < 5) {
         cell = [super tableView:tableView cellForRowAtIndexPath:indexPath];
+    }
+    else if (indexPath.row == 5) {
+        switch (indexPath.row) {
+            case 0:
+
+                break;
+                
+            default:
+                break;
+        }
     }
     else {
         cell = [tableView dequeueReusableCellWithIdentifier:@"storeslist" forIndexPath:indexPath];
