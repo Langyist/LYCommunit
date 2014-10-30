@@ -31,8 +31,6 @@
     }
     // Do any additional setup after loading the view.
 }
-
-
 -(void)ClickView
 {
     [m_textField resignFirstResponder];
