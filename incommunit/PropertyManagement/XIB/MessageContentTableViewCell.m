@@ -23,6 +23,7 @@
     // Initialization code
     
     self.userPhotoImageView.layer.cornerRadius = CGRectGetHeight(self.userPhotoImageView.frame) / 2;
+    self.userPhotoImageView.clipsToBounds = YES;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
@@ -52,7 +53,7 @@
     NSDate *date = [NSDate dateWithTimeIntervalSince1970:timestampInt];
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     formatter.locale = [[NSLocale alloc] initWithLocaleIdentifier:@"zh_CN"];
-    formatter.dateFormat = @"yyyy年MM月dd日 HH:mm";
+    formatter.dateFormat = @"MM月dd日 HH:mm";
     NSString *time = [formatter stringFromDate:date];
     if (!time) {
         time = @"";
@@ -66,7 +67,7 @@
     }
     [self.contentLabel setText:content];
     
-    CGFloat contentHeight = [MessageContentTableViewCell heightOfLabel:@[content] size:self.contentLabel.frame.size font:self.contentLabel.font];
+    CGFloat contentHeight = [MessageContentTableViewCell stringHeightWithString:@[content] size:self.contentLabel.frame.size font:self.contentLabel.font];
     CGRect newFrame = self.contentLabel.frame;
     newFrame.size.height = contentHeight;
     self.contentLabel.frame = newFrame;
@@ -74,30 +75,21 @@
 
 + (CGFloat)cellHeightWithContent:(NSString *)content {
     CGFloat cellHeight = 0;
-    cellHeight = [MessageContentTableViewCell heightOfLabel:@[content] size:CGSizeMake(212, 21) font:[UIFont boldSystemFontOfSize:16]] + 89 - 21;
-    cellHeight = MAX(89, cellHeight);
+    cellHeight = [MessageContentTableViewCell stringHeightWithString:@[content] size:CGSizeMake(222, 21) font:[UIFont boldSystemFontOfSize:14]] + 76 - 21;
+    cellHeight = MAX(76, cellHeight);
     return cellHeight;
 }
 
-+ (CGFloat)heightOfLabel:(NSArray *)textList size:(CGSize)size font:(UIFont *)font {
-    int length = 0;
-    CGFloat height = 0;
-    for (NSString *text in textList) {
-        length += (int)[MessageContentTableViewCell widthOfString:text withFont:font];
++ (CGFloat)stringHeightWithString:(NSArray *)textList size:(CGSize)size font:(UIFont *)font {
+    NSMutableString *string = [[NSMutableString alloc] initWithString:@""];
+    for (NSMutableString *text in textList) {
+        [string appendString:text];
     }
-    if (length > 0) {
-        int count = (int)(length / size.width);
-        height = (count + 1) * font.lineHeight;
-    }
-    return height;
-}
-
-+ (CGFloat)widthOfString:(NSString *)string withFont:(UIFont *)font {
-    if (string.length == 0) {
-        return 0;
-    }
-    NSDictionary *attributes = [NSDictionary dictionaryWithObjectsAndKeys:font, NSFontAttributeName, nil];
-    return [[[NSAttributedString alloc] initWithString:string attributes:attributes] size].width + 20;
+    NSDictionary *attributes =@{NSFontAttributeName:font};//配置字体类型参数
+    NSStringDrawingOptions options = NSStringDrawingTruncatesLastVisibleLine | NSStringDrawingUsesFontLeading | NSStringDrawingUsesLineFragmentOrigin;//配置字符绘制规则
+    CGRect rect = [string boundingRectWithSize:CGSizeMake(size.width, CGFLOAT_MAX) options:options attributes:attributes context:NULL];//计算文本大小
+    
+    return rect.size.height;
 }
 
 @end

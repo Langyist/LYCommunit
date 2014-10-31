@@ -68,6 +68,7 @@
     [self.m_scrollView addSubview:m_view02];
     //物业交流
     m_view03 = [[UIView alloc] initWithFrame:CGRectMake(self.view.frame.size.width * 2, 0, self.m_scrollView.frame.size.width, self.view.frame.size.height)];
+    [m_view03 setBackgroundColor:[UIColor colorWithRed:233/255.0f green:233/255.0f blue:233/255.0f alpha:1]];
     UIView *m_ACView = [[UIView alloc] initWithFrame:CGRectMake(0, 6, 320, 100)];
     [m_ACView setBackgroundColor:[UIColor whiteColor]];
     m_ACView.layer.cornerRadius = 0.1;
@@ -75,42 +76,41 @@
     NSDictionary *temp = [propertyExchangeArray objectAtIndex:0];
     UILabel *m_medthedLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 10, 150, 20)];
     m_medthedLabel.text = @"物管联系方式";
-    m_medthedLabel.font = [UIFont systemFontOfSize:16];
+    m_medthedLabel.font = [UIFont boldSystemFontOfSize:15];
     [m_ACView addSubview:m_medthedLabel];
     
-    UIView *Gview = [[UIView alloc] initWithFrame:CGRectMake(15, m_medthedLabel.frame.size.height+10, self.view.frame.size.width - 30, 1)];
-    Gview.backgroundColor = [UIColor grayColor];
+    UIView *Gview = [[UIView alloc] initWithFrame:CGRectMake(15, m_medthedLabel.frame.size.height+21, self.view.frame.size.width - 30, 1)];
+    Gview.backgroundColor = [UIColor colorWithRed:229/255.0f green:229/255.0f blue:229/255.0f alpha:1];
     [m_ACView addSubview:Gview];
     
-    UILabel *m_QQLabel = [[UILabel alloc] initWithFrame:CGRectMake(30, 30, 150, 20)];
+    UILabel *m_QQLabel = [[UILabel alloc] initWithFrame:CGRectMake(16, 30, 150, 20)];
     m_QQLabel.text = [temp objectForKey:@"contact"];
-    m_QQLabel.font = [UIFont systemFontOfSize:14];
+    m_QQLabel.font = [UIFont boldSystemFontOfSize:13];
+    [m_QQLabel setTextColor:[UIColor grayColor]];
     [m_ACView addSubview:m_QQLabel];
     
-    UILabel *m_phoneLabel = [[UILabel alloc] initWithFrame:CGRectMake(30, 50, 150, 20)];
+    UILabel *m_phoneLabel = [[UILabel alloc] initWithFrame:CGRectMake(16, 50, 150, 20)];
     m_phoneLabel.text = @"电话:123456798"; //接口没有该数据
-    m_phoneLabel.font = [UIFont systemFontOfSize:14];
+    m_phoneLabel.font = [UIFont boldSystemFontOfSize:13];
+    [m_phoneLabel setTextColor:[UIColor grayColor]];
     [m_ACView addSubview:m_phoneLabel];
     
     [m_view03 addSubview:m_ACView];
     
-    m_liuView = [[UIView alloc] initWithFrame:CGRectMake(0, m_ACView.frame.size.height+12, 320, 50)];
+    m_liuView = [[UIView alloc] initWithFrame:CGRectMake(0, m_ACView.frame.size.height+12, 320, 35)];
     m_liuView.backgroundColor = [UIColor whiteColor];
     m_liuView.layer.borderWidth = 0.1;
     
     UILabel *liuLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 5, 80, 30)];
     liuLabel.text = @"留言薄";
-    liuLabel.font = [UIFont systemFontOfSize:18];
+    liuLabel.font = [UIFont boldSystemFontOfSize:15];
     [m_liuView addSubview:liuLabel];
     
-    UIView *GLview = [[UIView alloc] initWithFrame:CGRectMake(15, liuLabel.frame.size.height+10, self.view.frame.size.width-30, 1)];
-    GLview.backgroundColor = [UIColor grayColor];
-    [m_liuView addSubview:GLview];
-    
-    UIButton * m_liuButton = [[UIButton alloc] initWithFrame:CGRectMake(200, 2, 100, 36)];
+    UIButton * m_liuButton = [[UIButton alloc] initWithFrame:CGRectMake(222, 7, 80, 26)];
     [m_liuButton setTitle:@"我要留言" forState:UIControlStateNormal];
+    [m_liuButton.titleLabel setFont:[UIFont boldSystemFontOfSize:14]];
     [m_liuButton addTarget:self action:@selector(liuButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
-    m_liuButton.backgroundColor = [UIColor colorWithRed:(118.0/255) green:(238.0/255) blue:(0.0/255) alpha:1.0];
+    m_liuButton.backgroundColor = [UIColor colorWithRed:(188/255.0f) green:(210/255.0f) blue:(94/255.0f) alpha:1.0];
     m_liuButton.layer.cornerRadius = 5;
     m_liuButton.layer.borderWidth = 0.1;
     [m_liuView addSubview:m_liuButton];
