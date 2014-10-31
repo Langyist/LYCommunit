@@ -155,6 +155,8 @@
 		F142314F1A024E3F0088ED59 /* StoreslistTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F142314D1A024E3F0088ED59 /* StoreslistTableViewCell.xib */; };
 		F14231571A032C490088ED59 /* MessageContentTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F14231551A032C490088ED59 /* MessageContentTableViewCell.m */; };
 		F14231581A032C490088ED59 /* MessageContentTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F14231561A032C490088ED59 /* MessageContentTableViewCell.xib */; };
+		F14F51F01A0378CF006CC884 /* InfoHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = F14F51EE1A0378CF006CC884 /* InfoHeader.m */; };
+		F14F51F11A0378CF006CC884 /* InfoHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = F14F51EF1A0378CF006CC884 /* InfoHeader.xib */; };
 		F15AE49A1A0208180084009C /* 黄色小三角_03.png in Resources */ = {isa = PBXBuildFile; fileRef = F15AE4991A0208180084009C /* 黄色小三角_03.png */; };
 		F16D77AE1A033E680044D858 /* CommentTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F16D77AC1A033E680044D858 /* CommentTableViewCell.m */; };
 		F16D77AF1A033E680044D858 /* CommentTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F16D77AD1A033E680044D858 /* CommentTableViewCell.xib */; };
@@ -442,6 +444,9 @@
 		F14231541A032C490088ED59 /* MessageContentTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageContentTableViewCell.h; sourceTree = "<group>"; };
 		F14231551A032C490088ED59 /* MessageContentTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageContentTableViewCell.m; sourceTree = "<group>"; };
 		F14231561A032C490088ED59 /* MessageContentTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MessageContentTableViewCell.xib; sourceTree = "<group>"; };
+		F14F51ED1A0378CF006CC884 /* InfoHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InfoHeader.h; sourceTree = "<group>"; };
+		F14F51EE1A0378CF006CC884 /* InfoHeader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InfoHeader.m; sourceTree = "<group>"; };
+		F14F51EF1A0378CF006CC884 /* InfoHeader.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = InfoHeader.xib; sourceTree = "<group>"; };
 		F15AE4991A0208180084009C /* 黄色小三角_03.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "黄色小三角_03.png"; sourceTree = "<group>"; };
 		F16D77AB1A033E680044D858 /* CommentTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommentTableViewCell.h; sourceTree = "<group>"; };
 		F16D77AC1A033E680044D858 /* CommentTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommentTableViewCell.m; sourceTree = "<group>"; };
@@ -900,6 +905,9 @@
 				F16D77AB1A033E680044D858 /* CommentTableViewCell.h */,
 				F16D77AC1A033E680044D858 /* CommentTableViewCell.m */,
 				F16D77AD1A033E680044D858 /* CommentTableViewCell.xib */,
+				F14F51ED1A0378CF006CC884 /* InfoHeader.h */,
+				F14F51EE1A0378CF006CC884 /* InfoHeader.m */,
+				F14F51EF1A0378CF006CC884 /* InfoHeader.xib */,
 			);
 			path = XIB;
 			sourceTree = "<group>";
@@ -1081,6 +1089,7 @@
 				AD33ED2319FBCA2D00FE0C11 /* ic_default_shop.png in Resources */,
 				AD33ED3719FBCA2D00FE0C11 /* 增加减少_07.png in Resources */,
 				AD33ED4419FBCA2D00FE0C11 /* 物业管理--物业维修_03.png in Resources */,
+				F14F51F11A0378CF006CC884 /* InfoHeader.xib in Resources */,
 				AD33ED4819FBCA2D00FE0C11 /* 箭头_03.png in Resources */,
 				AD33ED5319FBCA2D00FE0C11 /* 邻里互助.png in Resources */,
 				AD33ED4F19FBCA2D00FE0C11 /* 购物车.png in Resources */,
@@ -1158,6 +1167,7 @@
 				AD3DD3B219FDEE5B00364854 /* LMContainsLMComboxScrollView.m in Sources */,
 				AD33ECBC19FBBE3600FE0C11 /* LYSelectCity.m in Sources */,
 				AD30F7D61A00D97A00C8709E /* LYProductinformation.m in Sources */,
+				F14F51F01A0378CF006CC884 /* InfoHeader.m in Sources */,
 				AD33EC9019FBB13F00FE0C11 /* main.m in Sources */,
 				AD3DD3BF19FE13FE00364854 /* LY_DeliveryCell.m in Sources */,
 				AD7FBA8D1A0214E2008CC80A /* LYProManagementMain.m in Sources */,

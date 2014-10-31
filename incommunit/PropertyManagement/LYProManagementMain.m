@@ -17,6 +17,7 @@
 #import "LY_AnnouncementNoCell.h"
 #import "MessageContentTableViewCell.h"
 #import "CommentTableViewCell.h"
+#import "InfoHeader.h"
 @interface LYProManagementMain () {
     UIView *m_liuView;
 }
@@ -61,6 +62,7 @@
     //信息查询
     m_view02 = [[UIView alloc] initWithFrame:CGRectMake(self.view.frame.size.width, 0, self.m_scrollView.frame.size.width, self.m_scrollView.frame.size.height)];
     m_InfotableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, m_view02.frame.size.width, m_view02.frame.size.height)];
+    [m_InfotableView registerNib:[UINib nibWithNibName:@"InfoCell" bundle:nil] forCellReuseIdentifier:@"InfoCellindentfier"];
     _m_scrollView.backgroundColor = [UIColor grayColor];
     m_InfotableView.delegate = self;
     m_InfotableView.dataSource = self;
@@ -120,7 +122,7 @@
     m_ACtableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [m_ACtableView registerNib:[UINib nibWithNibName:@"MessageContentTableViewCell" bundle:nil] forCellReuseIdentifier:@"MessageContentTableViewCell"];
     [m_ACtableView registerNib:[UINib nibWithNibName:@"CommentTableViewCell" bundle:nil] forCellReuseIdentifier:@"CommentTableViewCell"];
-    m_view03.backgroundColor = [UIColor grayColor];
+    m_view03.backgroundColor = [UIColor colorWithRed:229/255.0f green:229/255.0f blue:229/255.0f alpha:1];
     m_ACtableView.delegate = self;
     m_ACtableView.dataSource = self;
     [m_view03 addSubview:m_ACtableView];
@@ -444,8 +446,6 @@
             case 0:
             {
                 NSDictionary *temp = [propertyExpenseArray objectAtIndex:indexPath.row];
-                UINib *nib = [UINib nibWithNibName:@"InfoCell" bundle:nil];
-                [tableView registerNib:nib forCellReuseIdentifier:@"InfoCellindentfier"];
                 LY_InfoCell *cell = [tableView dequeueReusableCellWithIdentifier:@"InfoCellindentfier"];
                 cell.nameLabel.text = [temp objectForKey:@"name"];
                 cell.costLabel.text = [NSString stringWithFormat:@"%@",[temp objectForKey:@"price"]];
@@ -544,32 +544,9 @@
     }
     else if (tableView == m_InfotableView)
     {
-        UIView *m_headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 50)];//创建一个视图（v_headerView）
-        m_headerView.backgroundColor = [UIColor whiteColor];
-        UIView *m_downView = [[UIView alloc] initWithFrame:CGRectMake(10, 49, 315, 1)];
-        m_downView.backgroundColor = [UIColor redColor];
-        [m_headerView addSubview:m_downView];
-        UILabel *m_headerLab = [[UILabel alloc] initWithFrame:CGRectMake(10, 1, 80, 48)];
-        m_headerLab.layer.cornerRadius = 5;
-        m_headerLab.layer.borderWidth = 0.1;
-        m_headerLab.layer.borderColor = [[UIColor redColor]CGColor];
-        m_headerLab.textColor = [UIColor redColor];
-        m_headerLab.font = [UIFont systemFontOfSize:20];
-        [m_headerView addSubview:m_headerLab];
-        UILabel *m_addressLabel = [[UILabel alloc] initWithFrame:CGRectMake(170, 15, 150, 20)];
-        m_addressLabel.textColor = [UIColor blackColor];
-        m_addressLabel.font = [UIFont systemFontOfSize:15];
-        [m_headerView addSubview:m_addressLabel];
-        //设置每组的的标题
-        if (section == 0) {
-            m_headerLab.text = @"费用信息";
-            m_addressLabel.text = [[propertyExpenseArray objectAtIndex:0] objectForKey:@"address"];//地址
-        }
-        if (section == 1) {
-            m_headerLab.text = @"快递信息";
-            //m_addressLabel.text = [[expressInfomationArray objectAtIndex:0] objectForKey:@"phone"]; //电话
-        }
-        return m_headerView;//将视图（v_headerView）返回
+        NSArray *nibViews = [[NSBundle mainBundle] loadNibNamed:@"InfoHeader" owner:self options:nil]; //通过这个方法,取得我们的视图
+        InfoHeader *headerView = [nibViews objectAtIndex:0];
+        return headerView;//将视图（v_headerView）返回
     }
     else if (tableView == m_ACtableView) {
         
@@ -589,7 +566,7 @@
     }
     else if (tableView == m_InfotableView) {
         
-        return 50;
+        return 40;
     }
     else if (tableView == m_ACtableView) {
         
