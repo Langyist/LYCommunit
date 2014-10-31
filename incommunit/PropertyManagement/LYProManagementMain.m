@@ -25,7 +25,6 @@
 {
     [super viewDidLoad];
     self.navigationController.navigationBar.tintColor= [UIColor colorWithRed:(0.0/255) green:(0.0/255) blue:(0.0/255) alpha:1.0];
-    
     [m_segment addTarget:self action:@selector(doSomethingInSegment:)forControlEvents:UIControlEventValueChanged];
     CGRect rect = CGRectMake(0, 0, 1, 1);
     UIGraphicsBeginImageContext(rect.size);
@@ -34,7 +33,6 @@
     CGContextFillRect(context, rect);
     UIImage *transparentImage = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
-    
     [self.m_segment setBackgroundImage:transparentImage forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
     [self.m_segment setTitleTextAttributes:@{
                                              NSForegroundColorAttributeName : [UIColor colorWithRed:63/255.0f green:62/255.0f blue:62/255.0f alpha:1]
@@ -44,7 +42,6 @@
                                              NSForegroundColorAttributeName : [UIColor colorWithRed:230/255.0f green:163/255.0f blue:44/255.0f alpha:1]
                                              }
                                   forState:UIControlStateSelected];
-    
     self.m_scrollView.contentSize = CGSizeMake(self.m_scrollView.frame.size.width * 3, self.m_scrollView.frame.size.height);
     [self.m_scrollView setScrollEnabled:NO];
     //物业公告
@@ -713,7 +710,6 @@
     });
     return YES;
 }
-
 //获取"物业交流"的相关数据
 -(BOOL)GetPropertyExchangeData:(NSString*)URL
 {
@@ -793,7 +789,6 @@
     propertyService= [parseData objectForKey:@"data"];
     dispatch_async(dispatch_get_main_queue(), ^{
         [m_MaintableView reloadData];
-        // 更新UI
     });
     return YES;
 }
@@ -851,7 +846,6 @@
     specifyMessageDictionary= [parseData objectForKey:@"data"];
     dispatch_async(dispatch_get_main_queue(), ^{
         [m_AnntableVeiw reloadData];
-        // 更新UI
     });
     return YES;
 }

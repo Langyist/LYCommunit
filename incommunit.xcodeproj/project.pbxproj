@@ -108,6 +108,8 @@
 		AD3DD40919FE362D00364854 /* LYBaiduMap.mm in Sources */ = {isa = PBXBuildFile; fileRef = AD3DD40819FE362D00364854 /* LYBaiduMap.mm */; };
 		AD3DD40C19FE466600364854 /* LYShop.m in Sources */ = {isa = PBXBuildFile; fileRef = AD3DD40B19FE466600364854 /* LYShop.m */; };
 		AD3DD40F19FE498600364854 /* LYShoppingcart.m in Sources */ = {isa = PBXBuildFile; fileRef = AD3DD40E19FE498600364854 /* LYShoppingcart.m */; };
+		AD4823061A03224E00A54F45 /* TagsCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD4823051A03224E00A54F45 /* TagsCollectionViewController.m */; };
+		AD4823091A03238600A54F45 /* UserInfoTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD4823081A03238600A54F45 /* UserInfoTableViewController.m */; };
 		AD62118219FD2FBC009BECA6 /* LYFunctionInterface.m in Sources */ = {isa = PBXBuildFile; fileRef = AD62118119FD2FBC009BECA6 /* LYFunctionInterface.m */; };
 		AD62118619FD3148009BECA6 /* LYUserloginView.m in Sources */ = {isa = PBXBuildFile; fileRef = AD62118519FD3148009BECA6 /* LYUserloginView.m */; };
 		AD6211A019FD42CE009BECA6 /* LYnetwork.m in Sources */ = {isa = PBXBuildFile; fileRef = AD62119919FD42CE009BECA6 /* LYnetwork.m */; };
@@ -348,6 +350,10 @@
 		AD3DD40B19FE466600364854 /* LYShop.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LYShop.m; sourceTree = "<group>"; };
 		AD3DD40D19FE498600364854 /* LYShoppingcart.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LYShoppingcart.h; sourceTree = "<group>"; };
 		AD3DD40E19FE498600364854 /* LYShoppingcart.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LYShoppingcart.m; sourceTree = "<group>"; };
+		AD4823041A03224E00A54F45 /* TagsCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TagsCollectionViewController.h; sourceTree = "<group>"; };
+		AD4823051A03224E00A54F45 /* TagsCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TagsCollectionViewController.m; sourceTree = "<group>"; };
+		AD4823071A03238600A54F45 /* UserInfoTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserInfoTableViewController.h; sourceTree = "<group>"; };
+		AD4823081A03238600A54F45 /* UserInfoTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserInfoTableViewController.m; sourceTree = "<group>"; };
 		AD62118019FD2FBC009BECA6 /* LYFunctionInterface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LYFunctionInterface.h; sourceTree = "<group>"; };
 		AD62118119FD2FBC009BECA6 /* LYFunctionInterface.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LYFunctionInterface.m; sourceTree = "<group>"; };
 		AD62118419FD3148009BECA6 /* LYUserloginView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LYUserloginView.h; sourceTree = "<group>"; };
@@ -551,11 +557,11 @@
 		AD33ECBD19FBC35B00FE0C11 /* CustomControls */ = {
 			isa = PBXGroup;
 			children = (
-				AD3DD3C119FE2E4A00364854 /* UIActionSheet+Blocks.h */,
-				AD3DD3C219FE2E4A00364854 /* UIActionSheet+Blocks.m */,
 				AD3DD3AC19FDEE5B00364854 /* LMComBox */,
 				AD33ECBE19FBC39700FE0C11 /* LYUIview.h */,
 				AD33ECBF19FBC39700FE0C11 /* LYUIview.m */,
+				AD3DD3C119FE2E4A00364854 /* UIActionSheet+Blocks.h */,
+				AD3DD3C219FE2E4A00364854 /* UIActionSheet+Blocks.m */,
 			);
 			path = CustomControls;
 			sourceTree = "<group>";
@@ -800,12 +806,16 @@
 		AD6211C919FD554E009BECA6 /* Homepage */ = {
 			isa = PBXGroup;
 			children = (
-				AD6211CA19FD5583009BECA6 /* LYMyCommunit.h */,
-				AD6211CB19FD5583009BECA6 /* LYMyCommunit.m */,
 				AD6211EA19FDA63C009BECA6 /* HomepageMain.h */,
 				AD6211EB19FDA63C009BECA6 /* HomepageMain.m */,
 				AD6211ED19FDA95E009BECA6 /* LYReal-name.h */,
 				AD6211EE19FDA95E009BECA6 /* LYReal-name.m */,
+				AD4823041A03224E00A54F45 /* TagsCollectionViewController.h */,
+				AD4823051A03224E00A54F45 /* TagsCollectionViewController.m */,
+				AD4823071A03238600A54F45 /* UserInfoTableViewController.h */,
+				AD4823081A03238600A54F45 /* UserInfoTableViewController.m */,
+				AD6211CA19FD5583009BECA6 /* LYMyCommunit.h */,
+				AD6211CB19FD5583009BECA6 /* LYMyCommunit.m */,
 			);
 			path = Homepage;
 			sourceTree = "<group>";
@@ -1101,6 +1111,7 @@
 				AD3DD3C019FE13FE00364854 /* LY_FeaturedCell.m in Sources */,
 				AD6211E919FD9F1C009BECA6 /* LYForgotPassword.m in Sources */,
 				AD6211D419FD5C1E009BECA6 /* LYconvenienceMain.m in Sources */,
+				AD4823061A03224E00A54F45 /* TagsCollectionViewController.m in Sources */,
 				AD6211D719FD5D5D009BECA6 /* LYCommonSettings.m in Sources */,
 				AD7FBAB51A0216FF008CC80A /* LY_AnnouncementNoCell.m in Sources */,
 				AD7FBAB31A0216FF008CC80A /* LY_ACCell1.m in Sources */,
@@ -1110,6 +1121,7 @@
 				AD6211D019FD598A009BECA6 /* LYToolsMain.m in Sources */,
 				AD33EC9319FBB13F00FE0C11 /* AppDelegate.m in Sources */,
 				AD62118219FD2FBC009BECA6 /* LYFunctionInterface.m in Sources */,
+				AD4823091A03238600A54F45 /* UserInfoTableViewController.m in Sources */,
 				F10340D119FF7B1700C5CB4E /* CustomToolbarItem.m in Sources */,
 				AD7FBABB1A021919008CC80A /* LYPostcomment.m in Sources */,
 				F10340CB19FF51DD00C5CB4E /* UIImage+Scale.m in Sources */,

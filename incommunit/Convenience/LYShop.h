@@ -16,7 +16,6 @@
 
 @interface LYShop : UITableViewController<UITextFieldDelegate,UITabBarDelegate,LMComBoxViewDelegate>
 {
-    UITableView * m_tableview;
     UITextField *m_textfiled;
     NSArray * m_listdata;
 @public NSString *m_StoresID;

@@ -51,13 +51,10 @@
     NSURL *url = [NSURL URLWithString:URLString];
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc]initWithURL:url cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:10];
     [request setHTTPMethod:@"POST"];//设置请求方式为POST，默认为GET
-    
     NSString *str = @"content=";//设置参数
     str = [str stringByAppendingFormat:@"%@",contentString];
-    
     NSData *data = [str dataUsingEncoding:NSUTF8StringEncoding];
     [request setHTTPBody:data];
-    
     //第三步，连接服务器
     NSData *received = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
     NSDictionary *weatherDic = [NSJSONSerialization JSONObjectWithData:received options:NSJSONReadingMutableLeaves error:&error];
@@ -68,12 +65,6 @@
         return YES;
     }else
     {
-        UIAlertView *al =[[UIAlertView alloc]initWithTitle:@"提示"
-                                                   message:[weatherDic objectForKey:@"message"]
-                                                  delegate:self
-                                         cancelButtonTitle:@"确定"
-                                         otherButtonTitles:nil, nil];
-        [al show];
         return NO;
     }
 }

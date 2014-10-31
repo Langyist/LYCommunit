@@ -39,7 +39,8 @@
     
     UINib *nib = [UINib nibWithNibName:@"StoreslistTableViewCell" bundle:nil];
     [self.tableView registerNib:nib forCellReuseIdentifier:@"StoreslistTableViewCell"];
-    
+
+    [self Getstoresdata:@""];
     tempgoodstype = [[NSMutableArray alloc] init];
     m_stores = [[NSMutableDictionary alloc] init];
     [m_stores  setValue:m_StoresID forKey:@"id"];
@@ -145,25 +146,24 @@
     else
     {
         StoreslistTableViewCell *storeslistTableViewCell = [tableView dequeueReusableCellWithIdentifier:@"StoreslistTableViewCell" forIndexPath:indexPath];
-        m_Goodspice=(UIImageView *)[cell viewWithTag:104];
-        m_GoodsName = (UILabel *)[cell viewWithTag:105];
-        m_GoodsChan =(UILabel *)[cell viewWithTag:106];
-        m_Price= (UILabel *)[cell viewWithTag:107];
-        m_ShoppingCartButton = (UIButton *)[cell viewWithTag:110];
+        m_Goodspice=(UIImageView *)[storeslistTableViewCell viewWithTag:104];
+        m_GoodsName = (UILabel *)[storeslistTableViewCell viewWithTag:105];
+        m_GoodsChan =(UILabel *)[storeslistTableViewCell viewWithTag:106];
+        m_Price= (UILabel *)[storeslistTableViewCell viewWithTag:107];
+        m_ShoppingCartButton = (UIButton *)[storeslistTableViewCell viewWithTag:110];
         m_ShoppingCartButton.tag = indexPath.row-6;
         [m_ShoppingCartButton addTarget:self action:@selector(addShoppingCart:)
                        forControlEvents:UIControlEventTouchUpInside];
-        
-//        NSString *imageUrl = [Goodsinfo objectForKey:@"cover_path"];
-//        if (imageUrl!=nil && ![imageUrl isEqualToString:@""])
-//        {
-//            NSURL *url = [NSURL URLWithString:imageUrl];
-//            [m_Goodspice setImageWithURL:url placeholderImage:nil];
-//        }
-//        m_GoodsName.text = [Goodsinfo objectForKey:@"name"];
-//        m_GoodsChan.text = [[NSString alloc]initWithFormat:@"点赞次数：%@",[Goodsinfo objectForKey:@"like"]];
-//        m_Price.text = [[NSString alloc]initWithFormat:@"￥%@.00",[Goodsinfo objectForKey:@"price"]];
-        
+        NSMutableDictionary *Goodsinfo =[m_Goodslist objectAtIndex:indexPath.row-6];
+        NSString *imageUrl = [Goodsinfo objectForKey:@"cover_path"];
+        if (imageUrl!=nil && ![imageUrl isEqualToString:@""])
+        {
+            NSURL *url = [NSURL URLWithString:imageUrl];
+            [m_Goodspice setImageWithURL:url placeholderImage:nil];
+        }
+        m_GoodsName.text = [Goodsinfo objectForKey:@"name"];
+        m_GoodsChan.text = [[NSString alloc]initWithFormat:@"点赞次数：%@",[Goodsinfo objectForKey:@"like"]];
+        m_Price.text = [[NSString alloc]initWithFormat:@"￥%@.00",[Goodsinfo objectForKey:@"price"]];
         cell = storeslistTableViewCell;
     }
     return cell;
@@ -255,7 +255,7 @@
     //    [aler show];
     m_storesinfo = [weatherDic objectForKey:@"data"];
     m_Goodslist = [m_storesinfo objectForKey:@"commodities"];
-    Goodstype  =[m_storesinfo objectForKey:@"categories"];
+   // Goodstype  =[m_storesinfo objectForKey:@"categories"];
     [tempgoodstype addObject:@"全部"];
     for (int i=0; i<Goodstype.count; i++)
     {
@@ -269,7 +269,10 @@
     customLab.font = [UIFont boldSystemFontOfSize:17];
     customLab.textAlignment = NSTextAlignmentCenter;
     self.navigationItem.titleView = customLab;
-    //m_tabBar.delegate = self;
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.tableView reloadData];
+            // 更新UI
+        });
     [self serachGoods:@""];
     }
 }
@@ -295,7 +298,6 @@
         // 更新UI
     });
     }
-    
 }
 //获取网络图片
 -(UIImage *) getImageFromURL:(NSString *)fileURL
