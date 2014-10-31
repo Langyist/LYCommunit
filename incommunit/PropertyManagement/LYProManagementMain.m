@@ -15,6 +15,8 @@
 //#import "LYReplyMessage.h"
 #import "LYSelectCommunit.h"
 #import "LY_AnnouncementNoCell.h"
+#import "MessageContentTableViewCell.h"
+#import "CommentTableViewCell.h"
 @interface LYProManagementMain () {
     UIView *m_liuView;
 }
@@ -115,6 +117,9 @@
     [m_view03 addSubview:m_liuView];
     
     m_ACtableView = [[UITableView alloc] initWithFrame:CGRectMake(0, m_liuView.frame.origin.y+m_liuView.frame.size.height, m_view03.frame.size.width, m_view03.frame.size.height - 50)];
+    m_ACtableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    [m_ACtableView registerNib:[UINib nibWithNibName:@"MessageContentTableViewCell" bundle:nil] forCellReuseIdentifier:@"MessageContentTableViewCell"];
+    [m_ACtableView registerNib:[UINib nibWithNibName:@"CommentTableViewCell" bundle:nil] forCellReuseIdentifier:@"CommentTableViewCell"];
     m_view03.backgroundColor = [UIColor grayColor];
     m_ACtableView.delegate = self;
     m_ACtableView.dataSource = self;
@@ -323,7 +328,7 @@
         return 2;
     }else if (tableView == m_ACtableView) {
         
-        return 1;
+        return messageBoardListArray.count;
     }
     else if (tableView == m_MaintableView) {
         
@@ -349,7 +354,8 @@
     }
     else if (tableView == m_ACtableView)
     {
-        return messageBoardListArray.count;   //后期数据量多了，需要做分页，否则加载此页面会很慢
+        NSDictionary *temp = [messageBoardListArray objectAtIndex:section];
+        return 1 + [[temp objectForKey:@"replies"] count];
         
     }else if (tableView == m_MaintableView)
     {
@@ -380,11 +386,20 @@
     }
     else if (tableView == m_ACtableView)
     {
-        NSDictionary *temp = [messageBoardListArray objectAtIndex:indexPath.row];
-        IDNumber = [[temp objectForKey:@"id"] integerValue];
-        [NSThread detachNewThreadSelector:@selector(getMessageDetailData:) toTarget:self withObject:nil];
-        NSInteger repliesCount = [[specifyMessageDictionary objectForKey:@"replies"] count];
-        return 100 + 21*repliesCount;
+        NSDictionary *temp = [messageBoardListArray objectAtIndex:indexPath.section];
+        if (indexPath.row == 0) {
+            return [MessageContentTableViewCell cellHeightWithContent:[temp objectForKey:@"content"]];
+        }
+        else {
+            NSInteger commentIndex = indexPath.row - 1;
+            NSDictionary *dic = [[temp objectForKey:@"replies"] objectAtIndex:commentIndex];
+            return [CommentTableViewCell cellHeightWithContent:@[[dic objectForKey:@"nick_name"], [dic objectForKey:@"content"]]];
+        }
+//        NSDictionary *temp = [messageBoardListArray objectAtIndex:indexPath.row];
+//        IDNumber = [[temp objectForKey:@"id"] integerValue];
+//        [NSThread detachNewThreadSelector:@selector(getMessageDetailData:) toTarget:self withObject:nil];
+//        NSInteger repliesCount = [[specifyMessageDictionary objectForKey:@"replies"] count];
+//        return 100 + 21*repliesCount;
     }else if (tableView == m_MaintableView)
     {
         return 144;
@@ -462,32 +477,22 @@
         }
     }else if (tableView == m_ACtableView)
     {
-        NSDictionary *temp = [messageBoardListArray objectAtIndex:indexPath.row];
-        IDNumber = [[temp objectForKey:@"id"] integerValue];
-        UINib *nib = [UINib nibWithNibName:@"ACCell1" bundle:nil];
-        [tableView registerNib:nib forCellReuseIdentifier:@"ACCellIdentifier1"];
-        LY_ACCell1 *cell = [tableView dequeueReusableCellWithIdentifier:@"ACCellIdentifier1"];
-        NSString *imageUrl = [specifyMessageDictionary objectForKey:@"head"];
-        if (imageUrl!=nil && ![imageUrl isEqualToString:@""])
-        {
-            NSURL *url = [NSURL URLWithString:imageUrl];
-            [cell.m_imageView setImageWithURL:url placeholderImage:nil];
+        NSDictionary *temp = [messageBoardListArray objectAtIndex:indexPath.section];
+        if (indexPath.row == 0) {
+            MessageContentTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MessageContentTableViewCell" forIndexPath:indexPath];
+            [cell setImagePath:[temp objectForKey:@"head"]];
+            [cell setUserName:[temp objectForKey:@"nick_name"]];
+            [cell setTimestamp:[temp objectForKey:@"create_time"]];
+            [cell setContent:[temp objectForKey:@"content"]];
+            return cell;
         }
-        cell.nameLabel.text = [specifyMessageDictionary objectForKey:@"nick_name"];
-        cell.timeLabel.text = [NSString stringWithFormat:@"%@",[specifyMessageDictionary objectForKey:@"create_time"]];
-        cell.contentLabel.text = [specifyMessageDictionary objectForKey:@"content"];
-        for (int i = 0; i < [[specifyMessageDictionary objectForKey:@"replies"] count]; ++i)
-        {
-            NSDictionary *dic = [[specifyMessageDictionary objectForKey:@"replies"] objectAtIndex:i];
-            UILabel *nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(75, 56 + i * 20, 80, 20)];
-            nameLabel.text = [NSString stringWithFormat:@"%@:",[dic objectForKey:@"nick_name"]];
-            [cell addSubview:nameLabel];
-            UILabel *contentLabel = [[UILabel alloc] initWithFrame:CGRectMake(160, 56 + i * 20, 100, 20)];
-            contentLabel.text = [dic objectForKey:@"content"]; //需要考虑换行或者显示...
-            [cell addSubview:contentLabel];
+        else {
+            NSInteger commentIndex = indexPath.row - 1;
+            NSDictionary *dic = [[temp objectForKey:@"replies"] objectAtIndex:commentIndex];
+            CommentTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CommentTableViewCell" forIndexPath:indexPath];
+            [cell setContent:@[[dic objectForKey:@"nick_name"], [dic objectForKey:@"content"]]];
+            return cell;
         }
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        return cell;
     }
     else if (tableView == m_MaintableView)
     {
