@@ -34,17 +34,12 @@
     [super viewWillAppear:animated];
 }
 
-- (void)showLoading {
-    [self.friendlyLoadingView showFriendlyLoadingViewWithText:@"正在加载..." loadingAnimated:YES];
-}
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     
     _friendlyLoadingView = [[XHFriendlyLoadingView alloc] initWithFrame:self.view.bounds];
-    typeof(self) weakSelf = self;
-    [weakSelf showLoading];
+    [self.friendlyLoadingView showFriendlyLoadingViewWithText:@"正在加载..." loadingAnimated:YES];
     [self.view addSubview:self.friendlyLoadingView];
     
     self.navigationController.navigationBar.tintColor= [UIColor colorWithRed:(0.0/255) green:(0.0/255) blue:(0.0/255) alpha:1.0];
@@ -212,7 +207,6 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    [self showLoading];
     
     CGFloat newTableHeight = self.m_scrollView.frame.size.height;
     

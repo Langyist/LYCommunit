@@ -12,12 +12,13 @@
 #import "LY_DeliveryCell.h"
 #import "LYShop.h"
 #import "XHFriendlyLoadingView.h"
-#define GRACOLOR colorWithRed:211.0/255.0 green:220.0/255.0 blue:187.0/255.0 alpha:1
-#define REDCOLOR colorWithRed:238.0/255.0 green:145.0/255.0 blue:2.0/255.0 alpha:1
+#define REDCOLOR colorWithRed:255.0/255.0 green:230.0/255.0 blue:201.0/255.0 alpha:1
 @interface LYconvenienceMain ()
 {
     UISearchBar *m_deliverSearch;
     UISearchBar *m_shopSearch;
+    
+    UIView *background;//
     
     UIView *m_backView;
     UIView *m_shopView;
@@ -56,11 +57,6 @@
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    [self showLoading];
-}
-
-- (void)showLoading {
-    [self.friendlyLoadingView showFriendlyLoadingViewWithText:@"正在加载..." loadingAnimated:YES];
 }
 
 - (void)viewDidLoad
@@ -73,8 +69,7 @@
     orderstr  = @"";
     
     self.friendlyLoadingView = [[XHFriendlyLoadingView alloc] initWithFrame:self.view.bounds];
-    typeof(self) weakSelf = self;
-    [weakSelf showLoading];
+    [self.friendlyLoadingView showFriendlyLoadingViewWithText:@"正在加载..." loadingAnimated:YES];
     [self.view addSubview:self.friendlyLoadingView];
     
     myThread01 = [[NSThread alloc] initWithTarget:self
@@ -155,32 +150,37 @@
     m_Deliverytableview.tableHeaderView = m_deliverSearch;
     
     //送餐送货下拉菜单View
-    m_backView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, m_view02.frame.size.width, self.view.frame.size.height-100)];
-    m_backView.backgroundColor = [UIColor grayColor];
-    m_backView.backgroundColor = [UIColor GRACOLOR];
+//    background = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
+//    background.backgroundColor = [UIColor blackColor];
+//    background.alpha = 0.5;
+//    [m_view02 addSubview:background];
+    
+    m_backView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, m_view02.frame.size.width, self.view.frame.size.height-250)];
+    m_backView.backgroundColor = [UIColor whiteColor];
     [m_view02 addSubview:m_backView];
     
     UIView *m_zhongView = [[UIView alloc] initWithFrame:CGRectMake(m_backView.frame.size.width / 2 - 2, 3, 0.5, m_backView.frame.size.height - 6)];
+    m_zhongView.alpha = 0.5;
     m_zhongView.backgroundColor = [UIColor blackColor];
     [m_backView addSubview:m_zhongView];
     
     m_backtable = [[UITableView alloc] initWithFrame:CGRectMake(0, 30, m_backView.frame.size.width / 2 - 5, m_backView.frame.size.height - 55)];
     m_backtable.delegate = self;
     m_backtable.dataSource = self;
-    m_backtable.backgroundColor = [UIColor GRACOLOR];
+    m_backtable.backgroundColor = [UIColor whiteColor];
     m_backtable.separatorStyle = UITableViewCellSeparatorStyleNone;
     [m_backView addSubview:m_backtable];
     
-    m_backtable1 = [[UITableView alloc] initWithFrame:CGRectMake(m_backView.frame.size.width / 2, 30, m_backView.frame.size.width / 2, m_backView.frame.size.height -55)];
+    m_backtable1 = [[UITableView alloc] initWithFrame:CGRectMake(m_backView.frame.size.width / 2, 30, m_backView.frame.size.width / 2, m_backView.frame.size.height - 65)];
     m_backtable1.delegate = self;
     m_backtable1.dataSource = self;
-    m_backtable1.backgroundColor = [UIColor GRACOLOR];
+    m_backtable1.backgroundColor = [UIColor whiteColor];
     m_backtable1.separatorStyle = UITableViewCellSeparatorStyleNone;
     [m_backView addSubview:m_backtable1];
     
-    UIButton *m_backButton = [[UIButton alloc] initWithFrame:CGRectMake(self.view.frame.size.width-80, m_backView.frame.size.height - 60, 80, 60)];
+    UIButton *m_backButton = [[UIButton alloc] initWithFrame:CGRectMake(self.view.frame.size.width / 2 + 100, m_backView.frame.size.height - 60, 80, 60)];
     [m_backButton setTitle:@">>" forState:UIControlStateNormal];
-    [m_backButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [m_backButton setTitleColor:[UIColor greenColor] forState:UIControlStateNormal];
     m_backButton.tag = 1;
     [m_backButton addTarget:self action:@selector(downBackViewButton:) forControlEvents:UIControlEventTouchUpInside];
     [m_backView addSubview:m_backButton];
@@ -222,31 +222,32 @@
     m_ShopDaquan.tableHeaderView = m_shopSearch;
     
     //店铺大全下拉菜单
-    m_shopView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, m_view02.frame.size.width, self.view.frame.size.height )];
-    m_shopView.backgroundColor = [UIColor GRACOLOR];
+    m_shopView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, m_view02.frame.size.width, self.view.frame.size.height- 100)];
+    m_shopView.backgroundColor = [UIColor whiteColor];
     [m_view03 addSubview:m_shopView];
     
     UIView *m_xianView = [[UIView alloc] initWithFrame:CGRectMake(m_shopView.frame.size.width / 2 - 2, 3, 0.5, m_shopView.frame.size.height - 30)];
     m_xianView.backgroundColor = [UIColor blackColor];
+    m_xianView.alpha = 0.5;
     [m_shopView addSubview:m_xianView];
     
     m_shoptable = [[UITableView alloc] initWithFrame:CGRectMake(0, 30, m_shopView.frame.size.width / 2 - 5, m_shopView.frame.size.height -55)];
     m_shoptable.delegate = self;
     m_shoptable.dataSource = self;
-    m_shoptable.backgroundColor = [UIColor GRACOLOR];
+    m_shoptable.backgroundColor = [UIColor whiteColor];
     m_shoptable.separatorStyle = UITableViewCellSeparatorStyleNone;
     [m_shopView addSubview:m_shoptable];
     
     m_shoptable1 = [[UITableView alloc] initWithFrame:CGRectMake(m_shopView.frame.size.width / 2, 30, m_shopView.frame.size.width / 2, m_shopView.frame.size.height -55)];
     m_shoptable1.delegate = self;
     m_shoptable1.dataSource = self;
-    m_shoptable1.backgroundColor = [UIColor GRACOLOR];
+    m_shoptable1.backgroundColor = [UIColor whiteColor];
     m_shoptable1.separatorStyle = UITableViewCellSeparatorStyleNone;
     [m_shopView addSubview:m_shoptable1];
     
-    UIButton *m_shopdownButton = [[UIButton alloc] initWithFrame:CGRectMake(self.view.frame.size.height - 100, m_backView.frame.size.height - 60, 100, 60)];
-    [m_shopdownButton setTitle:@"关闭" forState:UIControlStateNormal];
-    [m_shopdownButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    UIButton *m_shopdownButton = [[UIButton alloc] initWithFrame:CGRectMake(m_shopView.frame.size.width- 60, m_shopView.frame.size.height - 80, 80, 60)];
+    [m_shopdownButton setTitle:@">>" forState:UIControlStateNormal];
+    [m_shopdownButton setTitleColor:[UIColor greenColor] forState:UIControlStateNormal];
     [m_shopdownButton addTarget:self action:@selector(shopdownBackViewButton:) forControlEvents:UIControlEventTouchUpInside];
     [m_shopView addSubview:m_shopdownButton];
     
@@ -621,9 +622,15 @@
     }
     else if (tableView == m_backtable) {
         
-        return m_shoptypelist.count+1;
+        return 3;
     }else if (tableView == m_backtable1)
     {
+        return 3;
+    }else if (tableView == m_shoptable) {
+        
+        return m_shoptypelist.count + 1;
+    }else if (tableView == m_shoptable1) {
+        
         return 3;
     }
     else
@@ -754,28 +761,30 @@
         }
         return cell;
     }
-    else if (tableView == m_backtable||tableView ==  m_shoptable ) {
+    else if (tableView ==  m_backtable ) {
         UITableViewCell *cell;
         cell = [tableView dequeueReusableCellWithIdentifier:@"m_backtablecell"];
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"m_backtablecell"];
-        if (indexPath.row == 0)
-        {
-            cell.textLabel.text = @"所有";
+        switch (indexPath.row) {
+            case 0:
+                cell.textLabel.text = @"全部";
+                break;
+            case 1:
+                cell.textLabel.text = @"餐饮及水果";
+                break;
+            case 2:
+                cell.textLabel.text = @"超市及百货";
+                break;
+            default:
+                break;
         }
-        else
-        {
-            NSDictionary * temp = [m_shoptypelist objectAtIndex:indexPath.row-1];
-            cell.textLabel.text = [temp objectForKey:@"name"];
-        }
-        cell.contentView.backgroundColor = [UIColor GRACOLOR];
+        cell.contentView.backgroundColor = [UIColor whiteColor];
         UIView *m_cellbackView = [[UIView alloc] initWithFrame:cell.contentView.frame];
         m_cellbackView.backgroundColor = [UIColor REDCOLOR];
         cell.selectedBackgroundView = m_cellbackView;
         return cell;
     }
-    
-    else if (tableView == m_backtable1||tableView == m_shoptable1) {
-        
+    else if (tableView ==  m_backtable1 ) {
         UITableViewCell *cell;
         cell = [tableView dequeueReusableCellWithIdentifier:@"m_backtablecell1"];
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"m_backtablecell1"];
@@ -792,9 +801,50 @@
             default:
                 break;
         }
+        cell.contentView.backgroundColor = [UIColor whiteColor];
+        UIView *m_cellbackView = [[UIView alloc] initWithFrame:cell.contentView.frame];
+        m_cellbackView.backgroundColor = [UIColor REDCOLOR];
+        cell.selectedBackgroundView = m_cellbackView;
+        return cell;
+    }
+    else if (tableView ==  m_shoptable ) {
+        UITableViewCell *cell;
+        cell = [tableView dequeueReusableCellWithIdentifier:@"m_shoptablecell"];
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"m_shoptablecell"];
+        if (indexPath.row == 0)
+        {
+            cell.textLabel.text = @"所有";
+        }
+        else
+        {
+            NSDictionary * temp = [m_shoptypelist objectAtIndex:indexPath.row-1];
+            cell.textLabel.text = [temp objectForKey:@"name"];
+        }
+        cell.contentView.backgroundColor = [UIColor whiteColor];
+        UIView *m_cellbackView = [[UIView alloc] initWithFrame:cell.contentView.frame];
+        m_cellbackView.backgroundColor = [UIColor REDCOLOR];
+        cell.selectedBackgroundView = m_cellbackView;
+        return cell;
+    }
+    else if (tableView == m_shoptable1) {
         
-        
-        cell.contentView.backgroundColor = [UIColor GRACOLOR];
+        UITableViewCell *cell;
+        cell = [tableView dequeueReusableCellWithIdentifier:@"m_shoptablecell1"];
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"m_shoptablecell1"];
+        switch (indexPath.row) {
+            case 0:
+                cell.textLabel.text = @"智能排序";
+                break;
+            case 1:
+                cell.textLabel.text = @"拨打次数排序";
+                break;
+            case 2:
+                cell.textLabel.text = @"距离排序";
+                break;
+            default:
+                break;
+        }
+        cell.contentView.backgroundColor = [UIColor whiteColor];
         UIView *m_cellbackView = [[UIView alloc] initWithFrame:cell.contentView.frame];
         m_cellbackView.backgroundColor = [UIColor REDCOLOR];
         cell.selectedBackgroundView = m_cellbackView;

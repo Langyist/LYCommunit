@@ -1,7 +1,7 @@
 //
 //  LY_SelectCity.m
 //  in_community
-//
+//  选择城市
 //  Created by wangliang on 14-9-10.
 //  Copyright (c) 2014年 wangliang. All rights reserved.
 //
