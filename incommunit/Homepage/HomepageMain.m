@@ -60,7 +60,7 @@
                 [self performSegueWithIdentifier:@"Gocertification" sender:self];
                 break;
             case 1:
-                [self performSegueWithIdentifier:@"Goshop" sender:self];
+                [self performSegueWithIdentifier:@"MyStores" sender:self];
                 break;
                 
             default:

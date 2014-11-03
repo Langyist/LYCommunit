@@ -214,4 +214,20 @@
     }
 }
 
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+    BOOL ret = YES;
+    if (textField == m_Phone) {
+        if (![self isPureInt:string]) {
+            ret = NO;
+        }
+    }
+    return ret;
+}
+
+- (BOOL)isPureInt:(NSString*)string{
+    NSScanner* scan = [NSScanner scannerWithString:string];
+    int val;
+    return[scan scanInt:&val] && [scan isAtEnd];
+}
+
 @end

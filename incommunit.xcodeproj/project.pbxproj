@@ -158,6 +158,7 @@
 		F14231581A032C490088ED59 /* MessageContentTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F14231561A032C490088ED59 /* MessageContentTableViewCell.xib */; };
 		F14F51F01A0378CF006CC884 /* InfoHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = F14F51EE1A0378CF006CC884 /* InfoHeader.m */; };
 		F14F51F11A0378CF006CC884 /* InfoHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = F14F51EF1A0378CF006CC884 /* InfoHeader.xib */; };
+		F14F51F41A0382B7006CC884 /* MyStoresTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F14F51F31A0382B7006CC884 /* MyStoresTableViewController.m */; };
 		F15AE49A1A0208180084009C /* 黄色小三角_03.png in Resources */ = {isa = PBXBuildFile; fileRef = F15AE4991A0208180084009C /* 黄色小三角_03.png */; };
 		F16D77AE1A033E680044D858 /* CommentTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F16D77AC1A033E680044D858 /* CommentTableViewCell.m */; };
 		F16D77AF1A033E680044D858 /* CommentTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F16D77AD1A033E680044D858 /* CommentTableViewCell.xib */; };
@@ -450,6 +451,8 @@
 		F14F51ED1A0378CF006CC884 /* InfoHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InfoHeader.h; sourceTree = "<group>"; };
 		F14F51EE1A0378CF006CC884 /* InfoHeader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InfoHeader.m; sourceTree = "<group>"; };
 		F14F51EF1A0378CF006CC884 /* InfoHeader.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = InfoHeader.xib; sourceTree = "<group>"; };
+		F14F51F21A0382B7006CC884 /* MyStoresTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyStoresTableViewController.h; sourceTree = "<group>"; };
+		F14F51F31A0382B7006CC884 /* MyStoresTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyStoresTableViewController.m; sourceTree = "<group>"; };
 		F15AE4991A0208180084009C /* 黄色小三角_03.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "黄色小三角_03.png"; sourceTree = "<group>"; };
 		F16D77AB1A033E680044D858 /* CommentTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommentTableViewCell.h; sourceTree = "<group>"; };
 		F16D77AC1A033E680044D858 /* CommentTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommentTableViewCell.m; sourceTree = "<group>"; };
@@ -836,6 +839,8 @@
 				AD4823081A03238600A54F45 /* UserInfoTableViewController.m */,
 				AD6211CA19FD5583009BECA6 /* LYMyCommunit.h */,
 				AD6211CB19FD5583009BECA6 /* LYMyCommunit.m */,
+				F14F51F21A0382B7006CC884 /* MyStoresTableViewController.h */,
+				F14F51F31A0382B7006CC884 /* MyStoresTableViewController.m */,
 			);
 			path = Homepage;
 			sourceTree = "<group>";
@@ -1140,6 +1145,7 @@
 				AD7FBAB71A0216FF008CC80A /* LY_MaintenanceCell.m in Sources */,
 				AD3DD3B519FDF36600364854 /* LYaddCommunit.m in Sources */,
 				AD6211A019FD42CE009BECA6 /* LYnetwork.m in Sources */,
+				F14F51F41A0382B7006CC884 /* MyStoresTableViewController.m in Sources */,
 				AD3DD3C019FE13FE00364854 /* LY_FeaturedCell.m in Sources */,
 				AD6211E919FD9F1C009BECA6 /* LYForgotPassword.m in Sources */,
 				F14231571A032C490088ED59 /* MessageContentTableViewCell.m in Sources */,

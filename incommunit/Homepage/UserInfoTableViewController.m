@@ -57,6 +57,9 @@
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
     
     poposTagsList = [NSArray arrayWithObjects:@"麻将棋牌", @"运动", @"旅行", @"文艺青年", @"高富帅", @"家教", @"家政", @"贷款", @"医生", @"程序猿", @"金融", @"...", nil];
+    
+    self.userPhoto.layer.cornerRadius = CGRectGetWidth(self.userPhoto.frame) / 2;
+    self.userPhoto.clipsToBounds = YES;
 }
 
 - (void)didReceiveMemoryWarning {
