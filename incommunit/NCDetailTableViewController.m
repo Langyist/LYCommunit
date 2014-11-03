@@ -30,6 +30,8 @@
     [self setDetailLabelText:@"asdfasdfasdfasdfsd dsadfadfasdfeaefs"];
     [self setTimestampString:@"1415006036000"];
     
+    self.authorImageView.layer.cornerRadius = CGRectGetWidth(self.authorImageView.frame) / 2;
+    self.authorImageView.clipsToBounds = YES;
     self.closeButton.layer.cornerRadius = 3.0f;
 }
 

@@ -10,6 +10,7 @@
 
 @interface NCTableViewCell : UITableViewCell
 
+- (void)setShowTopIcon:(BOOL)show;
 - (void)setTitleImagePath:(NSString *)path;
 - (void)setTitle:(NSString *)title;
 - (void)setContent:(NSString *)content;

@@ -11,8 +11,8 @@
 
 @interface NCTableViewCell ()
 
+@property (weak, nonatomic) IBOutlet UIImageView *topIconImageView;
 @property (weak, nonatomic) IBOutlet UIImageView *titleImageView;
-
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 @property (weak, nonatomic) IBOutlet UILabel *contentLabel;
 @property (weak, nonatomic) IBOutlet UILabel *timeLabel;
@@ -24,7 +24,7 @@
 - (void)awakeFromNib {
     // Initialization code
     
-    self.titleImageView.layer.cornerRadius = CGRectGetWidth(self.titleImageView.frame);
+    self.titleImageView.layer.cornerRadius = CGRectGetWidth(self.titleImageView.frame) / 2;
     self.titleImageView.clipsToBounds = YES;
 }
 
@@ -32,6 +32,10 @@
     [super setSelected:selected animated:animated];
 
     // Configure the view for the selected state
+}
+
+- (void)setShowTopIcon:(BOOL)show {
+    self.topIconImageView.hidden = !show;
 }
 
 - (void)setTitleImagePath:(NSString *)path {
@@ -48,7 +52,7 @@
 - (void)setContent:(NSString *)content {
     
     CGFloat newHeight = [NCTableViewCell stringHeightWithString:@[content] size:self.contentLabel.frame.size font:self.contentLabel.font];
-    newHeight = MIN(newHeight, 37);
+    newHeight = MIN(newHeight, 34);
     
     CGRect frame = self.contentLabel.frame;
     frame.size.height = newHeight;

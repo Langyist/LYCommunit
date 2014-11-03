@@ -164,6 +164,7 @@
 		F13D4C321A07688600E23FDB /* NCTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F13D4C301A07688600E23FDB /* NCTableViewCell.xib */; };
 		F13D4C351A07715D00E23FDB /* UIView+Clone.m in Sources */ = {isa = PBXBuildFile; fileRef = F13D4C341A07715D00E23FDB /* UIView+Clone.m */; };
 		F13D4C381A077C2100E23FDB /* NCDetailTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F13D4C371A077C2100E23FDB /* NCDetailTableViewController.m */; };
+		F13D4C3A1A079C7100E23FDB /* 周边便民--未开店--帮帮娃_03.png in Resources */ = {isa = PBXBuildFile; fileRef = F13D4C391A079C7100E23FDB /* 周边便民--未开店--帮帮娃_03.png */; };
 		F142314E1A024E3F0088ED59 /* StoreslistTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F142314C1A024E3F0088ED59 /* StoreslistTableViewCell.m */; };
 		F142314F1A024E3F0088ED59 /* StoreslistTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F142314D1A024E3F0088ED59 /* StoreslistTableViewCell.xib */; };
 		F14231571A032C490088ED59 /* MessageContentTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F14231551A032C490088ED59 /* MessageContentTableViewCell.m */; };
@@ -473,6 +474,7 @@
 		F13D4C341A07715D00E23FDB /* UIView+Clone.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Clone.m"; sourceTree = "<group>"; };
 		F13D4C361A077C2100E23FDB /* NCDetailTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NCDetailTableViewController.h; sourceTree = "<group>"; };
 		F13D4C371A077C2100E23FDB /* NCDetailTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NCDetailTableViewController.m; sourceTree = "<group>"; };
+		F13D4C391A079C7100E23FDB /* 周边便民--未开店--帮帮娃_03.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "周边便民--未开店--帮帮娃_03.png"; sourceTree = "<group>"; };
 		F142314B1A024E3F0088ED59 /* StoreslistTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StoreslistTableViewCell.h; sourceTree = "<group>"; };
 		F142314C1A024E3F0088ED59 /* StoreslistTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StoreslistTableViewCell.m; sourceTree = "<group>"; };
 		F142314D1A024E3F0088ED59 /* StoreslistTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StoreslistTableViewCell.xib; sourceTree = "<group>"; };
@@ -624,6 +626,7 @@
 		AD33ECC119FBCA2D00FE0C11 /* Image */ = {
 			isa = PBXGroup;
 			children = (
+				F13D4C391A079C7100E23FDB /* 周边便民--未开店--帮帮娃_03.png */,
 				EF486AFE1A075BA2003B5B54 /* 交流框_03.png */,
 				EF486AFF1A075BA2003B5B54 /* 进行中_03.png */,
 				EF486B001A075BA2003B5B54 /* 已完成_03.png */,
@@ -1176,6 +1179,7 @@
 				AD33ED4F19FBCA2D00FE0C11 /* 购物车.png in Resources */,
 				AD33ED3919FBCA2D00FE0C11 /* 小三角_11.png in Resources */,
 				AD33ED4319FBCA2D00FE0C11 /* 物业管理--物业公告_02.png in Resources */,
+				F13D4C3A1A079C7100E23FDB /* 周边便民--未开店--帮帮娃_03.png in Resources */,
 				F10340C619FF4FCF00C5CB4E /* ic_password.png in Resources */,
 				AD33ED2219FBCA2D00FE0C11 /* ic_default_no_data.png in Resources */,
 				AD33ED0E19FBCA2D00FE0C11 /* 1_10.png in Resources */,

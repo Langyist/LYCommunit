@@ -74,6 +74,11 @@
     }
 }
 
+- (void)setSelectedSegmentIndex:(NSInteger)selectedSegmentIndex {
+    [super setSelectedSegmentIndex:selectedSegmentIndex];
+    [self setNeedsDisplay];
+}
+
 - (void)valueChanged:(CustomSegmentedControl *)seg {
     [self setNeedsDisplay];
 }

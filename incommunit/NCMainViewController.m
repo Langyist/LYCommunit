@@ -37,7 +37,8 @@
     woodsInfoTableView = [self addTableViewWithIndex:1];
     carInfoTableView = [self addTableViewWithIndex:2];
     roomInfoTableView = [self addTableViewWithIndex:3];
-    [self.scrollView setContentSize:CGSizeMake(CGRectGetWidth(roomInfoTableView.frame), 0)];
+    CGSize size = CGSizeMake(CGRectGetMaxX(roomInfoTableView.frame), 0);
+    [self.scrollView setContentSize:size];
 }
 
 - (UITableView *)addTableViewWithIndex:(NSInteger)index {
@@ -50,6 +51,7 @@
     
     CGRect frame = self.allInfoTableView.frame;
     frame.origin.x = frame.size.width * index;
+    tableView.frame = frame;
     
     [self.scrollView addSubview:tableView];
     
@@ -66,9 +68,11 @@
     [self.scrollView setContentOffset:CGPointMake(_scrollView.frame.size.width * index, 0) animated:YES];
 }
 
-- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
-    NSInteger index = _scrollView.contentOffset.x / _scrollView.frame.size.width;
-    self.segmentedControl.selectedSegmentIndex = index;
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
+    if (scrollView == self.scrollView) {
+        NSInteger index = lroundf(_scrollView.contentOffset.x / _scrollView.frame.size.width);
+        self.segmentedControl.selectedSegmentIndex = index;
+    }
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -76,14 +80,31 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 2;
+    NSInteger numberOfRowsInSection = 0;
+    if (tableView == _allInfoTableView) {
+        numberOfRowsInSection = 2;
+    }
+    
+    if (numberOfRowsInSection == 0) {
+        tableView.tableFooterView.hidden = NO;
+    }
+    else {
+        tableView.tableFooterView.hidden = YES;
+    }
+    return numberOfRowsInSection;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     NCTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"NCTableViewCell" forIndexPath:indexPath];
     [cell setTitle:@"力帆羽毛球台"];
-    [cell setContent:@"力帆羽毛球台"];
+    [cell setContent:@"力帆羽毛球台力帆羽毛球台力帆羽毛球台力帆羽毛球台力帆羽毛球台力帆羽毛球台力帆羽毛球台"];
     [cell setTimestampString:@"1415006036000"];
+    if (indexPath.row != 0) {
+        [cell setShowTopIcon:NO];
+    }
+    else {
+        [cell setShowTopIcon:YES];
+    }
     return cell;
 }
 
