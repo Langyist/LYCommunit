@@ -1,5 +1,5 @@
 //
-//  NCMainViewController.h
+//  NCDetailTableViewController.h
 //  incommunit
 //
 //  Created by 李忠良 on 14/11/3.
@@ -8,10 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface NCMainViewController : UIViewController
-<
-    UITableViewDataSource,
-    UITableViewDelegate
->
+@interface NCDetailTableViewController : UITableViewController
 
 @end

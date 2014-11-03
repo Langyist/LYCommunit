@@ -12,6 +12,7 @@
     
     BOOL isselect;
 }
+@property (weak, nonatomic) IBOutlet UISwitch *isVisiable;
 @end
 
 @implementation LYPrivacySettings

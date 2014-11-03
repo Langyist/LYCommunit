@@ -163,6 +163,7 @@
 		F13D4C311A07688600E23FDB /* NCTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F13D4C2F1A07688600E23FDB /* NCTableViewCell.m */; };
 		F13D4C321A07688600E23FDB /* NCTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F13D4C301A07688600E23FDB /* NCTableViewCell.xib */; };
 		F13D4C351A07715D00E23FDB /* UIView+Clone.m in Sources */ = {isa = PBXBuildFile; fileRef = F13D4C341A07715D00E23FDB /* UIView+Clone.m */; };
+		F13D4C381A077C2100E23FDB /* NCDetailTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F13D4C371A077C2100E23FDB /* NCDetailTableViewController.m */; };
 		F142314E1A024E3F0088ED59 /* StoreslistTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F142314C1A024E3F0088ED59 /* StoreslistTableViewCell.m */; };
 		F142314F1A024E3F0088ED59 /* StoreslistTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F142314D1A024E3F0088ED59 /* StoreslistTableViewCell.xib */; };
 		F14231571A032C490088ED59 /* MessageContentTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F14231551A032C490088ED59 /* MessageContentTableViewCell.m */; };
@@ -470,6 +471,8 @@
 		F13D4C301A07688600E23FDB /* NCTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NCTableViewCell.xib; sourceTree = "<group>"; };
 		F13D4C331A07715D00E23FDB /* UIView+Clone.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Clone.h"; sourceTree = "<group>"; };
 		F13D4C341A07715D00E23FDB /* UIView+Clone.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Clone.m"; sourceTree = "<group>"; };
+		F13D4C361A077C2100E23FDB /* NCDetailTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NCDetailTableViewController.h; sourceTree = "<group>"; };
+		F13D4C371A077C2100E23FDB /* NCDetailTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NCDetailTableViewController.m; sourceTree = "<group>"; };
 		F142314B1A024E3F0088ED59 /* StoreslistTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StoreslistTableViewCell.h; sourceTree = "<group>"; };
 		F142314C1A024E3F0088ED59 /* StoreslistTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StoreslistTableViewCell.m; sourceTree = "<group>"; };
 		F142314D1A024E3F0088ED59 /* StoreslistTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StoreslistTableViewCell.xib; sourceTree = "<group>"; };
@@ -979,6 +982,8 @@
 				F13D4C2A1A0750C700E23FDB /* Extern */,
 				F13D4C271A0750B100E23FDB /* NCMainViewController.h */,
 				F13D4C281A0750B100E23FDB /* NCMainViewController.m */,
+				F13D4C361A077C2100E23FDB /* NCDetailTableViewController.h */,
+				F13D4C371A077C2100E23FDB /* NCDetailTableViewController.m */,
 			);
 			name = NeighborhoodCooperation;
 			sourceTree = "<group>";
@@ -1253,6 +1258,7 @@
 				F14F51F01A0378CF006CC884 /* InfoHeader.m in Sources */,
 				AD33EC9019FBB13F00FE0C11 /* main.m in Sources */,
 				F13D4C2D1A07510F00E23FDB /* CustomSegmentedControl.m in Sources */,
+				F13D4C381A077C2100E23FDB /* NCDetailTableViewController.m in Sources */,
 				AD3DD3BF19FE13FE00364854 /* LY_DeliveryCell.m in Sources */,
 				AD7FBA8D1A0214E2008CC80A /* LYProManagementMain.m in Sources */,
 				AD3DD40C19FE466600364854 /* LYShop.m in Sources */,

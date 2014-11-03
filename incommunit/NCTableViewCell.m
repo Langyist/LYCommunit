@@ -48,7 +48,7 @@
 - (void)setContent:(NSString *)content {
     
     CGFloat newHeight = [NCTableViewCell stringHeightWithString:@[content] size:self.contentLabel.frame.size font:self.contentLabel.font];
-    newHeight = MAX(newHeight, 37);
+    newHeight = MIN(newHeight, 37);
     
     CGRect frame = self.contentLabel.frame;
     frame.size.height = newHeight;

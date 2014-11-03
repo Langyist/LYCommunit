@@ -34,22 +34,26 @@
     UINib *nib = [UINib nibWithNibName:@"NCTableViewCell" bundle:nil];
     [self.allInfoTableView registerNib:nib forCellReuseIdentifier:@"NCTableViewCell"];
     
-    woodsInfoTableView = [self.allInfoTableView clone];
-    [woodsInfoTableView registerNib:nib forCellReuseIdentifier:@"NCTableViewCell"];
-    carInfoTableView = [self.allInfoTableView clone];
-    [carInfoTableView registerNib:nib forCellReuseIdentifier:@"NCTableViewCell"];
-    roomInfoTableView = [self.allInfoTableView clone];
-    [roomInfoTableView registerNib:nib forCellReuseIdentifier:@"NCTableViewCell"];
+    woodsInfoTableView = [self addTableViewWithIndex:1];
+    carInfoTableView = [self addTableViewWithIndex:2];
+    roomInfoTableView = [self addTableViewWithIndex:3];
+    [self.scrollView setContentSize:CGSizeMake(CGRectGetWidth(roomInfoTableView.frame), 0)];
+}
+
+- (UITableView *)addTableViewWithIndex:(NSInteger)index {
+    UITableView *tableView = [self.allInfoTableView clone];
+    tableView.delegate = self;
+    tableView.dataSource = self;
+    
+    UINib *nib = [UINib nibWithNibName:@"NCTableViewCell" bundle:nil];
+    [tableView registerNib:nib forCellReuseIdentifier:@"NCTableViewCell"];
     
     CGRect frame = self.allInfoTableView.frame;
-    frame.origin.x += frame.size.width;
-    woodsInfoTableView.frame = frame;
-    frame.origin.x += frame.size.width;
-    carInfoTableView.frame = frame;
-    frame.origin.x += frame.size.width;
-    roomInfoTableView.frame = frame;
+    frame.origin.x = frame.size.width * index;
     
-    [self.scrollView setContentSize:CGSizeMake(CGRectGetWidth(frame), 0)];
+    [self.scrollView addSubview:tableView];
+    
+    return tableView;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -72,16 +76,19 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 0;
+    return 2;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     NCTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"NCTableViewCell" forIndexPath:indexPath];
+    [cell setTitle:@"力帆羽毛球台"];
+    [cell setContent:@"力帆羽毛球台"];
+    [cell setTimestampString:@"1415006036000"];
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    
+    [self performSegueWithIdentifier:@"NCDetail" sender:nil];
 }
 
 @end
