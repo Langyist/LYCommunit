@@ -30,8 +30,22 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.m_messagetext.delegate = self;
-    self.m_messagetext.returnKeyType = UIReturnKeyDone;
+
+    self.postButton.layer.cornerRadius = 3.0f;
+    self.postButton.clipsToBounds = YES;
+    
+    [self.scrollView setContentSize:CGSizeMake(0, CGRectGetMaxY(self.postButton.frame) + 50)];
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyBoardWillShow:) name:UIKeyboardWillShowNotification object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyBoardWillHide:) name:UIKeyboardWillHideNotification object:nil];
+}
+
+- (void)viewDidDisappear:(BOOL)animated {
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
 }
 
 -(IBAction)PostMessage:(id)sender
@@ -70,21 +84,42 @@
 }
 
 
-
-- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField
-{
+- (BOOL)textViewShouldBeginEditing:(UITextView *)textView {
     self.postButton.enabled = NO;
     
     return YES;
 }
-
-
-- (BOOL) textFieldShouldReturn:(UITextField *)textField
-{
-    [textField resignFirstResponder];
-    messaggeString = textField.text;
+- (BOOL)textViewShouldEndEditing:(UITextView *)textView {
+    [textView resignFirstResponder];
+    messaggeString = textView.text;
     self.postButton.enabled = YES;
     return YES;
+}
+
+- (void)keyBoardWillShow:(NSNotification *)note{
+    
+    CGRect rect = [note.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
+    [UIView animateWithDuration:[note.userInfo[UIKeyboardAnimationDurationUserInfoKey] doubleValue]
+                     animations:^{
+                         UIEdgeInsets inset = UIEdgeInsetsMake(0, 0, CGRectGetHeight(rect), 0);
+                         [self.scrollView setContentInset:inset];
+                     }];
+}
+
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
+    if (scrollView == self.scrollView) {
+        [self.m_messagetext resignFirstResponder];
+    }
+}
+
+#pragma mark 键盘即将退出
+
+- (void)keyBoardWillHide:(NSNotification *)note{
+    
+    [UIView animateWithDuration:[note.userInfo[UIKeyboardAnimationDurationUserInfoKey] doubleValue]
+                     animations:^{
+                         [self.scrollView setContentInset:UIEdgeInsetsZero];
+                     }];
 }
 
 

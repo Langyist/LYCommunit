@@ -43,7 +43,7 @@
     titleLabel.textColor = kTextColor;
     [btn addSubview:titleLabel];
     
-    _arrow = [[UIImageView alloc]initWithFrame:CGRectMake(btn.frame.size.width - imgW - 2, (self.frame.size.height-imgH)/0.75, imgW, imgH)];
+    _arrow = [[UIImageView alloc]initWithFrame:CGRectMake(btn.frame.size.width - imgW - 2, (self.frame.size.height-imgH) * 0.75, imgW, imgH)];
     _arrow.image = [UIImage imageNamed:_arrowImgName];
     [btn addSubview:_arrow];
     

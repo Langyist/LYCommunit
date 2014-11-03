@@ -8,11 +8,15 @@
 
 #import <UIKit/UIKit.h>
 
-@interface LYPostcomment : UIViewController<UITextFieldDelegate>
+@interface LYPostcomment : UIViewController
+<
+    UIScrollViewDelegate
+>
 {
-    UITextField *m_messagetext;
+    UITextView *m_messagetext;
     NSString    *messaggeString;
 }
 @property (strong, nonatomic) IBOutlet UIButton *postButton;
-@property(nonatomic,retain)IBOutlet UITextField *m_messagetext;
+@property(nonatomic,retain)IBOutlet UITextView *m_messagetext;
+@property(nonatomic,weak) IBOutlet UIScrollView *scrollView;
 @end
