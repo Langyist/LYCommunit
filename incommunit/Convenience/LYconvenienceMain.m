@@ -11,6 +11,7 @@
 #import "LY_FeaturedCell.h"
 #import "LY_DeliveryCell.h"
 #import "LYShop.h"
+#import "XHFriendlyLoadingView.h"
 #define GRACOLOR colorWithRed:211.0/255.0 green:220.0/255.0 blue:187.0/255.0 alpha:1
 #define REDCOLOR colorWithRed:238.0/255.0 green:145.0/255.0 blue:2.0/255.0 alpha:1
 @interface LYconvenienceMain ()
@@ -34,6 +35,8 @@
     NSMutableArray *arrow;
 }
 
+@property (nonatomic, strong) XHFriendlyLoadingView *friendlyLoadingView;
+
 @end
 
 @implementation LYconvenienceMain
@@ -46,9 +49,28 @@
     }
     return self;
 }
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    [self showLoading];
+}
+
+- (void)showLoading {
+    [self.friendlyLoadingView showFriendlyLoadingViewWithText:@"正在加载..." loadingAnimated:YES];
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    _friendlyLoadingView = [[XHFriendlyLoadingView alloc] initWithFrame:self.view.bounds];
+    typeof(self) weakSelf = self;
+    [weakSelf showLoading];
+    [self.view addSubview:self.friendlyLoadingView];
     
     arrow = [[NSMutableArray alloc] init];
     
@@ -1031,6 +1053,7 @@
             // 更新UI
         });
     }
+    [self.friendlyLoadingView hideLoadingView];
 }
 
 #pragma UIStoryboardSegue 协议函数

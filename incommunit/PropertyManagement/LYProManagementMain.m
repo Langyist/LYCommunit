@@ -18,15 +18,35 @@
 #import "MessageContentTableViewCell.h"
 #import "CommentTableViewCell.h"
 #import "InfoHeader.h"
+#import "XHFriendlyLoadingView.h"
 @interface LYProManagementMain () {
     UIView *m_liuView;
+    
 }
+
+@property (nonatomic, strong) XHFriendlyLoadingView *friendlyLoadingView;
+
 @end
 @implementation LYProManagementMain
 @synthesize m_segment;
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+}
+
+- (void)showLoading {
+    [self.friendlyLoadingView showFriendlyLoadingViewWithText:@"正在加载..." loadingAnimated:YES];
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    _friendlyLoadingView = [[XHFriendlyLoadingView alloc] initWithFrame:self.view.bounds];
+    typeof(self) weakSelf = self;
+    [weakSelf showLoading];
+    [self.view addSubview:self.friendlyLoadingView];
+    
     self.navigationController.navigationBar.tintColor= [UIColor colorWithRed:(0.0/255) green:(0.0/255) blue:(0.0/255) alpha:1.0];
     [m_segment addTarget:self action:@selector(doSomethingInSegment:)forControlEvents:UIControlEventValueChanged];
     CGRect rect = CGRectMake(0, 0, 1, 1);
@@ -190,6 +210,10 @@
 }
 
 - (void)viewDidAppear:(BOOL)animated {
+    
+    [super viewDidAppear:animated];
+    [self showLoading];
+    
     CGFloat newTableHeight = self.m_scrollView.frame.size.height;
     
     CGRect newFrame = m_AnntableVeiw.frame;
@@ -419,9 +443,7 @@
             
             NoCell = [tableView dequeueReusableCellWithIdentifier:@"AnnouncementNoCellidentifier"];
             NoCell.lable1.text = [temp objectForKey:@"name"];
-            //NoCell.lable2.text =  [temp objectForKey:@"content"];
             [NoCell setTextContent:[temp objectForKey:@"content"]];
-            //NoCell.lable3.text =  [[NSString alloc]initWithFormat:@"%@",[temp objectForKey:@"create_time"]];
             [NoCell setTimestamp:[temp objectForKey:@"create_time"]];
             NoCell.selectionStyle = UITableViewCellSelectionStyleNone;
             return NoCell;
@@ -431,9 +453,7 @@
             
             cell = [tableView dequeueReusableCellWithIdentifier:@"AnnouncementCellidentifier"];
             cell.lable1.text = [temp objectForKey:@"name"];
-            //cell.lable2.text =  [temp objectForKey:@"content"];
             [cell setTextContent:[temp objectForKey:@"content"]];
-            //cell.lable3.text =  [[NSString alloc]initWithFormat:@"%@",[temp objectForKey:@"create_time"]];
             [cell setTimestamp:[temp objectForKey:@"create_time"]];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
             return cell;
@@ -446,6 +466,9 @@
             case 0:
             {
                 NSDictionary *temp = [propertyExpenseArray objectAtIndex:indexPath.row];
+
+                UINib *nib = [UINib nibWithNibName:@"InfoCell" bundle:nil];
+                [tableView registerNib:nib forCellReuseIdentifier:@"InfoCellindentfier"];
                 LY_InfoCell *cell = [tableView dequeueReusableCellWithIdentifier:@"InfoCellindentfier"];
                 cell.nameLabel.text = [temp objectForKey:@"name"];
                 cell.costLabel.text = [NSString stringWithFormat:@"%@",[temp objectForKey:@"price"]];
@@ -544,8 +567,10 @@
     }
     else if (tableView == m_InfotableView)
     {
+        NSArray *titleArray = [NSArray arrayWithObjects:@"费用信息",@"快递信息", nil];
         NSArray *nibViews = [[NSBundle mainBundle] loadNibNamed:@"InfoHeader" owner:self options:nil]; //通过这个方法,取得我们的视图
         InfoHeader *headerView = [nibViews objectAtIndex:0];
+        headerView.titleLabel = titleArray[section];
         return headerView;//将视图（v_headerView）返回
     }
     else if (tableView == m_ACtableView) {
@@ -634,7 +659,11 @@
         [m_AnntableVeiw reloadData];
         // 更新UI
     });
+    
+    [self.friendlyLoadingView hideLoadingView];
+    
     return true;
+    
 }
 
 //获取"信息查询"的相关数据
