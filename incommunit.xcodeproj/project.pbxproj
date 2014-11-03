@@ -158,6 +158,11 @@
 		F10340D319FF7B3400C5CB4E /* CustomToolbarItem.xib in Resources */ = {isa = PBXBuildFile; fileRef = F10340D219FF7B3400C5CB4E /* CustomToolbarItem.xib */; };
 		F12DAE321A0231E700591CB5 /* send_info.png in Resources */ = {isa = PBXBuildFile; fileRef = F12DAE301A0231E700591CB5 /* send_info.png */; };
 		F12DAE331A0231E700591CB5 /* shop_introduce.png in Resources */ = {isa = PBXBuildFile; fileRef = F12DAE311A0231E700591CB5 /* shop_introduce.png */; };
+		F13D4C291A0750B100E23FDB /* NCMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F13D4C281A0750B100E23FDB /* NCMainViewController.m */; };
+		F13D4C2D1A07510F00E23FDB /* CustomSegmentedControl.m in Sources */ = {isa = PBXBuildFile; fileRef = F13D4C2C1A07510F00E23FDB /* CustomSegmentedControl.m */; };
+		F13D4C311A07688600E23FDB /* NCTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F13D4C2F1A07688600E23FDB /* NCTableViewCell.m */; };
+		F13D4C321A07688600E23FDB /* NCTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F13D4C301A07688600E23FDB /* NCTableViewCell.xib */; };
+		F13D4C351A07715D00E23FDB /* UIView+Clone.m in Sources */ = {isa = PBXBuildFile; fileRef = F13D4C341A07715D00E23FDB /* UIView+Clone.m */; };
 		F142314E1A024E3F0088ED59 /* StoreslistTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F142314C1A024E3F0088ED59 /* StoreslistTableViewCell.m */; };
 		F142314F1A024E3F0088ED59 /* StoreslistTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F142314D1A024E3F0088ED59 /* StoreslistTableViewCell.xib */; };
 		F14231571A032C490088ED59 /* MessageContentTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F14231551A032C490088ED59 /* MessageContentTableViewCell.m */; };
@@ -456,6 +461,15 @@
 		F10340D219FF7B3400C5CB4E /* CustomToolbarItem.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CustomToolbarItem.xib; sourceTree = "<group>"; };
 		F12DAE301A0231E700591CB5 /* send_info.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = send_info.png; sourceTree = "<group>"; };
 		F12DAE311A0231E700591CB5 /* shop_introduce.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = shop_introduce.png; sourceTree = "<group>"; };
+		F13D4C271A0750B100E23FDB /* NCMainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NCMainViewController.h; sourceTree = "<group>"; };
+		F13D4C281A0750B100E23FDB /* NCMainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NCMainViewController.m; sourceTree = "<group>"; };
+		F13D4C2B1A07510F00E23FDB /* CustomSegmentedControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomSegmentedControl.h; sourceTree = "<group>"; };
+		F13D4C2C1A07510F00E23FDB /* CustomSegmentedControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomSegmentedControl.m; sourceTree = "<group>"; };
+		F13D4C2E1A07688600E23FDB /* NCTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NCTableViewCell.h; sourceTree = "<group>"; };
+		F13D4C2F1A07688600E23FDB /* NCTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NCTableViewCell.m; sourceTree = "<group>"; };
+		F13D4C301A07688600E23FDB /* NCTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NCTableViewCell.xib; sourceTree = "<group>"; };
+		F13D4C331A07715D00E23FDB /* UIView+Clone.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Clone.h"; sourceTree = "<group>"; };
+		F13D4C341A07715D00E23FDB /* UIView+Clone.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Clone.m"; sourceTree = "<group>"; };
 		F142314B1A024E3F0088ED59 /* StoreslistTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StoreslistTableViewCell.h; sourceTree = "<group>"; };
 		F142314C1A024E3F0088ED59 /* StoreslistTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StoreslistTableViewCell.m; sourceTree = "<group>"; };
 		F142314D1A024E3F0088ED59 /* StoreslistTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StoreslistTableViewCell.xib; sourceTree = "<group>"; };
@@ -516,6 +530,7 @@
 		AD33EC8C19FBB13F00FE0C11 /* incommunit */ = {
 			isa = PBXGroup;
 			children = (
+				F13D4C261A07506100E23FDB /* NeighborhoodCooperation */,
 				AD7FBA8A1A0214B7008CC80A /* PropertyManagement */,
 				F10340C819FF51C200C5CB4E /* WidgetExtern */,
 				AD3DD3C419FE348600364854 /* BaiduMap */,
@@ -958,6 +973,30 @@
 			name = WidgetExtern;
 			sourceTree = "<group>";
 		};
+		F13D4C261A07506100E23FDB /* NeighborhoodCooperation */ = {
+			isa = PBXGroup;
+			children = (
+				F13D4C2A1A0750C700E23FDB /* Extern */,
+				F13D4C271A0750B100E23FDB /* NCMainViewController.h */,
+				F13D4C281A0750B100E23FDB /* NCMainViewController.m */,
+			);
+			name = NeighborhoodCooperation;
+			sourceTree = "<group>";
+		};
+		F13D4C2A1A0750C700E23FDB /* Extern */ = {
+			isa = PBXGroup;
+			children = (
+				F13D4C331A07715D00E23FDB /* UIView+Clone.h */,
+				F13D4C341A07715D00E23FDB /* UIView+Clone.m */,
+				F13D4C2B1A07510F00E23FDB /* CustomSegmentedControl.h */,
+				F13D4C2C1A07510F00E23FDB /* CustomSegmentedControl.m */,
+				F13D4C2E1A07688600E23FDB /* NCTableViewCell.h */,
+				F13D4C2F1A07688600E23FDB /* NCTableViewCell.m */,
+				F13D4C301A07688600E23FDB /* NCTableViewCell.xib */,
+			);
+			name = Extern;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1054,6 +1093,7 @@
 				AD33ED2519FBCA2D00FE0C11 /* ic_my_orders.png in Resources */,
 				AD33ED1219FBCA2D00FE0C11 /* 2_10.png in Resources */,
 				AD33ED5419FBCA2D00FE0C11 /* 首页.png in Resources */,
+				F13D4C321A07688600E23FDB /* NCTableViewCell.xib in Resources */,
 				AD33ED2919FBCA2D00FE0C11 /* person_data_label_seleted.png in Resources */,
 				AD33ED5E19FBCB6E00FE0C11 /* Default.png in Resources */,
 				AD33ED4D19FBCA2D00FE0C11 /* 订单@2x.png in Resources */,
@@ -1172,6 +1212,7 @@
 				AD3DD3B519FDF36600364854 /* LYaddCommunit.m in Sources */,
 				AD6211A019FD42CE009BECA6 /* LYnetwork.m in Sources */,
 				F14F51F41A0382B7006CC884 /* MyStoresTableViewController.m in Sources */,
+				F13D4C311A07688600E23FDB /* NCTableViewCell.m in Sources */,
 				AD3DD3C019FE13FE00364854 /* LY_FeaturedCell.m in Sources */,
 				AD6211E919FD9F1C009BECA6 /* LYForgotPassword.m in Sources */,
 				F14231571A032C490088ED59 /* MessageContentTableViewCell.m in Sources */,
@@ -1183,6 +1224,7 @@
 				AD7FBAB41A0216FF008CC80A /* LY_AnnouncementCell.m in Sources */,
 				AD3DD40919FE362D00364854 /* LYBaiduMap.mm in Sources */,
 				F16D77AE1A033E680044D858 /* CommentTableViewCell.m in Sources */,
+				F13D4C291A0750B100E23FDB /* NCMainViewController.m in Sources */,
 				AD33ED5B19FBCAB500FE0C11 /* LYSqllite.m in Sources */,
 				AD6211D019FD598A009BECA6 /* LYToolsMain.m in Sources */,
 				AD48230C1A03525F00A54F45 /* LYSettlement.m in Sources */,
@@ -1193,6 +1235,7 @@
 				AD7FBABB1A021919008CC80A /* LYPostcomment.m in Sources */,
 				F10340CB19FF51DD00C5CB4E /* UIImage+Scale.m in Sources */,
 				AD7FBAB61A0216FF008CC80A /* LY_InfoCell.m in Sources */,
+				F13D4C351A07715D00E23FDB /* UIView+Clone.m in Sources */,
 				AD6211E019FD8028009BECA6 /* LYPublicMethods.m in Sources */,
 				AD6211AD19FD46BD009BECA6 /* LeslieImageCache.m in Sources */,
 				AD6211A119FD42CE009BECA6 /* LYReachability.m in Sources */,
@@ -1209,6 +1252,7 @@
 				AD30F7D61A00D97A00C8709E /* LYProductinformation.m in Sources */,
 				F14F51F01A0378CF006CC884 /* InfoHeader.m in Sources */,
 				AD33EC9019FBB13F00FE0C11 /* main.m in Sources */,
+				F13D4C2D1A07510F00E23FDB /* CustomSegmentedControl.m in Sources */,
 				AD3DD3BF19FE13FE00364854 /* LY_DeliveryCell.m in Sources */,
 				AD7FBA8D1A0214E2008CC80A /* LYProManagementMain.m in Sources */,
 				AD3DD40C19FE466600364854 /* LYShop.m in Sources */,

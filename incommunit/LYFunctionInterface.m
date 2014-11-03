@@ -110,6 +110,10 @@
 {
     [self performSegueWithIdentifier:@"GoLYconvenienceMain" sender:self];
 }
+// 邻里互助
+- (IBAction)NCMain:(id)sender {
+    [self performSegueWithIdentifier:@"JumpToNC" sender:self];
+}
 
 -(void)pageTurn:(UIPageControl *)aPageControl
 {
