@@ -216,7 +216,7 @@
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
     BOOL ret = YES;
-    if (textField == m_Phone) {
+    if (textField == m_Phone && range.length == 0) {
         if (![self isPureInt:string]) {
             ret = NO;
         }

@@ -53,7 +53,7 @@
                                        44)];
     
     comboxView.backgroundColor = [UIColor whiteColor];
-    comboxView.arrowImgName = @"down_dark0.png";
+    comboxView.arrowImgName = @"小三角_11";
     itemsArray = [NSMutableArray arrayWithArray:@[@"全部", @""]];
     comboxView.titlesList = itemsArray;
     comboxView.delegate = self;
