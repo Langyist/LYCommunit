@@ -1,7 +1,7 @@
 //
 //  LYProductinformation.h
 //  incommunit
-//
+//  商品信息
 //  Created by LANGYI on 14/10/29.
 //  Copyright (c) 2014年 LANGYI. All rights reserved.
 //

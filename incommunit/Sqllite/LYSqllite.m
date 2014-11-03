@@ -202,13 +202,11 @@
 + (NSMutableArray*)GetGoods
 {
     NSMutableArray *backlist = [[NSMutableArray alloc] init];
-    NSMutableArray *goodslist = [[NSMutableArray alloc] init];
     NSMutableArray *Storeslist = [[NSMutableArray alloc] init];
     sqlite3 *tempdatabase =  [[[LYSqllite alloc] init] openSqlite:@"LY_db.db"];
     sqlite3_stmt *statementst = nil;
-    
+    NSMutableArray *goodslist;
     char *sqlst = "SELECT * FROM StoresTable";
-    
     if (sqlite3_prepare_v2(tempdatabase, sqlst, -1, &statementst, NULL) != SQLITE_OK)
     {
         NSLog(@"Error: failed to prepare statement with message:get testValue.");
@@ -239,6 +237,7 @@
         }
         else
         {
+            goodslist = [[NSMutableArray alloc] init];
             while (sqlite3_step(statement)  == SQLITE_ROW)
             {
                 NSMutableDictionary *temp = [[NSMutableDictionary alloc] init];
@@ -276,9 +275,11 @@
     return backlist ;
 }
 
--(void)Modifystate
++(BOOL)Modifystate:(NSString *)GoodsID
 {
-
+    sqlite3 *tempdatabase =  [[[LYSqllite alloc] init] openSqlite:@"LY_db.db"];
+    NSString * sqlstr = [[NSString alloc] initWithFormat:@"UPDATE ShoppingCart SET selectState = '1' WHERE Storesid = '%@'",GoodsID];
+    BOOL bl = [[[LYSqllite alloc]init]execSql:sqlstr database:tempdatabase];
+    return bl;
 }
-
 @end

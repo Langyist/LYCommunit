@@ -21,7 +21,6 @@ static void PrintReachabilityFlags(SCNetworkReachabilityFlags flags, const char*
     NSLog(@"Reachability Flag Status: %c%c %c%c%c%c%c%c%c %s\n",
           (flags & kSCNetworkReachabilityFlagsIsWWAN)				? 'W' : '-',
           (flags & kSCNetworkReachabilityFlagsReachable)            ? 'R' : '-',
-
           (flags & kSCNetworkReachabilityFlagsTransientConnection)  ? 't' : '-',
           (flags & kSCNetworkReachabilityFlagsConnectionRequired)   ? 'c' : '-',
           (flags & kSCNetworkReachabilityFlagsConnectionOnTraffic)  ? 'C' : '-',
@@ -34,13 +33,11 @@ static void PrintReachabilityFlags(SCNetworkReachabilityFlags flags, const char*
 #endif
 }
 
-
 static void LYReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReachabilityFlags flags, void* info)
 {
-#pragma unused (target, flags)
+    #pragma unused (target, flags)
 	NSCAssert(info != NULL, @"info was NULL in ReachabilityCallback");
 	NSCAssert([(__bridge NSObject*) info isKindOfClass: [LYReachability class]], @"info was wrong class in ReachabilityCallback");
-
     LYReachability* noteObject = (__bridge LYReachability *)info;
     // Post a notification to notify the client that the network reachability changed.
     [[NSNotificationCenter defaultCenter] postNotificationName: kReachabilityChangedNotification object: noteObject];
@@ -235,13 +232,11 @@ static void LYReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkRea
     return NO;
 }
 
-
 - (NetworkStatus)currentReachabilityStatus
 {
 	NSAssert(_reachabilityRef != NULL, @"currentNetworkStatus called with NULL SCNetworkReachabilityRef");
 	NetworkStatus returnValue = NotReachable;
 	SCNetworkReachabilityFlags flags;
-    
 	if (SCNetworkReachabilityGetFlags(_reachabilityRef, &flags))
 	{
 		if (_alwaysReturnLocalWiFiStatus)
@@ -253,7 +248,6 @@ static void LYReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkRea
 			returnValue = [self networkStatusForFlags:flags];
 		}
 	}
-    
 	return returnValue;
 }
 

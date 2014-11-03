@@ -111,6 +111,9 @@
         NSString *imageUrl = [temp objectForKey:@"logo"];
         if (imageUrl!=nil && ![imageUrl isEqualToString:@"(null)"])
         {
+            if (indexPath.row == 1) {
+                NSLog(@"%@", imageUrl);
+            }
             NSURL *url = [NSURL URLWithString:imageUrl];
             [pimageview setImageWithURL:url placeholderImage:nil];
         }
@@ -128,12 +131,12 @@
         addButton.tag = indexPath.row - 1;
         [m_textfiledlist addObject:quantityfl];
     }
-
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;
 }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
     NSMutableArray  *tempinfo = [Goodslist objectAtIndex:indexPath.section];
     BOOL isSelected = NO;
     if (indexPath.row == 0) {

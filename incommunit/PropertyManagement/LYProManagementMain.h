@@ -40,7 +40,6 @@
     NSInteger IDNumber ;
     UIView *m_messageView;
 }
-
 @property (retain, nonatomic) IBOutlet UISegmentedControl *m_segment;
 @property (weak, nonatomic) IBOutlet UIScrollView *m_scrollView;
 -(BOOL)Getnotification:(NSString *)URL;

@@ -37,7 +37,8 @@
     // 再从文件中取
     image = [imageCache getImageFromFileForKey:imageUrl];
     if (image) {
-        if (completeBlock) {
+        if (completeBlock)
+        {
             NSLog(@"image exists in file");
             completeBlock(image,nil,url);
         }

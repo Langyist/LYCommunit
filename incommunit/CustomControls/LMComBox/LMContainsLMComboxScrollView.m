@@ -25,7 +25,6 @@
     }
     return self;
 }
-
 -(void)closeAllTheComBoxView
 {
     for(UIView *subView in self.subviews)

@@ -77,7 +77,6 @@
             case 2:
                 NSLog(@"通讯录");
                 break;
-                
             default:
                 break;
         }
@@ -91,8 +90,6 @@
             case 1:
                 [self performSegueWithIdentifier:@"Gocollection" sender:self];
                 break;
-                break;
-                
             default:
                 break;
         }

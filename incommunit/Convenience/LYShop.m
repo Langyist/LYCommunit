@@ -39,8 +39,6 @@
     
     UINib *nib = [UINib nibWithNibName:@"StoreslistTableViewCell" bundle:nil];
     [self.tableView registerNib:nib forCellReuseIdentifier:@"StoreslistTableViewCell"];
-
-    [self Getstoresdata:@""];
     tempgoodstype = [[NSMutableArray alloc] init];
     m_stores = [[NSMutableDictionary alloc] init];
     [m_stores  setValue:m_StoresID forKey:@"id"];
@@ -50,7 +48,7 @@
     order = @"";
     self.navigationController.navigationBar.barTintColor = [UIColor colorWithRed:(238.0/255) green:(183.0/255) blue:(88.0/255) alpha:1.0];
     self.navigationController.navigationBar.tintColor= [UIColor colorWithRed:(240.0/255) green:(174.0/255) blue:(64.0/255) alpha:1.0];
-    
+    self.navigationController.navigationBar.tintColor= [UIColor colorWithRed:(0.0/255) green:(0.0/255) blue:(0.0/255) alpha:1.0];
     UIBarButtonItem *mapItem = [self createCustomItem:@"首页" imageName:@"首页" selector:@selector(jumpToPage:) tag:100];
     UIBarButtonItem *mineItem = [self createCustomItem:@"个人主页" imageName:@"2" selector:@selector(jumpToPage:) tag:101];
     UIBarButtonItem *toolItem = [self createCustomItem:@"购物车" imageName:@"购物车" selector:@selector(jumpToPage:) tag:102];

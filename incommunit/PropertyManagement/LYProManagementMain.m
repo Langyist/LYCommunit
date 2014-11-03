@@ -209,8 +209,8 @@
     [NSThread detachNewThreadSelector:@selector(Getnotification:) toTarget:self withObject:nil];
 }
 
-- (void)viewDidAppear:(BOOL)animated {
-    
+- (void)viewDidAppear:(BOOL)animated
+{
     [super viewDidAppear:animated];
     [self showLoading];
     
@@ -572,6 +572,11 @@
         InfoHeader *headerView = [nibViews objectAtIndex:0];
         headerView.titleLabel = titleArray[section];
         return headerView;//将视图（v_headerView）返回
+        if(propertyExpenseArray.count>0)
+        {
+            headerView.addressLabel.text = [[propertyExpenseArray objectAtIndex:0] objectForKey:@"address"];//地址
+        }
+        return nil;//将视图（v_headerView）返回
     }
     else if (tableView == m_ACtableView) {
         
@@ -751,7 +756,7 @@
     urlString = nil;
     request = nil;
     responseData = nil;
-    urlString = [NSString stringWithFormat:@"%@/services/wuye/message/list",url];
+    urlString = [NSString stringWithFormat:@"%@/services/wuye/message/list?pageSize=10&pageOffset=0",url];
     request = [NSURLRequest requestWithURL:[NSURL URLWithString:urlString]];
     responseData = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:&error];
     if (nil != error)
