@@ -10,7 +10,7 @@
 
 @interface LYPostcomment : UIViewController
 <
-    UIScrollViewDelegate
+    UIScrollViewDelegate,UITextViewDelegate
 >
 {
     UITextView *m_messagetext;

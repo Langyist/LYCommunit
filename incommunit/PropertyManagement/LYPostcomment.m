@@ -10,7 +10,6 @@
 
 @interface LYPostcomment () {
     
-    CGSize keyboardSize;
 }
 
 @end
@@ -46,22 +45,32 @@
 - (void)viewDidDisappear:(BOOL)animated {
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
+    self.m_messagetext.delegate = self;
+    self.m_messagetext.returnKeyType = UIReturnKeyDone;
+    
+//    UITapGestureRecognizer *singleRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(ClickView)];
+//    [self.view addGestureRecognizer:singleRecognizer];
 }
+////点击空白关闭键盘
+//-(void)ClickView
+//{
+//    [self.m_messagetext resignFirstResponder];
+//    
+//}
 
 -(IBAction)PostMessage:(id)sender
 {
     if (0 != [messaggeString length])
     {
-        [self sendRequest:@"http://115.29.244.142" content:messaggeString];
+        [self sendRequest:@"http://121.40.207.159/inCommunity/" content:messaggeString];
     }
 }
-
 
 -(BOOL)sendRequest:(NSString*)URL content:(NSString*)contentString
 {
     NSError *error;
     //    加载一个NSURL对象
-    NSString    *URLString = [NSString stringWithFormat:@"%@/inCommunity/services/wuye/message/deploy",URL];
+    NSString    *URLString = [NSString stringWithFormat:@"%@/services/wuye/message/deploy",URL];
     NSURL *url = [NSURL URLWithString:URLString];
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc]initWithURL:url cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:10];
     [request setHTTPMethod:@"POST"];//设置请求方式为POST，默认为GET
@@ -85,14 +94,29 @@
 
 
 - (BOOL)textViewShouldBeginEditing:(UITextView *)textView {
+    return YES;
+}
+#pragma mark UITextField delegate
+- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField
+{
+
     self.postButton.enabled = NO;
     
     return YES;
 }
+
 - (BOOL)textViewShouldEndEditing:(UITextView *)textView {
     [textView resignFirstResponder];
     messaggeString = textView.text;
+    return YES;
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    [textField resignFirstResponder];
+    messaggeString = textField.text;
     self.postButton.enabled = YES;
+//    [self PostMessage:@""];
     return YES;
 }
 
@@ -121,6 +145,5 @@
                          [self.scrollView setContentInset:UIEdgeInsetsZero];
                      }];
 }
-
 
 @end

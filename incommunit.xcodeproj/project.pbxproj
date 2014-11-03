@@ -146,6 +146,10 @@
 		AD7FBABB1A021919008CC80A /* LYPostcomment.m in Sources */ = {isa = PBXBuildFile; fileRef = AD7FBABA1A021919008CC80A /* LYPostcomment.m */; };
 		AD8714D31A07655000BEAF5E /* LYSubmitOrder.m in Sources */ = {isa = PBXBuildFile; fileRef = AD8714D21A07655000BEAF5E /* LYSubmitOrder.m */; };
 		EF31A2111A0381D80039E52C /* XHFriendlyLoadingView.m in Sources */ = {isa = PBXBuildFile; fileRef = EF31A2101A0381D80039E52C /* XHFriendlyLoadingView.m */; };
+		EF486B021A075BA2003B5B54 /* 交流框_03.png in Resources */ = {isa = PBXBuildFile; fileRef = EF486AFE1A075BA2003B5B54 /* 交流框_03.png */; };
+		EF486B031A075BA2003B5B54 /* 进行中_03.png in Resources */ = {isa = PBXBuildFile; fileRef = EF486AFF1A075BA2003B5B54 /* 进行中_03.png */; };
+		EF486B041A075BA2003B5B54 /* 已完成_03.png in Resources */ = {isa = PBXBuildFile; fileRef = EF486B001A075BA2003B5B54 /* 已完成_03.png */; };
+		EF486B051A075BA2003B5B54 /* 置顶_02.png in Resources */ = {isa = PBXBuildFile; fileRef = EF486B011A075BA2003B5B54 /* 置顶_02.png */; };
 		F10340C619FF4FCF00C5CB4E /* ic_password.png in Resources */ = {isa = PBXBuildFile; fileRef = F10340C419FF4FCF00C5CB4E /* ic_password.png */; };
 		F10340C719FF4FCF00C5CB4E /* ic_username.png in Resources */ = {isa = PBXBuildFile; fileRef = F10340C519FF4FCF00C5CB4E /* ic_username.png */; };
 		F10340CB19FF51DD00C5CB4E /* UIImage+Scale.m in Sources */ = {isa = PBXBuildFile; fileRef = F10340CA19FF51DD00C5CB4E /* UIImage+Scale.m */; };
@@ -437,6 +441,10 @@
 		AD8714D21A07655000BEAF5E /* LYSubmitOrder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LYSubmitOrder.m; sourceTree = "<group>"; };
 		EF31A20F1A0381D80039E52C /* XHFriendlyLoadingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XHFriendlyLoadingView.h; sourceTree = "<group>"; };
 		EF31A2101A0381D80039E52C /* XHFriendlyLoadingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XHFriendlyLoadingView.m; sourceTree = "<group>"; };
+		EF486AFE1A075BA2003B5B54 /* 交流框_03.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "交流框_03.png"; sourceTree = "<group>"; };
+		EF486AFF1A075BA2003B5B54 /* 进行中_03.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "进行中_03.png"; sourceTree = "<group>"; };
+		EF486B001A075BA2003B5B54 /* 已完成_03.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "已完成_03.png"; sourceTree = "<group>"; };
+		EF486B011A075BA2003B5B54 /* 置顶_02.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "置顶_02.png"; sourceTree = "<group>"; };
 		F10340C419FF4FCF00C5CB4E /* ic_password.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_password.png; sourceTree = "<group>"; };
 		F10340C519FF4FCF00C5CB4E /* ic_username.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_username.png; sourceTree = "<group>"; };
 		F10340C919FF51DD00C5CB4E /* UIImage+Scale.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Scale.h"; sourceTree = "<group>"; };
@@ -598,6 +606,10 @@
 		AD33ECC119FBCA2D00FE0C11 /* Image */ = {
 			isa = PBXGroup;
 			children = (
+				EF486AFE1A075BA2003B5B54 /* 交流框_03.png */,
+				EF486AFF1A075BA2003B5B54 /* 进行中_03.png */,
+				EF486B001A075BA2003B5B54 /* 已完成_03.png */,
+				EF486B011A075BA2003B5B54 /* 置顶_02.png */,
 				F12DAE301A0231E700591CB5 /* send_info.png */,
 				F12DAE311A0231E700591CB5 /* shop_introduce.png */,
 				F15AE4991A0208180084009C /* 黄色小三角_03.png */,
@@ -1063,6 +1075,8 @@
 				AD33ED4219FBCA2D00FE0C11 /* 点赞_03.png in Resources */,
 				AD33ED1A19FBCA2D00FE0C11 /* 6_10.png in Resources */,
 				AD33ED1619FBCA2D00FE0C11 /* 4.png in Resources */,
+				EF486B041A075BA2003B5B54 /* 已完成_03.png in Resources */,
+				EF486B051A075BA2003B5B54 /* 置顶_02.png in Resources */,
 				AD7FBAB11A0216FF008CC80A /* InfoCell.xib in Resources */,
 				AD33ED3419FBCA2D00FE0C11 /* 加入购物车_13.png in Resources */,
 				AD33ED5719FBCA2D00FE0C11 /* 黄色_03.png in Resources */,
@@ -1084,6 +1098,7 @@
 				AD33ED1C19FBCA2D00FE0C11 /* 8_10.png in Resources */,
 				AD33ED2119FBCA2D00FE0C11 /* ic_default_commodity.png in Resources */,
 				AD33ED5019FBCA2D00FE0C11 /* 购物车@2x.png in Resources */,
+				EF486B021A075BA2003B5B54 /* 交流框_03.png in Resources */,
 				AD33ED3D19FBCA2D00FE0C11 /* 我要报修_05.png in Resources */,
 				AD33ED5519FBCA2D00FE0C11 /* 首页@2x.png in Resources */,
 				AD33ED1419FBCA2D00FE0C11 /* 3@2x.png in Resources */,
@@ -1109,6 +1124,7 @@
 				AD33ED2319FBCA2D00FE0C11 /* ic_default_shop.png in Resources */,
 				AD33ED3719FBCA2D00FE0C11 /* 增加减少_07.png in Resources */,
 				AD33ED4419FBCA2D00FE0C11 /* 物业管理--物业维修_03.png in Resources */,
+				EF486B031A075BA2003B5B54 /* 进行中_03.png in Resources */,
 				F14F51F11A0378CF006CC884 /* InfoHeader.xib in Resources */,
 				AD33ED4819FBCA2D00FE0C11 /* 箭头_03.png in Resources */,
 				AD33ED5319FBCA2D00FE0C11 /* 邻里互助.png in Resources */,

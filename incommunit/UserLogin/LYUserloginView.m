@@ -291,7 +291,7 @@
     }else if(textField==passwordtext)
     {
         [textField resignFirstResponder];
-//        [self login:userText.text password:passwordtext.text];
+        [self login:userText.text password:passwordtext.text];
     }
     return YES;
 }

@@ -14,13 +14,11 @@
      IBOutlet UILabel *lable1;
      IBOutlet UILabel *lable2;
      IBOutlet UILabel *lable3;
-     IBOutlet UILabel *label4;
 }
 @property (strong, nonatomic) IBOutlet UIImageView *m_imageview;
 @property (strong, nonatomic) IBOutlet UILabel *lable1;
 @property (strong, nonatomic) IBOutlet UILabel *lable2;
 @property (strong, nonatomic) IBOutlet UILabel *lable3;
-@property (strong, nonatomic) IBOutlet UILabel *label4;
 @property(copy, nonatomic) UIImage *m_iamge;
 
 - (void)setTextContent:(NSString *)text;

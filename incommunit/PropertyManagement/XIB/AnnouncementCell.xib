@@ -38,8 +38,8 @@
                         </subviews>
                         <color key="backgroundColor" red="0.95294117647058818" green="0.88627450980392153" blue="0.77254901960784317" alpha="1" colorSpace="deviceRGB"/>
                     </view>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="物业管理--物业公告_02.png" translatesAutoresizingMaskIntoConstraints="NO" id="stx-BS-YPd">
-                        <rect key="frame" x="0.0" y="4" width="40" height="40"/>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="置顶_02.png" translatesAutoresizingMaskIntoConstraints="NO" id="stx-BS-YPd">
+                        <rect key="frame" x="1" y="7" width="40" height="40"/>
                     </imageView>
                     <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="EdP-ok-DeF">
                         <rect key="frame" x="0.0" y="5" width="320" height="1"/>
@@ -49,17 +49,10 @@
                         <rect key="frame" x="0.0" y="127" width="320" height="1"/>
                         <color key="backgroundColor" red="0.7803921568627451" green="0.7803921568627451" blue="0.7803921568627451" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="置顶" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eh4-Qr-PTR">
-                        <rect key="frame" x="-1" y="3" width="25" height="21"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="10"/>
-                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                        <nil key="highlightedColor"/>
-                    </label>
                 </subviews>
                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
             </tableViewCellContentView>
             <connections>
-                <outlet property="label4" destination="eh4-Qr-PTR" id="r0S-IP-Mgu"/>
                 <outlet property="lable1" destination="flu-La-x0y" id="SJH-od-sdN"/>
                 <outlet property="lable2" destination="fIl-ih-pa8" id="1lY-Pc-30G"/>
                 <outlet property="lable3" destination="lCR-hQ-V7K" id="Bme-85-nR8"/>
@@ -67,7 +60,7 @@
         </tableViewCell>
     </objects>
     <resources>
-        <image name="物业管理--物业公告_02.png" width="59" height="62"/>
+        <image name="置顶_02.png" width="56" height="56"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>

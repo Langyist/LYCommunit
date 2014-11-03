@@ -1,7 +1,7 @@
 //
 //  LYconvenienceMain.m
 //  incommunit
-//
+//  周边便民
 //  Created by LANGYI on 14/10/27.
 //  Copyright (c) 2014年 LANGYI. All rights reserved.
 //
@@ -67,15 +67,16 @@
 {
     [super viewDidLoad];
     
-    _friendlyLoadingView = [[XHFriendlyLoadingView alloc] initWithFrame:self.view.bounds];
-    typeof(self) weakSelf = self;
-    [weakSelf showLoading];
-    [self.view addSubview:self.friendlyLoadingView];
-    
     arrow = [[NSMutableArray alloc] init];
     
     StoreType = @"";
     orderstr  = @"";
+    
+    self.friendlyLoadingView = [[XHFriendlyLoadingView alloc] initWithFrame:self.view.bounds];
+    typeof(self) weakSelf = self;
+    [weakSelf showLoading];
+    [self.view addSubview:self.friendlyLoadingView];
+    
     myThread01 = [[NSThread alloc] initWithTarget:self
                                                  selector:@selector(GetData:)
                                                    object:nil];
