@@ -31,7 +31,7 @@ static NSDictionary *          m_cityinfo;//城市信息
 //        [self performSegueWithIdentifier:@"Gomain4" sender:self];
 //        CommuntiyInfo = userinfo;
 //    }
-    //[LY_Sqllite CreatShoppingcart]; //创建购物车信息表
+//[LY_Sqllite CreatShoppingcart]; //创建购物车信息表
     self->Serch.delegate=self;
     self.navigationController.navigationBar.barTintColor = [UIColor colorWithRed:(238.0/255) green:(183.0/255) blue:(88.0/255) alpha:1.0];
     //m_selectCityButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 50, 30)];
@@ -80,6 +80,7 @@ static NSDictionary *          m_cityinfo;//城市信息
 {
     if ([[segue identifier] isEqualToString:@"showDetail"])
     {
+        
     }
 }
 #pragma mark - CLLocationManagerDelegate 定位协议函数
@@ -175,7 +176,6 @@ static NSDictionary *          m_cityinfo;//城市信息
     m_lable_address.text =[Community objectForKey:@"address"];
     CGFloat distance = [[Community objectForKey:@"distance"] floatValue];
     m_lable_distance.text =[NSString stringWithFormat:@"%.0fm", distance];
-    
     return cell;
 }
 

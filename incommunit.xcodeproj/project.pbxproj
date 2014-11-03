@@ -144,6 +144,7 @@
 		AD7FBAB71A0216FF008CC80A /* LY_MaintenanceCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AD7FBAAC1A0216FF008CC80A /* LY_MaintenanceCell.m */; };
 		AD7FBAB81A0216FF008CC80A /* MaintenanceCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AD7FBAAD1A0216FF008CC80A /* MaintenanceCell.xib */; };
 		AD7FBABB1A021919008CC80A /* LYPostcomment.m in Sources */ = {isa = PBXBuildFile; fileRef = AD7FBABA1A021919008CC80A /* LYPostcomment.m */; };
+		AD8714D31A07655000BEAF5E /* LYSubmitOrder.m in Sources */ = {isa = PBXBuildFile; fileRef = AD8714D21A07655000BEAF5E /* LYSubmitOrder.m */; };
 		EF31A2111A0381D80039E52C /* XHFriendlyLoadingView.m in Sources */ = {isa = PBXBuildFile; fileRef = EF31A2101A0381D80039E52C /* XHFriendlyLoadingView.m */; };
 		F10340C619FF4FCF00C5CB4E /* ic_password.png in Resources */ = {isa = PBXBuildFile; fileRef = F10340C419FF4FCF00C5CB4E /* ic_password.png */; };
 		F10340C719FF4FCF00C5CB4E /* ic_username.png in Resources */ = {isa = PBXBuildFile; fileRef = F10340C519FF4FCF00C5CB4E /* ic_username.png */; };
@@ -432,6 +433,8 @@
 		AD7FBAAD1A0216FF008CC80A /* MaintenanceCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MaintenanceCell.xib; sourceTree = "<group>"; };
 		AD7FBAB91A021919008CC80A /* LYPostcomment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LYPostcomment.h; sourceTree = "<group>"; };
 		AD7FBABA1A021919008CC80A /* LYPostcomment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LYPostcomment.m; sourceTree = "<group>"; };
+		AD8714D11A07655000BEAF5E /* LYSubmitOrder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LYSubmitOrder.h; sourceTree = "<group>"; };
+		AD8714D21A07655000BEAF5E /* LYSubmitOrder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LYSubmitOrder.m; sourceTree = "<group>"; };
 		EF31A20F1A0381D80039E52C /* XHFriendlyLoadingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XHFriendlyLoadingView.h; sourceTree = "<group>"; };
 		EF31A2101A0381D80039E52C /* XHFriendlyLoadingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XHFriendlyLoadingView.m; sourceTree = "<group>"; };
 		F10340C419FF4FCF00C5CB4E /* ic_password.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_password.png; sourceTree = "<group>"; };
@@ -879,6 +882,8 @@
 				AD30F7D51A00D97A00C8709E /* LYProductinformation.m */,
 				AD48230A1A03525F00A54F45 /* LYSettlement.h */,
 				AD48230B1A03525F00A54F45 /* LYSettlement.m */,
+				AD8714D11A07655000BEAF5E /* LYSubmitOrder.h */,
+				AD8714D21A07655000BEAF5E /* LYSubmitOrder.m */,
 			);
 			path = Convenience;
 			sourceTree = "<group>";
@@ -1177,6 +1182,7 @@
 				AD6211A119FD42CE009BECA6 /* LYReachability.m in Sources */,
 				AD33ECC019FBC39700FE0C11 /* LYUIview.m in Sources */,
 				AD62118619FD3148009BECA6 /* LYUserloginView.m in Sources */,
+				AD8714D31A07655000BEAF5E /* LYSubmitOrder.m in Sources */,
 				F10340CE19FF5BC500C5CB4E /* InsetTextField.m in Sources */,
 				AD6211E319FD88DE009BECA6 /* LYAnnouncementDetails.m in Sources */,
 				EF31A2111A0381D80039E52C /* XHFriendlyLoadingView.m in Sources */,

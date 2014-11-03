@@ -579,14 +579,12 @@
         return nil;//将视图（v_headerView）返回
     }
     else if (tableView == m_ACtableView) {
-        
         return nil;
     }
-    else if (tableView == m_MaintableView){
-        
+    else if (tableView == m_MaintableView)
+    {
         return nil;
     }
-    
     return nil;
 }
 

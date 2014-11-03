@@ -23,10 +23,10 @@
 @end
 
 
-@interface UserInfoTableViewController () {
+@interface UserInfoTableViewController ()
+{
     NSArray *personalTagsList;
     NSArray *poposTagsList;
-    
     NSString *userLogoPath;
 }
 @property (weak, nonatomic) IBOutlet UIImageView *userPhoto;
