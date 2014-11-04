@@ -5,7 +5,6 @@
 //  Created by LANGYI on 14/10/27.
 //  Copyright (c) 2014年 LANGYI. All rights reserved.
 //
-
 #import "LYaddCommunit.h"
 #import "LMContainsLMComboxScrollView.h"
 #import "LYSelectCommunit.h"
@@ -14,7 +13,6 @@
 #import <QuartzCore/CoreAnimation.h>
 #import <MobileCoreServices/UTCoreTypes.h>
 #import "LYUserloginView.h"
-
 #define kDropDownListTag 1000
 @interface LYaddCommunit () <UIActionSheetDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,UITextFieldDelegate>
 {
@@ -26,20 +24,16 @@
     NSString *selectedProvince;
     NSString *selectedCity;
     NSString *selectedArea;
-    
     UIActionSheet *sheet;
 }
-
 @end
 @implementation LYaddCommunit
 @synthesize  m_lableinfo,m_Nickname,m_iamgeview,m_button;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
     [m_Nickname setShowBorderLine:NO];
     [m_Nickname setTextInset:UIEdgeInsetsMake(0, 15, 0, 15)];
-    
     [m_button.layer setMasksToBounds:YES];
     [m_button.layer setCornerRadius:3.0];
     
@@ -68,7 +62,6 @@
     bgScrollView.showsHorizontalScrollIndicator = NO;
     [self.view addSubview:bgScrollView];
     [self setUpBgScrollView];
-    
     UITapGestureRecognizer* singleRecognizer;
     singleRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(ClickView)];
     singleRecognizer.numberOfTapsRequired = 1; // 单击
@@ -133,7 +126,8 @@
     [picker dismissModalViewControllerAnimated:YES];
 }
 
--(void) imagePickerControllerDidCancel:(UIImagePickerController *)picker{
+-(void) imagePickerControllerDidCancel:(UIImagePickerController *)picker
+{
     [picker dismissModalViewControllerAnimated:YES];
 }
 

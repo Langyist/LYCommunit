@@ -9,6 +9,8 @@
 #import "LYSelectCommunit.h"
 #import "LYSelectCity.h"
 #import "LYUIview.h"
+#import "LYUserloginView.h"
+#import "LYSqllite.h"
 @interface LYSelectCommunit ()
 
 @end
@@ -24,13 +26,12 @@ static NSDictionary *          m_cityinfo;//城市信息
 #pragma mark - 初始化
 -(void)viewDidLoad
 {
-    m_bl = YES;
-//    NSMutableDictionary *userinfo =  [LY_Sqllite Ruser];
-//    if (userinfo != nil&&m_bl ==FALSE)
-//    {
-//        [self performSegueWithIdentifier:@"Gomain4" sender:self];
-//        CommuntiyInfo = userinfo;
-//    }
+    NSMutableDictionary *userinfo =  [LYSqllite Ruser];
+    if (userinfo != nil&&m_bl ==FALSE)
+    {
+        [self performSegueWithIdentifier:@"Gomain4" sender:self];
+        m_cityinfo = userinfo;
+    }
 //[LY_Sqllite CreatShoppingcart]; //创建购物车信息表
     self->Serch.delegate=self;
     self.navigationController.navigationBar.barTintColor = [UIColor colorWithRed:(238.0/255) green:(183.0/255) blue:(88.0/255) alpha:1.0];
@@ -78,9 +79,10 @@ static NSDictionary *          m_cityinfo;//城市信息
 #pragma mark - Segues 协议
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    if ([[segue identifier] isEqualToString:@"showDetail"])
+    if ([segue.identifier isEqualToString: @"GoLYUserloginView"])
     {
-        
+        LYUserloginView *detailViewController = (LYUserloginView*) segue.destinationViewController;
+        detailViewController->m_bool = FALSE;
     }
 }
 #pragma mark - CLLocationManagerDelegate 定位协议函数
@@ -275,6 +277,7 @@ static NSDictionary *          m_cityinfo;//城市信息
 #pragma mark - 切换界面进入协议函数
 -(void)viewDidAppear:(BOOL)animated
 {
+    [NSThread detachNewThreadSelector:@selector(GetCommunity:) toTarget:self withObject:nil];
     if (m_Refresh)
     {
         if ([CLLocationManager locationServicesEnabled])

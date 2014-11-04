@@ -16,10 +16,11 @@
 @private UIImageView *m_iamgeview;
 @public NSString *community_id;
 @public NSString *community_Name;
+@public BOOL m_bool;
 @private UIView *m_Pview;
 @private UILabel *m_communityName;
 NSMutableDictionary * userinfo;
-    UIButton *m_loginbutton;
+UIButton *m_loginbutton;
 }
 @property(nonatomic, retain)IBOutlet UITextField *userText;
 @property(nonatomic, retain)IBOutlet UITextField *passwordtext;

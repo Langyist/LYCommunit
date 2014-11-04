@@ -5,7 +5,6 @@
 //  Created by LANGYI on 14/10/27.
 //  Copyright (c) 2014年 LANGYI. All rights reserved.
 //
-
 #import "LYSignup.h"
 @interface LYSignup ()
 @end
@@ -16,14 +15,12 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        // Custom initialization
     }
     return self;
 }
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
     UIEdgeInsets inset = UIEdgeInsetsMake(0, 25, 0, 25);
     [m_Phone setTextInset:inset];
     [m_VerificationText setTextInset:inset];
@@ -173,7 +170,6 @@
         [m_Phone resignFirstResponder];
         [m_password becomeFirstResponder];
     }else if (textField == m_password) {
-        
         [m_password resignFirstResponder];
         [m_VerificationText becomeFirstResponder];
     }else if (textField == m_VerificationText) {
@@ -214,7 +210,8 @@
     }
 }
 
-- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
+{
     BOOL ret = YES;
     if (textField == m_Phone && range.length == 0) {
         if (![self isPureInt:string]) {

@@ -16,21 +16,16 @@
 - (void)viewDidLoad {
     
     [super viewDidLoad];
-    
     UIEdgeInsets inset = UIEdgeInsetsMake(0, 25, 0, 25);
     [MobilenumberText setTextInset:inset];
     [CodeText setTextInset:inset];
     [passwordText setTextInset:inset];
-    
     [codeButton.layer setMasksToBounds:YES];
     [codeButton.layer setCornerRadius:3.0];
-    
     [submitButton.layer setMasksToBounds:YES];
     [submitButton.layer setCornerRadius:3.0];
-    
     self.MobilenumberText.keyboardType = UIKeyboardTypeNamePhonePad;
     self.MobilenumberText.delegate = self;
-    
     self.navigationController.navigationBar.hidden = NO;
     UILabel *customLab = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 100, 30)];
     [customLab setTextColor:[UIColor colorWithRed:(0.0/255) green:(0.0/255) blue:(0.0/255) alpha:1.0]];
@@ -40,25 +35,23 @@
     customLab.textAlignment = NSTextAlignmentCenter;
     self.navigationItem.titleView = customLab;;
     self.navigationController.navigationBar.tintColor= [UIColor colorWithRed:(0.0/255) green:(0.0/255) blue:(0.0/255) alpha:1.0];
-    
     self.CodeText.keyboardType = UIKeyboardTypeNamePhonePad;
     self.CodeText.delegate = self;
     self.passwordText.delegate = self;
-    
     UITapGestureRecognizer *tapgesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(downkeyboardGesture)];
     [self.view addGestureRecognizer:tapgesture];
 }
 //点击空白关闭键盘
-- (void)downkeyboardGesture {
-    
+- (void)downkeyboardGesture
+{
     [self.MobilenumberText resignFirstResponder];
     [self.CodeText resignFirstResponder];
     [self.passwordText resignFirstResponder];
 }
 
-- (void)didReceiveMemoryWarning {
+- (void)didReceiveMemoryWarning
+{
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 #pragma mark - 访问网络数据

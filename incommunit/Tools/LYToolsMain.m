@@ -7,7 +7,7 @@
 //
 
 #import "LYToolsMain.h"
-
+#import "LYUserloginView.h"
 @interface LYToolsMain ()
 
 @end
@@ -70,6 +70,15 @@
         default:
             break;
     }
+}
+#pragma mark - Navigation
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+        if ([segue.identifier isEqualToString: @"GoLogin"])
+        {
+            LYUserloginView *detailViewController = (LYUserloginView*) segue.destinationViewController;
+            detailViewController->m_bool = TRUE;
+        }
 }
 
 -(IBAction)Exit:(id)sender

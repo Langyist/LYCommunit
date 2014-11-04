@@ -90,7 +90,7 @@
     if ([segue.identifier isEqualToString: @"Goselectcommunit"])
     {
         LYSelectCommunit *detailViewController = (LYSelectCommunit*) segue.destinationViewController;
-        detailViewController->m_bl = FALSE;
+        detailViewController->m_bl = TRUE;
 }}
 
 -(void)updata
