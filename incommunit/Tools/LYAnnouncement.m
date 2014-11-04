@@ -9,7 +9,12 @@
 #import "LYAnnouncement.h"
 #import "LYPublicMethods.h"
 #import "LYAnnouncementDetails.h"
+#import "XHFriendlyLoadingView.h"
 @interface LYAnnouncement ()
+
+@property (nonatomic, strong) XHFriendlyLoadingView *friendlyLoadingView;
+
+
 @end
 @implementation LYAnnouncement
 @synthesize m_tableView;
@@ -22,12 +27,26 @@
     return self;
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    self.friendlyLoadingView = [[XHFriendlyLoadingView alloc] initWithFrame:self.view.bounds];
+    [self.friendlyLoadingView showFriendlyLoadingViewWithText:@"正在加载..." loadingAnimated:YES];
+    [self.view addSubview:self.friendlyLoadingView];
+    
     m_tableView.delegate = self;
     m_tableView.dataSource = self;
     [NSThread detachNewThreadSelector:@selector(getAnnouncement:) toTarget:self withObject:nil];
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
 }
 
 #pragma mark UITableView delegate
@@ -125,6 +144,7 @@
         });
     
     }
+    [self.friendlyLoadingView hideLoadingView];
 }
 
 @end
