@@ -17,8 +17,6 @@
     NSArray *  m_address;//地址隐私设置
     NSArray *  m_album;//相册隐私设置
 }
-
-
 @property (strong, nonatomic) IBOutlet UITableView *m_tableView;
 
 

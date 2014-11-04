@@ -17,14 +17,16 @@
 @interface LYaddCommunit () <UIActionSheetDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,UITextFieldDelegate>
 {
     LMContainsLMComboxScrollView *bgScrollView;
-    NSArray *PeriodData;
-    NSArray *BuildingData;
-    NSArray *UnitData;
-    NSArray *HouseholdsData;
+    NSMutableArray *PeriodData;
+    NSMutableArray *BuildingData;
+    NSMutableArray *UnitData;
+    NSMutableArray *HouseholdsData;
+    NSMutableArray *HomeNumber;
     NSString *selectedProvince;
     NSString *selectedCity;
     NSString *selectedArea;
     UIActionSheet *sheet;
+    UIImage *headimage;
 }
 @end
 @implementation LYaddCommunit
@@ -32,13 +34,14 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    PeriodData = [[NSMutableArray alloc] init];
     [m_Nickname setShowBorderLine:NO];
     [m_Nickname setTextInset:UIEdgeInsetsMake(0, 15, 0, 15)];
     [m_button.layer setMasksToBounds:YES];
     [m_button.layer setCornerRadius:3.0];
-    
+    m_communitid = [[LYSelectCommunit GetCommunityInfo] objectForKey:@"id"];
     m_Nickname.delegate = self;
-
+    [self done:m_communitid pid:@"0"];
     CALayer *lay  = m_iamgeview.layer;//获取ImageView的层
     [lay setMasksToBounds:YES];
     [lay setCornerRadius:CGRectGetHeight(m_iamgeview.frame) / 2];
@@ -51,26 +54,26 @@
     self.navigationItem.titleView = customLab;
     self.navigationController.navigationBar.tintColor= [UIColor colorWithRed:(0.0/255) green:(0.0/255) blue:(0.0/255) alpha:1.0];
     self.navigationController.navigationBar.hidden = NO;
+    BuildingData = [[NSMutableArray alloc] init];
+    UnitData =  [[NSMutableArray alloc] init];
+    HouseholdsData = [[NSMutableArray alloc] init];
+    HomeNumber = [[NSMutableArray alloc] init];
     
-    PeriodData = [[NSArray alloc] initWithObjects:@"一期",@"二期",@"三期", nil];
-    BuildingData = [[NSArray alloc]initWithObjects:@"栋", nil];
-    UnitData = [[NSArray alloc]initWithObjects:@"单元", nil];
-    HouseholdsData = [[NSArray alloc]initWithObjects:@"户", nil];
     bgScrollView = [[LMContainsLMComboxScrollView alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(m_lableinfo.frame), self.view.frame.size.width, 35)];
     bgScrollView.backgroundColor = [UIColor clearColor];
     bgScrollView.showsVerticalScrollIndicator = NO;
     bgScrollView.showsHorizontalScrollIndicator = NO;
     [self.view addSubview:bgScrollView];
     [self setUpBgScrollView];
-    UITapGestureRecognizer* singleRecognizer;
-    singleRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(ClickView)];
-    singleRecognizer.numberOfTapsRequired = 1; // 单击
-    [self.view addGestureRecognizer:singleRecognizer];
+    
+//    UITapGestureRecognizer* singleRecognizer;
+//    singleRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(ClickView)];
+//    singleRecognizer.numberOfTapsRequired = 1; // 单击
+//    [self.view addGestureRecognizer:singleRecognizer];
     
     m_iamgeview.userInteractionEnabled = YES;
     UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(Photograph)];
     [m_iamgeview addGestureRecognizer:singleTap];
-    
     //[self.view addSubview:m_iamgeview];
     // Do any additional setup after loading the view.
 }
@@ -98,10 +101,9 @@
 }
 
 //从相机上选择
--(void)shootPiicturePrVideo{
-    
+-(void)shootPiicturePrVideo
+{
     [self getMediaFromSource:UIImagePickerControllerSourceTypeCamera];
-    
 }
 
 //从相册中选择
@@ -117,6 +119,7 @@
     {
         UIImage *chosenImage=[info objectForKey:UIImagePickerControllerEditedImage];
         m_iamgeview.image = chosenImage;
+        headimage = chosenImage;
     }
     if([self.lastChosenMediaType isEqual:(NSString *) kUTTypeMovie])
     {
@@ -167,26 +170,7 @@
     [m_Nickname resignFirstResponder];
 }
 
--(void)selectAtIndex:(int)index inCombox:(LMComBoxView *)_combox
-{
-    // NSDictionary *temp;
-    switch (_combox.tag) {
-        case 1000:
-            if (index>0) {
-                //categoryid =[PeriodData objectAtIndex:index];
-            }else
-            {
-                // categoryid = @"";
-            }
-            //[NSThread detachNewThreadSelector:@selector(serachGoods:) toTarget:self withObject:nil];
-            break;
-        case 1001:
-            //categoryid = [[NSString alloc] initWithFormat:@"%d",index+1];
-            break;
-        default:
-            break;
-    }
-}
+
 -(void)setUpBgScrollView
 {
     for (NSInteger i = 0; i < 5; i++) {
@@ -201,30 +185,105 @@
         switch (i) {
             case 0:
                 [itemsArray addObjectsFromArray:PeriodData];
+                comBox.titlesList = itemsArray;
                 break;
             case 1:
-                [itemsArray addObjectsFromArray:BuildingData];
+                if(BuildingData.count>0)
+                {
+                    [itemsArray addObjectsFromArray:BuildingData];
+                    comBox.titlesList = itemsArray;
+                }
                 break;
             case 2:
-                [itemsArray addObjectsFromArray:UnitData];
+                if (UnitData.count>0) {
+                    [itemsArray addObjectsFromArray:UnitData];
+                    comBox.titlesList = itemsArray;
+                }
                 break;
             case 3:
-                [itemsArray addObjectsFromArray:HouseholdsData];
+                if (HouseholdsData.count>0) {
+                    [itemsArray addObjectsFromArray:HouseholdsData];
+                    comBox.titlesList = itemsArray;
+                }
                 break;
             case 4:
-                [itemsArray addObjectsFromArray:PeriodData];
+                if (HomeNumber.count>0) {
+                    [itemsArray addObjectsFromArray:HomeNumber];
+                    comBox.titlesList = itemsArray;
+                }
                 break;
-                
             default:
                 break;
         }
-        
-        comBox.titlesList = itemsArray;
         comBox.delegate = self;
         comBox.supView = bgScrollView;
         [comBox defaultSettings];
         comBox.tag = kDropDownListTag + i;
         [bgScrollView addSubview:comBox];
+        [comboxlist addObject:comBox];
+    }
+}
+
+-(void)selectAtIndex:(int)index inCombox:(LMComBoxView *)_combox
+{
+    NSInteger tag = _combox.tag - kDropDownListTag;
+    switch (tag) {
+        case 0:
+        {
+            BuildingData = [[NSMutableArray alloc] init];
+            NSMutableArray *temp = [self done:m_communitid pid:@"1"];
+            for (int i = 0; i<temp.count; i++) {
+                [BuildingData addObject:[[temp objectAtIndex:i] objectForKey:@"name"]];
+            }
+            LMComBoxView *cityCombox = (LMComBoxView *)[bgScrollView viewWithTag:tag + 1 + kDropDownListTag];
+            cityCombox.titlesList = BuildingData;
+            [cityCombox reloadData];
+//            LMComBoxView *areaCombox = (LMComBoxView *)[bgScrollView viewWithTag:tag + 2 + kDropDownListTag];
+//            areaCombox.titlesList = [NSMutableArray arrayWithArray:[addressDict objectForKey:@"area"]];
+//            [areaCombox reloadData];
+            
+        }
+            break;
+        case 1:
+        {
+            UnitData = [[NSMutableArray alloc] init];
+            NSMutableArray *temp = [self done:m_communitid pid:@"2"];
+            for (int i = 0; i<temp.count; i++) {
+                [UnitData addObject:[[temp objectAtIndex:i] objectForKey:@"name"]];
+            }
+            LMComBoxView *cityCombox = (LMComBoxView *)[bgScrollView viewWithTag:tag + 1 + kDropDownListTag];
+            cityCombox.titlesList = UnitData;
+            [cityCombox reloadData];
+        }
+            break;
+        case 2:
+        {
+            HouseholdsData = [[NSMutableArray alloc] init];
+            NSMutableArray *temp = [self done:m_communitid pid:@"3"];
+            for (int i = 0; i<temp.count; i++) {
+                [HouseholdsData addObject:[[temp objectAtIndex:i] objectForKey:@"name"]];
+            }
+            LMComBoxView *cityCombox = (LMComBoxView *)[bgScrollView viewWithTag:tag + 1 + kDropDownListTag];
+            cityCombox.titlesList = HouseholdsData;
+            [cityCombox reloadData];
+        }
+            break;
+        case 3:
+        {
+            HomeNumber = [[NSMutableArray alloc] init];
+            NSMutableArray *temp = [self done:m_communitid pid:@"3"];
+            for (int i = 0; i<temp.count; i++) {
+                [HomeNumber addObject:[[temp objectAtIndex:i] objectForKey:@"name"]];
+            }
+            LMComBoxView *cityCombox = (LMComBoxView *)[bgScrollView viewWithTag:tag + 1 + kDropDownListTag];
+            cityCombox.titlesList = HomeNumber;
+            [cityCombox reloadData];
+        }
+            break;
+        case 4:
+            break;
+        default:
+            break;
     }
 }
 
@@ -276,21 +335,45 @@
     }
 }
 
-- (IBAction)done:(id)sender {
-    
+- (NSMutableArray *)done:(NSString *)COMMUNITY_ID pid:(NSString *)PID
+{
     NSLog(@"完成");
-//    NSDictionary *plistDic = [[NSBundle mainBundle] infoDictionary];
-//    NSLog(@"plistDic = %@",plistDic);
-//    NSString *URl = [plistDic objectForKey: @"URL"];
-//    NSError *error;
-//    NSString *urlstr;
-////    NSString *urlstr = [[NSString alloc] initWithFormat:@"%@/services/reg_community/user_id=%@&community_id=%@&nick_name=%@&head=%@&l1=%@&l2=%@&l3=%@&l4=%@&l5=%@",URl,,[[LYSelectCommunit GetCommunityInfo] objectForKey:@"id"],,];
-//    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:urlstr]];
-//    //    将请求的url数据放到NSData对象中
-//    NSData *response = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
-//    //    iOS5自带解析类NSJSONSerialization从response中解析出数据放到字典中
-//    NSDictionary *getcodeDic = [NSJSONSerialization JSONObjectWithData:response options:NSJSONReadingMutableLeaves error:&error];
-//    NSLog(@"%@",getcodeDic);
+    NSMutableArray * temp;
+    NSDictionary *plistDic = [[NSBundle mainBundle] infoDictionary];
+    NSLog(@"plistDic = %@",plistDic);
+    NSString * URl = [plistDic objectForKey: @"URL"];
+    NSError *error;
+    NSString *urlstr = [[NSString alloc] initWithFormat:@"%@/services/community/level?community_id=%@&pid=%@",URl,COMMUNITY_ID,PID];
+    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:urlstr]];
+    NSData *response = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
+    if (response!=nil)
+    {
+        NSDictionary *getcodeDic = [NSJSONSerialization JSONObjectWithData:response options:NSJSONReadingMutableLeaves error:&error];
+        NSLog(@"%@",getcodeDic);
+        NSString *message = [getcodeDic objectForKey:@"message"];
+        if (![[getcodeDic objectForKey:@"status"] isEqual:@"200"])
+        {
+            NSLog(@"%@",message);
+        }else
+        {
+            temp = [getcodeDic objectForKey:@"data"];
+            for (int i = 0; i<temp.count; i++)
+            {
+                [PeriodData addObject:[[temp objectAtIndex:i] objectForKey:@"name"]];
+            }
+        }
+    }
+    return temp;
+}
+-(NSString *)CovertImage:(UIImage *)iamge
+{
+    NSData *_data = UIImageJPEGRepresentation(iamge, 1.0f);
+    NSString *_encodedImageStr = [_data base64Encoding];
+    return _encodedImageStr;
 }
 
+-(void)Submitinfo
+{
+
+}
 @end

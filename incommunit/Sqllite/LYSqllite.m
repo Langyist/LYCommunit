@@ -107,7 +107,7 @@
             char* strText01   = (char*)sqlite3_column_text(statementst, 2);
             [temp setValue:[NSString stringWithUTF8String:strText01] forKey:@"id"];
             char* strText02   = (char*)sqlite3_column_text(statementst, 3);
-            [temp setValue:[NSString stringWithUTF8String:strText02] forKey:@"communitname"];
+            [temp setValue:[NSString stringWithUTF8String:strText02] forKey:@"name"];
             char* strText03   = (char*)sqlite3_column_text(statementst, 4);
             [temp setValue:[NSString stringWithUTF8String:strText03] forKey:@"communitaddress"];
             char* strText04   = (char*)sqlite3_column_text(statementst, 5);

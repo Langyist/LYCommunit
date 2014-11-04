@@ -19,9 +19,7 @@
 
 @class LMComBoxView;
 @protocol LMComBoxViewDelegate <NSObject>
-
 -(void)selectAtIndex:(int)index inCombox:(LMComBoxView *)_combox;
-
 @end
 
 @interface LMComBoxView : UIView<UITableViewDataSource,UITableViewDelegate>

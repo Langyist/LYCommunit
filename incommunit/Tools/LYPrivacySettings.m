@@ -32,8 +32,8 @@
     [super viewDidLoad];
     m_UIbuttonArry = [[NSMutableArray alloc] init];
     m_UIbutton = [[NSMutableArray alloc] init];
-//    m_address = [[NSMutableArray alloc] init];
-//    m_album = [[NSMutableArray alloc] init];
+//  m_address = [[NSMutableArray alloc] init];
+//  m_album = [[NSMutableArray alloc] init];
     isselect= NO;
     m_tableView.delegate = self;
     m_tableView.dataSource = self;
@@ -43,7 +43,6 @@
 #pragma mark UITableView delegate
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    
     return 2;
 }
 
@@ -77,24 +76,60 @@
             {
                 UILabel * lab = (UILabel *)[cell viewWithTag:100];
                 lab.text =@"朋友可见";
+                if([[m_address objectAtIndex:indexPath.row] intValue]==1)
+                {
+                    addressButton.selected = NO;
+                    isselect = NO;
+                }else
+                {
+                    addressButton.selected = YES;
+                    isselect = YES;
+                }
             }
                 break;
             case 1:
             {
                 UILabel * lab = (UILabel *)[cell viewWithTag:100];
                 lab.text =@"实名用户可见";
+                if([[m_address objectAtIndex:indexPath.row] intValue]==1)
+                {
+                    addressButton.selected = NO;
+                    isselect = NO;
+                }else
+                {
+                    addressButton.selected = YES;
+                    isselect = YES;
+                }
             }
                 break;
             case 2:
             {
                 UILabel * lab = (UILabel *)[cell viewWithTag:100];
                 lab.text =@"注册用户可见";
+                if([[m_address objectAtIndex:indexPath.row] intValue]==1)
+                {
+                    addressButton.selected = NO;
+                    isselect = NO;
+                }else
+                {
+                    addressButton.selected = YES;
+                    isselect = YES;
+                }
             }
                 break;
             case 3:
             {
                 UILabel * lab = (UILabel *)[cell viewWithTag:100];
                 lab.text =@"所有人可见";
+                if([[m_address objectAtIndex:indexPath.row] intValue]==1)
+                {
+                    addressButton.selected = NO;
+                    isselect = NO;
+                }else
+                {
+                    addressButton.selected = YES;
+                    isselect = YES;
+                }
             }
                 break;
             default:
@@ -106,7 +141,6 @@
         
         UITableViewCell *cell;
         cell = [tableView dequeueReusableCellWithIdentifier:@"addresscellIdentifier"];
-        
         UIButton *addressButton = [[UIButton alloc] initWithFrame:CGRectMake(15, 9, 25, 25)];
         [addressButton setImage:[UIImage imageNamed:@"Selected"] forState:UIControlStateNormal];
         [addressButton setImage:[UIImage imageNamed:@"Unselected"] forState:UIControlStateSelected];
@@ -119,30 +153,65 @@
             {
                 UILabel * lab = (UILabel *)[cell viewWithTag:100];
                 lab.text =@"朋友可见";
+                if([[m_album objectAtIndex:indexPath.row] intValue]==1)
+                {
+                    addressButton.selected = NO;
+                    isselect = NO;
+                }else
+                {
+                    addressButton.selected = YES;
+                    isselect = YES;
+                }
             }
                 break;
             case 1:
             {
                 UILabel * lab = (UILabel *)[cell viewWithTag:100];
                 lab.text =@"实名用户可见";
+                if([[m_album objectAtIndex:indexPath.row] intValue]==1)
+                {
+                    addressButton.selected = NO;
+                    isselect = NO;
+                }else
+                {
+                    addressButton.selected = YES;
+                    isselect = YES;
+                }
             }
                 break;
             case 2:
             {
                 UILabel * lab = (UILabel *)[cell viewWithTag:100];
                 lab.text =@"注册用户可见";
+                if([[m_album objectAtIndex:indexPath.row] intValue]==1)
+                {
+                    addressButton.selected = NO;
+                    isselect = NO;
+                }else
+                {
+                    addressButton.selected = YES;
+                    isselect = YES;
+                }
             }
                 break;
             case 3:
             {
                 UILabel * lab = (UILabel *)[cell viewWithTag:100];
                 lab.text =@"所有人可见";
+                if([[m_album objectAtIndex:indexPath.row] intValue]==1)
+                {
+                    addressButton.selected = NO;
+                    isselect = NO;
+                }else
+                {
+                    addressButton.selected = YES;
+                    isselect = YES;
+                }
             }
                 break;
             default:
                 break;
         }
-
         return cell;
     }else {
         
@@ -215,8 +284,8 @@
 }
 
 #pragma mark getdata
-- (void)getprivacysetting:(NSString *)url {
-    
+- (void)getprivacysetting:(NSString *)url
+{
     NSDictionary *plistDic = [[NSBundle mainBundle] infoDictionary];
     NSLog(@"plistDic = %@",plistDic);
     NSString *strurl = [plistDic objectForKey: @"URL"];
@@ -228,15 +297,18 @@
     NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:urlstr]];
     //    将请求的url数据放到NSData对象中
     NSData *response = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
-    //    iOS5自带解析类NSJSONSerialization从response中解析出数据放到字典中
-    NSDictionary *weatherDic = [NSJSONSerialization JSONObjectWithData:response options:NSJSONReadingMutableLeaves error:&error];
-    NSDictionary *data = [weatherDic objectForKey:@"data"];
-    m_addfriend = [data objectForKey:@"add_friend"];
-    m_address = [data objectForKey:@"address"];
-    m_album = [data objectForKey:@"album"];
-    if ([[weatherDic objectForKey:@"status"] isEqualToString:@"200"]){
-        NSString *add_frend = [weatherDic objectForKey:@"add_friend"];
-        NSLog(@"add_friend%@",add_frend);
+    if(response!=nil)
+    {
+        // iOS5自带解析类NSJSONSerialization从response中解析出数据放到字典中
+        NSDictionary *weatherDic = [NSJSONSerialization JSONObjectWithData:response options:NSJSONReadingMutableLeaves error:&error];
+        NSDictionary *data = [weatherDic objectForKey:@"data"];
+        m_addfriend = [data objectForKey:@"add_friend"];
+        m_address = [data objectForKey:@"address"];
+        m_album = [data objectForKey:@"album"];
+        if ([[weatherDic objectForKey:@"status"] isEqualToString:@"200"]){
+            NSString *add_frend = [weatherDic objectForKey:@"add_friend"];
+            NSLog(@"add_friend%@",add_frend);
+        }
     }
 }
 @end

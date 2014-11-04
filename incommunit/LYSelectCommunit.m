@@ -70,6 +70,7 @@ static NSDictionary *          m_cityinfo;//城市信息
     {
         NSLog(@"请开启定位功能！");
     }
+    [NSThread detachNewThreadSelector:@selector(GetCommunity:) toTarget:self withObject:nil];
     [super viewDidLoad];
 }
 - (void)didReceiveMemoryWarning
@@ -250,27 +251,28 @@ static NSDictionary *          m_cityinfo;//城市信息
     NSData *received = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
     if(received!=nil)
     {
-    NSDictionary *weatherDic = [NSJSONSerialization JSONObjectWithData:received options:NSJSONReadingMutableLeaves error:&error];
-    if(weatherDic!=nil)
-    {
-    NSString *status = [weatherDic objectForKey:@"status"];
-    NSLog(@"%@",status);
-    if(![status isEqual:@"200"])
-    {
-        UIAlertView *ale = [[UIAlertView alloc] initWithTitle:@"提示" message:@"连接网络失败" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
-        [ale show];
-    }else
-    {
-        NSDictionary *data1 = [weatherDic objectForKey:@"data"];
-        m_CommunitylistON = [data1 objectForKey:@"communities"];
-        m_CommunitylistOF = [data1 objectForKey:@"refCommunities"];
-    }
-    [m_tab reloadData];
-    }
-    }else
-    {
-        UIAlertView *ale = [[UIAlertView alloc] initWithTitle:@"提示" message:@"获取网络数据失败" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
-        [ale show];
+        NSDictionary *weatherDic = [NSJSONSerialization JSONObjectWithData:received options:NSJSONReadingMutableLeaves error:&error];
+        if(weatherDic!=nil)
+        {
+            NSString *status = [weatherDic objectForKey:@"status"];
+            NSLog(@"%@",status);
+            if(![status isEqual:@"200"])
+            {
+                UIAlertView *ale = [[UIAlertView alloc] initWithTitle:@"提示" message:@"连接网络失败" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+                [ale show];
+            }else
+            {
+                NSDictionary *data1 = [weatherDic objectForKey:@"data"];
+                m_CommunitylistON = [data1 objectForKey:@"communities"];
+                m_CommunitylistOF = [data1 objectForKey:@"refCommunities"];
+            }
+            [m_tab reloadData];
+        }
+        else
+        {
+            UIAlertView *ale = [[UIAlertView alloc] initWithTitle:@"提示" message:@"获取网络数据失败" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+            [ale show];
+        }
     }
 }
 
@@ -308,5 +310,6 @@ static NSDictionary *          m_cityinfo;//城市信息
 {
     m_Refresh =  sender;
 }
+
 @end
 

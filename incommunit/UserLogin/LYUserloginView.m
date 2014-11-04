@@ -47,23 +47,19 @@
     self.navigationController.navigationBar.tintColor= [UIColor colorWithRed:(0.0/255) green:(0.0/255) blue:(0.0/255) alpha:1.0];
     m_communityName.text = [[LYSelectCommunit GetCommunityInfo] objectForKey:@"name"];
     [LYSqllite CreatUserTable];
-    
     if (!m_bool)
     {
-        
-    NSMutableDictionary* temp = [[NSMutableDictionary alloc] init];
-    temp = [LYSqllite Ruser];
-    if (temp!=nil)
-    {
-        
-        if ([[[NSString alloc] initWithFormat:@"%@",[temp objectForKey:@"id"]] isEqual:[[NSString alloc] initWithFormat:@"%@",[[LYSelectCommunit GetCommunityInfo] objectForKey:@"id"]]] )
+        NSMutableDictionary* temp = [[NSMutableDictionary alloc] init];
+        temp = [LYSqllite Ruser];
+        if (temp!=nil)
         {
-            
-            userText.text =[temp objectForKey:@"user"];
-            passwordtext.text =[temp objectForKey:@"password"];
-            [self login:[temp objectForKey:@"user"] password:[temp objectForKey:@"password"]];
+            if ([[[NSString alloc] initWithFormat:@"%@",[temp objectForKey:@"id"]] isEqual:[[NSString alloc] initWithFormat:@"%@",[[LYSelectCommunit GetCommunityInfo] objectForKey:@"id"]]] )
+            {
+                userText.text =[temp objectForKey:@"user"];
+                passwordtext.text =[temp objectForKey:@"password"];
+                [self login:[temp objectForKey:@"user"] password:[temp objectForKey:@"password"]];
+            }
         }
-    }
     }
 }
 
@@ -361,6 +357,7 @@
         [UIView commitAnimations];
     }
 }
+
 //返回上一个界面不刷新数据
 -(IBAction)returnPage:(id)sender
 {
@@ -385,3 +382,4 @@
     [LYSqllite  wuser:userinfo];
     [self performSegueWithIdentifier:@"GoLYFunctionInterface" sender:self];
 }@end
+

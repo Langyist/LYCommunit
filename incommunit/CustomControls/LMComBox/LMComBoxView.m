@@ -35,7 +35,6 @@
     btn.frame = CGRectMake(0, 0, self.frame.size.width, self.frame.size.height);
     [btn addTarget:self action:@selector(tapAction) forControlEvents:UIControlEventTouchUpInside];
     [self addSubview:btn];
-    
     titleLabel = [[UILabel alloc]initWithFrame:CGRectMake(2, 0, self.frame.size.width-imgW - 5 - 2, self.frame.size.height)];
     titleLabel.font = [UIFont boldSystemFontOfSize:15];
     titleLabel.backgroundColor = [UIColor clearColor];
@@ -121,13 +120,11 @@
             if(_titlesList.count>0)
             {
                 /*
-                 
                     注意：如果不加这句话，下面的操作会导致_listTable从上面飘下来的感觉：
                          _listTable展开并且滑动到底部 -> 点击收起 -> 再点击展开
                  */
                 [_listTable scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:YES];
             }
-            
             [_supView addSubview:_listTable];
             [_supView bringSubviewToFront:_listTable];//避免被其他子视图遮盖住
             CGRect frame = _listTable.frame;
