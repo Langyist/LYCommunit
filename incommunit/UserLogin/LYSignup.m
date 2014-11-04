@@ -125,10 +125,7 @@
     NSDictionary *plistDic = [[NSBundle mainBundle] infoDictionary];
     NSLog(@"plistDic = %@",plistDic);
     NSString *url = [plistDic objectForKey: @"URL"];
-    
     BOOL bac = false;
-    if ([m_password.text isEqualToString: @""]&&[m_Phone isEqual: @""]&&[m_VerificationText isEqual:@""])
-    {
         NSError *error;
         //    加载一个NSURL对象
         NSString *urlstr = [[NSString alloc] initWithFormat:@"%@/services/reg?phone=%@&password=%@&validateCode=%@",url,m_Phone.text,m_password.text,m_VerificationText.text];
@@ -141,7 +138,8 @@
         NSString *status = [weatherDic objectForKey:@"status"];
         NSLog(@"%@",status);
         m_VerificationText.text =m_VerificationCode;
-        if ([status isEqualToString:@"200"]) {
+        if ([status isEqualToString:@"200"])
+        {
             bac = TRUE;
         }else
         {
@@ -150,13 +148,7 @@
             [alert show];
             bac = FALSE;
         }
-    }else
-    {
-        UIAlertView *al= [[UIAlertView alloc] initWithTitle:@"提示信息" message:@"请填写注册信息" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
-        [al show];
-        bac = FALSE;
-    }
-    return bac;
+    return  bac;
 }
 
 -(void)viewWillDisappear:(BOOL)animated

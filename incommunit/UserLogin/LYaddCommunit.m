@@ -22,9 +22,12 @@
     NSMutableArray *UnitData;
     NSMutableArray *HouseholdsData;
     NSMutableArray *HomeNumber;
-    NSString *selectedProvince;
-    NSString *selectedCity;
-    NSString *selectedArea;
+    NSMutableArray *allPeriodData;
+    NSString *l1str;
+    NSString *l2str;
+    NSString *l3str;
+    NSString *l4str;
+    NSString *l5str;
     UIActionSheet *sheet;
     UIImage *headimage;
 }
@@ -41,7 +44,7 @@
     [m_button.layer setCornerRadius:3.0];
     m_communitid = [[LYSelectCommunit GetCommunityInfo] objectForKey:@"id"];
     m_Nickname.delegate = self;
-    [self done:m_communitid pid:@"0"];
+    allPeriodData = [self done:m_communitid pid:@"0"];
     CALayer *lay  = m_iamgeview.layer;//获取ImageView的层
     [lay setMasksToBounds:YES];
     [lay setCornerRadius:CGRectGetHeight(m_iamgeview.frame) / 2];
@@ -226,21 +229,21 @@
 
 -(void)selectAtIndex:(int)index inCombox:(LMComBoxView *)_combox
 {
+    NSMutableArray *temp;
     NSInteger tag = _combox.tag - kDropDownListTag;
     switch (tag) {
         case 0:
         {
             BuildingData = [[NSMutableArray alloc] init];
-            NSMutableArray *temp = [self done:m_communitid pid:@"1"];
-            for (int i = 0; i<temp.count; i++) {
+            temp = [self done:m_communitid pid:@"1"];
+            l1str = [[allPeriodData objectAtIndex:index] objectForKey:@"id"];
+            for (int i = 0; i<temp.count; i++)
+            {
                 [BuildingData addObject:[[temp objectAtIndex:i] objectForKey:@"name"]];
             }
             LMComBoxView *cityCombox = (LMComBoxView *)[bgScrollView viewWithTag:tag + 1 + kDropDownListTag];
             cityCombox.titlesList = BuildingData;
             [cityCombox reloadData];
-//            LMComBoxView *areaCombox = (LMComBoxView *)[bgScrollView viewWithTag:tag + 2 + kDropDownListTag];
-//            areaCombox.titlesList = [NSMutableArray arrayWithArray:[addressDict objectForKey:@"area"]];
-//            [areaCombox reloadData];
             
         }
             break;
@@ -248,6 +251,7 @@
         {
             UnitData = [[NSMutableArray alloc] init];
             NSMutableArray *temp = [self done:m_communitid pid:@"2"];
+            l2str = [[temp objectAtIndex:index] objectForKey:@"id"];
             for (int i = 0; i<temp.count; i++) {
                 [UnitData addObject:[[temp objectAtIndex:i] objectForKey:@"name"]];
             }
@@ -258,6 +262,7 @@
             break;
         case 2:
         {
+            l3str = [[temp objectAtIndex:index] objectForKey:@"id"];
             HouseholdsData = [[NSMutableArray alloc] init];
             NSMutableArray *temp = [self done:m_communitid pid:@"3"];
             for (int i = 0; i<temp.count; i++) {
@@ -270,6 +275,7 @@
             break;
         case 3:
         {
+            l5str = [[temp objectAtIndex:index] objectForKey:@"id"];
             HomeNumber = [[NSMutableArray alloc] init];
             NSMutableArray *temp = [self done:m_communitid pid:@"3"];
             for (int i = 0; i<temp.count; i++) {
@@ -281,6 +287,9 @@
         }
             break;
         case 4:
+        {
+            l5str = [[temp objectAtIndex:index] objectForKey:@"id"];
+        }
             break;
         default:
             break;
@@ -372,8 +381,36 @@
     return _encodedImageStr;
 }
 
--(void)Submitinfo
+-(BOOL)Submitinfo
 {
-
+    NSDictionary *plistDic = [[NSBundle mainBundle] infoDictionary];
+    NSLog(@"plistDic = %@",plistDic);
+    NSString *urlstr = [plistDic objectForKey: @"URL"];
+    NSError *error;
+    //    加载一个NSURL对象
+    NSString    *URLString = [NSString stringWithFormat:@"%@/services/reg_community",urlstr];
+    NSURL *url = [NSURL URLWithString:URLString];
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc]initWithURL:url cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:10];
+    [request setHTTPMethod:@"POST"];//设置请求方式为POST，默认为GET
+    NSString *str = @"user_id=";//设置参数
+    str = [str stringByAppendingFormat:@"%@&community_id=%@&nick_name=%@&head=%@&l1=%@&l2=%@&l3=%@&l4=%@&l5=%@",userID,[[LYSelectCommunit GetCommunityInfo] objectForKey:@"id"],m_Nickname.text,[self CovertImage:headimage],l1str,l2str,l3str,l4str,l5str];
+    NSData *data = [str dataUsingEncoding:NSUTF8StringEncoding];
+    [request setHTTPBody:data];
+    //第三步，连接服务器
+    NSData *received = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
+    NSDictionary *weatherDic = [NSJSONSerialization JSONObjectWithData:received options:NSJSONReadingMutableLeaves error:&error];
+    if ([[weatherDic objectForKey:@"status"] isEqualToString:@"200"])
+    {
+        UIAlertView *al =[[UIAlertView alloc]initWithTitle:@"提示" message:@"留言发表成功！" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+        [al show];
+        return YES;
+    }else
+    {
+        return NO;
+    }
+}
+-(IBAction)Carryout:(id)sender
+{
+    [self Submitinfo];
 }
 @end
