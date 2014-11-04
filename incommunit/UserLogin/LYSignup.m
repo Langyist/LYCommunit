@@ -240,6 +240,11 @@
         if (![self isPureInt:string]) {
             ret = NO;
         }
+    }else if (textField == m_VerificationText) {
+        
+        if (![self isPureInt:string]) {
+            ret = NO;
+        }
     }
     return ret;
 }

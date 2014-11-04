@@ -155,6 +155,35 @@
     }
 }
 
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+    if (textField == MobilenumberText) {
+        return [self validateNumber:string];
+    }else if (textField == passwordText) {
+        
+        return YES;
+    }else if (textField == CodeText) {
+        
+        return [self validateNumber:string];
+    }
+    return YES;
+}
+
+- (BOOL)validateNumber:(NSString*)number {
+    BOOL res = YES;
+    NSCharacterSet* tmpSet = [NSCharacterSet characterSetWithCharactersInString:@"0123456789"];
+    int i = 0;
+    while (i < number.length) {
+        NSString * string = [number substringWithRange:NSMakeRange(i, 1)];
+        NSRange range = [string rangeOfCharacterFromSet:tmpSet];
+        if (range.length == 0) {
+            res = NO;
+            break;
+        }
+        i++;
+    }
+    return res;
+}
+
 -(void)viewWillDisappear:(BOOL)animated
 {
     self.navigationController.navigationBar.hidden = YES;
