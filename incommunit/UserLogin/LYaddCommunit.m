@@ -229,61 +229,77 @@
 
 -(void)selectAtIndex:(int)index inCombox:(LMComBoxView *)_combox
 {
-    NSMutableArray *temp;
+    
     NSInteger tag = _combox.tag - kDropDownListTag;
     switch (tag) {
         case 0:
         {
+            l1str = [[allPeriodData objectAtIndex:index] objectForKey:@"id"];
             BuildingData = [[NSMutableArray alloc] init];
             temp = [self done:m_communitid pid:@"1"];
-            l1str = [[allPeriodData objectAtIndex:index] objectForKey:@"id"];
-            for (int i = 0; i<temp.count; i++)
-            {
-                [BuildingData addObject:[[temp objectAtIndex:i] objectForKey:@"name"]];
+            if (temp.count>0) {
+                for (int i = 0; i<temp.count; i++)
+                {
+                    [BuildingData addObject:[[temp objectAtIndex:i] objectForKey:@"name"]];
+                }
+                LMComBoxView *cityCombox = (LMComBoxView *)[bgScrollView viewWithTag:tag + 1 + kDropDownListTag];
+                cityCombox.titlesList = BuildingData;
+                [cityCombox reloadData];
             }
-            LMComBoxView *cityCombox = (LMComBoxView *)[bgScrollView viewWithTag:tag + 1 + kDropDownListTag];
-            cityCombox.titlesList = BuildingData;
-            [cityCombox reloadData];
             
         }
             break;
         case 1:
         {
             UnitData = [[NSMutableArray alloc] init];
-            NSMutableArray *temp = [self done:m_communitid pid:@"2"];
             l2str = [[temp objectAtIndex:index] objectForKey:@"id"];
-            for (int i = 0; i<temp.count; i++) {
-                [UnitData addObject:[[temp objectAtIndex:i] objectForKey:@"name"]];
+            temp = [[NSMutableArray alloc] init];
+            temp = [self done:m_communitid pid:@"2"];
+            if (temp.count>0) {
+                for (int i = 0; i<temp.count; i++) {
+                    [UnitData addObject:[[temp objectAtIndex:i] objectForKey:@"name"]];
+                }
+                LMComBoxView *cityCombox = (LMComBoxView *)[bgScrollView viewWithTag:tag + 1 + kDropDownListTag];
+                cityCombox.titlesList = UnitData;
+                [cityCombox reloadData];
             }
-            LMComBoxView *cityCombox = (LMComBoxView *)[bgScrollView viewWithTag:tag + 1 + kDropDownListTag];
-            cityCombox.titlesList = UnitData;
-            [cityCombox reloadData];
         }
             break;
         case 2:
         {
-            l3str = [[temp objectAtIndex:index] objectForKey:@"id"];
             HouseholdsData = [[NSMutableArray alloc] init];
-            NSMutableArray *temp = [self done:m_communitid pid:@"3"];
-            for (int i = 0; i<temp.count; i++) {
-                [HouseholdsData addObject:[[temp objectAtIndex:i] objectForKey:@"name"]];
+            l3str = [[temp objectAtIndex:index] objectForKey:@"id"];
+            temp = [[NSMutableArray alloc] init];
+            temp = [self done:m_communitid pid:@"3"];
+            if (temp.count>0) {
+                for (int i = 0; i<temp.count; i++)
+                {
+                    [HouseholdsData addObject:[[temp objectAtIndex:i] objectForKey:@"name"]];
+                }
+                LMComBoxView *cityCombox = (LMComBoxView *)[bgScrollView viewWithTag:tag + 1 + kDropDownListTag];
+                cityCombox.titlesList = HouseholdsData;
+                [cityCombox reloadData];
             }
-            LMComBoxView *cityCombox = (LMComBoxView *)[bgScrollView viewWithTag:tag + 1 + kDropDownListTag];
-            cityCombox.titlesList = HouseholdsData;
-            [cityCombox reloadData];
         }
             break;
         case 3:
         {
-            l5str = [[temp objectAtIndex:index] objectForKey:@"id"];
             HomeNumber = [[NSMutableArray alloc] init];
-            NSMutableArray *temp = [self done:m_communitid pid:@"3"];
-            for (int i = 0; i<temp.count; i++) {
-                [HomeNumber addObject:[[temp objectAtIndex:i] objectForKey:@"name"]];
+            if(temp.count>0)
+            {
+                l4str = [[temp objectAtIndex:index] objectForKey:@"id"];
             }
-            LMComBoxView *cityCombox = (LMComBoxView *)[bgScrollView viewWithTag:tag + 1 + kDropDownListTag];
-            cityCombox.titlesList = HomeNumber;
-            [cityCombox reloadData];
+            temp = [[NSMutableArray alloc] init];
+            temp = [self done:m_communitid pid:@"4"];
+            if (temp.count>0) {
+                for (int i = 0; i<temp.count; i++)
+                {
+                    [HomeNumber addObject:[[temp objectAtIndex:i] objectForKey:@"name"]];
+                }
+                LMComBoxView *cityCombox = (LMComBoxView *)[bgScrollView viewWithTag:tag + 1 + kDropDownListTag];
+                cityCombox.titlesList = HomeNumber;
+                [cityCombox reloadData];
+            }
         }
             break;
         case 4:
@@ -401,7 +417,7 @@
     NSDictionary *weatherDic = [NSJSONSerialization JSONObjectWithData:received options:NSJSONReadingMutableLeaves error:&error];
     if ([[weatherDic objectForKey:@"status"] isEqualToString:@"200"])
     {
-        UIAlertView *al =[[UIAlertView alloc]initWithTitle:@"提示" message:@"留言发表成功！" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+        UIAlertView *al =[[UIAlertView alloc]initWithTitle:@"提示" message:@"成功加入该小区" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
         [al show];
         return YES;
     }else

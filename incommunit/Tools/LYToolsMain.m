@@ -9,6 +9,9 @@
 #import "LYToolsMain.h"
 #import "LYUserloginView.h"
 @interface LYToolsMain ()
+{
+ LYPrivacySettings *privacy;
+}
 
 @end
 
@@ -26,6 +29,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+     privacy= [[LYPrivacySettings alloc] init];
     [self.m_exitbutton.layer setMasksToBounds:YES];
     [self.m_exitbutton.layer setCornerRadius:3.0];
     UILabel *customLab = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 100, 30)];
@@ -53,7 +57,14 @@
             [self performSegueWithIdentifier:@"GoUniversal" sender:self];
             break;
         case 2:
-            [self performSegueWithIdentifier:@"GoLYPrivacySettings" sender:self];
+            if ([privacy getprivacysetting:@""]) {
+                [self performSegueWithIdentifier:@"GoLYPrivacySettings" sender:self];
+            }
+            else
+            {
+                UIAlertView *al = [[UIAlertView alloc] initWithTitle:@"提示" message:@"对不起，你现在是游客登陆状态，无法使用此功能。是否登陆/注册" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+                [al show];
+            }
             break;
         case 4:
             [self performSegueWithIdentifier:@"GoAnnouncement" sender:self];
@@ -74,13 +85,21 @@
 #pragma mark - Navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-        if ([segue.identifier isEqualToString: @"GoLogin"])
-        {
-            LYUserloginView *detailViewController = (LYUserloginView*) segue.destinationViewController;
-            detailViewController->m_bool = TRUE;
-        }
+    if ([segue.identifier isEqualToString: @"GoLogin"])
+    {
+        LYUserloginView *detailViewController = (LYUserloginView*) segue.destinationViewController;
+        detailViewController->m_bool = TRUE;
+    }
 }
 
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if(buttonIndex == 1)
+    {
+        [self performSegueWithIdentifier:@"GoLogin" sender:self];
+    }
+    NSLog(@"clickButtonAtIndex:%ld",(long)buttonIndex);
+}
 -(IBAction)Exit:(id)sender
 {
     [self performSegueWithIdentifier:@"GoLogin" sender:self];

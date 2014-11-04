@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "LYPrivacySettings.h"
 @interface LYToolsMain : UITableViewController
 
 @property(nonatomic, weak)IBOutlet UIButton *m_exitbutton;

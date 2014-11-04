@@ -37,7 +37,9 @@
     isselect= NO;
     m_tableView.delegate = self;
     m_tableView.dataSource = self;
-    [self getprivacysetting:@""];
+    address = [NSMutableArray arrayWithCapacity:4];
+    album = [NSMutableArray arrayWithCapacity:4];
+    [NSThread detachNewThreadSelector:@selector(getprivacysetting:) toTarget:self withObject:nil];
 }
 
 #pragma mark UITableView delegate
@@ -54,7 +56,6 @@
         
         return 5;
     }else {
-        
         return 0;
     }
 }
@@ -80,10 +81,12 @@
                 {
                     addressButton.selected = NO;
                     isselect = NO;
+                    address[0]=@"0";
                 }else
                 {
                     addressButton.selected = YES;
                     isselect = YES;
+                    address[0]=@"1";
                 }
             }
                 break;
@@ -95,10 +98,12 @@
                 {
                     addressButton.selected = NO;
                     isselect = NO;
+                    address[1]=@"0";
                 }else
                 {
                     addressButton.selected = YES;
                     isselect = YES;
+                    address[1]=@"1";
                 }
             }
                 break;
@@ -110,10 +115,12 @@
                 {
                     addressButton.selected = NO;
                     isselect = NO;
+                    address[2]=@"0";
                 }else
                 {
                     addressButton.selected = YES;
                     isselect = YES;
+                    address[2]=@"1";
                 }
             }
                 break;
@@ -125,10 +132,12 @@
                 {
                     addressButton.selected = NO;
                     isselect = NO;
+                    address[3]=@"0";
                 }else
                 {
                     addressButton.selected = YES;
                     isselect = YES;
+                    address[3]=@"1";
                 }
             }
                 break;
@@ -284,18 +293,17 @@
 }
 
 #pragma mark getdata
-- (void)getprivacysetting:(NSString *)url
+- (BOOL)getprivacysetting:(NSString *)url
 {
     NSDictionary *plistDic = [[NSBundle mainBundle] infoDictionary];
     NSLog(@"plistDic = %@",plistDic);
     NSString *strurl = [plistDic objectForKey: @"URL"];
     NSError *error;
-    //    加载一个NSURL对象
+    //加载一个NSURL对象
     NSString *urlstr =[[NSString alloc] initWithFormat:@"%@/services/visible_setting/get",strurl] ;
     //NSString *urlstr = [NSString stringWithFormat:@"%@/inCommunity/services/wuye/notice/list",URL];
-    
     NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:urlstr]];
-    //    将请求的url数据放到NSData对象中
+    //将请求的url数据放到NSData对象中
     NSData *response = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
     if(response!=nil)
     {
@@ -308,7 +316,16 @@
         if ([[weatherDic objectForKey:@"status"] isEqualToString:@"200"]){
             NSString *add_frend = [weatherDic objectForKey:@"add_friend"];
             NSLog(@"add_friend%@",add_frend);
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [m_tableView reloadData];
+                // 更新UI
+            });
+            return TRUE;
+        }else
+        {
+            return FALSE;
         }
     }
+    return nil;
 }
 @end

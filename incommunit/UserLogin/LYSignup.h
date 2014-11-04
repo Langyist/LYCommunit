@@ -20,6 +20,7 @@
     UIButton * m_RButton;
     int m_dTime;
     NSTimer *m_timer;
+    NSString *userID;
 }
 @property(nonatomic,retain)IBOutlet InsetTextField *m_Phone;
 @property(nonatomic,retain)IBOutlet InsetTextField *m_VerificationText;

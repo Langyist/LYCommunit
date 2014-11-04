@@ -6,6 +6,7 @@
 //  Copyright (c) 2014年 LANGYI. All rights reserved.
 //
 #import "LYSignup.h"
+#import "LYaddCommunit.h"
 @interface LYSignup ()
 @end
 
@@ -25,11 +26,9 @@
     [m_Phone setTextInset:inset];
     [m_VerificationText setTextInset:inset];
     [m_password setTextInset:inset];
-    
     m_dTime = 60;
     [m_NetButton.layer setMasksToBounds:YES];
     [m_NetButton.layer setCornerRadius:3.0];
-    
     [m_RButton.layer setMasksToBounds:YES];
     [m_RButton.layer setCornerRadius:3.0];
     UITapGestureRecognizer* singleRecognizer;
@@ -44,7 +43,6 @@
     self.navigationItem.titleView = customLab;
     self.navigationController.navigationBar.hidden = NO;
     self.navigationController.navigationBar.tintColor= [UIColor colorWithRed:(0.0/255) green:(0.0/255) blue:(0.0/255) alpha:1.0];
-    
     m_Phone.keyboardType = UIKeyboardTypeNamePhonePad;
     m_Phone.delegate = self;
     m_VerificationText.delegate = self;
@@ -64,7 +62,8 @@
 //下一步button
 -(IBAction)Signup:(id)sender
 {
-    if ([self GetRegistration:@""]) {
+    if ([self GetRegistration:@""])
+    {
         [self performSegueWithIdentifier:@"GoLYaddCommunit" sender:self];
     }
 }
@@ -79,7 +78,6 @@
                                               otherButtonTitles:@"取消", nil];
         [alert show];
     }else if (m_password.text == nil || [m_password.text isEqual:@""]) {
-        
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"温馨提示"
                                                         message:@"密码不能为空"
                                                        delegate:self
@@ -172,6 +170,7 @@
         m_VerificationText.text =m_VerificationCode;
         if ([status isEqualToString:@"200"])
         {
+            userID = [weatherDic objectForKey:@"data"];
             bac = TRUE;
         }else
         {
@@ -251,4 +250,12 @@
     return[scan scanInt:&val] && [scan isAtEnd];
 }
 
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+        if ([segue.identifier isEqualToString: @"GoLYaddCommunit"])
+        {
+            LYaddCommunit *detailViewController = (LYaddCommunit*) segue.destinationViewController;
+            detailViewController->userID = userID;
+        }
+}
 @end
