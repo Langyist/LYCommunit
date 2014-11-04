@@ -19,6 +19,7 @@
     UISearchBar *m_shopSearch;
     
     UIView *background;//
+    UIView *grayView;
     
     UIView *m_backView;
     UIView *m_shopView;
@@ -150,21 +151,27 @@
     m_Deliverytableview.tableHeaderView = m_deliverSearch;
     
     //送餐送货下拉菜单View
-//    background = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
-//    background.backgroundColor = [UIColor blackColor];
-//    background.alpha = 0.5;
-//    [m_view02 addSubview:background];
+    background = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, m_view02.frame.size.height)];
+    background.backgroundColor = [UIColor clearColor];
+    [m_view02 addSubview:background];
     
     m_backView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, m_view02.frame.size.width, self.view.frame.size.height-250)];
     m_backView.backgroundColor = [UIColor whiteColor];
-    [m_view02 addSubview:m_backView];
+    [background addSubview:m_backView];
     
-    UIView *m_zhongView = [[UIView alloc] initWithFrame:CGRectMake(m_backView.frame.size.width / 2 - 2, 3, 0.5, m_backView.frame.size.height - 6)];
-    m_zhongView.alpha = 0.5;
-    m_zhongView.backgroundColor = [UIColor blackColor];
-    [m_backView addSubview:m_zhongView];
-    
-    m_backtable = [[UITableView alloc] initWithFrame:CGRectMake(0, 30, m_backView.frame.size.width / 2 - 5, m_backView.frame.size.height - 55)];
+    grayView = [[UIView alloc] initWithFrame:CGRectMake(0, m_backView.frame.size.height, self.view.frame.size.width, m_view02.frame.size.height - m_backView.frame.size.height)];
+    grayView.backgroundColor = [UIColor grayColor];
+    grayView.alpha = 0.5;
+    [background addSubview:grayView];
+    //添加阴影手势
+    UITapGestureRecognizer *gestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clackgrayView)];
+    [grayView addGestureRecognizer:gestureRecognizer];
+    //中间分割线
+    UIImageView *centerImage = [[UIImageView alloc] initWithFrame:CGRectMake(m_backView.frame.size.width /2 - 1, 5, 1, m_backView.frame.size.height - 10)];
+    centerImage.image = [UIImage imageNamed:@"上面分割线_03"];
+    [m_backView addSubview:centerImage];
+    //信息查询tableView
+    m_backtable = [[UITableView alloc] initWithFrame:CGRectMake(0, 30, m_backView.frame.size.width / 2 - 1, m_backView.frame.size.height - 55)];
     m_backtable.delegate = self;
     m_backtable.dataSource = self;
     m_backtable.backgroundColor = [UIColor whiteColor];
@@ -225,13 +232,12 @@
     m_shopView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, m_view02.frame.size.width, self.view.frame.size.height- 100)];
     m_shopView.backgroundColor = [UIColor whiteColor];
     [m_view03 addSubview:m_shopView];
-    
-    UIView *m_xianView = [[UIView alloc] initWithFrame:CGRectMake(m_shopView.frame.size.width / 2 - 2, 3, 0.5, m_shopView.frame.size.height - 30)];
-    m_xianView.backgroundColor = [UIColor blackColor];
-    m_xianView.alpha = 0.5;
-    [m_shopView addSubview:m_xianView];
-    
-    m_shoptable = [[UITableView alloc] initWithFrame:CGRectMake(0, 30, m_shopView.frame.size.width / 2 - 5, m_shopView.frame.size.height -55)];
+    //中间分割线
+    UIImageView *shopcenterImage = [[UIImageView alloc] initWithFrame:CGRectMake(m_shopView.frame.size.width /2 - 1, 5, 1, m_shopView.frame.size.height - 30)];
+    shopcenterImage.image = [UIImage imageNamed:@"上面分割线_03"];
+    [m_shopView addSubview:shopcenterImage];
+    //下拉tableView
+    m_shoptable = [[UITableView alloc] initWithFrame:CGRectMake(0, 30, m_shopView.frame.size.width / 2 - 1, m_shopView.frame.size.height -55)];
     m_shoptable.delegate = self;
     m_shoptable.dataSource = self;
     m_shoptable.backgroundColor = [UIColor whiteColor];
@@ -244,7 +250,7 @@
     m_shoptable1.backgroundColor = [UIColor whiteColor];
     m_shoptable1.separatorStyle = UITableViewCellSeparatorStyleNone;
     [m_shopView addSubview:m_shoptable1];
-    
+    //关闭弹出框
     UIButton *m_shopdownButton = [[UIButton alloc] initWithFrame:CGRectMake(m_shopView.frame.size.width- 60, m_shopView.frame.size.height - 80, 80, 60)];
     [m_shopdownButton setTitle:@">>" forState:UIControlStateNormal];
     [m_shopdownButton setTitleColor:[UIColor greenColor] forState:UIControlStateNormal];
@@ -265,6 +271,7 @@
     m_CellmicroShop.delegate = self;
     [m_view04 addSubview:m_CellmicroShop];
     [self._scrollView addSubview:m_view04];
+    //切换页面手势
     UISwipeGestureRecognizer *recognizer;
     recognizer = [[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(m_view01leftSwipe:)];
     [recognizer setDirection:(UISwipeGestureRecognizerDirectionLeft)];
@@ -289,11 +296,6 @@
     recognizer = [[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(m_view04rightSwipe:)];
     [recognizer setDirection:(UISwipeGestureRecognizerDirectionRight)];
     [m_view04 addGestureRecognizer:recognizer];
-    
-    //    [m_view removeFromSuperview];
-    //    m_view = [[LY_Featured_view alloc] init];
-    //    [self.view addSubview:m_view];
-    // Do any additional setup after loading the view.
     
     self->locationManager = [[CLLocationManager alloc] init];
     self->locationManager.delegate = self;
@@ -326,6 +328,11 @@
     }
     
 }
+//点击阴影关闭弹出框
+- (void)clackgrayView {
+    
+    background.hidden = YES;
+}
 
 #pragma mark - CLLocationManagerDelegate
 // 地理位置发生改变时触发
@@ -351,7 +358,7 @@
             
             [self._scrollView setContentOffset:CGPointMake(1* self.view.frame.size.width,0) animated:YES];
             
-            m_backView.hidden = YES;
+            background.hidden = YES;
             m_segment.selectedSegmentIndex = 1;
             if (m_Deliverylist.count<1) {
                 
@@ -406,7 +413,7 @@
             
             [self._scrollView setContentOffset:CGPointMake(1* self.view.frame.size.width,0) animated:YES];
             
-            m_backView.hidden = YES;
+            background.hidden = YES;
             m_segment.selectedSegmentIndex = 1;
         }];}
     }
@@ -473,7 +480,7 @@
         }
     }
     
-    m_backView.hidden = YES;
+    background.hidden = YES;
     m_shopView.hidden = YES;
     [m_deviButton removeFromSuperview];
     [m_shopButton removeFromSuperview];
@@ -488,7 +495,7 @@
         case 1:
         {
             [self._scrollView setContentOffset:CGPointMake(1* self.view.frame.size.width,0) animated:YES];
-            m_backView.hidden = YES;
+            background.hidden = YES;
             
             m_deviButton = [[UIButton alloc] initWithFrame:CGRectMake(80, 67, 80, 29)];
             m_deviButton.backgroundColor = [UIColor clearColor];
@@ -536,12 +543,12 @@
         
         if (m_in) {
             
-            m_backView.hidden = NO;
+            background.hidden = NO;
             m_in = NO;
             
         }else {
             
-            m_backView.hidden = YES;
+            background.hidden = YES;
             m_in = YES;
         }
     }else if (m_segment.selectedSegmentIndex == 0) {
@@ -594,7 +601,7 @@
             [self GetdataDelivery:@""];
         });
     }
-    m_backView.hidden = YES;
+    background.hidden = YES;
 }
 
 - (void)shopdownBackViewButton:(UIButton *)sender

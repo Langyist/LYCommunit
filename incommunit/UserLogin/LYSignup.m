@@ -64,14 +64,46 @@
 //下一步button
 -(IBAction)Signup:(id)sender
 {
-    //if ([self GetRegistration:@""]) {
-    [self performSegueWithIdentifier:@"GoLYaddCommunit" sender:self];
-    //}
+    if ([self GetRegistration:@""]) {
+        [self performSegueWithIdentifier:@"GoLYaddCommunit" sender:self];
+    }
 }
 //获取验证码
 -(IBAction)GetRcode:(id)sender
 {
-    if (m_Phone.text!=nil&&![m_Phone.text isEqual:@""]) {
+    if (m_Phone.text == nil || [m_Phone.text isEqual:@""]) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"温馨提示"
+                                                        message:@"手机号码不能为空"
+                                                       delegate:self
+                                              cancelButtonTitle:@"确认"
+                                              otherButtonTitles:@"取消", nil];
+        [alert show];
+    }else if (m_password.text == nil || [m_password.text isEqual:@""]) {
+        
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"温馨提示"
+                                                        message:@"密码不能为空"
+                                                       delegate:self
+                                              cancelButtonTitle:@"确认"
+                                              otherButtonTitles:@"取消", nil];
+        [alert show];
+    }else if (!(m_password.text.length >=6 && m_password.text.length <= 12)) {
+        
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"温馨提示"
+                                                        message:@"请输入6-12位密码"
+                                                       delegate:self
+                                              cancelButtonTitle:@"确认"
+                                              otherButtonTitles:@"取消", nil];
+        [alert show];
+    }else if (!m_Phone.text.length == 11) {
+        
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"温馨提示"
+                                                        message:@"请输入正确的手机号码"
+                                                       delegate:self
+                                              cancelButtonTitle:@"确认"
+                                              otherButtonTitles:@"取消", nil];
+        [alert show];
+    }else {
+        
         [self GetRegistrationCode: @""];
     }
 }

@@ -150,6 +150,7 @@
 		EF486B031A075BA2003B5B54 /* 进行中_03.png in Resources */ = {isa = PBXBuildFile; fileRef = EF486AFF1A075BA2003B5B54 /* 进行中_03.png */; };
 		EF486B041A075BA2003B5B54 /* 已完成_03.png in Resources */ = {isa = PBXBuildFile; fileRef = EF486B001A075BA2003B5B54 /* 已完成_03.png */; };
 		EF486B051A075BA2003B5B54 /* 置顶_02.png in Resources */ = {isa = PBXBuildFile; fileRef = EF486B011A075BA2003B5B54 /* 置顶_02.png */; };
+		EF8A277C1A08768600CE03C6 /* 上面分割线_03.png in Resources */ = {isa = PBXBuildFile; fileRef = EF8A277B1A08768600CE03C6 /* 上面分割线_03.png */; };
 		F10340C619FF4FCF00C5CB4E /* ic_password.png in Resources */ = {isa = PBXBuildFile; fileRef = F10340C419FF4FCF00C5CB4E /* ic_password.png */; };
 		F10340C719FF4FCF00C5CB4E /* ic_username.png in Resources */ = {isa = PBXBuildFile; fileRef = F10340C519FF4FCF00C5CB4E /* ic_username.png */; };
 		F10340CB19FF51DD00C5CB4E /* UIImage+Scale.m in Sources */ = {isa = PBXBuildFile; fileRef = F10340CA19FF51DD00C5CB4E /* UIImage+Scale.m */; };
@@ -452,6 +453,7 @@
 		EF486AFF1A075BA2003B5B54 /* 进行中_03.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "进行中_03.png"; sourceTree = "<group>"; };
 		EF486B001A075BA2003B5B54 /* 已完成_03.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "已完成_03.png"; sourceTree = "<group>"; };
 		EF486B011A075BA2003B5B54 /* 置顶_02.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "置顶_02.png"; sourceTree = "<group>"; };
+		EF8A277B1A08768600CE03C6 /* 上面分割线_03.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "上面分割线_03.png"; sourceTree = "<group>"; };
 		F10340C419FF4FCF00C5CB4E /* ic_password.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_password.png; sourceTree = "<group>"; };
 		F10340C519FF4FCF00C5CB4E /* ic_username.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_username.png; sourceTree = "<group>"; };
 		F10340C919FF51DD00C5CB4E /* UIImage+Scale.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Scale.h"; sourceTree = "<group>"; };
@@ -626,6 +628,7 @@
 		AD33ECC119FBCA2D00FE0C11 /* Image */ = {
 			isa = PBXGroup;
 			children = (
+				EF8A277B1A08768600CE03C6 /* 上面分割线_03.png */,
 				F13D4C391A079C7100E23FDB /* 周边便民--未开店--帮帮娃_03.png */,
 				EF486AFE1A075BA2003B5B54 /* 交流框_03.png */,
 				EF486AFF1A075BA2003B5B54 /* 进行中_03.png */,
@@ -1133,6 +1136,7 @@
 				AD33ED3019FBCA2D00FE0C11 /* 减少_07.png in Resources */,
 				AD33ED5F19FBCB6E00FE0C11 /* Default@2x.png in Resources */,
 				AD33ED3219FBCA2D00FE0C11 /* 删除_07.png in Resources */,
+				EF8A277C1A08768600CE03C6 /* 上面分割线_03.png in Resources */,
 				AD33ED3E19FBCA2D00FE0C11 /* 收藏_03.png in Resources */,
 				F10340D319FF7B3400C5CB4E /* CustomToolbarItem.xib in Resources */,
 				AD33ED1019FBCA2D00FE0C11 /* 2@2x.png in Resources */,

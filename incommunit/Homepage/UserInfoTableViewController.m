@@ -7,8 +7,10 @@
 //
 
 #import "UserInfoTableViewController.h"
+#import "LYaddCommunit.h"
 
 @interface PersonalTagCell () {
+    
     
 }
 
@@ -23,11 +25,13 @@
 @end
 
 
-@interface UserInfoTableViewController ()
+@interface UserInfoTableViewController () <UIActionSheetDelegate>
 {
     NSArray *personalTagsList;
     NSArray *poposTagsList;
     NSString *userLogoPath;
+    
+    UIActionSheet *sheet;
 }
 @property (weak, nonatomic) IBOutlet UIImageView *userPhoto;
 @property (weak, nonatomic) IBOutlet UITextField *userName;
@@ -60,6 +64,32 @@
     
     self.userPhoto.layer.cornerRadius = CGRectGetWidth(self.userPhoto.frame) / 2;
     self.userPhoto.clipsToBounds = YES;
+    self.userPhoto.userInteractionEnabled = YES;
+    UITapGestureRecognizer *recognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(Photograph)];
+    [self.userPhoto addGestureRecognizer:recognizer];
+}
+
+-(void)Photograph
+{
+    
+    sheet = [[UIActionSheet alloc] initWithTitle:@"上传照片"
+                                        delegate:nil
+                               cancelButtonTitle:@"取消"
+                          destructiveButtonTitle:@"拍照"
+                               otherButtonTitles:@"相册中选择", nil];
+    sheet.delegate = self;
+    [sheet showInView:self.view];
+}
+
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
+    
+    if (buttonIndex == [actionSheet cancelButtonIndex]) {
+        
+    }else if (buttonIndex == [actionSheet destructiveButtonIndex]) {
+        
+    }else {
+        
+    }
 }
 
 - (void)didReceiveMemoryWarning {
