@@ -155,12 +155,9 @@
 //限制输入
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
     BOOL ret = YES;
-    if (textField == MobilenumberText) {
+    if (textField == MobilenumberText &&  range.length == 0) {
         if (![self isPureInt:string]) {
             ret = NO;
-        }else {
-            if (MobilenumberText.text.length == 11)
-                ret = NO;
         }
     }else if ((textField == passwordText && range.length == 0 && passwordText.text.length >=6) || passwordText.text.length <= 12) {
         

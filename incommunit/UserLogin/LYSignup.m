@@ -228,16 +228,10 @@
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
 {
     BOOL ret = YES;
-    if (textField == m_Phone) {
+    if (textField == m_Phone &&  range.length == 0) {
         if (![self isPureInt:string]) {
             ret = NO;
-        }else {
-            if (m_Phone.text.length == 11)
-                ret = NO;
         }
-    }else if ((textField == m_password && range.length == 0 && m_password.text.length >=6) || m_password.text.length <= 12) {
-        
-        ret = NO;
     }
     return ret;
 
