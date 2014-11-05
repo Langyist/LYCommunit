@@ -189,6 +189,7 @@
 		F14F18E61A08B45E00731239 /* SendNCInfoTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F14F18E51A08B45E00731239 /* SendNCInfoTableViewController.m */; };
 		F14F18E81A08C96600731239 /* 添加_03.png in Resources */ = {isa = PBXBuildFile; fileRef = F14F18E71A08C96600731239 /* 添加_03.png */; };
 		F14F18EE1A09D0FA00731239 /* AWaterfallTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = F14F18ED1A09D0FA00731239 /* AWaterfallTableView.m */; };
+		F14F18F11A09FD9A00731239 /* KxMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = F14F18F01A09FD9A00731239 /* KxMenu.m */; };
 		F14F51F01A0378CF006CC884 /* InfoHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = F14F51EE1A0378CF006CC884 /* InfoHeader.m */; };
 		F14F51F11A0378CF006CC884 /* InfoHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = F14F51EF1A0378CF006CC884 /* InfoHeader.xib */; };
 		F14F51F41A0382B7006CC884 /* MyStoresTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F14F51F31A0382B7006CC884 /* MyStoresTableViewController.m */; };
@@ -533,6 +534,8 @@
 		F14F18E71A08C96600731239 /* 添加_03.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "添加_03.png"; sourceTree = "<group>"; };
 		F14F18EC1A09D0FA00731239 /* AWaterfallTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AWaterfallTableView.h; sourceTree = "<group>"; };
 		F14F18ED1A09D0FA00731239 /* AWaterfallTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AWaterfallTableView.m; sourceTree = "<group>"; };
+		F14F18EF1A09FD9A00731239 /* KxMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KxMenu.h; sourceTree = "<group>"; };
+		F14F18F01A09FD9A00731239 /* KxMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KxMenu.m; sourceTree = "<group>"; };
 		F14F51ED1A0378CF006CC884 /* InfoHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InfoHeader.h; sourceTree = "<group>"; };
 		F14F51EE1A0378CF006CC884 /* InfoHeader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InfoHeader.m; sourceTree = "<group>"; };
 		F14F51EF1A0378CF006CC884 /* InfoHeader.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = InfoHeader.xib; sourceTree = "<group>"; };
@@ -666,6 +669,8 @@
 		AD33ECBD19FBC35B00FE0C11 /* CustomControls */ = {
 			isa = PBXGroup;
 			children = (
+				F14F18EF1A09FD9A00731239 /* KxMenu.h */,
+				F14F18F01A09FD9A00731239 /* KxMenu.m */,
 				F14F18EC1A09D0FA00731239 /* AWaterfallTableView.h */,
 				F14F18ED1A09D0FA00731239 /* AWaterfallTableView.m */,
 				AD3DD3AC19FDEE5B00364854 /* LMComBox */,
@@ -1333,6 +1338,7 @@
 				F14231571A032C490088ED59 /* MessageContentTableViewCell.m in Sources */,
 				AD6211D419FD5C1E009BECA6 /* LYconvenienceMain.m in Sources */,
 				AD4823061A03224E00A54F45 /* TagsCollectionViewController.m in Sources */,
+				F14F18F11A09FD9A00731239 /* KxMenu.m in Sources */,
 				AD6211D719FD5D5D009BECA6 /* LYCommonSettings.m in Sources */,
 				AD7FBAB51A0216FF008CC80A /* LY_AnnouncementNoCell.m in Sources */,
 				AD7FBAB31A0216FF008CC80A /* LY_ACCell1.m in Sources */,

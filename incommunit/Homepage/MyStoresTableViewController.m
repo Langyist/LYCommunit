@@ -7,6 +7,7 @@
 //
 
 #import "MyStoresTableViewController.h"
+#import "KxMenu.h"
 
 @implementation MyStoresItemCell
 
@@ -112,6 +113,54 @@
 #pragma mark LMComBoxViewDelegate
 -(void)selectAtIndex:(int)index inCombox:(LMComBoxView *)_combox {
 
+}
+
+- (IBAction)showMenu:(UIButton *)sender {
+    NSArray *menuItems =
+    @[
+      
+      [KxMenuItem menuItem:@"店铺设置"
+                     image:nil
+                    target:self
+                    action:@selector(storesSetting:)],
+      
+      [KxMenuItem menuItem:@"订单管理"
+                     image:nil
+                    target:self
+                    action:@selector(orderManager:)],
+      
+      [KxMenuItem menuItem:@"添加商品"
+                     image:nil
+                    target:self
+                    action:@selector(addItem:)],
+      
+      [KxMenuItem menuItem:@"添加活动"
+                     image:nil
+                    target:self
+                    action:@selector(addAction:)]
+      ];
+    
+    CGRect frame = sender.frame;
+    frame.origin.y += 25;
+    [KxMenu showMenuInView:self.view
+                  fromRect:frame
+                 menuItems:menuItems];
+}
+
+- (void)storesSetting:(id)sender {
+    
+}
+
+- (void)orderManager:(id)sender {
+    
+}
+
+- (void)addItems:(id)sender {
+    
+}
+
+- (void)addAction:(id)sender {
+    
 }
 
 @end
