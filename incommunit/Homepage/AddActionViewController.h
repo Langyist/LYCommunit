@@ -9,5 +9,10 @@
 #import <UIKit/UIKit.h>
 
 @interface AddActionViewController : UIViewController
+<
+    UIActionSheetDelegate
+    ,UIImagePickerControllerDelegate
+    ,UINavigationControllerDelegate
+>
 
 @end

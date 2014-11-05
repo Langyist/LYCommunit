@@ -9,6 +9,9 @@
 #import "AddActionViewController.h"
 #import "UIView+Clone.h"
 
+#define CAMERA @"相机"
+#define PHOTOES @"相册"
+
 @interface AddActionViewController ()
 @property (weak, nonatomic) IBOutlet UIScrollView *baseScrollView;
 @property (weak, nonatomic) IBOutlet UIScrollView *imageScrollView;
@@ -23,6 +26,8 @@
 @implementation AddActionViewController {
     UIView *editView;
     NSMutableArray *photoImageViewList;
+    
+    NSMutableArray *photoImageDataList;
 }
 
 - (void)viewDidLoad {
@@ -35,15 +40,21 @@
     
     self.submitButton.layer.cornerRadius = 3.0f;
     
+    photoImageDataList = [[NSMutableArray alloc] init];
     photoImageViewList = [[NSMutableArray alloc] init];
     [photoImageViewList addObject:self.photoImageView];
-    for (NSInteger index = 0; index < 5; index++) {
+    UITapGestureRecognizer *t = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(imageViewTap:)];
+    [self.photoImageView addGestureRecognizer:t];
+    for (NSInteger index = 1; index < 5; index++) {
         UIImageView *imageView = [self.photoImageView clone];
+        imageView.tag = index;
         CGRect frame = imageView.frame;
         frame.origin.x = CGRectGetMaxX(self.photoImageView.frame) * index;
-        self.photoImageView.frame = frame;
+        imageView.frame = frame;
         [self.imageScrollView addSubview:imageView];
         [photoImageViewList addObject:imageView];
+        UITapGestureRecognizer *t = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(imageViewTap:)];
+        [imageView addGestureRecognizer:t];
     }
     [self.imageScrollView setContentSize:CGSizeMake(CGRectGetMaxX(self.photoImageView.frame) * 5, 0)];
     
@@ -115,6 +126,55 @@
                      animations:^{
                          [self.baseScrollView setContentInset:UIEdgeInsetsZero];
                      }];
+}
+
+- (void)imageViewTap:(UITapGestureRecognizer *) tap {
+    if (tap.view.tag > [photoImageDataList count] && [photoImageDataList count] != 0) {
+        return;
+    }
+    
+    UIActionSheet *actionSheet = nil;
+    if ([UIImagePickerController isSourceTypeAvailable: UIImagePickerControllerSourceTypeCamera]) {
+        actionSheet = [[UIActionSheet alloc] initWithTitle:@"添加照片" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:CAMERA, PHOTOES, nil];
+    }
+    else {
+        actionSheet = [[UIActionSheet alloc] initWithTitle:@"添加照片" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:PHOTOES, nil];
+    }
+    
+    [actionSheet showInView:self.view];
+}
+
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
+    NSString *title = [actionSheet buttonTitleAtIndex:buttonIndex];
+    if ([title isEqualToString:CAMERA]) {
+        UIImagePickerController *imagePickerController = [[UIImagePickerController alloc] init];
+        imagePickerController.sourceType = UIImagePickerControllerSourceTypeCamera;
+        imagePickerController.delegate = self;
+        [self presentViewController:imagePickerController animated:YES completion:nil];
+    }
+    else if ([title isEqualToString:PHOTOES]) {
+        UIImagePickerController *imagePickerController = [[UIImagePickerController alloc] init];
+        imagePickerController.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+        imagePickerController.delegate = self;
+        [self presentViewController:imagePickerController animated:YES completion:nil];
+    }
+    else {
+        
+    }
+}
+
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
+{
+    [picker dismissViewControllerAnimated:YES completion:^{
+        UIImage *image = [info valueForKey:UIImagePickerControllerOriginalImage];
+        NSData *data = UIImageJPEGRepresentation(image, 1.0);
+        if (data.length > 1024 * 200) {
+            data = UIImageJPEGRepresentation(image, 1024.0f * 200.0f / (CGFloat)data.length);
+        }
+        [photoImageDataList addObject:data];
+        UIImageView *imageView = [photoImageViewList objectAtIndex:photoImageDataList.count - 1];
+        [imageView setImage:[UIImage imageWithData:data]];
+    }];
 }
 
 @end
