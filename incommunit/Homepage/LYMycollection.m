@@ -1,7 +1,7 @@
 //
 //  LYMycollection.m
 //  in_community
-//
+//  我的收藏
 //  Created by LANGYI on 14-10-13.
 //  Copyright (c) 2014年 LANGYI. All rights reserved.
 //

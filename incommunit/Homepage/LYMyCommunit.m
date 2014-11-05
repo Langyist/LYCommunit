@@ -102,11 +102,17 @@
     [redLabel setTextColor:[UIColor whiteColor]];
     redLabel.font = [UIFont systemFontOfSize:12];
     [self.backView addSubview:redLabel];
-    redheight = [[[NSString alloc ]initWithFormat:@"%@",[dataDic objectForKey:@"wuye_index"]] integerValue];
     
-    redView = [[UIView alloc] initWithFrame:CGRectMake(0, self.backView.frame.size.height - self.backView.frame.size.height / 100 * redheight, self.backView.frame.size.width, self.backView.frame.size.height / 100 *redheight)];
-    redView.backgroundColor = [UIColor redColor];
-    [self.backView addSubview:redView];
+    if ([[[NSString alloc] initWithFormat:@"%@",[dataDic objectForKey:@"wuye_index"]] integerValue] >= 100) {
+        redView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.backView.frame.size.width, self.backView.frame.size.height)];
+        redView.backgroundColor = [UIColor redColor];
+        [self.backView addSubview:redView];
+    }else {
+        redView = [[UIView alloc] initWithFrame:CGRectMake(0, self.backView.frame.size.height - self.backView.frame.size.height / 100 * redheight, self.backView.frame.size.width, self.backView.frame.size.height / 100 *redheight)];
+        redView.backgroundColor = [UIColor redColor];
+        [self.backView addSubview:redView];
+    }
+    
     greenLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.backView1.frame.size.width / 2 - 7, self.backView1.frame.size.height - self.backView.frame.size.height / 100 * redheight - 26, 14, 14)];
     //redLabel.text = [[NSString alloc ]initWithFormat:@"%@",[dataDic objectForKey:@"live_index"]];
     //    greenLabel.text = @"50";
@@ -114,9 +120,17 @@
     greenLabel.font = [UIFont systemFontOfSize:12];
     [self.backView1 addSubview:greenLabel];
     greenheight = [[[NSString alloc ]initWithFormat:@"%@",[dataDic objectForKey:@"live_index"]] integerValue];
-    greenView = [[UIView alloc] initWithFrame:CGRectMake(0, self.backView1.frame.size.height - self.backView1.frame.size.height / 100 *greenheight, self.backView1.frame.size.width, self.backView1.frame.size.height / 100 *greenheight)];
-    greenView.backgroundColor = [UIColor greenColor];
-    [self.backView1 addSubview:greenView];
+    
+    if ([[[NSString alloc ]initWithFormat:@"%@",[dataDic objectForKey:@"live_index"]] integerValue] >=100) {
+        greenView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.backView1.frame.size.width, self.backView1.frame.size.height)];
+        greenView.backgroundColor = [UIColor greenColor];
+        [self.backView1 addSubview:greenView];
+    }else {
+        
+        greenView = [[UIView alloc] initWithFrame:CGRectMake(0, self.backView1.frame.size.height - self.backView1.frame.size.height / 100 *greenheight, self.backView1.frame.size.width, self.backView1.frame.size.height / 100 *greenheight)];
+        greenView.backgroundColor = [UIColor greenColor];
+        [self.backView1 addSubview:greenView];
+    }
     
     UILabel * redlable = [[UILabel alloc] initWithFrame:CGRectMake(20, self.backView.frame.size.height/3, 30, 30)];
     redlable.text = [[NSString alloc ]initWithFormat:@"%@",[dataDic objectForKey:@"wuye_index"]];

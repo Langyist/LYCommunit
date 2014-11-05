@@ -21,6 +21,9 @@
     UIView *background;//
     UIView *grayView;
     
+    UIView *shopdownView;
+    UIView *shopgrayView;
+    
     UIView *m_backView;
     UIView *m_shopView;
     BOOL m_in;
@@ -229,9 +232,24 @@
     m_ShopDaquan.tableHeaderView = m_shopSearch;
     
     //店铺大全下拉菜单
-    m_shopView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, m_view02.frame.size.width, self.view.frame.size.height- 100)];
+    
+    shopdownView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, m_view03.frame.size.width, m_view03.frame.size.height)];
+    shopdownView.backgroundColor = [UIColor clearColor];
+    [m_view03 addSubview:shopdownView];
+    
+    m_shopView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, m_view03.frame.size.width, m_view03.frame.size.height / 5 *3)];
     m_shopView.backgroundColor = [UIColor whiteColor];
-    [m_view03 addSubview:m_shopView];
+    [shopdownView addSubview:m_shopView];
+    
+    shopgrayView = [[UIView alloc] initWithFrame:CGRectMake(0, m_shopView.frame.size.height, shopdownView.frame.size.width, shopdownView.frame.size.height - m_shopView.frame.size.height)];
+    shopgrayView.backgroundColor = [UIColor grayColor];
+    shopgrayView.alpha = 0.5;
+    [shopdownView addSubview:shopgrayView];
+    
+    //添加阴影手势
+    UITapGestureRecognizer *shopgestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(shopclackgrayView)];
+    [shopgrayView addGestureRecognizer:shopgestureRecognizer];
+    
     //中间分割线
     UIImageView *shopcenterImage = [[UIImageView alloc] initWithFrame:CGRectMake(m_shopView.frame.size.width /2 - 1, 5, 1, m_shopView.frame.size.height - 30)];
     shopcenterImage.image = [UIImage imageNamed:@"上面分割线_03"];
@@ -334,6 +352,12 @@
     background.hidden = YES;
 }
 
+//点击阴影关闭弹出框
+- (void)shopclackgrayView {
+    
+    shopdownView.hidden = YES;
+}
+
 #pragma mark - CLLocationManagerDelegate
 // 地理位置发生改变时触发
 - (void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation
@@ -373,7 +397,7 @@
         { [UIView animateWithDuration:0.3 animations:^{
             
             [self._scrollView setContentOffset:CGPointMake(2* self.view.frame.size.width,0) animated:YES];
-            m_shopView.hidden = YES;
+            shopdownView.hidden = YES;
             m_segment.selectedSegmentIndex = 2;
             if (m_ShopDaquanlist.count<1) {
             }
@@ -481,7 +505,7 @@
     }
     
     background.hidden = YES;
-    m_shopView.hidden = YES;
+    shopdownView.hidden = YES;
     [m_deviButton removeFromSuperview];
     [m_shopButton removeFromSuperview];
     
@@ -516,7 +540,7 @@
         case 2:
         {
             [self._scrollView setContentOffset:CGPointMake(2* self.view.frame.size.width,0) animated:YES];
-            m_shopView.hidden = YES;
+            shopdownView.hidden = YES;
             m_shopButton = [[UIButton alloc] initWithFrame:CGRectMake(160, 67, 80, 29)];
             m_shopButton.backgroundColor = [UIColor clearColor];
             [m_shopButton addTarget:self action:@selector(m_shopButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
@@ -570,12 +594,12 @@
         
         if (m_in) {
             
-            m_shopView.hidden = NO;
+            shopdownView.hidden = NO;
             m_in = NO;
             
         }else {
             
-            m_shopView.hidden = YES;
+            shopdownView.hidden = YES;
             m_in = YES;
         }
     }else if (m_segment.selectedSegmentIndex == 0) {
@@ -606,7 +630,7 @@
 
 - (void)shopdownBackViewButton:(UIButton *)sender
 {
-    m_shopView.hidden = YES;
+    shopdownView.hidden = YES;
 }
 #pragma mark - tableview 协议函数
 // Customize the number of sections in the table view.
