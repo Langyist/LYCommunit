@@ -8,6 +8,15 @@
 
 #import <UIKit/UIKit.h>
 
+@class LYNeighborhoodCell;
+
+typedef void (^DeletePressBlock)(LYNeighborhoodCell *cell);
+
 @interface LYNeighborhoodCell : UITableViewCell
+
+- (void)setImagePath:(NSString *)imagePath;
+- (void)setName:(NSString *)name;
+- (void)setSummary:(NSString *)summray;
+- (void)setDeleteBlock:(DeletePressBlock)deletePressBlock;
 
 @end

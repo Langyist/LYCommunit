@@ -7,10 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CustomSegmentedControl.h"
 
-@interface LYMycollection : UIViewController <UITableViewDataSource,UITableViewDelegate> {
+@interface LYMycollection : UIViewController
+<
+    UITableViewDataSource
+    ,UITableViewDelegate
+> {
     
-    IBOutlet UISegmentedControl *m_segment;
+    IBOutlet CustomSegmentedControl *m_segment;
     
     IBOutlet UIScrollView *m_scrollView;
     
@@ -18,13 +23,12 @@
     UIView * m_view02;
     UIView * m_view03;
     
-    UITableView *m_babytableView;
     UITableView *m_shoptableView;
     UITableView *m_neighborhoodtableView;
 }
 
-@property (strong, nonatomic) IBOutlet UISegmentedControl *m_segment;
-
+@property (strong, nonatomic) IBOutlet CustomSegmentedControl *m_segment;
+@property (weak, nonatomic) IBOutlet UITableView *m_babytableView;
 @property (strong, nonatomic) IBOutlet UIScrollView *m_scrollView;
 
 @end

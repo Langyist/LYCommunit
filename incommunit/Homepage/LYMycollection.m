@@ -7,8 +7,11 @@
 //
 
 #import "LYMycollection.h"
+#import "UIView+Clone.h"
+#import "LYNeighborhoodCell.h"
 
 @interface LYMycollection ()
+@property (strong, nonatomic) IBOutlet UIView *footerView;
 
 @end
 
@@ -28,98 +31,37 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.title = @"我的收藏";
+
     [m_segment addTarget:self action:@selector(doSomethingInSegment:)forControlEvents:UIControlEventValueChanged];
-    m_scrollView.contentSize = CGSizeMake(m_scrollView.frame.size.width * 3, m_scrollView.frame.size.height);
-    [m_scrollView setScrollEnabled:NO];
     
-    //宝贝收藏
-    m_view01 = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, m_scrollView.frame.size.height)];
-    m_babytableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, m_view01.frame.size.width, m_view01.frame.size.height)];
-    m_babytableView.delegate = self;
-    m_babytableView.dataSource = self;
-    [m_view01 addSubview:m_babytableView];
-    [m_scrollView addSubview:m_view01];
-    //店铺收藏
-    m_view02 = [[UIView alloc] initWithFrame:CGRectMake(self.view.frame.size.width, 0, m_scrollView.frame.size.width, m_scrollView.frame.size.height)];
-    m_shoptableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, m_view02.frame.size.width, m_view02.frame.size.height)];
-    m_scrollView.backgroundColor = [UIColor grayColor];
-    m_shoptableView.delegate = self;
-    m_shoptableView.dataSource = self;
-    [m_view02 addSubview:m_shoptableView];
-    [m_scrollView addSubview:m_view02];
-    //邻里互助收藏
-    m_view03 = [[UIView alloc] initWithFrame:CGRectMake(self.view.frame.size.width * 2, 0, m_scrollView.frame.size.width, m_scrollView.frame.size.height)];
-    m_neighborhoodtableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, m_view03.frame.size.width, m_view03.frame.size.height)];
-    m_view03.backgroundColor = [UIColor grayColor];
-    m_neighborhoodtableView.delegate = self;
-    m_neighborhoodtableView.dataSource = self;
-    [m_view03 addSubview:m_neighborhoodtableView];
-    [m_scrollView addSubview:m_view03];
+    self.m_babytableView.tableFooterView = self.footerView;
     
-    //手势
-    UISwipeGestureRecognizer *recognizer;
-    recognizer = [[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(m_view01leftSwipe:)];
-    [recognizer setDirection:(UISwipeGestureRecognizerDirectionLeft)];
-    [m_view01 addGestureRecognizer:recognizer];
+    m_shoptableView = [self addTableViewWithIndex:1];
+    m_neighborhoodtableView = [self addTableViewWithIndex:2];
+    [m_scrollView setContentSize:CGSizeMake(CGRectGetMaxX(m_neighborhoodtableView.frame), 0)];
     
-    recognizer = [[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(m_view02leftSwipe:)];
-    [recognizer setDirection:(UISwipeGestureRecognizerDirectionLeft)];
-    [m_view02 addGestureRecognizer:recognizer];
-    
-    recognizer = [[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(m_view02rightSwipe:)];
-    [recognizer setDirection:(UISwipeGestureRecognizerDirectionRight)];
-    [m_view02 addGestureRecognizer:recognizer];
-    
-    recognizer = [[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(m_view03rightSwipe:)];
-    [recognizer setDirection:(UISwipeGestureRecognizerDirectionRight)];
-    [m_view03 addGestureRecognizer:recognizer];
+    UINib *nib = [UINib nibWithNibName:@"BabyCell" bundle:nil];
+    [self.m_babytableView registerNib:nib forCellReuseIdentifier:@"babyCellIdentifier"];
+    UINib *nib1 = [UINib nibWithNibName:@"LYShopCell" bundle:nil];
+    [m_shoptableView registerNib:nib1 forCellReuseIdentifier:@"shopCellIdentifier"];
+    UINib *nib2 = [UINib nibWithNibName:@"LYNeighborhoodCell" bundle:nil];
+    [m_neighborhoodtableView registerNib:nib2 forCellReuseIdentifier:@"neighborhoodCellidentifier"];
 }
 
-//手势
--(void)m_view01leftSwipe:(UISwipeGestureRecognizer *)recognizer
-{
-    if(recognizer.direction==UISwipeGestureRecognizerDirectionLeft)
-    {
-        { [UIView animateWithDuration:0.3 animations:^{
-            
-            [m_scrollView setContentOffset:CGPointMake(1* self.view.frame.size.width,0) animated:YES];
-            m_segment.selectedSegmentIndex = 1;
-        }];}
-    }
-}
-
--(void)m_view02leftSwipe:(UISwipeGestureRecognizer *)recognizer{
+- (UITableView *)addTableViewWithIndex:(NSInteger)index {
+    UITableView *tableView = [self.m_babytableView clone];
+    tableView.delegate = self;
+    tableView.dataSource = self;
     
-    if(recognizer.direction==UISwipeGestureRecognizerDirectionLeft) {
-        { [UIView animateWithDuration:0.3 animations:^{
-            
-            [m_scrollView setContentOffset:CGPointMake(2* self.view.frame.size.width,0) animated:YES];
-            m_segment.selectedSegmentIndex = 2;
-        }];}
-    }
-}
-
--(void)m_view02rightSwipe:(UISwipeGestureRecognizer *)recognizer{
+    tableView.tableFooterView = [self.footerView clone];
     
-    if(recognizer.direction==UISwipeGestureRecognizerDirectionRight) {
-        { [UIView animateWithDuration:0.3 animations:^{
-            
-            [m_scrollView setContentOffset:CGPointMake(0* self.view.frame.size.width,0) animated:YES];
-            m_segment.selectedSegmentIndex = 0;
-        }];}
-    }
-}
-
--(void)m_view03rightSwipe:(UISwipeGestureRecognizer *)recognizer{
+    CGRect frame = self.m_babytableView.frame;
+    frame.origin.x = frame.size.width * index;
+    tableView.frame = frame;
     
-    if(recognizer.direction==UISwipeGestureRecognizerDirectionRight) {
-        { [UIView animateWithDuration:0.3 animations:^{
-            
-            [m_scrollView setContentOffset:CGPointMake(1* self.view.frame.size.width,0) animated:YES];
-            m_segment.selectedSegmentIndex = 1;
-        }];}
-    }
+    [self.m_scrollView addSubview:tableView];
+    
+    return tableView;
 }
 
 -(void)doSomethingInSegment:(UISegmentedControl *)Seg
@@ -148,47 +90,84 @@
     }
 }
 
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
+    if (scrollView == self.m_scrollView) {
+        NSInteger index = lroundf(self.m_scrollView.contentOffset.x / self.m_scrollView.frame.size.width);
+        self.m_segment.selectedSegmentIndex = index;
+    }
+}
+
 #pragma mark UITable delegate
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    CGFloat heightForRowAtIndexPath = 44;
+    
+    if (tableView == _m_babytableView) {
+    }
+    else if (tableView == m_shoptableView) {
+    }
+    else if (tableView == m_neighborhoodtableView) {
+        heightForRowAtIndexPath = 83;
+    }
+    
+    return heightForRowAtIndexPath;
+}
+
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
-    return 3;
+    NSInteger numberOfRowsInSection = 0;
+    
+    if (tableView == _m_babytableView) {
+    }
+    else if (tableView == m_shoptableView) {
+    }
+    else if (tableView == m_neighborhoodtableView) {
+        numberOfRowsInSection = 1;
+    }
+    
+    NSLog(@"%@", tableView.tableFooterView);
+    
+    if (numberOfRowsInSection == 0) {
+        tableView.tableFooterView.hidden = NO;
+    }
+    else {
+        tableView.tableFooterView.hidden = YES;
+    }
+    return numberOfRowsInSection;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     UITableViewCell *cell;
     
-    if (tableView == m_babytableView) {
-        
-        UINib *nib = [UINib nibWithNibName:@"BabyCell" bundle:nil];
-        [tableView registerNib:nib forCellReuseIdentifier:@"babyCellIdentifier"];
+    if (tableView == _m_babytableView) {
         
         cell = [tableView dequeueReusableCellWithIdentifier:@"babyCellIdentifier"];
         
-        return cell;
-    }else if (tableView == m_shoptableView) {
-        
-        UINib *nib = [UINib nibWithNibName:@"LYShopCell" bundle:nil];
-        [tableView registerNib:nib forCellReuseIdentifier:@"shopCellIdentifier"];
+    }
+    else if (tableView == m_shoptableView) {
         
         cell = [tableView dequeueReusableCellWithIdentifier:@"shopCellIdentifier"];
-        return cell;
-    }else if (tableView == m_neighborhoodtableView) {
-        
-        UINib *nib = [UINib nibWithNibName:@"LYNeighborhoodCell" bundle:nil];
-        [tableView registerNib:nib forCellReuseIdentifier:@"neighborhoodCellidentifier"];
-        
-        cell = [tableView dequeueReusableCellWithIdentifier:@"neighborhoodCellidentifier"];
-        
-        return cell;
-    }else {
-        
-        return nil;
+
     }
+    else if (tableView == m_neighborhoodtableView) {
+    
+        LYNeighborhoodCell *mycell = [tableView dequeueReusableCellWithIdentifier:@"neighborhoodCellidentifier" forIndexPath:indexPath];
+        [mycell setImagePath:@""];
+        [mycell setName:@""];
+        [mycell setSummary:@""];
+        [mycell setDeleteBlock:^(LYNeighborhoodCell *cell) {
+            
+        }];
+        
+        cell = mycell;
+    }
+    
+    return cell;
 }
 
 @end
