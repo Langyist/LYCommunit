@@ -99,19 +99,28 @@
     NSLog(@"plistDic = %@",plistDic);
     NSString *urlstr = [plistDic objectForKey: @"URL"];
     NSError *error;
-    NSString *URLstr =[[NSString alloc] initWithFormat:@"%@/services/feedback/add?contact_info=%@&content=%@&community_id=%@",urlstr,m_textView.text,mothedText.text,[[LYSelectCommunit GetCommunityInfo] objectForKey:@"id"]];
-    NSURL *strurl = [NSURL URLWithString:URLstr];
-    NSMutableURLRequest *request = [[NSMutableURLRequest alloc]initWithURL:strurl cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:10];
+    //    加载一个NSURL对象
+    NSString    *URLString = [NSString stringWithFormat:@"%@/services/feedback/add?",urlstr];
+    NSURL *URL = [NSURL URLWithString:URLString];
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc]initWithURL:URL cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:10];
     [request setHTTPMethod:@"POST"];//设置请求方式为POST，默认为GET
+    NSString *str = @"contact_info=";//设置参数
+    str = [str stringByAppendingFormat:@"%@&content=%@&community_id=%@",mothedText.text,m_textView.text,[[LYSelectCommunit GetCommunityInfo] objectForKey:@"id"]];
+    NSData *data = [str dataUsingEncoding:NSUTF8StringEncoding];
+    [request setHTTPBody:data];
+    //第三步，连接服务器
     NSData *received = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
     NSDictionary *weatherDic = [NSJSONSerialization JSONObjectWithData:received options:NSJSONReadingMutableLeaves error:&error];
-    if ([[weatherDic objectForKey:@"status"] isEqualToString:@"200"]) {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"温馨提示！" message:[weatherDic objectForKey:@"提交成功"] delegate:self cancelButtonTitle:@"关闭" otherButtonTitles:nil, nil];
-        [alert show];
-    }else {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"温馨提示！" message:[weatherDic objectForKey:@"message"] delegate:self cancelButtonTitle:@"关闭" otherButtonTitles:nil, nil];
-        [alert show];
+    if ([[weatherDic objectForKey:@"status"] isEqualToString:@"200"])
+    {
+        UIAlertView *al =[[UIAlertView alloc]initWithTitle:@"提示" message:@"提交信息成功！" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+        [al show];
+    }else
+    {
+        UIAlertView *al =[[UIAlertView alloc]initWithTitle:@"提示" message:@"提交信息失败！" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+        [al show];
     }
+
 }
 
 @end
