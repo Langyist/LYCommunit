@@ -14,10 +14,8 @@
 }
 @property (weak, nonatomic) IBOutlet UISwitch *isVisiable;
 @end
-
 @implementation LYPrivacySettings
 @synthesize m_tableView;
-
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -26,7 +24,6 @@
     }
     return self;
 }
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -54,14 +51,14 @@
         return 4;
     }else if (section == 1) {
         
-        return 5;
+        return 4;
     }else {
         return 0;
     }
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
     if (indexPath.section == 0) {
         UITableViewCell *cell;
         cell = [tableView dequeueReusableCellWithIdentifier:@"addresscellIdentifier"];
@@ -166,10 +163,12 @@
                 {
                     addressButton.selected = NO;
                     isselect = NO;
+                    album[0]=@"0";
                 }else
                 {
                     addressButton.selected = YES;
                     isselect = YES;
+                    album[0]=@"1";
                 }
             }
                 break;
@@ -181,10 +180,12 @@
                 {
                     addressButton.selected = NO;
                     isselect = NO;
+                    album[1]=@"0";
                 }else
                 {
                     addressButton.selected = YES;
                     isselect = YES;
+                    album[1]=@"1";
                 }
             }
                 break;
@@ -196,10 +197,12 @@
                 {
                     addressButton.selected = NO;
                     isselect = NO;
+                    album[2]=@"0";
                 }else
                 {
                     addressButton.selected = YES;
                     isselect = YES;
+                    album[2]=@"1";
                 }
             }
                 break;
@@ -211,10 +214,12 @@
                 {
                     addressButton.selected = NO;
                     isselect = NO;
+                    album[3]=@"0";
                 }else
                 {
                     addressButton.selected = YES;
                     isselect = YES;
+                    album[3]=@"1";
                 }
             }
                 break;
@@ -327,5 +332,35 @@
         }
     }
     return nil;
+}
+-(BOOL)Submit
+{
+    NSDictionary *plistDic = [[NSBundle mainBundle] infoDictionary];
+    NSLog(@"plistDic = %@",plistDic);
+    NSString *urlstr = [plistDic objectForKey: @"URL"];
+    NSError *error;
+    //    加载一个NSURL对象
+    NSString    *URLString = [NSString stringWithFormat:@"%@/services/visible_setting/set",urlstr];
+    NSURL *url = [NSURL URLWithString:URLString];
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc]initWithURL:url cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:10];
+    [request setHTTPMethod:@"POST"];//设置请求方式为POST，默认为GET
+    NSString *str = @"address=";//设置参数
+    str = [str stringByAppendingFormat:@"%@&album=%@&add_friend=%@",address,album ,@"1"];
+    NSData *data = [str dataUsingEncoding:NSUTF8StringEncoding];
+    [request setHTTPBody:data];
+    //第三步，连接服务器
+    NSData *received = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
+    NSDictionary *weatherDic = [NSJSONSerialization JSONObjectWithData:received options:NSJSONReadingMutableLeaves error:&error];
+    if ([[weatherDic objectForKey:@"status"] isEqualToString:@"200"])
+    {
+        return YES;
+    }else
+    {
+        return NO;
+    }
+}
+-(void)viewWillDisappear:(BOOL)animated
+{
+    [self Submit];
 }
 @end

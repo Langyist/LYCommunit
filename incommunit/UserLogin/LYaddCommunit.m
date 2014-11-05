@@ -363,7 +363,7 @@
 - (NSMutableArray *)done:(NSString *)COMMUNITY_ID pid:(NSString *)PID
 {
     NSLog(@"完成");
-    NSMutableArray * temp;
+    NSMutableArray * temp1;
     NSDictionary *plistDic = [[NSBundle mainBundle] infoDictionary];
     NSLog(@"plistDic = %@",plistDic);
     NSString * URl = [plistDic objectForKey: @"URL"];
@@ -381,14 +381,14 @@
             NSLog(@"%@",message);
         }else
         {
-            temp = [getcodeDic objectForKey:@"data"];
-            for (int i = 0; i<temp.count; i++)
+            temp1 = [getcodeDic objectForKey:@"data"];
+            for (int i = 0; i<temp1.count; i++)
             {
-                [PeriodData addObject:[[temp objectAtIndex:i] objectForKey:@"name"]];
+                [PeriodData addObject:[[temp1 objectAtIndex:i] objectForKey:@"name"]];
             }
         }
     }
-    return temp;
+    return temp1;
 }
 -(NSString *)CovertImage:(UIImage *)iamge
 {

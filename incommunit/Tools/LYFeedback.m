@@ -37,7 +37,8 @@
 }
 
 //提交
-- (IBAction)commitButton:(id)sender {
+- (IBAction)commitButton:(id)sender
+{
     [self getFeedback:@""];
 }
 
@@ -92,13 +93,13 @@
 }
 
 #pragma mark 请求数据
-- (void)getFeedback:(NSString *)url {
-    
+- (void)getFeedback:(NSString *)url
+{
     NSDictionary *plistDic = [[NSBundle mainBundle] infoDictionary];
     NSLog(@"plistDic = %@",plistDic);
     NSString *urlstr = [plistDic objectForKey: @"URL"];
     NSError *error;
-   NSString *URLstr =[[NSString alloc] initWithFormat:@"%@/services/feedback/add?contact_info=%@&content=%@&community_id=%@",urlstr,m_textView.text,mothedText.text,[[LYSelectCommunit GetCommunityInfo] objectForKey:@"id"]];
+    NSString *URLstr =[[NSString alloc] initWithFormat:@"%@/services/feedback/add?contact_info=%@&content=%@&community_id=%@",urlstr,m_textView.text,mothedText.text,[[LYSelectCommunit GetCommunityInfo] objectForKey:@"id"]];
     NSURL *strurl = [NSURL URLWithString:URLstr];
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc]initWithURL:strurl cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:10];
     [request setHTTPMethod:@"POST"];//设置请求方式为POST，默认为GET
@@ -108,11 +109,9 @@
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"温馨提示！" message:[weatherDic objectForKey:@"提交成功"] delegate:self cancelButtonTitle:@"关闭" otherButtonTitles:nil, nil];
         [alert show];
     }else {
-        
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"温馨提示！" message:[weatherDic objectForKey:@"message"] delegate:self cancelButtonTitle:@"关闭" otherButtonTitles:nil, nil];
         [alert show];
     }
-    
 }
 
 @end
