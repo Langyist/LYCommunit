@@ -119,6 +119,22 @@
         cell = [super tableView:tableView cellForRowAtIndexPath:indexPath];
         if (m_storesinfo!=nil) {
             switch (indexPath.row) {
+                case 0:
+                {
+                    UIImageView *tempimv = (UIImageView *)[cell viewWithTag:104];
+                    NSMutableArray *temp = [m_storesinfo objectForKey:@"commodities"];
+                    if (temp.count>0)
+                    {
+                        NSString *imageUrl= [[temp objectAtIndex:0] objectForKey:@"cover_path"];
+                        if (imageUrl!=nil && ![imageUrl isEqualToString:@""])
+                        {
+                            NSURL *url = [NSURL URLWithString:imageUrl];
+                            [tempimv setImageWithURL:url placeholderImage:nil];
+                        }
+                    }
+                    
+                }
+                    break;
                 case 1:
                     _shopSummary.text = [m_storesinfo objectForKey:@"description"];
                     break;
@@ -153,7 +169,7 @@
         [m_ShoppingCartButton addTarget:self action:@selector(addShoppingCart:)
                        forControlEvents:UIControlEventTouchUpInside];
         NSMutableDictionary *Goodsinfo =[m_Goodslist objectAtIndex:indexPath.row-6];
-        NSString *imageUrl = [Goodsinfo objectForKey:@"cover_path"];
+        NSString *imageUrl = [Goodsinfo objectForKey:@"logo"];
         if (imageUrl!=nil && ![imageUrl isEqualToString:@""])
         {
             NSURL *url = [NSURL URLWithString:imageUrl];
@@ -238,7 +254,7 @@
     NSLog(@"plistDic = %@",plistDic);
     NSString *url = [plistDic objectForKey: @"URL"];
     NSError *error;
-    //    加载一个NSURL对象
+    // 加载一个NSURL对象
     NSString *urlstr = [[NSString alloc] initWithFormat:@"%@/services/shop/detail?id=%@",url,m_StoresID];
     NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:urlstr]];
     //    将请求的url数据放到NSData对象中

@@ -99,6 +99,7 @@
 
 #pragma mark UITable delegate
 
+
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     CGFloat heightForRowAtIndexPath = 44;
     
@@ -141,10 +142,10 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    
     UITableViewCell *cell;
-    
     if (tableView == _m_babytableView) {
+        UINib *nib = [UINib nibWithNibName:@"BabyCell" bundle:nil];
+        [tableView registerNib:nib forCellReuseIdentifier:@"babyCellIdentifier"];
         
         cell = [tableView dequeueReusableCellWithIdentifier:@"babyCellIdentifier"];
         
@@ -163,10 +164,15 @@
         [mycell setDeleteBlock:^(LYNeighborhoodCell *cell) {
             
         }];
+        return cell;
+    }else if (tableView == m_neighborhoodtableView) {
         
-        cell = mycell;
+        UINib *nib = [UINib nibWithNibName:@"LYNeighborhoodCell" bundle:nil];
+        [tableView registerNib:nib forCellReuseIdentifier:@"neighborhoodCellidentifier"];
+        cell = [tableView dequeueReusableCellWithIdentifier:@"neighborhoodCellidentifier"];
+        
+        return cell;
     }
-    
     return cell;
 }
 

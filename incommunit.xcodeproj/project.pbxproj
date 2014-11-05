@@ -147,6 +147,7 @@
 		AD6A9B931A09CC4B0031B7C2 /* LYNeighborhoodCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AD6A9B8C1A09CC4B0031B7C2 /* LYNeighborhoodCell.xib */; };
 		AD6A9B941A09CC4B0031B7C2 /* LYShopCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AD6A9B8E1A09CC4B0031B7C2 /* LYShopCell.m */; };
 		AD6A9B951A09CC4B0031B7C2 /* LYShopCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AD6A9B8F1A09CC4B0031B7C2 /* LYShopCell.xib */; };
+		AD6A9B961A09D0E20031B7C2 /* libbaidumapapi.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AD3DD40319FE348600364854 /* libbaidumapapi.a */; };
 		AD7FBA8D1A0214E2008CC80A /* LYProManagementMain.m in Sources */ = {isa = PBXBuildFile; fileRef = AD7FBA8C1A0214E2008CC80A /* LYProManagementMain.m */; };
 		AD7FBAAE1A0216FF008CC80A /* ACCell1.xib in Resources */ = {isa = PBXBuildFile; fileRef = AD7FBA9E1A0216FF008CC80A /* ACCell1.xib */; };
 		AD7FBAAF1A0216FF008CC80A /* AnnouncementCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AD7FBA9F1A0216FF008CC80A /* AnnouncementCell.xib */; };
@@ -557,6 +558,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AD6A9B961A09D0E20031B7C2 /* libbaidumapapi.a in Frameworks */,
 				AD6211C819FD4AF0009BECA6 /* CoreLocation.framework in Frameworks */,
 				AD33ED6119FBCC0E00FE0C11 /* libsqlite3.0.dylib in Frameworks */,
 			);
@@ -1159,7 +1161,7 @@
 				TargetAttributes = {
 					AD33EC8919FBB13F00FE0C11 = {
 						CreatedOnToolsVersion = 6.1;
-						DevelopmentTeam = RVMYYQYXU5;
+						DevelopmentTeam = 95N42RGW4F;
 					};
 					AD33ECA219FBB13F00FE0C11 = {
 						CreatedOnToolsVersion = 6.1;

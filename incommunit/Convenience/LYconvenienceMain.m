@@ -17,7 +17,6 @@
 {
     UISearchBar *m_deliverSearch;
     UISearchBar *m_shopSearch;
-    
     UIView *background;//
     UIView *grayView;
     
@@ -33,15 +32,12 @@
     UITableView *m_shoptable1;
     UIButton *m_deviButton;
     UIButton *m_shopButton;
-    
     NSInteger lastIndex;
     NSInteger selectCount;
-    
     NSMutableArray *arrow;
 }
 
 @property (nonatomic, strong) XHFriendlyLoadingView *friendlyLoadingView;
-
 @end
 
 @implementation LYconvenienceMain
@@ -67,36 +63,43 @@
 {
     [super viewDidLoad];
     
-    arrow = [[NSMutableArray alloc] init];
+    self->locationManager = [[CLLocationManager alloc] init];
+    self->locationManager.delegate = self;
+    if([[[UIDevice currentDevice] systemVersion] floatValue]>=8.0)
+    {
+        //[self->locationManager requestWhenInUseAuthorization];
+    }
     
+    // 设置定位精度
+    // kCLLocationAccuracyNearestTenMeters:精度10米
+    // kCLLocationAccuracyHundredMeters:精度100 米
+    // kCLLocationAccuracyKilometer:精度1000 米
+    // kCLLocationAccuracyThreeKilometers:精度3000米
+    // kCLLocationAccuracyBest:设备使用电池供电时候最高的精度
+    // kCLLocationAccuracyBestForNavigation:导航情况下最高精度，一般要有外接电源时才能使用
+    self->locationManager.desiredAccuracy = kCLLocationAccuracyBest;
+    // distanceFilter是距离过滤器，为了减少对定位装置的轮询次数，位置的改变不会每次都去通知委托，而是在移动了足够的距离时才通知委托程序
+    // 它的单位是米，这里设置为至少移动1000再通知委托处理更新;
+    self->locationManager.distanceFilter = 1000.0f; // 如果设为kCLDistanceFilterNone，则每秒更新一次;
+    // Do any additional setup after loading the view, typically from a nib.
+    if ([CLLocationManager locationServicesEnabled])
+    {
+        // 启动位置更新
+        // 开启位置更新需要与服务器进行轮询所以会比较耗电，在不需要时用stopUpdatingLocation方法关闭;
+        [self->locationManager startUpdatingLocation];
+    }
+    else
+    {
+        NSLog(@"请开启定位功能！");
+    }
+    
+    arrow = [[NSMutableArray alloc] init];
     StoreType = @"";
     orderstr  = @"";
     
     self.friendlyLoadingView = [[XHFriendlyLoadingView alloc] initWithFrame:self.view.bounds];
     [self.friendlyLoadingView showFriendlyLoadingViewWithText:@"正在加载..." loadingAnimated:YES];
     [self.view addSubview:self.friendlyLoadingView];
-    
-    myThread01 = [[NSThread alloc] initWithTarget:self
-                                                 selector:@selector(GetData:)
-                                                   object:nil];
-    [myThread01 start];
-    myThread02 = [[NSThread alloc] initWithTarget:self
-                                                 selector:@selector(GetdataDelivery:)
-                                                   object:nil];
-    [myThread02 start];
-   myThread03 = [[NSThread alloc] initWithTarget:self
-                                                 selector:@selector(GetShopDaquandata:)
-                                                   object:nil];
-    [myThread03 start];
-    myThread04 = [[NSThread alloc] initWithTarget:self
-                                                 selector:@selector(GetCellmicroShopdata:)
-                                                   object:nil];
-    [myThread04 start];
-     myThread05 = [[NSThread alloc] initWithTarget:self
-                                                 selector:@selector(GetShoptype:)
-                                                   object:nil];
-    [myThread05 start];
-    [m_messageView removeFromSuperview];
     
     CGRect rect = CGRectMake(0, 0, 1, 1);
     UIGraphicsBeginImageContext(rect.size);
@@ -202,7 +205,6 @@
         label.font = [UIFont systemFontOfSize:16];
         [m_backView addSubview:label];
     }
-    
     //店铺大全
     m_view03 = [[UIView alloc] initWithFrame:CGRectMake(self.view.frame.size.width * 2, 0, self._scrollView.frame.size.width, self._scrollView.frame.size.height)];
     m_ShopDaquan = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self._scrollView.frame.size.height)];
@@ -314,37 +316,7 @@
     recognizer = [[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(m_view04rightSwipe:)];
     [recognizer setDirection:(UISwipeGestureRecognizerDirectionRight)];
     [m_view04 addGestureRecognizer:recognizer];
-    
-    self->locationManager = [[CLLocationManager alloc] init];
-    self->locationManager.delegate = self;
-    if([[[UIDevice currentDevice] systemVersion] floatValue]>=8.0)
-    {
-        //[self->locationManager requestWhenInUseAuthorization];
-    }
-    
-    // 设置定位精度
-    // kCLLocationAccuracyNearestTenMeters:精度10米
-    // kCLLocationAccuracyHundredMeters:精度100 米
-    // kCLLocationAccuracyKilometer:精度1000 米
-    // kCLLocationAccuracyThreeKilometers:精度3000米
-    // kCLLocationAccuracyBest:设备使用电池供电时候最高的精度
-    // kCLLocationAccuracyBestForNavigation:导航情况下最高精度，一般要有外接电源时才能使用
-    self->locationManager.desiredAccuracy = kCLLocationAccuracyBest;
-    // distanceFilter是距离过滤器，为了减少对定位装置的轮询次数，位置的改变不会每次都去通知委托，而是在移动了足够的距离时才通知委托程序
-    // 它的单位是米，这里设置为至少移动1000再通知委托处理更新;
-    self->locationManager.distanceFilter = 1000.0f; // 如果设为kCLDistanceFilterNone，则每秒更新一次;
-    // Do any additional setup after loading the view, typically from a nib.
-    if ([CLLocationManager locationServicesEnabled])
-    {
-        // 启动位置更新
-        // 开启位置更新需要与服务器进行轮询所以会比较耗电，在不需要时用stopUpdatingLocation方法关闭;
-        [self->locationManager startUpdatingLocation];
-    }
-    else
-    {
-        NSLog(@"请开启定位功能！");
-    }
-    
+
 }
 //点击阴影关闭弹出框
 - (void)clackgrayView {
@@ -366,6 +338,27 @@
     latitude=newLocation.coordinate.latitude;
     longitude=newLocation.coordinate.longitude;
     [manager stopUpdatingLocation];// 停止位置更新
+    
+    myThread01 = [[NSThread alloc] initWithTarget:self
+                                         selector:@selector(GetData:)
+                                           object:nil];
+    [myThread01 start];
+    myThread02 = [[NSThread alloc] initWithTarget:self
+                                         selector:@selector(GetdataDelivery:)
+                                           object:nil];
+    [myThread02 start];
+    myThread03 = [[NSThread alloc] initWithTarget:self
+                                         selector:@selector(GetShopDaquandata:)
+                                           object:nil];
+    [myThread03 start];
+    myThread04 = [[NSThread alloc] initWithTarget:self
+                                         selector:@selector(GetCellmicroShopdata:)
+                                           object:nil];
+    [myThread04 start];
+    myThread05 = [[NSThread alloc] initWithTarget:self
+                                         selector:@selector(GetShoptype:)
+                                           object:nil];
+    [myThread05 start];
     [locationManager stopUpdatingLocation];
 }
 // 定位失误时触发
@@ -1009,8 +1002,6 @@
 //获取送餐送货数据
 -(IBAction)GetdataDelivery:(NSString *)URL
 {
-    longitude=104.069244;
-    latitude=30.545067;
     NSDictionary *plistDic = [[NSBundle mainBundle] infoDictionary];
     NSLog(@"plistDic = %@",plistDic);
     NSString *url = [plistDic objectForKey: @"URL"];
@@ -1046,8 +1037,7 @@
 //获取店铺大全数据
 -(IBAction)GetShopDaquandata:(NSString *)URL
 {
-    longitude=104.069244;
-    latitude=30.545067;
+
     NSDictionary *plistDic = [[NSBundle mainBundle] infoDictionary];
     NSLog(@"plistDic = %@",plistDic);
     NSString *url = [plistDic objectForKey: @"URL"];
@@ -1080,8 +1070,7 @@
 
 -(IBAction)GetCellmicroShopdata:(NSString *)URL
 {
-    longitude=104.069244;
-    latitude=30.545067;
+
     NSDictionary *plistDic = [[NSBundle mainBundle] infoDictionary];
     NSLog(@"plistDic = %@",plistDic);
     NSString *url = [plistDic objectForKey: @"URL"];
@@ -1147,4 +1136,55 @@
         detailViewController->m_StoresID = self->m_Storesid;
     }
 }
+
+- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
+{
+    m_tempb =searchBar;
+    myThread01 = [[NSThread alloc] initWithTarget:self
+                                         selector:@selector(search)
+                                           object:nil];
+    [myThread01 start];
+}
+
+-(void)search
+{
+    NSDictionary *plistDic = [[NSBundle mainBundle] infoDictionary];
+    NSLog(@"plistDic = %@",plistDic);
+    NSString *url = [plistDic objectForKey: @"URL"];
+    NSError *error;
+    //    加载一个NSURL对象
+    NSString *urlstr = [[NSString alloc ]initWithFormat:@"%@/services/shop/search_in_scope?longitude=%f&latitude=%f",url,longitude,latitude];
+    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:urlstr]];
+    //    将请求的url数据放到NSData对象中
+    NSData *response = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
+    if (response!=nil) {
+        if(response!=nil)
+        {
+            //    iOS5自带解析类NSJSONSerialization从response中解析出数据放到字典中
+            NSDictionary *weatherDic = [NSJSONSerialization JSONObjectWithData:response options:NSJSONReadingMutableLeaves error:&error];
+            //    weatherDic字典中存放的数据也是字典型，从它里面通过键值取值
+            NSString *status = [weatherDic objectForKey:@"status"];
+            NSLog(@"%@",status);
+            //    UIAlertView *aler = [[UIAlertView alloc] initWithTitle:@"提示" message:status delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+            //    [aler show];
+            
+            if (m_tempb == m_deliverSearch) {
+                m_Deliverylist = [weatherDic objectForKey:@"data"];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                        [m_Deliverytableview reloadData];
+                    // 更新UI
+                });
+            }else if(m_tempb ==  m_shopSearch)
+            {
+                m_ShopDaquanlist = [weatherDic objectForKey:@"data"];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [m_shoptable1 reloadData];
+                    // 更新UI
+                });
+               
+            }
+        }
+    }
+}
+
 @end

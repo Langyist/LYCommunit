@@ -40,6 +40,8 @@
     UITextField *m_ShopDaquantype_id;
     UITextField *m_ShopDaquanorder;
     
+    UISearchBar *m_tempb;
+    
     @private CLLocationManager *locationManager;
     float  latitude;
     float  longitude;

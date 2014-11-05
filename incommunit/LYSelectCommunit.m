@@ -22,7 +22,6 @@ static NSDictionary *          m_cityinfo;//城市信息
 {
     [super awakeFromNib];
 }
-
 #pragma mark - 初始化
 -(void)viewDidLoad
 {
@@ -47,7 +46,7 @@ static NSDictionary *          m_cityinfo;//城市信息
     self->locationManager.delegate = self;
     if([[[UIDevice currentDevice] systemVersion] floatValue]>=8.0)
     {
-        //[self->locationManager requestWhenInUseAuthorization];
+        [self->locationManager requestWhenInUseAuthorization];
     }
     // 设置定位精度
     // kCLLocationAccuracyNearestTenMeters:精度10米
@@ -70,7 +69,6 @@ static NSDictionary *          m_cityinfo;//城市信息
     {
         NSLog(@"请开启定位功能！");
     }
-    [NSThread detachNewThreadSelector:@selector(GetCommunity:) toTarget:self withObject:nil];
     [super viewDidLoad];
 }
 - (void)didReceiveMemoryWarning
@@ -84,6 +82,11 @@ static NSDictionary *          m_cityinfo;//城市信息
     {
         LYUserloginView *detailViewController = (LYUserloginView*) segue.destinationViewController;
         detailViewController->m_bool = FALSE;
+    }
+    if ([segue.identifier isEqualToString: @"GoLYSelectCity"])
+    {
+        LYSelectCity *detailViewController = (LYSelectCity*) segue.destinationViewController;
+        detailViewController->locCityName = m_city_name;
     }
 }
 #pragma mark - CLLocationManagerDelegate 定位协议函数
@@ -106,12 +109,11 @@ static NSDictionary *          m_cityinfo;//城市信息
                  [_selectCityButton setTitle: [[NSString alloc]initWithFormat:@"%@",[[placemark.addressDictionary objectForKey:@"City"] substringToIndex:2] ] forState: UIControlStateNormal];
                  m_city_name  =[[placemark.addressDictionary objectForKey:@"City"] substringToIndex:2];
              }
-             [NSThread detachNewThreadSelector:@selector(GetCommunity:) toTarget:self withObject:nil];
              [self.m_tab reloadData];
              self.view.userInteractionEnabled = YES;
-             [m_View removeFromSuperview];
          }
      }];
+    [NSThread detachNewThreadSelector:@selector(GetCommunity:) toTarget:self withObject:nil];
     [locationManager stopUpdatingLocation];
 }
 // 定位失误时触发
@@ -227,10 +229,8 @@ static NSDictionary *          m_cityinfo;//城市信息
     NSURL *url = [NSURL URLWithString:URLstr];
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc]initWithURL:url cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:10];
     [request setHTTPMethod:@"POST"];//设置请求方式为POST，默认为GET
-    if (m_data.count>0)
+    if (m_data.count>1)
     {
-        longitude=104.069244;
-        latitude=30.545067;
         m_city_id =[m_data objectForKey:@"id"];
         str = @"city_id=";//设置参数
         str = [str stringByAppendingFormat:@"%@&name=%@&longitude=%f&latitude=%f", m_city_id,m_CommunityName,longitude,latitude];
@@ -240,8 +240,9 @@ static NSDictionary *          m_cityinfo;//城市信息
         {
             m_CommunityName = @"";
         }
-        longitude=104.069244;
-        latitude=30.545067;
+        if ([m_data objectForKey:@"name"]!=nil||m_data!=nil) {
+            m_city_name =[m_data objectForKey:@"name"];
+        }
         str = @"city_name=";//设置参数
         str = [str stringByAppendingFormat:@"%@&name=%@&longitude=%f&latitude=%f", m_city_name,m_CommunityName,longitude,latitude];
     }
@@ -279,7 +280,6 @@ static NSDictionary *          m_cityinfo;//城市信息
 #pragma mark - 切换界面进入协议函数
 -(void)viewDidAppear:(BOOL)animated
 {
-    [NSThread detachNewThreadSelector:@selector(GetCommunity:) toTarget:self withObject:nil];
     if (m_Refresh)
     {
         if ([CLLocationManager locationServicesEnabled])
