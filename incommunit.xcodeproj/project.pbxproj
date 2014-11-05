@@ -141,6 +141,12 @@
 		AD6A9B841A09CA420031B7C2 /* LYRejectedCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AD6A9B7D1A09CA420031B7C2 /* LYRejectedCell.m */; };
 		AD6A9B851A09CA420031B7C2 /* NewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AD6A9B7E1A09CA420031B7C2 /* NewCell.xib */; };
 		AD6A9B861A09CA420031B7C2 /* RejectedCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AD6A9B7F1A09CA420031B7C2 /* RejectedCell.xib */; };
+		AD6A9B901A09CC4B0031B7C2 /* BabyCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AD6A9B881A09CC4B0031B7C2 /* BabyCell.m */; };
+		AD6A9B911A09CC4B0031B7C2 /* BabyCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AD6A9B891A09CC4B0031B7C2 /* BabyCell.xib */; };
+		AD6A9B921A09CC4B0031B7C2 /* LYNeighborhoodCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AD6A9B8B1A09CC4B0031B7C2 /* LYNeighborhoodCell.m */; };
+		AD6A9B931A09CC4B0031B7C2 /* LYNeighborhoodCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AD6A9B8C1A09CC4B0031B7C2 /* LYNeighborhoodCell.xib */; };
+		AD6A9B941A09CC4B0031B7C2 /* LYShopCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AD6A9B8E1A09CC4B0031B7C2 /* LYShopCell.m */; };
+		AD6A9B951A09CC4B0031B7C2 /* LYShopCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AD6A9B8F1A09CC4B0031B7C2 /* LYShopCell.xib */; };
 		AD7FBA8D1A0214E2008CC80A /* LYProManagementMain.m in Sources */ = {isa = PBXBuildFile; fileRef = AD7FBA8C1A0214E2008CC80A /* LYProManagementMain.m */; };
 		AD7FBAAE1A0216FF008CC80A /* ACCell1.xib in Resources */ = {isa = PBXBuildFile; fileRef = AD7FBA9E1A0216FF008CC80A /* ACCell1.xib */; };
 		AD7FBAAF1A0216FF008CC80A /* AnnouncementCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AD7FBA9F1A0216FF008CC80A /* AnnouncementCell.xib */; };
@@ -454,6 +460,15 @@
 		AD6A9B7D1A09CA420031B7C2 /* LYRejectedCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LYRejectedCell.m; sourceTree = "<group>"; };
 		AD6A9B7E1A09CA420031B7C2 /* NewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NewCell.xib; sourceTree = "<group>"; };
 		AD6A9B7F1A09CA420031B7C2 /* RejectedCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RejectedCell.xib; sourceTree = "<group>"; };
+		AD6A9B871A09CC4B0031B7C2 /* BabyCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BabyCell.h; sourceTree = "<group>"; };
+		AD6A9B881A09CC4B0031B7C2 /* BabyCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BabyCell.m; sourceTree = "<group>"; };
+		AD6A9B891A09CC4B0031B7C2 /* BabyCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BabyCell.xib; sourceTree = "<group>"; };
+		AD6A9B8A1A09CC4B0031B7C2 /* LYNeighborhoodCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LYNeighborhoodCell.h; sourceTree = "<group>"; };
+		AD6A9B8B1A09CC4B0031B7C2 /* LYNeighborhoodCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LYNeighborhoodCell.m; sourceTree = "<group>"; };
+		AD6A9B8C1A09CC4B0031B7C2 /* LYNeighborhoodCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LYNeighborhoodCell.xib; sourceTree = "<group>"; };
+		AD6A9B8D1A09CC4B0031B7C2 /* LYShopCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LYShopCell.h; sourceTree = "<group>"; };
+		AD6A9B8E1A09CC4B0031B7C2 /* LYShopCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LYShopCell.m; sourceTree = "<group>"; };
+		AD6A9B8F1A09CC4B0031B7C2 /* LYShopCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LYShopCell.xib; sourceTree = "<group>"; };
 		AD7FBA8B1A0214E2008CC80A /* LYProManagementMain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LYProManagementMain.h; sourceTree = "<group>"; };
 		AD7FBA8C1A0214E2008CC80A /* LYProManagementMain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LYProManagementMain.m; sourceTree = "<group>"; };
 		AD7FBA9E1A0216FF008CC80A /* ACCell1.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ACCell1.xib; sourceTree = "<group>"; };
@@ -967,6 +982,15 @@
 		AD6A9B741A09CA420031B7C2 /* XIB */ = {
 			isa = PBXGroup;
 			children = (
+				AD6A9B871A09CC4B0031B7C2 /* BabyCell.h */,
+				AD6A9B881A09CC4B0031B7C2 /* BabyCell.m */,
+				AD6A9B891A09CC4B0031B7C2 /* BabyCell.xib */,
+				AD6A9B8A1A09CC4B0031B7C2 /* LYNeighborhoodCell.h */,
+				AD6A9B8B1A09CC4B0031B7C2 /* LYNeighborhoodCell.m */,
+				AD6A9B8C1A09CC4B0031B7C2 /* LYNeighborhoodCell.xib */,
+				AD6A9B8D1A09CC4B0031B7C2 /* LYShopCell.h */,
+				AD6A9B8E1A09CC4B0031B7C2 /* LYShopCell.m */,
+				AD6A9B8F1A09CC4B0031B7C2 /* LYShopCell.xib */,
 				AD6A9B751A09CA420031B7C2 /* DownCell.xib */,
 				AD6A9B761A09CA420031B7C2 /* LYAcceptedCell.h */,
 				AD6A9B771A09CA420031B7C2 /* LYAcceptedCell.m */,
@@ -1170,6 +1194,7 @@
 				AD33ED2919FBCA2D00FE0C11 /* person_data_label_seleted.png in Resources */,
 				AD33ED5E19FBCB6E00FE0C11 /* Default.png in Resources */,
 				AD33ED4D19FBCA2D00FE0C11 /* 订单@2x.png in Resources */,
+				AD6A9B931A09CC4B0031B7C2 /* LYNeighborhoodCell.xib in Resources */,
 				AD33ED2019FBCA2D00FE0C11 /* ic_community_phones.png in Resources */,
 				F14231581A032C490088ED59 /* MessageContentTableViewCell.xib in Resources */,
 				AD33ED4519FBCA2D00FE0C11 /* 物业管理.png in Resources */,
@@ -1221,6 +1246,7 @@
 				AD3DD3BD19FE13FE00364854 /* DeliveryCell.xib in Resources */,
 				AD33ED3819FBCA2D00FE0C11 /* 头像_03.png in Resources */,
 				AD33ED1519FBCA2D00FE0C11 /* 3_10.png in Resources */,
+				AD6A9B911A09CC4B0031B7C2 /* BabyCell.xib in Resources */,
 				AD33ED4B19FBCA2D00FE0C11 /* 蓝色_03.png in Resources */,
 				AD33ED2D19FBCA2D00FE0C11 /* 个人主页_13.png in Resources */,
 				AD33ED1319FBCA2D00FE0C11 /* 3.png in Resources */,
@@ -1250,6 +1276,7 @@
 				AD33ED3919FBCA2D00FE0C11 /* 小三角_11.png in Resources */,
 				AD33ED4319FBCA2D00FE0C11 /* 物业管理--物业公告_02.png in Resources */,
 				F13D4C3A1A079C7100E23FDB /* 周边便民--未开店--帮帮娃_03.png in Resources */,
+				AD6A9B951A09CC4B0031B7C2 /* LYShopCell.xib in Resources */,
 				F10340C619FF4FCF00C5CB4E /* ic_password.png in Resources */,
 				AD33ED2219FBCA2D00FE0C11 /* ic_default_no_data.png in Resources */,
 				AD33ED0E19FBCA2D00FE0C11 /* 1_10.png in Resources */,
@@ -1320,6 +1347,7 @@
 				AD7FBABB1A021919008CC80A /* LYPostcomment.m in Sources */,
 				F10340CB19FF51DD00C5CB4E /* UIImage+Scale.m in Sources */,
 				AD7FBAB61A0216FF008CC80A /* LY_InfoCell.m in Sources */,
+				AD6A9B941A09CC4B0031B7C2 /* LYShopCell.m in Sources */,
 				F13D4C351A07715D00E23FDB /* UIView+Clone.m in Sources */,
 				AD6211E019FD8028009BECA6 /* LYPublicMethods.m in Sources */,
 				AD6211AD19FD46BD009BECA6 /* LeslieImageCache.m in Sources */,
@@ -1328,6 +1356,7 @@
 				AD62118619FD3148009BECA6 /* LYUserloginView.m in Sources */,
 				AD09555D1A08C7BF00C53A6F /* LYFeedback.m in Sources */,
 				F10340CE19FF5BC500C5CB4E /* InsetTextField.m in Sources */,
+				AD6A9B901A09CC4B0031B7C2 /* BabyCell.m in Sources */,
 				AD6211E319FD88DE009BECA6 /* LYAnnouncementDetails.m in Sources */,
 				EF31A2111A0381D80039E52C /* XHFriendlyLoadingView.m in Sources */,
 				AD6211EC19FDA63C009BECA6 /* HomepageMain.m in Sources */,
@@ -1342,6 +1371,7 @@
 				F13D4C2D1A07510F00E23FDB /* CustomSegmentedControl.m in Sources */,
 				F13D4C381A077C2100E23FDB /* NCDetailTableViewController.m in Sources */,
 				AD3DD3BF19FE13FE00364854 /* LY_DeliveryCell.m in Sources */,
+				AD6A9B921A09CC4B0031B7C2 /* LYNeighborhoodCell.m in Sources */,
 				AD7FBA8D1A0214E2008CC80A /* LYProManagementMain.m in Sources */,
 				AD3DD40C19FE466600364854 /* LYShop.m in Sources */,
 				AD6211DD19FD6F6E009BECA6 /* LYAnnouncement.m in Sources */,
