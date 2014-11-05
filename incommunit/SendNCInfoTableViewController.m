@@ -204,9 +204,42 @@
             data = UIImageJPEGRepresentation(image, 1024.0f * 200.0f / (CGFloat)data.length);
         }
         [photoImageDataList addObject:data];
-        UIImageView *imageView = [photoImageViewList objectAtIndex:photoImageDataList.count - 1];
-        [imageView setImage:[UIImage imageWithData:data]];
+        
+        [self resetImage];
     }];
+}
+
+- (void)resetImage {
+    for (NSInteger index = 0; index < 5; index++) {
+        UIImageView *imageView = [photoImageViewList objectAtIndex:index];
+        for (UIView *view in imageView.subviews) {
+            [view removeFromSuperview];
+        }
+        if (index < [photoImageDataList count]) {
+            NSData *data = [photoImageDataList objectAtIndex:index];
+            [imageView setImage:[UIImage imageWithData:data]];
+            
+            UIButton *deleteButton = [UIButton buttonWithType:UIButtonTypeCustom];
+            CGRect frame = imageView.frame;
+            frame.origin = CGPointMake(photoSize.width / 2, photoSize.width / 2);
+            frame.size = CGSizeMake(photoSize.width / 2, photoSize.width / 2);
+            deleteButton.frame = frame;
+            [deleteButton setImage:[UIImage imageNamed:@"删除_07"] forState:UIControlStateNormal];
+            [deleteButton setContentEdgeInsets:UIEdgeInsetsMake(frame.size.width * 0.6, frame.size.width * 0.6, 0, 0)];
+            [imageView addSubview:deleteButton];
+            [deleteButton addTarget:self action:@selector(deletePhoto:) forControlEvents:UIControlEventTouchUpInside];
+        }
+        else {
+            [imageView setImage:[UIImage imageNamed:@"添加_03"]];
+        }
+    }
+}
+
+- (void)deletePhoto:(UIButton *)button {
+    if (button.tag < [photoImageDataList count]) {
+        [photoImageDataList removeObjectAtIndex:button.tag];
+        [self resetImage];
+    }
 }
 
 @end
