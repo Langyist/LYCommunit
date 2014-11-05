@@ -97,11 +97,8 @@
 {
     self.communitNameLabel.text = [dataDic objectForKey:@"name"];
     self.PercentLabel.text = [NSString stringWithFormat:@"您的小区优于成都%@%%的小区",[dataDic objectForKey:@"rank"]];
-    redLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.backView.frame.size.width / 2 - 7, self.backView.frame.size.height - self.backView.frame.size.height / 100 * redheight - 26, 14, 14)];
-    //redLabel.text = [[NSString alloc ]initWithFormat:@"%@",[dataDic objectForKey:@"wuye_index"]];
-    [redLabel setTextColor:[UIColor whiteColor]];
-    redLabel.font = [UIFont systemFontOfSize:12];
-    [self.backView addSubview:redLabel];
+    
+    redheight = [[[NSString alloc ]initWithFormat:@"%@",[dataDic objectForKey:@"wuye_index"]] integerValue];
     
     if ([[[NSString alloc] initWithFormat:@"%@",[dataDic objectForKey:@"wuye_index"]] integerValue] >= 100) {
         redView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.backView.frame.size.width, self.backView.frame.size.height)];
@@ -113,12 +110,6 @@
         [self.backView addSubview:redView];
     }
     
-    greenLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.backView1.frame.size.width / 2 - 7, self.backView1.frame.size.height - self.backView.frame.size.height / 100 * redheight - 26, 14, 14)];
-    //redLabel.text = [[NSString alloc ]initWithFormat:@"%@",[dataDic objectForKey:@"live_index"]];
-    //    greenLabel.text = @"50";
-    [greenLabel setTextColor:[UIColor whiteColor]];
-    greenLabel.font = [UIFont systemFontOfSize:12];
-    [self.backView1 addSubview:greenLabel];
     greenheight = [[[NSString alloc ]initWithFormat:@"%@",[dataDic objectForKey:@"live_index"]] integerValue];
     
     if ([[[NSString alloc ]initWithFormat:@"%@",[dataDic objectForKey:@"live_index"]] integerValue] >=100) {
@@ -138,7 +129,7 @@
     redlable.font = [UIFont systemFontOfSize:15];
     [self.backView addSubview:redlable];
     
-    UILabel * grlable = [[UILabel alloc] initWithFrame:CGRectMake(20, self.backView.frame.size.height/3, 30, 30)];
+    UILabel * grlable = [[UILabel alloc] initWithFrame:CGRectMake(20, self.backView1.frame.size.height/3, 30, 30)];
     grlable.text = [[NSString alloc ]initWithFormat:@"%@",[dataDic objectForKey:@"live_index"]];
     grlable.textColor = [UIColor whiteColor];
     grlable.font = [UIFont systemFontOfSize:15];

@@ -77,10 +77,10 @@
                                               otherButtonTitles:@"取消", nil];
         [alert show];
     }
-    else if ([self GetRegistration:@""])
-    {
+   // else if ([self GetRegistration:@""])
+    //{
         [self performSegueWithIdentifier:@"GoLYaddCommunit" sender:self];
-    }
+   // }
 }
 //获取验证码
 -(IBAction)GetRcode:(id)sender
