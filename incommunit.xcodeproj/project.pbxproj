@@ -188,6 +188,7 @@
 		F14231581A032C490088ED59 /* MessageContentTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F14231561A032C490088ED59 /* MessageContentTableViewCell.xib */; };
 		F14F18E61A08B45E00731239 /* SendNCInfoTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F14F18E51A08B45E00731239 /* SendNCInfoTableViewController.m */; };
 		F14F18E81A08C96600731239 /* 添加_03.png in Resources */ = {isa = PBXBuildFile; fileRef = F14F18E71A08C96600731239 /* 添加_03.png */; };
+		F14F18EE1A09D0FA00731239 /* AWaterfallTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = F14F18ED1A09D0FA00731239 /* AWaterfallTableView.m */; };
 		F14F51F01A0378CF006CC884 /* InfoHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = F14F51EE1A0378CF006CC884 /* InfoHeader.m */; };
 		F14F51F11A0378CF006CC884 /* InfoHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = F14F51EF1A0378CF006CC884 /* InfoHeader.xib */; };
 		F14F51F41A0382B7006CC884 /* MyStoresTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F14F51F31A0382B7006CC884 /* MyStoresTableViewController.m */; };
@@ -530,6 +531,8 @@
 		F14F18E41A08B45E00731239 /* SendNCInfoTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SendNCInfoTableViewController.h; sourceTree = "<group>"; };
 		F14F18E51A08B45E00731239 /* SendNCInfoTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SendNCInfoTableViewController.m; sourceTree = "<group>"; };
 		F14F18E71A08C96600731239 /* 添加_03.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "添加_03.png"; sourceTree = "<group>"; };
+		F14F18EC1A09D0FA00731239 /* AWaterfallTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AWaterfallTableView.h; sourceTree = "<group>"; };
+		F14F18ED1A09D0FA00731239 /* AWaterfallTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AWaterfallTableView.m; sourceTree = "<group>"; };
 		F14F51ED1A0378CF006CC884 /* InfoHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InfoHeader.h; sourceTree = "<group>"; };
 		F14F51EE1A0378CF006CC884 /* InfoHeader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InfoHeader.m; sourceTree = "<group>"; };
 		F14F51EF1A0378CF006CC884 /* InfoHeader.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = InfoHeader.xib; sourceTree = "<group>"; };
@@ -663,6 +666,8 @@
 		AD33ECBD19FBC35B00FE0C11 /* CustomControls */ = {
 			isa = PBXGroup;
 			children = (
+				F14F18EC1A09D0FA00731239 /* AWaterfallTableView.h */,
+				F14F18ED1A09D0FA00731239 /* AWaterfallTableView.m */,
 				AD3DD3AC19FDEE5B00364854 /* LMComBox */,
 				AD33ECBE19FBC39700FE0C11 /* LYUIview.h */,
 				AD33ECBF19FBC39700FE0C11 /* LYUIview.m */,
@@ -1141,7 +1146,7 @@
 				TargetAttributes = {
 					AD33EC8919FBB13F00FE0C11 = {
 						CreatedOnToolsVersion = 6.1;
-						DevelopmentTeam = 95N42RGW4F;
+						DevelopmentTeam = RVMYYQYXU5;
 					};
 					AD33ECA219FBB13F00FE0C11 = {
 						CreatedOnToolsVersion = 6.1;
@@ -1350,6 +1355,7 @@
 				AD6A9B941A09CC4B0031B7C2 /* LYShopCell.m in Sources */,
 				F13D4C351A07715D00E23FDB /* UIView+Clone.m in Sources */,
 				AD6211E019FD8028009BECA6 /* LYPublicMethods.m in Sources */,
+				F14F18EE1A09D0FA00731239 /* AWaterfallTableView.m in Sources */,
 				AD6211AD19FD46BD009BECA6 /* LeslieImageCache.m in Sources */,
 				AD6211A119FD42CE009BECA6 /* LYReachability.m in Sources */,
 				AD33ECC019FBC39700FE0C11 /* LYUIview.m in Sources */,

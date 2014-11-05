@@ -103,15 +103,16 @@
     return [super tableView:tableView heightForRowAtIndexPath:indexPath];
 }
 
-//- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-//    UITableViewCell *cell = [super tableView:tableView cellForRowAtIndexPath:indexPath];
-//    CGRect frame = cell.frame;
-//    frame.size.width = CGRectGetWidth(self.view.frame);
-//    cell.frame = frame;
-//    cell.contentView.frame = frame;
-//    [cell.contentView setNeedsLayout];
-//    return cell;
-//}
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    UITableViewCell *cell = [super tableView:tableView cellForRowAtIndexPath:indexPath];
+    CGRect frame = cell.frame;
+    frame.size.width = CGRectGetWidth(self.view.frame);
+    cell.frame = frame;
+    cell.contentView.frame = frame;
+    [cell setNeedsLayout];
+    [cell.contentView setNeedsLayout];
+    return cell;
+}
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.frame), CGRectGetHeight(self.sectionTitleLabel.frame))];
