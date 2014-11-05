@@ -159,9 +159,6 @@
         if (![self isPureInt:string]) {
             ret = NO;
         }
-    }else if ((textField == passwordText && range.length == 0 && passwordText.text.length >=6) || passwordText.text.length <= 12) {
-        
-        ret = NO;
     }
     return ret;
 }
