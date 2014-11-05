@@ -8,6 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
+@interface StaticCell : UITableViewCell
+
+@end
+
 @interface SendNCInfoTableViewController : UITableViewController
 
 @end

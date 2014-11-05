@@ -9,6 +9,22 @@
 #import "SendNCInfoTableViewController.h"
 #import "UIView+Clone.h"
 
+@implementation StaticCell
+
+- (void)layoutSubviews {
+    [super layoutSubviews];
+    
+    NSLog(@"%f", CGRectGetWidth(self.frame));
+    NSLog(@"%f", CGRectGetWidth(self.contentView.frame));
+    UIView *view = [self.contentView viewWithTag:100];
+    view.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin
+    | UIViewAutoresizingFlexibleWidth
+    | UIViewAutoresizingFlexibleRightMargin
+    | UIViewAutoresizingFlexibleTopMargin;
+}
+
+@end
+
 @interface SendNCInfoTableViewController ()
 
 @property (weak, nonatomic) IBOutlet UIView *classBorderView;
@@ -25,10 +41,6 @@
 @property (weak, nonatomic) IBOutlet UIButton *submitButton;
 - (IBAction)submitPress:(id)sender;
 
-
-@end
-
-@interface SendNCInfoTableViewController ()
 
 @end
 
@@ -52,7 +64,7 @@
     photoImageViewList = [[NSMutableArray alloc] init];
     for (NSInteger index = 0; index < 5; index++) {
         UIImageView *imageView = [[UIImageView alloc] initWithFrame:(CGRect){photoStartPoint, photoSize}];
-        [imageView setBackgroundColor:[UIColor lightGrayColor]];
+        [imageView setImage:[UIImage imageNamed:@"添加_03"]];
         [self.photoContainerView addSubview:imageView];
         [photoImageViewList addObject:imageView];
     }
@@ -91,27 +103,39 @@
     return [super tableView:tableView heightForRowAtIndexPath:indexPath];
 }
 
+//- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+//    UITableViewCell *cell = [super tableView:tableView cellForRowAtIndexPath:indexPath];
+//    CGRect frame = cell.frame;
+//    frame.size.width = CGRectGetWidth(self.view.frame);
+//    cell.frame = frame;
+//    cell.contentView.frame = frame;
+//    [cell.contentView setNeedsLayout];
+//    return cell;
+//}
+
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.frame), CGRectGetHeight(self.sectionTitleLabel.frame))];
     [view setBackgroundColor:[UIColor clearColor]];
     UILabel *lalbel = [self.sectionTitleLabel clone];
     NSString *title = @"";
+    CGRect frame = lalbel.frame;
     switch (section) {
         case 0:
             title = @"标题";
+            frame.origin.y = 35;
             break;
         case 1:
             title = @"详情";
+            frame.origin.y = 25;
             break;
         case 2:
             title = @"联系方式";
+            frame.origin.y = 25;
             break;
         default:
             break;
     }
     [lalbel setText:title];
-    CGRect frame = lalbel.frame;
-    frame.origin.y = 25;
     lalbel.frame = frame;
     [view addSubview:lalbel];
     return view;
@@ -119,6 +143,8 @@
 
 - (IBAction)classPress:(id)sender {
 }
+
 - (IBAction)submitPress:(id)sender {
 }
+
 @end
