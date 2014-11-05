@@ -152,34 +152,21 @@
         [UIView commitAnimations];
     }
 }
-
+//限制输入
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
-    if (textField == MobilenumberText) {
-        return [self validateNumber:string];
-    }else if (textField == passwordText) {
-        
-        return YES;
-    }else if (textField == CodeText) {
-        
-        return [self validateNumber:string];
+    BOOL ret = YES;
+    if (textField == MobilenumberText && range.length == 0) {
+        if (![self isPureInt:string]) {
+            ret = NO;
+        }
     }
-    return YES;
+    return ret;
 }
 
-- (BOOL)validateNumber:(NSString*)number {
-    BOOL res = YES;
-    NSCharacterSet* tmpSet = [NSCharacterSet characterSetWithCharactersInString:@"0123456789"];
-    int i = 0;
-    while (i < number.length) {
-        NSString * string = [number substringWithRange:NSMakeRange(i, 1)];
-        NSRange range = [string rangeOfCharacterFromSet:tmpSet];
-        if (range.length == 0) {
-            res = NO;
-            break;
-        }
-        i++;
-    }
-    return res;
+- (BOOL)isPureInt:(NSString*)string{
+    NSScanner* scan = [NSScanner scannerWithString:string];
+    int val;
+    return[scan scanInt:&val] && [scan isAtEnd];
 }
 
 -(void)viewWillDisappear:(BOOL)animated
@@ -201,21 +188,13 @@
                                               otherButtonTitles:nil, nil];
         [alert show];
     }
-    //    else if (!(MobilenumberText.text.length == 11)){
-    //
-    //        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"温馨提示"
-    //                                                        message:@"请输入正确的手机号码"
-    //                                                       delegate:self
-    //                                              cancelButtonTitle:@"确定"
-    //                                              otherButtonTitles:nil, nil];
-    //        [alert show];
-    //    }
     else {
         
         NSLog(@"手机号:%@",self.MobilenumberText.text);
         [self Getverificationcode:@""];
     }
 }
+
 //提交
 - (IBAction)done:(id)sender {
     
