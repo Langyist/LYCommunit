@@ -43,7 +43,6 @@
     self.navigationItem.titleView = customLab;
     self.navigationController.navigationBar.hidden = NO;
     self.navigationController.navigationBar.tintColor= [UIColor colorWithRed:(0.0/255) green:(0.0/255) blue:(0.0/255) alpha:1.0];
-    m_Phone.keyboardType = UIKeyboardTypeNamePhonePad;
     m_Phone.delegate = self;
     m_VerificationText.delegate = self;
     m_password.delegate = self;
