@@ -13,5 +13,10 @@
 @end
 
 @interface SendNCInfoTableViewController : UITableViewController
+<
+UIActionSheetDelegate
+,UIImagePickerControllerDelegate
+,UINavigationControllerDelegate
+>
 
 @end

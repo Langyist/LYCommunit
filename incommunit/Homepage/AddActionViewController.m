@@ -129,7 +129,7 @@
 }
 
 - (void)imageViewTap:(UITapGestureRecognizer *) tap {
-    if (tap.view.tag > [photoImageDataList count] && [photoImageDataList count] != 0) {
+    if (tap.view.tag >= [photoImageDataList count] && [photoImageDataList count] != 0) {
         return;
     }
     
