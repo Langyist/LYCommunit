@@ -10,13 +10,14 @@
 #import "LYSelectCommunit.h"
 @interface LYSelectCity ()
 @end
-static NSDictionary  *m_selectCityInfo;
+static NSMutableDictionary  *m_selectCityInfo;
 @implementation LYSelectCity
 @synthesize m_tableview,m_tablecell,m_lable;
 #pragma mark - 初始话函数
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    m_selectCityInfo = [[NSMutableDictionary alloc] init];
     UILabel *customLab = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 100, 30)];
     [customLab setTextColor:[UIColor colorWithRed:(0.0/255) green:(0.0/255) blue:(0.0/255) alpha:1.0]];
     [customLab setText:@"选择城市"];
@@ -28,7 +29,6 @@ static NSDictionary  *m_selectCityInfo;
     [NSThread detachNewThreadSelector:@selector(Getdata:) toTarget:self withObject:nil];
     self.navigationItem.rightBarButtonItem.title = @"返回";
 }
-
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
@@ -157,7 +157,7 @@ static NSDictionary  *m_selectCityInfo;
             m_tablecell = [[UITableViewCell alloc] init] ;
             m_tablecell = [tableView dequeueReusableCellWithIdentifier:@"City_cell"];
             m_lable = (UILabel *)[m_tablecell viewWithTag:100];
-            m_lable.text =@"成都";
+            m_lable.text =locCityName;
             return m_tablecell;
         }
         case 1:
@@ -898,7 +898,7 @@ static NSDictionary  *m_selectCityInfo;
     NSLog(@"section%ld",(long)indexPath.section);
     switch (indexPath.section) {
         case 0:
-            
+            [m_selectCityInfo setValue:locCityName forKey:@"name"];
             break;
         case 1:
             m_selectCityInfo = [m_hotCities objectAtIndex:indexPath.row];

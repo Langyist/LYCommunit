@@ -7,11 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
-//#import "BMapKit.h"
-@interface LYBaiduMap : UIViewController//<BMKMapViewDelegate>
+#import "BMapKit.h"
+@interface LYBaiduMap : UIViewController<BMKMapViewDelegate>
 {
-//    BMKMapView * m_mapview;
-//    BMKMapManager* _mapManager; 
+    BMKMapView * m_mapview;
+    BMKMapManager* _mapManager; 
 }
-//@property(nonatomic,retain)IBOutlet BMKMapView *m_mapview;
+@property(nonatomic,retain)IBOutlet BMKMapView *m_mapview;
 @end

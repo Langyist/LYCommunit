@@ -42,6 +42,7 @@
     NSMutableArray  *m_Ycities;
     NSMutableArray  *m_Zcities;
     UIView *m_messageview;
+    @public NSString *locCityName;
 }
 @property(nonatomic, retain)IBOutlet UITableView *m_tableview;
 @property(nonatomic, retain)IBOutlet UITableViewCell *m_tablecell;
