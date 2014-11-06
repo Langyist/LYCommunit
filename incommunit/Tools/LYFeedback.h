@@ -7,10 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "InsetTextField.h"
 
 @interface LYFeedback : UIViewController <UITextFieldDelegate,UITextViewDelegate> {
     
-    IBOutlet UITextField *mothedText;
+    IBOutlet InsetTextField *mothedText;
     
     IBOutlet UITextView *m_textView;
 }
@@ -18,6 +19,6 @@
 @property (strong, nonatomic) IBOutlet UITextView *m_textView;
 @property (weak, nonatomic) IBOutlet UIButton *submitButton;
 
-@property (strong, nonatomic) IBOutlet UITextField *mothedText;
+@property (strong, nonatomic) IBOutlet InsetTextField *mothedText;
 
 @end
