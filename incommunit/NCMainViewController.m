@@ -1,7 +1,7 @@
 //
 //  NCMainViewController.m
 //  incommunit
-//
+//  邻里互助主界面
 //  Created by 李忠良 on 14/11/3.
 //  Copyright (c) 2014年 LANGYI. All rights reserved.
 //
@@ -10,6 +10,7 @@
 #import "CustomSegmentedControl.h"
 #import "NCTableViewCell.h"
 #import "UIView+Clone.h"
+#import "XHFriendlyLoadingView.h"
 
 @interface NCMainViewController () {
     UITableView* woodsInfoTableView;
@@ -20,14 +21,28 @@
 @property (weak, nonatomic) IBOutlet CustomSegmentedControl *segmentedControl;
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (weak, nonatomic) IBOutlet UITableView* allInfoTableView;
+@property (nonatomic, strong) XHFriendlyLoadingView *friendlyLoadingView;
 
 @end
 
 @implementation NCMainViewController
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+//    self.friendlyLoadingView = [[XHFriendlyLoadingView alloc] initWithFrame:self.view.bounds];
+//    [self.friendlyLoadingView showFriendlyLoadingViewWithText:@"正在加载..." loadingAnimated:YES];
+//    [self.view addSubview:self.friendlyLoadingView];
     
     [self.segmentedControl setMaskForItem:@[@"0"]];
     

@@ -11,6 +11,17 @@
 @interface LYPrivacySettings () {
     
     BOOL isselect;
+    NSString *address1;
+    NSString *address2;
+    NSString *address3;
+    NSString *address4;
+    
+    NSString *album1;
+    NSString *album2;
+    NSString *album3;
+    NSString *album4;
+    NSMutableDictionary *select;
+    
 }
 @property (weak, nonatomic) IBOutlet UISwitch *isVisiable;
 @end
@@ -28,9 +39,8 @@
 {
     [super viewDidLoad];
     m_UIbuttonArry = [[NSMutableArray alloc] init];
+    select = [[NSMutableDictionary alloc] init];
     m_UIbutton = [[NSMutableArray alloc] init];
-//  m_address = [[NSMutableArray alloc] init];
-//  m_album = [[NSMutableArray alloc] init];
     isselect= NO;
     m_tableView.delegate = self;
     m_tableView.dataSource = self;
@@ -65,7 +75,6 @@
         UIButton *addressButton = [[UIButton alloc] initWithFrame:CGRectMake(15, 9, 25, 25)];
         [addressButton setImage:[UIImage imageNamed:@"Selected"] forState:UIControlStateNormal];
         [addressButton setImage:[UIImage imageNamed:@"Unselected"] forState:UIControlStateSelected];
-        [addressButton addTarget:self action:@selector(addressedButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
         [cell addSubview:addressButton];
         [m_UIbuttonArry addObject:addressButton];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -77,13 +86,14 @@
                 if([[m_address objectAtIndex:indexPath.row] intValue]==1)
                 {
                     addressButton.selected = NO;
-                    isselect = NO;
-                    address[0]=@"0";
+                    [select setValue:@"1" forKey:@"address1"];
+                    address1=@"1";
                 }else
                 {
                     addressButton.selected = YES;
-                    isselect = YES;
-                    address[0]=@"1";
+                    [select setValue:@"0" forKey:@"address1"];
+                    isselect = NO;
+                    address1=@"0";
                 }
             }
                 break;
@@ -94,13 +104,15 @@
                 if([[m_address objectAtIndex:indexPath.row] intValue]==1)
                 {
                     addressButton.selected = NO;
-                    isselect = NO;
-                    address[1]=@"0";
+                    [select setValue:@"1" forKey:@"address2"];
+                    isselect = YES;
+                    address2=@"1";
                 }else
                 {
                     addressButton.selected = YES;
-                    isselect = YES;
-                    address[1]=@"1";
+                    isselect = NO;
+                    [select setValue:@"0" forKey:@"address2"];
+                    address2=@"0";
                 }
             }
                 break;
@@ -111,13 +123,15 @@
                 if([[m_address objectAtIndex:indexPath.row] intValue]==1)
                 {
                     addressButton.selected = NO;
-                    isselect = NO;
-                    address[2]=@"0";
+                    [select setValue:@"1" forKey:@"address3"];
+                    isselect = YES;
+                    address3=@"1";
                 }else
                 {
                     addressButton.selected = YES;
-                    isselect = YES;
-                    address[2]=@"1";
+                    [select setValue:@"0" forKey:@"address3"];
+                    isselect = NO;
+                    address3=@"0";
                 }
             }
                 break;
@@ -129,12 +143,14 @@
                 {
                     addressButton.selected = NO;
                     isselect = NO;
-                    address[3]=@"0";
+                    [select setValue:@"1" forKey:@"address4"];
+                    address4=@"1";
                 }else
                 {
                     addressButton.selected = YES;
                     isselect = YES;
-                    address[3]=@"1";
+                    [select setValue:@"0" forKey:@"address4"];
+                    address4=@"0";
                 }
             }
                 break;
@@ -150,7 +166,6 @@
         UIButton *addressButton = [[UIButton alloc] initWithFrame:CGRectMake(15, 9, 25, 25)];
         [addressButton setImage:[UIImage imageNamed:@"Selected"] forState:UIControlStateNormal];
         [addressButton setImage:[UIImage imageNamed:@"Unselected"] forState:UIControlStateSelected];
-        [addressButton addTarget:self action:@selector(addressedButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
         [cell addSubview:addressButton];
         [m_UIbutton addObject:addressButton];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -163,12 +178,14 @@
                 {
                     addressButton.selected = NO;
                     isselect = NO;
-                    album[0]=@"0";
+                    [select setValue:@"1" forKey:@"album1"];
+                    album1=@"1";
                 }else
                 {
                     addressButton.selected = YES;
                     isselect = YES;
-                    album[0]=@"1";
+                    [select setValue:@"0" forKey:@"album1"];
+                    album1=@"0";
                 }
             }
                 break;
@@ -180,12 +197,14 @@
                 {
                     addressButton.selected = NO;
                     isselect = NO;
-                    album[1]=@"0";
+                    [select setValue:@"1" forKey:@"album2"];
+                    album2=@"1";
                 }else
                 {
                     addressButton.selected = YES;
                     isselect = YES;
-                    album[1]=@"1";
+                    [select setValue:@"0" forKey:@"album2"];
+                    album2=@"0";
                 }
             }
                 break;
@@ -197,12 +216,14 @@
                 {
                     addressButton.selected = NO;
                     isselect = NO;
-                    album[2]=@"0";
+                    [select setValue:@"1" forKey:@"album3"];
+                    album3=@"1";
                 }else
                 {
                     addressButton.selected = YES;
                     isselect = YES;
-                    album[2]=@"1";
+                    [select setValue:@"0" forKey:@"album3"];
+                    album3=@"0";
                 }
             }
                 break;
@@ -214,12 +235,14 @@
                 {
                     addressButton.selected = NO;
                     isselect = NO;
-                    album[3]=@"0";
+                    [select setValue:@"1" forKey:@"album4"];
+                    album4=@"1";
                 }else
                 {
                     addressButton.selected = YES;
                     isselect = YES;
-                    album[3]=@"1";
+                    [select setValue:@"0" forKey:@"album4"];
+                    album4=@"0";
                 }
             }
                 break;
@@ -273,29 +296,89 @@
     {
          button = [m_UIbutton objectAtIndex:indexPath.row];
     }
-    if (isselect) {
-        button.selected = NO;
-        isselect = NO;
-    }else{
-        
+    if (button.selected) {
+        if (indexPath.section==0) {
+            switch (indexPath.row) {
+                case 0:
+                    address1=@"1";
+                    break;
+                case 1:
+                    address2=@"1";
+                    break;
+                case 2:
+                    address3=@"1";
+                    break;
+                case 3:
+                    address4=@"1";
+                    break;
+                default:
+                    break;
+            }
+        }else if(indexPath.section ==1)
+        {
+            switch (indexPath.row) {
+                case 0:
+                    album1=@"1";
+                    break;
+                case 1:
+                    album2=@"1";
+                    break;
+                case 2:
+                    album3=@"1";
+                    break;
+                case 3:
+                    album4=@"1";
+                    break;
+                default:
+                    break;
+            }
+            
+        }
         button.selected = YES;
         isselect = YES;
-    }
-}
-//勾选
-- (void)addressedButtonPressed:(UIButton *)sender
-{
-    UIButton *button = (UIButton *)sender;
-    
-    if (isselect) {
+    }else{
+        if (indexPath.section ==0) {
+            switch (indexPath.row) {
+                case 0:
+                    address1=@"0";
+                    break;
+                case 1:
+                    address2=@"0";
+                    break;
+                case 2:
+                    address3=@"0";
+                    break;
+                case 3:
+                    address4=@"0";
+                    break;
+                default:
+                    break;
+            }
+        }else if(indexPath.section ==1)
+        {
+            switch (indexPath.row) {
+                case 0:
+                    album1=@"0";
+                    break;
+                case 1:
+                    album2=@"0";
+                    break;
+                case 2:
+                    album3=@"0";
+                    break;
+                case 3:
+                    album4=@"0";
+                    break;
+                default:
+                    break;
+            }
+
+        }
         button.selected = NO;
         isselect = NO;
-    }else{
-        
-        button.selected = YES;
-        isselect = YES;
     }
 }
+
 
 #pragma mark getdata
 - (BOOL)getprivacysetting:(NSString *)url
@@ -345,7 +428,7 @@
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc]initWithURL:url cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:10];
     [request setHTTPMethod:@"POST"];//设置请求方式为POST，默认为GET
     NSString *str = @"address=";//设置参数
-    str = [str stringByAppendingFormat:@"%@&album=%@&add_friend=%@",address,album ,@"1"];
+    str = [str stringByAppendingFormat:@"%@&address=%@&address=%@&address=%@&album=%@&album=%@&album=%@&album=%@&add_friend=%@",address1,address2,address3,address4,album1,album2,album3,album4 ,@"1"];
     NSData *data = [str dataUsingEncoding:NSUTF8StringEncoding];
     [request setHTTPBody:data];
     //第三步，连接服务器

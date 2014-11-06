@@ -1,7 +1,7 @@
 //
 //  SendNCInfoTableViewController.m
 //  incommunit
-//
+//  发布
 //  Created by 李忠良 on 14/11/4.
 //  Copyright (c) 2014年 LANGYI. All rights reserved.
 //

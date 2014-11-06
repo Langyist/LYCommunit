@@ -20,12 +20,10 @@
 
 @implementation LYAbout
 @synthesize m_tableView;
-
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        // Custom initialization
     }
     return self;
 }
@@ -82,7 +80,6 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
     if (indexPath.row == 0) {
-        
         updatealert = [[UIAlertView alloc] initWithTitle:@"温馨提示" message:@"您确定要更新到该版本？"
 delegate:self cancelButtonTitle:@"确定" otherButtonTitles:@"取消", nil];
         [updatealert show];
@@ -92,9 +89,7 @@ delegate:self cancelButtonTitle:@"确定" otherButtonTitles:@"取消", nil];
     }
     else if (indexPath.row == 2) {
         
-        dialalert = [[UIAlertView alloc] initWithTitle:@"温馨提示" message:@"是否需要拨打客服电话？"
-                                                       delegate:self cancelButtonTitle:@"确定" otherButtonTitles:@"取消", nil];
-        [dialalert show];
+       [self CallPhone];
     }
 }
 
@@ -120,18 +115,6 @@ delegate:self cancelButtonTitle:@"确定" otherButtonTitles:@"取消", nil];
     if (alertView == updatealert) {
         if (buttonIndex == 0) {
             
-        }else if (buttonIndex == 1) {
-            
-            
-        }
-    }
-    else if (alertView == dialalert) {
-        
-        if (buttonIndex == 0) {
-            
-        }else if (buttonIndex == 1) {
-            
-            [self CallPhone];
         }
     }
 }

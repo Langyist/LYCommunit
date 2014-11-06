@@ -77,10 +77,10 @@
                                               otherButtonTitles:@"取消", nil];
         [alert show];
     }
-    else if ([self GetRegistration:@""])
-    {
+   // else if ([self GetRegistration:@""])
+    //{
         [self performSegueWithIdentifier:@"GoLYaddCommunit" sender:self];
-    }
+   // }
 }
 //获取验证码
 -(IBAction)GetRcode:(id)sender
@@ -228,12 +228,13 @@
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
 {
     BOOL ret = YES;
-    if (textField == m_Phone && range.length == 0) {
+    if (textField == m_Phone &&  range.length == 0) {
         if (![self isPureInt:string]) {
             ret = NO;
         }
     }
     return ret;
+
 }
 
 - (BOOL)isPureInt:(NSString*)string{
