@@ -1004,7 +1004,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="其他" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="kvW-UJ-tM0">
-                                                    <rect key="frame" x="14" y="12" width="6048" height="21"/>
+                                                    <rect key="frame" x="14" y="12" width="6368" height="21"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -1260,26 +1260,26 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="您对小区帮帮的意见和建议：" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="gHd-XN-H1k">
-                                <rect key="frame" x="16" y="20" width="288" height="21"/>
+                                <rect key="frame" x="10" y="20" width="300" height="21"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="您的联系方式：" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="RcM-9c-tHU">
-                                <rect key="frame" x="16" y="204" width="288" height="21"/>
+                                <rect key="frame" x="10" y="231" width="300" height="21"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="电话/QQ/邮箱" minimumFontSize="17" id="wYr-6P-s7j">
-                                <rect key="frame" x="16" y="233" width="288" height="40"/>
+                                <rect key="frame" x="10" y="260" width="300" height="40"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="uvf-ZF-vju">
-                                <rect key="frame" x="16" y="327" width="288" height="40"/>
+                                <rect key="frame" x="10" y="391" width="300" height="40"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="0.70588235290000001" green="0.80784313730000001" blue="0.29411764709999999" alpha="1" colorSpace="deviceRGB"/>
                                 <fontDescription key="fontDescription" type="italicSystem" pointSize="19"/>
@@ -1292,7 +1292,7 @@
                                 </connections>
                             </button>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="9RT-TU-g0O">
-                                <rect key="frame" x="16" y="49" width="288" height="128"/>
+                                <rect key="frame" x="10" y="49" width="300" height="157"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -1307,6 +1307,7 @@
                     <connections>
                         <outlet property="m_textView" destination="9RT-TU-g0O" id="Ca9-y5-S1F"/>
                         <outlet property="mothedText" destination="wYr-6P-s7j" id="KDw-Y2-qTQ"/>
+                        <outlet property="submitButton" destination="uvf-ZF-vju" id="HM6-Am-v8a"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nh8-MY-Z6b" userLabel="First Responder" sceneMemberID="firstResponder"/>

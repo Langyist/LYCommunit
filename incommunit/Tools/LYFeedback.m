@@ -35,6 +35,8 @@
     
     UITapGestureRecognizer *gesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(downKeyboard)];
     [self.view addGestureRecognizer:gesture];
+    
+    self.submitButton.layer.cornerRadius = 3.0f;
 }
 
 - (void)downKeyboard {

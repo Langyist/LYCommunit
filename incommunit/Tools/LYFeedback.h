@@ -16,6 +16,7 @@
 }
 
 @property (strong, nonatomic) IBOutlet UITextView *m_textView;
+@property (weak, nonatomic) IBOutlet UIButton *submitButton;
 
 @property (strong, nonatomic) IBOutlet UITextField *mothedText;
 
