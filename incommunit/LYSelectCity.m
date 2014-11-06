@@ -8,26 +8,30 @@
 
 #import "LYSelectCity.h"
 #import "LYSelectCommunit.h"
+#import "AppDelegate.h"
 @interface LYSelectCity ()
 @end
 static NSMutableDictionary  *m_selectCityInfo;
-@implementation LYSelectCity
+@implementation LYSelectCity {
+    NSMutableArray *sectionIndexes;
+}
 @synthesize m_tableview,m_tablecell,m_lable;
 #pragma mark - 初始话函数
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     m_selectCityInfo = [[NSMutableDictionary alloc] init];
-    UILabel *customLab = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 100, 30)];
-    [customLab setTextColor:[UIColor colorWithRed:(0.0/255) green:(0.0/255) blue:(0.0/255) alpha:1.0]];
-    [customLab setText:@"选择城市"];
-    customLab.font = [UIFont boldSystemFontOfSize:17];
-    customLab.textAlignment = NSTextAlignmentCenter;
-    self.navigationItem.titleView = customLab;
-    self.navigationController.navigationBar.barTintColor = [UIColor colorWithRed:(238.0/255) green:(183.0/255) blue:(88.0/255) alpha:1.0];
-    self.navigationController.navigationBar.tintColor= [UIColor colorWithRed:(0.0/255) green:(0.0/255) blue:(0.0/255) alpha:1.0];
     [NSThread detachNewThreadSelector:@selector(Getdata:) toTarget:self withObject:nil];
-    self.navigationItem.rightBarButtonItem.title = @"返回";
+    //self.navigationItem.rightBarButtonItem.title = @"返回";
+    
+    char c = 'A';
+    sectionIndexes = [[NSMutableArray alloc] init];
+    [sectionIndexes addObject:@"热门"];
+    for (NSInteger index = 0; index < 26; index++) {
+        char cTemp = c + index;
+        NSString *string = [NSString stringWithFormat:@"%c", cTemp];// [NSString stringWithUTF8String:cTemp];
+        [sectionIndexes addObject:string];
+    }
 }
 - (void)didReceiveMemoryWarning
 {
@@ -493,20 +497,20 @@ static NSMutableDictionary  *m_selectCityInfo;
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
     UIView* customView = [[UIView alloc] initWithFrame:CGRectMake(0.0, 0.0, self.view.frame.size.width, 28.0f)];
-    customView.backgroundColor = [UIColor colorWithRed:(233/255.0) green:(232/255.0) blue:(232/255.0) alpha:1.0];
+    customView.backgroundColor = BK_GRAY;
     UILabel * headerLabel = [[UILabel alloc] initWithFrame:CGRectZero];
     headerLabel.backgroundColor = [UIColor clearColor];
     headerLabel.opaque = NO;
-    headerLabel.textColor = [UIColor colorWithRed:(65/255.0) green:(65/255.0) blue:(64/255.0) alpha:1.0];
+    headerLabel.textColor = SPECIAL_BLACK;
     headerLabel.highlightedTextColor = [UIColor whiteColor];
-    headerLabel.font = [UIFont boldSystemFontOfSize:13];
+    headerLabel.font = [UIFont systemFontOfSize:13];
     headerLabel.frame = CGRectMake(17.0f, 0, self.view.frame.size.width, 28.0f);
     
-    UIView *sepView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 1.0f)];
-    sepView.backgroundColor = [UIColor colorWithRed:(212/255.0) green:(207/255.0) blue:(207/255.0) alpha:1.0];
+    UIView *sepView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 0.5f)];
+    sepView.backgroundColor = SEPLINE_GRAY;
     [customView addSubview:sepView];
-    sepView = [[UIView alloc] initWithFrame:CGRectMake(0, 27, self.view.frame.size.width, 1.0f)];
-    sepView.backgroundColor = [UIColor colorWithRed:(212/255.0) green:(207/255.0) blue:(207/255.0) alpha:1.0];
+    sepView = [[UIView alloc] initWithFrame:CGRectMake(0, 27.5, self.view.frame.size.width, 0.5f)];
+    sepView.backgroundColor = SEPLINE_GRAY;
     [customView addSubview:sepView];
     
     switch (section) {
@@ -987,6 +991,11 @@ static NSMutableDictionary  *m_selectCityInfo;
     [LYSelectCommunit Updata:YES];
     [[self navigationController] popViewControllerAnimated:YES];
 }
+
+- (NSArray *)sectionIndexTitlesForTableView:(UITableView *)tableView {
+    return sectionIndexes;
+}
+
 #pragma mark  - 返回选择的城市信息
 +(NSDictionary*)CityInfo
 {

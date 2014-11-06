@@ -408,11 +408,7 @@
 }
 
 - (IBAction)clickName:(id)sender {
-<<<<<<< HEAD
-   // [self dismissViewControllerAnimated:YES completion:^{}];
-=======
     [self performSegueWithIdentifier:@"GoSelectConmunit" sender:nil];
->>>>>>> AndrewLee
 }
 
 @end

@@ -31,7 +31,11 @@
     [[UINavigationBar appearance] setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
                                                           [UIFont boldSystemFontOfSize:19.0f],
                                                           NSFontAttributeName,
+                                                          SPECIAL_BLACK,
+                                                          NSForegroundColorAttributeName,
                                                           nil]];
+    
+    [[UINavigationBar appearance] setBarTintColor:TOP_BAR_YELLOW];
     
     return YES;
 }
