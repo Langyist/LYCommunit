@@ -256,5 +256,6 @@
             LYaddCommunit *detailViewController = (LYaddCommunit*) segue.destinationViewController;
             detailViewController->userID = userID;
         }
+    
 }
 @end

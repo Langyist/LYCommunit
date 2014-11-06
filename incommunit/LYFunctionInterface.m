@@ -30,9 +30,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
     self.navigationItem.titleView = _titleButton;
-    
     self.bar.delegate = self;
     [NSThread detachNewThreadSelector:@selector(Getdata:) toTarget:self withObject:nil];
     [NSTimer scheduledTimerWithTimeInterval:5 target:self selector:@selector(scrollTimer) userInfo:nil repeats:YES];

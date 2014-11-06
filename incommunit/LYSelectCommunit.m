@@ -309,7 +309,6 @@ static NSDictionary *          m_cityinfo;//城市信息
         [m_tab moreEnd];
         m_pageOffset++;
     }
-    
 }
 
 #pragma mark - 切换界面进入协议函数
@@ -317,6 +316,10 @@ static NSDictionary *          m_cityinfo;//城市信息
 {
     if (m_Refresh)
     {
+        m_pageSize = 10;
+        m_pageOffset = 0;
+        m_CommunitylistOF = [[NSMutableArray alloc] init];
+        m_CommunitylistON = [[NSMutableArray alloc] init];
         if ([CLLocationManager locationServicesEnabled])
         {
             [self->locationManager startUpdatingLocation];
@@ -330,7 +333,6 @@ static NSDictionary *          m_cityinfo;//城市信息
         [_selectCityButton setTitle: [m_data objectForKey:@"name"] forState: UIControlStateNormal];
         self.view.userInteractionEnabled = YES;
         [m_tab refreshStart];
-        
         [self.m_tab reloadData];
         Serch.text= @"";
         m_Refresh = NO;

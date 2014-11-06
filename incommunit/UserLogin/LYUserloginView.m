@@ -23,6 +23,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.m_communityName.userInteractionEnabled = YES;
+    
     [m_loginbutton.layer setMasksToBounds:YES];
     [m_loginbutton.layer setCornerRadius:3.0];
     
@@ -107,7 +109,7 @@
 //        if ([segue.identifier isEqualToString: @"GoLYFunctionInterface"])
 //        {
 //            LYFunctionInterface *detailViewController = (LYFunctionInterface*) segue.destinationViewController;
-//            detailViewController->Tourist = true;
+//            detailViewController->Tourist = TRUE;
 //        }
 }
 //login 登陆函数
@@ -378,8 +380,6 @@
 -(IBAction)returnPage:(id)sender
 {
     [self performSegueWithIdentifier:@"SelectCommunity" sender:self];
-    //[self dismissViewControllerAnimated:YES completion:^{}];
-    //[detailViewController release];
 }
 
 //忘记密码
@@ -400,6 +400,7 @@
 }
 
 - (IBAction)clickName:(id)sender {
+   // [self dismissViewControllerAnimated:YES completion:^{}];
 }
 
 @end

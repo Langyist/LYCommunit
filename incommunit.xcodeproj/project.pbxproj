@@ -10,6 +10,7 @@
 		AD09555A1A08C71200C53A6F /* LYAbout.m in Sources */ = {isa = PBXBuildFile; fileRef = AD0955591A08C71200C53A6F /* LYAbout.m */; };
 		AD09555D1A08C7BF00C53A6F /* LYFeedback.m in Sources */ = {isa = PBXBuildFile; fileRef = AD09555C1A08C7BF00C53A6F /* LYFeedback.m */; };
 		AD197F151A0B660D00E05089 /* LYNumbersense.m in Sources */ = {isa = PBXBuildFile; fileRef = AD197F141A0B660D00E05089 /* LYNumbersense.m */; };
+		AD197F171A0B925C00E05089 /* License.html in Resources */ = {isa = PBXBuildFile; fileRef = AD197F161A0B925C00E05089 /* License.html */; };
 		AD30F7D61A00D97A00C8709E /* LYProductinformation.m in Sources */ = {isa = PBXBuildFile; fileRef = AD30F7D51A00D97A00C8709E /* LYProductinformation.m */; };
 		AD33EC9019FBB13F00FE0C11 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = AD33EC8F19FBB13F00FE0C11 /* main.m */; };
 		AD33EC9319FBB13F00FE0C11 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = AD33EC9219FBB13F00FE0C11 /* AppDelegate.m */; };
@@ -224,6 +225,7 @@
 		AD09555C1A08C7BF00C53A6F /* LYFeedback.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LYFeedback.m; sourceTree = "<group>"; };
 		AD197F131A0B660D00E05089 /* LYNumbersense.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LYNumbersense.h; sourceTree = "<group>"; };
 		AD197F141A0B660D00E05089 /* LYNumbersense.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LYNumbersense.m; sourceTree = "<group>"; };
+		AD197F161A0B925C00E05089 /* License.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = License.html; sourceTree = "<group>"; };
 		AD30F7D41A00D97A00C8709E /* LYProductinformation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LYProductinformation.h; sourceTree = "<group>"; };
 		AD30F7D51A00D97A00C8709E /* LYProductinformation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LYProductinformation.m; sourceTree = "<group>"; };
 		AD33EC8A19FBB13F00FE0C11 /* incommunit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = incommunit.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -613,6 +615,7 @@
 		AD33EC8C19FBB13F00FE0C11 /* incommunit */ = {
 			isa = PBXGroup;
 			children = (
+				AD197F161A0B925C00E05089 /* License.html */,
 				F13D4C261A07506100E23FDB /* NeighborhoodCooperation */,
 				AD7FBA8A1A0214B7008CC80A /* PropertyManagement */,
 				F10340C819FF51C200C5CB4E /* WidgetExtern */,
@@ -1187,11 +1190,11 @@
 				TargetAttributes = {
 					AD33EC8919FBB13F00FE0C11 = {
 						CreatedOnToolsVersion = 6.1;
-						DevelopmentTeam = RVMYYQYXU5;
+						DevelopmentTeam = 95N42RGW4F;
 					};
 					AD33ECA219FBB13F00FE0C11 = {
 						CreatedOnToolsVersion = 6.1;
-						DevelopmentTeam = RVMYYQYXU5;
+						DevelopmentTeam = 95N42RGW4F;
 						TestTargetID = AD33EC8919FBB13F00FE0C11;
 					};
 				};
@@ -1309,6 +1312,7 @@
 				AD6A9B861A09CA420031B7C2 /* RejectedCell.xib in Resources */,
 				AD33ED5619FBCA2D00FE0C11 /* 首页_13.png in Resources */,
 				AD33ED3519FBCA2D00FE0C11 /* 图片_02.png in Resources */,
+				AD197F171A0B925C00E05089 /* License.html in Resources */,
 				AD7FBAAE1A0216FF008CC80A /* ACCell1.xib in Resources */,
 				AD33ED2419FBCA2D00FE0C11 /* ic_default_shop_image.png in Resources */,
 				AD33ED4719FBCA2D00FE0C11 /* 男_06.png in Resources */,
