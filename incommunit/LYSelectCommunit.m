@@ -12,6 +12,10 @@
 #import "LYUserloginView.h"
 #import "LYSqllite.h"
 @interface LYSelectCommunit ()
+{
+    NSMutableArray * CommunitylistON;
+    NSMutableArray * CommunitylistOF;
+}
 
 @end
 @implementation LYSelectCommunit
@@ -25,12 +29,16 @@ static NSDictionary *          m_cityinfo;//城市信息
 #pragma mark - 初始化
 -(void)viewDidLoad
 {
+    m_CommunitylistOF = [[NSMutableArray alloc]init];
+    m_CommunitylistON = [[NSMutableArray alloc]init];
     NSMutableDictionary *userinfo =  [LYSqllite Ruser];
     if (userinfo != nil&&m_bl ==FALSE)
     {
         [self performSegueWithIdentifier:@"Gomain4" sender:self];
         m_cityinfo = userinfo;
     }
+    m_pageSize = 10;
+    m_pageOffset = 0;
 //[LY_Sqllite CreatShoppingcart]; //创建购物车信息表
     self->Serch.delegate=self;
     self.navigationController.navigationBar.barTintColor = [UIColor colorWithRed:(238.0/255) green:(183.0/255) blue:(88.0/255) alpha:1.0];
@@ -70,6 +78,8 @@ static NSDictionary *          m_cityinfo;//城市信息
         NSLog(@"请开启定位功能！");
     }
     [super viewDidLoad];
+    
+    [m_tab refreshStart];
 }
 - (void)didReceiveMemoryWarning
 {
@@ -154,18 +164,13 @@ static NSDictionary *          m_cityinfo;//城市信息
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSDictionary *Community;
-    m_lable_name = [[UILabel alloc] init];
-    m_lable_address=[[UILabel alloc]init];
-    m_lable_distance = [[UILabel alloc]init];
-    m_lable_st=[[UILabel alloc]init];
-    
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Listcell" forIndexPath:indexPath];
     m_lable_name = (UILabel *)[cell.contentView viewWithTag:100];
     m_lable_address = (UILabel *)[cell.contentView viewWithTag:101];
     m_lable_distance = (UILabel *)[cell.contentView viewWithTag:102];
     m_lable_st=(UILabel *)[cell.contentView viewWithTag:103];
     
-    UIColor *color = [UIColor greenColor];
+    UIColor *color = [UIColor lightGrayColor];
     NSString *text = @"已开通";
     if (m_CommunitylistON.count > indexPath.row) {
         Community=[m_CommunitylistON objectAtIndex:indexPath.row];
@@ -189,6 +194,7 @@ static NSDictionary *          m_cityinfo;//城市信息
     }
     return cell;
 }
+
 
 //点击事件
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -214,6 +220,7 @@ static NSDictionary *          m_cityinfo;//城市信息
 }
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
 {
+    m_pageOffset = 0;
     m_CommunityName = Serch.text;
     [Serch resignFirstResponder];
     [NSThread detachNewThreadSelector:@selector(GetCommunity:) toTarget:self withObject:nil];
@@ -226,8 +233,7 @@ static NSDictionary *          m_cityinfo;//城市信息
 //搜索小区
 -(void)GetCommunity:(NSString*)URL
 {
-    m_pageSize = 10;
-    m_pageOffset = 0;
+    int pagesize = 0;
     NSDictionary *plistDic = [[NSBundle mainBundle] infoDictionary];
     NSLog(@"plistDic = %@",plistDic);
     NSString *urlstr = [plistDic objectForKey: @"URL"];
@@ -252,7 +258,7 @@ static NSDictionary *          m_cityinfo;//城市信息
             m_city_name =[m_data objectForKey:@"name"];
         }
         str = @"city_name=";//设置参数
-        str = [str stringByAppendingFormat:@"%@&name=%@&longitude=%f&latitude=%f", m_city_name,m_CommunityName,longitude,latitude];
+         str = [str stringByAppendingFormat:@"%@&name=%@&longitude=%f&latitude=%f&pageSize=%d&pageOffset=%d", m_city_id,m_CommunityName,longitude,latitude,m_pageSize,m_pageOffset];
     }
     NSData *data = [str dataUsingEncoding:NSUTF8StringEncoding];
     [request setHTTPBody:data];
@@ -261,6 +267,8 @@ static NSDictionary *          m_cityinfo;//城市信息
     if(received!=nil)
     {
         NSDictionary *weatherDic = [NSJSONSerialization JSONObjectWithData:received options:NSJSONReadingMutableLeaves error:&error];
+        pagesize = [[weatherDic objectForKey:@"pageSize"] intValue];
+        m_pageOffset = [[weatherDic objectForKey:@"pageOffset"] intValue];
         if(weatherDic!=nil)
         {
             NSString *status = [weatherDic objectForKey:@"status"];
@@ -272,9 +280,11 @@ static NSDictionary *          m_cityinfo;//城市信息
             }else
             {
                 NSDictionary *data1 = [weatherDic objectForKey:@"data"];
-                m_CommunitylistON = [data1 objectForKey:@"communities"];
-                m_CommunitylistOF = [data1 objectForKey:@"refCommunities"];
+                CommunitylistON = [data1 objectForKey:@"communities"];
+                CommunitylistOF = [data1 objectForKey:@"refCommunities"];
             }
+            [m_CommunitylistON addObjectsFromArray:CommunitylistON];
+            [m_CommunitylistOF addObjectsFromArray:CommunitylistOF];
             [m_tab reloadData];
         }
         else
@@ -283,6 +293,22 @@ static NSDictionary *          m_cityinfo;//城市信息
             [ale show];
         }
     }
+    
+     if (pagesize < m_pageSize) {
+        m_tab.canMore = NO;
+     }
+     else {
+        m_tab.canMore = YES;
+     }
+    if (m_tab.status == AWaterfallTableViewRefreshing) {
+        [m_tab refreshEnd];
+        m_pageOffset = 0;
+    }
+    else if (m_tab.status == AWaterfallTableViewMoring) {
+        [m_tab moreEnd];
+        m_pageOffset++;
+    }
+    
 }
 
 #pragma mark - 切换界面进入协议函数
@@ -302,7 +328,8 @@ static NSDictionary *          m_cityinfo;//城市信息
         m_data = [LYSelectCity CityInfo];
         [_selectCityButton setTitle: [m_data objectForKey:@"name"] forState: UIControlStateNormal];
         self.view.userInteractionEnabled = YES;
-        [self GetCommunity:@""];
+        [m_tab refreshStart];
+        
         [self.m_tab reloadData];
         Serch.text= @"";
         m_Refresh = NO;
@@ -317,6 +344,15 @@ static NSDictionary *          m_cityinfo;//城市信息
 +(void)Updata:(BOOL)sender
 {
     m_Refresh =  sender;
+}
+
+- (void)refresh:(AWaterfallTableView *)tableView {
+    [self GetCommunity:@""];
+}
+
+- (void)more:(AWaterfallTableView *)tableView
+{
+    [self GetCommunity:@""];
 }
 
 @end
