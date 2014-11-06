@@ -70,7 +70,10 @@
             [self performSegueWithIdentifier:@"GoAnnouncement" sender:self];
             break;
         case 6:
-            //[self performSegueWithIdentifier:@"GoAnnouncement" sender:self];
+        {
+            UIAlertView *alview = [[UIAlertView alloc]initWithTitle:@"提示" message:@"缓存清除成功！" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+            [alview show];
+        }
             break;
         case 7:
             [self performSegueWithIdentifier:@"GoLYFeedback" sender:self];

@@ -34,10 +34,11 @@
 
 - (void)viewDidLoad
 {
+    [NSThread detachNewThreadSelector:@selector(Getdata:) toTarget:self withObject:nil];
     [super viewDidLoad];
     [_m_button.layer setMasksToBounds:YES];
     [_m_button.layer setCornerRadius:3.0];
-    [NSThread detachNewThreadSelector:@selector(Getdata:) toTarget:self withObject:nil];
+    
     UILabel *customLab = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 100, 30)];
     [customLab setTextColor:[UIColor colorWithRed:(0.0/255) green:(0.0/255) blue:(0.0/255) alpha:1.0]];
     [customLab setText:@"我的小区"];
@@ -85,6 +86,7 @@
     }
     dispatch_async(dispatch_get_main_queue(), ^{
         [self updata];
+        [self.tableView reloadData];
         // 更新UI
     });
 }
@@ -157,5 +159,8 @@
     [name setText:[temp objectForKey:@"name"]];
     return cell;
 }
+-(void)viewDidAppear:(BOOL)animated
+{
 
+}
 @end

@@ -159,7 +159,7 @@
     NSMutableArray *Arraytemp = [[NSMutableArray alloc] init];
     sqlite3 *tempdatabase =  [[[LYSqllite alloc] init] openSqlite:@"LY_db.db"];
     sqlite3_stmt *statementst = nil;
-     NSString * sqlst = [[NSString alloc] initWithFormat:@"SELECT * FROM USERINFO WHEER communitname != '%@'",name];
+     NSString * sqlst = [[NSString alloc] initWithFormat:@"SELECT * FROM USERINFO WHERE communitname !='%@'",name];
     if (sqlite3_prepare_v2(tempdatabase, [sqlst UTF8String], -1, &statementst, NULL) != SQLITE_OK)
     {
         NSLog(@"Error: failed to prepare statement with message:get testValue.");

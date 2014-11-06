@@ -10,6 +10,7 @@
 #import "LYSelectCommunit.h"
 #import "LYReachability.h"
 #import "UIImage+Scale.h"
+#import "LYFunctionInterface.h"
 @interface LYUserloginView () {
     
     NSThread* myThread;
@@ -103,11 +104,11 @@
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    //    if ([segue.identifier isEqualToString: @"GoforgetPassword"])
-    //    {
-    //        LYRegistration *detailViewController = (LYRegistration*) segue.destinationViewController;
-    //        detailViewController->bcbool = true;
-    //    }
+//        if ([segue.identifier isEqualToString: @"GoLYFunctionInterface"])
+//        {
+//            LYFunctionInterface *detailViewController = (LYFunctionInterface*) segue.destinationViewController;
+//            detailViewController->Tourist = true;
+//        }
 }
 //login 登陆函数
 -(IBAction)login:(NSString*)user password:(NSString *)password
@@ -319,7 +320,6 @@
             ret = NO;
     }
     return ret;
-    
 }
 
 //开始编辑输入框
