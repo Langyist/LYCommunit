@@ -141,18 +141,19 @@
 }
 
 - (IBAction)deleteRecord:(id)sender {
-    [LYSqllite deletetable ];
+    [LYSqllite deletetable];
     [self.tableView reloadData];
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [LYSqllite allSuerinfo].count;
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+        return [LYSqllite allSuerinfo:[dataDic objectForKey:@"name"]].count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"communitycell" forIndexPath:indexPath];
     UILabel *name = (UILabel *)[cell viewWithTag:101];
-    NSMutableDictionary * temp = [[LYSqllite allSuerinfo] objectAtIndex:indexPath.row];
+    NSMutableDictionary * temp = [[LYSqllite allSuerinfo:[dataDic objectForKey:@"name"]] objectAtIndex:indexPath.row];
     [name setText:[temp objectForKey:@"name"]];
     return cell;
 }
