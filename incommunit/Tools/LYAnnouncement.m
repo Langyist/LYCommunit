@@ -10,6 +10,102 @@
 #import "LYPublicMethods.h"
 #import "LYAnnouncementDetails.h"
 #import "XHFriendlyLoadingView.h"
+
+@interface LYAnnouncementCell ()
+@property (weak, nonatomic) IBOutlet UILabel *titleLabel;
+@property (weak, nonatomic) IBOutlet UILabel *contentLabel;
+@property (weak, nonatomic) IBOutlet UILabel *timeLabel;
+
+@end
+
+@implementation LYAnnouncementCell
+
+- (void)setTopTag:(BOOL)top {
+    UIColor *color = [UIColor whiteColor];
+    if (top) {
+        color = [UIColor colorWithRed:243/255.0f green:226/255.0f blue:197/255.0f alpha:1];
+    }
+    [self.contentView setBackgroundColor:color];
+}
+
+- (void)setTitleString:(NSString *)title {
+    [self.titleLabel setText:title];
+}
+
+- (void)setContentString:(NSString *)text {
+    if (!text) {
+        text = @"";
+    }
+    
+    NSMutableAttributedString *attrString = [[NSMutableAttributedString alloc] initWithString:text];
+    
+    NSMutableParagraphStyle *style = [[NSMutableParagraphStyle defaultParagraphStyle] mutableCopy];
+    //    style.lineSpacing = 10;//增加行高
+    //    style.headIndent = 10;//头部缩进，相当于左padding
+    //    style.tailIndent = -10;//相当于右padding
+    //    style.lineHeightMultiple = 1.5;//行间距是多少倍
+    style.alignment = NSTextAlignmentLeft;//对齐方式
+    style.firstLineHeadIndent = 20;//首行头缩进
+    //    style.paragraphSpacing = 10;//段落后面的间距
+    //    style.paragraphSpacingBefore = 20;//段落之前的间距
+    [attrString addAttribute:NSParagraphStyleAttributeName value:style range:NSMakeRange(0, text.length)];
+    
+    [attrString addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:14] range:NSMakeRange(0, text.length)];
+    
+    [attrString addAttribute:NSForegroundColorAttributeName value:[UIColor darkGrayColor] range:NSMakeRange(0, text.length)];
+    
+    [self.contentLabel setAttributedText:attrString];
+    
+    CGFloat height =[self heightOfLabel:@[text] size:CGSizeMake(CGFLOAT_MAX, CGRectGetWidth(self.contentLabel.frame)) font:[UIFont systemFontOfSize:14]];
+    
+    CGRect rect = self.contentLabel.frame;
+    rect.size.height = MIN(height, 52);
+    self.contentLabel.frame = rect;
+}
+
+- (void)setTimestampString:(NSString *)timestamp {
+    if (!timestamp) {
+        [self.timeLabel setText:@""];
+    }
+    
+    long long timestampInt = [timestamp longLongValue];
+    timestampInt /= 1000;
+    NSDate *date = [NSDate dateWithTimeIntervalSince1970:timestampInt];
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    formatter.locale = [[NSLocale alloc] initWithLocaleIdentifier:@"zh_CN"];
+    formatter.dateFormat = @"yyyy-MM-dd";
+    NSString *time = [formatter stringFromDate:date];
+    if (!time) {
+        [self.timeLabel setText:@""];
+        return;
+    }
+    [self.timeLabel setText:time];
+}
+
+- (CGFloat)heightOfLabel:(NSArray *)textList size:(CGSize)size font:(UIFont *)font {
+    int length = 0;
+    CGFloat height = 0;
+    for (NSString *text in textList) {
+        length += (int)[self widthOfString:text withFont:font];
+    }
+    if (length > 0) {
+        int count = (int)(length / size.width);
+        height = (count + 1) * font.lineHeight;
+    }
+    return height;
+}
+
+//根据字号计算字符串的宽度
+- (CGFloat)widthOfString:(NSString *)string withFont:(UIFont *)font {
+    if (string.length == 0) {
+        return 0;
+    }
+    NSDictionary *attributes = [NSDictionary dictionaryWithObjectsAndKeys:font, NSFontAttributeName, nil];
+    return [[[NSAttributedString alloc] initWithString:string attributes:attributes] size].width + 20;
+}
+
+@end
+
 @interface LYAnnouncement ()
 
 @property (nonatomic, strong) XHFriendlyLoadingView *friendlyLoadingView;
@@ -50,63 +146,43 @@
 }
 
 #pragma mark UITableView delegate
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
-     return [notification count];
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return [notification count];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-
     return 1;
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    UITableViewCell *cell;
-    cell = [tableView dequeueReusableCellWithIdentifier:@"announcementCell"];
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    LYAnnouncementCell *cell = [tableView dequeueReusableCellWithIdentifier:@"announcementCell" forIndexPath:indexPath];
     NSDictionary *temp = [notification objectAtIndex:indexPath.section];
-    m_IngLab = (UILabel *)[cell viewWithTag:100];
-    m_IngLab.transform = CGAffineTransformMakeRotation(M_PI/8);
-    
-    UILabel * title = (UILabel *)[cell viewWithTag:102];
-    title.text =[[NSString alloc]initWithFormat:@"%@",[temp objectForKey:@"name"]];
-    
-    UILabel *msmlab = (UILabel *)[cell viewWithTag:103];
-    msmlab.text =[[NSString alloc]initWithFormat:@"%@",[temp objectForKey:@"content"]];
-    
-    UILabel *time = (UILabel *)[cell viewWithTag:104];
-    NSString *times = [[NSString alloc]initWithFormat:@"%@",[temp objectForKey:@"create_time"]];
-    times = [LYPublicMethods timeFormatted:[times longLongValue]];
-    time.text = times;
-    
-    UIImageView *topview = [[UIImageView alloc] init];
-    topview = (UIImageView *)[cell viewWithTag:101];
-    if ([[[NSString alloc]initWithFormat:@"%@",[temp objectForKey:@"top"]]isEqual:@"1"])
-    {
-        topview.hidden = NO;
-    }else
-    {
-         topview.hidden = YES;
-    }
+    [cell setTitleString:[temp objectForKey:@"name"]];
+    [cell setContentString:[temp objectForKey:@"content"]];
+    [cell setTimestampString:[temp objectForKey:@"create_time"]];
+    [cell setTopTag:[[temp objectForKey:@"top"] boolValue]];
     return cell;
 }
 
-- (CGFloat) tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
-{
-    return 5.0;
+- (CGFloat) tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    return 1;
 }
--(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-     m_ANNinfo = [notification objectAtIndex:indexPath.section];
+
+- (CGFloat) tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
+    return 10;
+}
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    m_ANNinfo = [notification objectAtIndex:indexPath.section];
     [self performSegueWithIdentifier:@"GoLYAnnouncementDetails" sender:self];
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
 }
 
 #pragma mark - Navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    if ([segue.identifier isEqualToString: @"GoLYAnnouncementDetails"])
-    {
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([segue.identifier isEqualToString: @"GoLYAnnouncementDetails"]) {
         LYAnnouncementDetails *detailViewController = (LYAnnouncementDetails*) segue.destinationViewController;
         detailViewController->m_announMessage = m_ANNinfo;
     }

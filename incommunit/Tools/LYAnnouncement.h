@@ -8,6 +8,15 @@
 
 #import <UIKit/UIKit.h>
 
+@interface LYAnnouncementCell : UITableViewCell
+
+- (void)setTopTag:(BOOL)top;
+- (void)setTitleString:(NSString *)title;
+- (void)setContentString:(NSString *)content;
+- (void)setTimestampString:(NSString *)timestamp;
+
+@end
+
 @interface LYAnnouncement : UIViewController<UITableViewDataSource,UITableViewDelegate>
 {
     IBOutlet UITableView *m_tableView;
