@@ -10,6 +10,7 @@
 
 @interface LYAnnouncementCell : UITableViewCell
 
+- (void)setFirst:(BOOL)first;
 - (void)setTopTag:(BOOL)top;
 - (void)setTitleString:(NSString *)title;
 - (void)setContentString:(NSString *)content;
