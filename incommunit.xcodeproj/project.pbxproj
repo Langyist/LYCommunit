@@ -178,6 +178,7 @@
 		F10340D319FF7B3400C5CB4E /* CustomToolbarItem.xib in Resources */ = {isa = PBXBuildFile; fileRef = F10340D219FF7B3400C5CB4E /* CustomToolbarItem.xib */; };
 		F12DAE321A0231E700591CB5 /* send_info.png in Resources */ = {isa = PBXBuildFile; fileRef = F12DAE301A0231E700591CB5 /* send_info.png */; };
 		F12DAE331A0231E700591CB5 /* shop_introduce.png in Resources */ = {isa = PBXBuildFile; fileRef = F12DAE311A0231E700591CB5 /* shop_introduce.png */; };
+		F1392E521A0B909D00329FFF /* LicenseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F1392E511A0B909D00329FFF /* LicenseViewController.m */; };
 		F13D4C291A0750B100E23FDB /* NCMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F13D4C281A0750B100E23FDB /* NCMainViewController.m */; };
 		F13D4C2D1A07510F00E23FDB /* CustomSegmentedControl.m in Sources */ = {isa = PBXBuildFile; fileRef = F13D4C2C1A07510F00E23FDB /* CustomSegmentedControl.m */; };
 		F13D4C311A07688600E23FDB /* NCTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F13D4C2F1A07688600E23FDB /* NCTableViewCell.m */; };
@@ -524,6 +525,8 @@
 		F10340D219FF7B3400C5CB4E /* CustomToolbarItem.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CustomToolbarItem.xib; sourceTree = "<group>"; };
 		F12DAE301A0231E700591CB5 /* send_info.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = send_info.png; sourceTree = "<group>"; };
 		F12DAE311A0231E700591CB5 /* shop_introduce.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = shop_introduce.png; sourceTree = "<group>"; };
+		F1392E501A0B909D00329FFF /* LicenseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LicenseViewController.h; sourceTree = "<group>"; };
+		F1392E511A0B909D00329FFF /* LicenseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LicenseViewController.m; sourceTree = "<group>"; };
 		F13D4C271A0750B100E23FDB /* NCMainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NCMainViewController.h; sourceTree = "<group>"; };
 		F13D4C281A0750B100E23FDB /* NCMainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NCMainViewController.m; sourceTree = "<group>"; };
 		F13D4C2B1A07510F00E23FDB /* CustomSegmentedControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomSegmentedControl.h; sourceTree = "<group>"; };
@@ -1001,6 +1004,8 @@
 				AD6211DC19FD6F6E009BECA6 /* LYAnnouncement.m */,
 				AD6211E119FD88DE009BECA6 /* LYAnnouncementDetails.h */,
 				AD6211E219FD88DE009BECA6 /* LYAnnouncementDetails.m */,
+				F1392E501A0B909D00329FFF /* LicenseViewController.h */,
+				F1392E511A0B909D00329FFF /* LicenseViewController.m */,
 			);
 			path = Tools;
 			sourceTree = "<group>";
@@ -1374,6 +1379,7 @@
 				AD3DD3B519FDF36600364854 /* LYaddCommunit.m in Sources */,
 				AD6211A019FD42CE009BECA6 /* LYnetwork.m in Sources */,
 				F14F51F41A0382B7006CC884 /* MyStoresTableViewController.m in Sources */,
+				F1392E521A0B909D00329FFF /* LicenseViewController.m in Sources */,
 				F13D4C311A07688600E23FDB /* NCTableViewCell.m in Sources */,
 				AD3DD3C019FE13FE00364854 /* LY_FeaturedCell.m in Sources */,
 				AD6A9B811A09CA420031B7C2 /* LYAcceptedCell.m in Sources */,
