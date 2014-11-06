@@ -10,6 +10,7 @@
 #import "LYSelectCommunit.h"
 #import "LYReachability.h"
 #import "UIImage+Scale.h"
+#import "LYFunctionInterface.h"
 @interface LYUserloginView () {
     
     NSThread* myThread;
@@ -22,6 +23,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.m_communityName.userInteractionEnabled = YES;
+    
     [m_loginbutton.layer setMasksToBounds:YES];
     [m_loginbutton.layer setCornerRadius:3.0];
     
@@ -111,11 +114,11 @@
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    //    if ([segue.identifier isEqualToString: @"GoforgetPassword"])
-    //    {
-    //        LYRegistration *detailViewController = (LYRegistration*) segue.destinationViewController;
-    //        detailViewController->bcbool = true;
-    //    }
+//        if ([segue.identifier isEqualToString: @"GoLYFunctionInterface"])
+//        {
+//            LYFunctionInterface *detailViewController = (LYFunctionInterface*) segue.destinationViewController;
+//            detailViewController->Tourist = TRUE;
+//        }
 }
 //login 登陆函数
 -(IBAction)login:(NSString*)user password:(NSString *)password
@@ -327,7 +330,6 @@
             ret = NO;
     }
     return ret;
-    
 }
 
 //开始编辑输入框
@@ -386,8 +388,6 @@
 -(IBAction)returnPage:(id)sender
 {
     [self performSegueWithIdentifier:@"SelectCommunity" sender:self];
-    //[self dismissViewControllerAnimated:YES completion:^{}];
-    //[detailViewController release];
 }
 
 //忘记密码
@@ -408,7 +408,11 @@
 }
 
 - (IBAction)clickName:(id)sender {
+<<<<<<< HEAD
+   // [self dismissViewControllerAnimated:YES completion:^{}];
+=======
     [self performSegueWithIdentifier:@"GoSelectConmunit" sender:nil];
+>>>>>>> AndrewLee
 }
 
 @end

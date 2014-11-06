@@ -670,9 +670,7 @@
         [m_AnntableVeiw reloadData];
         // 更新UI
     });
-    
     [self.friendlyLoadingView hideLoadingView];
-    
     return true;
     
 }

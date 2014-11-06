@@ -30,9 +30,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
     self.navigationItem.titleView = _titleButton;
-    
     self.bar.delegate = self;
     [NSThread detachNewThreadSelector:@selector(Getdata:) toTarget:self withObject:nil];
     [NSTimer scheduledTimerWithTimeInterval:5 target:self selector:@selector(scrollTimer) userInfo:nil repeats:YES];
@@ -102,9 +100,13 @@
 //跳转到物业管理
 - (IBAction)GoManagebutton:(id)sender
 {
- 
-    [self performSegueWithIdentifier:@"GoLYProManagementMain" sender:self];
-    
+    if (Tourist) {
+        UIAlertView *alvie = [[UIAlertView alloc] initWithTitle:@"提示" message:@"你当前是游客登陆不能进入该功能是否进行注册？" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:@"取消", nil];
+        [alvie show];
+    }else
+    {
+        [self performSegueWithIdentifier:@"GoLYProManagementMain" sender:self];
+    }
 }
 -(IBAction)ConvenienceMian:(id)sender
 {
