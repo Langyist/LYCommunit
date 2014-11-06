@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.h"
+#import "UIImage+Scale.h"
 
 @interface AppDelegate ()
 
@@ -21,6 +22,12 @@
     //去掉返回按钮自动添加的’back‘文字
     [[UIBarButtonItem appearance] setBackButtonTitlePositionAdjustment:UIOffsetMake(0, -60)
                                                          forBarMetrics:UIBarMetricsDefault];
+    
+    //修改返回按钮图标
+    UIImage *backImage = [UIImage imageWithImage:[UIImage imageNamed:@"箭头_04"] scaledToSize:CGSizeMake(13, 17)];
+    [[UINavigationBar appearance] setBackIndicatorImage:backImage];
+    [[UINavigationBar appearance] setBackIndicatorTransitionMaskImage:backImage];
+    
     return YES;
 }
 
