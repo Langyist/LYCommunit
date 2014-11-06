@@ -9,6 +9,10 @@
 #import "SendNCInfoTableViewController.h"
 #import "UIView+Clone.h"
 
+
+#define CAMERA @"相机"
+#define PHOTOES @"相册"
+
 @implementation StaticCell
 
 - (void)layoutSubviews {
@@ -50,6 +54,7 @@
     CGSize photoSize;
     
     NSMutableArray *photoImageViewList;
+    NSMutableArray *photoImageDataList;
 }
 
 - (void)viewDidLoad {
@@ -61,12 +66,19 @@
     itemSpace = 17;
     photoStartPoint = CGPointMake(11, 32);
     photoSize = CGSizeMake(61, 61);
+    
+    photoImageDataList = [[NSMutableArray alloc] init];
     photoImageViewList = [[NSMutableArray alloc] init];
     for (NSInteger index = 0; index < 5; index++) {
         UIImageView *imageView = [[UIImageView alloc] initWithFrame:(CGRect){photoStartPoint, photoSize}];
+        imageView.tag = index;
+        imageView.userInteractionEnabled = YES;
         [imageView setImage:[UIImage imageNamed:@"添加_03"]];
         [self.photoContainerView addSubview:imageView];
         [photoImageViewList addObject:imageView];
+        
+        UITapGestureRecognizer *t = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(imageViewTap:)];
+        [imageView addGestureRecognizer:t];
     }
 }
 
@@ -146,6 +158,88 @@
 }
 
 - (IBAction)submitPress:(id)sender {
+}
+
+- (void)imageViewTap:(UITapGestureRecognizer *) tap {
+    if (tap.view.tag >= [photoImageDataList count] && [photoImageDataList count] != 0) {
+        return;
+    }
+    
+    UIActionSheet *actionSheet = nil;
+    if ([UIImagePickerController isSourceTypeAvailable: UIImagePickerControllerSourceTypeCamera]) {
+        actionSheet = [[UIActionSheet alloc] initWithTitle:@"添加照片" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:CAMERA, PHOTOES, nil];
+    }
+    else {
+        actionSheet = [[UIActionSheet alloc] initWithTitle:@"添加照片" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:PHOTOES, nil];
+    }
+    
+    [actionSheet showInView:self.view];
+}
+
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
+    NSString *title = [actionSheet buttonTitleAtIndex:buttonIndex];
+    if ([title isEqualToString:CAMERA]) {
+        UIImagePickerController *imagePickerController = [[UIImagePickerController alloc] init];
+        imagePickerController.sourceType = UIImagePickerControllerSourceTypeCamera;
+        imagePickerController.delegate = self;
+        [self presentViewController:imagePickerController animated:YES completion:nil];
+    }
+    else if ([title isEqualToString:PHOTOES]) {
+        UIImagePickerController *imagePickerController = [[UIImagePickerController alloc] init];
+        imagePickerController.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+        imagePickerController.delegate = self;
+        [self presentViewController:imagePickerController animated:YES completion:nil];
+    }
+    else {
+        
+    }
+}
+
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
+{
+    [picker dismissViewControllerAnimated:YES completion:^{
+        UIImage *image = [info valueForKey:UIImagePickerControllerOriginalImage];
+        NSData *data = UIImageJPEGRepresentation(image, 1.0);
+        if (data.length > 1024 * 200) {
+            data = UIImageJPEGRepresentation(image, 1024.0f * 200.0f / (CGFloat)data.length);
+        }
+        [photoImageDataList addObject:data];
+        
+        [self resetImage];
+    }];
+}
+
+- (void)resetImage {
+    for (NSInteger index = 0; index < 5; index++) {
+        UIImageView *imageView = [photoImageViewList objectAtIndex:index];
+        for (UIView *view in imageView.subviews) {
+            [view removeFromSuperview];
+        }
+        if (index < [photoImageDataList count]) {
+            NSData *data = [photoImageDataList objectAtIndex:index];
+            [imageView setImage:[UIImage imageWithData:data]];
+            
+            UIButton *deleteButton = [UIButton buttonWithType:UIButtonTypeCustom];
+            CGRect frame = imageView.frame;
+            frame.origin = CGPointMake(photoSize.width / 2, photoSize.width / 2);
+            frame.size = CGSizeMake(photoSize.width / 2, photoSize.width / 2);
+            deleteButton.frame = frame;
+            [deleteButton setImage:[UIImage imageNamed:@"删除_07"] forState:UIControlStateNormal];
+            [deleteButton setContentEdgeInsets:UIEdgeInsetsMake(frame.size.width * 0.6, frame.size.width * 0.6, 0, 0)];
+            [imageView addSubview:deleteButton];
+            [deleteButton addTarget:self action:@selector(deletePhoto:) forControlEvents:UIControlEventTouchUpInside];
+        }
+        else {
+            [imageView setImage:[UIImage imageNamed:@"添加_03"]];
+        }
+    }
+}
+
+- (void)deletePhoto:(UIButton *)button {
+    if (button.tag < [photoImageDataList count]) {
+        [photoImageDataList removeObjectAtIndex:button.tag];
+        [self resetImage];
+    }
 }
 
 @end

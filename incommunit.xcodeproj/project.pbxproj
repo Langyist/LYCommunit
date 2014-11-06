@@ -191,6 +191,9 @@
 		F14F18E81A08C96600731239 /* 添加_03.png in Resources */ = {isa = PBXBuildFile; fileRef = F14F18E71A08C96600731239 /* 添加_03.png */; };
 		F14F18EE1A09D0FA00731239 /* AWaterfallTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = F14F18ED1A09D0FA00731239 /* AWaterfallTableView.m */; };
 		F14F18F11A09FD9A00731239 /* KxMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = F14F18F01A09FD9A00731239 /* KxMenu.m */; };
+		F14F18F81A0A14F900731239 /* 商品详情管理_02.png in Resources */ = {isa = PBXBuildFile; fileRef = F14F18F71A0A14F900731239 /* 商品详情管理_02.png */; };
+		F14F18FB1A0A15C200731239 /* AddActionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F14F18FA1A0A15C200731239 /* AddActionViewController.m */; };
+		F14F18FE1A0A2D0F00731239 /* ColMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = F14F18FD1A0A2D0F00731239 /* ColMenu.m */; };
 		F14F51F01A0378CF006CC884 /* InfoHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = F14F51EE1A0378CF006CC884 /* InfoHeader.m */; };
 		F14F51F11A0378CF006CC884 /* InfoHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = F14F51EF1A0378CF006CC884 /* InfoHeader.xib */; };
 		F14F51F41A0382B7006CC884 /* MyStoresTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F14F51F31A0382B7006CC884 /* MyStoresTableViewController.m */; };
@@ -537,6 +540,11 @@
 		F14F18ED1A09D0FA00731239 /* AWaterfallTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AWaterfallTableView.m; sourceTree = "<group>"; };
 		F14F18EF1A09FD9A00731239 /* KxMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KxMenu.h; sourceTree = "<group>"; };
 		F14F18F01A09FD9A00731239 /* KxMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KxMenu.m; sourceTree = "<group>"; };
+		F14F18F71A0A14F900731239 /* 商品详情管理_02.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "商品详情管理_02.png"; sourceTree = "<group>"; };
+		F14F18F91A0A15C200731239 /* AddActionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddActionViewController.h; sourceTree = "<group>"; };
+		F14F18FA1A0A15C200731239 /* AddActionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddActionViewController.m; sourceTree = "<group>"; };
+		F14F18FC1A0A2D0F00731239 /* ColMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ColMenu.h; sourceTree = "<group>"; };
+		F14F18FD1A0A2D0F00731239 /* ColMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ColMenu.m; sourceTree = "<group>"; };
 		F14F51ED1A0378CF006CC884 /* InfoHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InfoHeader.h; sourceTree = "<group>"; };
 		F14F51EE1A0378CF006CC884 /* InfoHeader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InfoHeader.m; sourceTree = "<group>"; };
 		F14F51EF1A0378CF006CC884 /* InfoHeader.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = InfoHeader.xib; sourceTree = "<group>"; };
@@ -680,6 +688,8 @@
 				AD33ECBF19FBC39700FE0C11 /* LYUIview.m */,
 				AD3DD3C119FE2E4A00364854 /* UIActionSheet+Blocks.h */,
 				AD3DD3C219FE2E4A00364854 /* UIActionSheet+Blocks.m */,
+				F14F18FC1A0A2D0F00731239 /* ColMenu.h */,
+				F14F18FD1A0A2D0F00731239 /* ColMenu.m */,
 			);
 			path = CustomControls;
 			sourceTree = "<group>";
@@ -687,6 +697,7 @@
 		AD33ECC119FBCA2D00FE0C11 /* Image */ = {
 			isa = PBXGroup;
 			children = (
+				F14F18F71A0A14F900731239 /* 商品详情管理_02.png */,
 				F14F18E71A08C96600731239 /* 添加_03.png */,
 				EF8A277B1A08768600CE03C6 /* 上面分割线_03.png */,
 				F13D4C391A079C7100E23FDB /* 周边便民--未开店--帮帮娃_03.png */,
@@ -946,6 +957,8 @@
 				AD6211CB19FD5583009BECA6 /* LYMyCommunit.m */,
 				F14F51F21A0382B7006CC884 /* MyStoresTableViewController.h */,
 				F14F51F31A0382B7006CC884 /* MyStoresTableViewController.m */,
+				F14F18F91A0A15C200731239 /* AddActionViewController.h */,
+				F14F18FA1A0A15C200731239 /* AddActionViewController.m */,
 			);
 			path = Homepage;
 			sourceTree = "<group>";
@@ -1153,11 +1166,11 @@
 				TargetAttributes = {
 					AD33EC8919FBB13F00FE0C11 = {
 						CreatedOnToolsVersion = 6.1;
-						DevelopmentTeam = 95N42RGW4F;
+						DevelopmentTeam = RVMYYQYXU5;
 					};
 					AD33ECA219FBB13F00FE0C11 = {
 						CreatedOnToolsVersion = 6.1;
-						DevelopmentTeam = 95N42RGW4F;
+						DevelopmentTeam = RVMYYQYXU5;
 						TestTargetID = AD33EC8919FBB13F00FE0C11;
 					};
 				};
@@ -1238,6 +1251,7 @@
 				AD33ED3219FBCA2D00FE0C11 /* 删除_07.png in Resources */,
 				EF8A277C1A08768600CE03C6 /* 上面分割线_03.png in Resources */,
 				AD33ED3E19FBCA2D00FE0C11 /* 收藏_03.png in Resources */,
+				F14F18F81A0A14F900731239 /* 商品详情管理_02.png in Resources */,
 				F10340D319FF7B3400C5CB4E /* CustomToolbarItem.xib in Resources */,
 				AD33ED1019FBCA2D00FE0C11 /* 2@2x.png in Resources */,
 				AD33ED3A19FBCA2D00FE0C11 /* 小区交流.png in Resources */,
@@ -1368,8 +1382,10 @@
 				AD6211A119FD42CE009BECA6 /* LYReachability.m in Sources */,
 				AD33ECC019FBC39700FE0C11 /* LYUIview.m in Sources */,
 				AD62118619FD3148009BECA6 /* LYUserloginView.m in Sources */,
+				F14F18FB1A0A15C200731239 /* AddActionViewController.m in Sources */,
 				AD09555D1A08C7BF00C53A6F /* LYFeedback.m in Sources */,
 				F10340CE19FF5BC500C5CB4E /* InsetTextField.m in Sources */,
+				F14F18FE1A0A2D0F00731239 /* ColMenu.m in Sources */,
 				AD6A9B901A09CC4B0031B7C2 /* BabyCell.m in Sources */,
 				AD6211E319FD88DE009BECA6 /* LYAnnouncementDetails.m in Sources */,
 				EF31A2111A0381D80039E52C /* XHFriendlyLoadingView.m in Sources */,

@@ -160,7 +160,7 @@
 }
 
 - (void)addAction:(id)sender {
-    
+    [self performSegueWithIdentifier:@"AddAction" sender:nil];
 }
 
 @end
