@@ -150,6 +150,7 @@ static NSDictionary *          m_cityinfo;//城市信息
 {
     return YES;
 }
+
 //- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 //{
 //    if (editingStyle == UITableViewCellEditingStyleDelete)
