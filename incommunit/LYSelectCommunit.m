@@ -180,7 +180,13 @@ static NSDictionary *          m_cityinfo;//城市信息
     m_lable_name.text =[Community objectForKey:@"name"];
     m_lable_address.text =[Community objectForKey:@"address"];
     CGFloat distance = [[Community objectForKey:@"distance"] floatValue];
-    m_lable_distance.text =[NSString stringWithFormat:@"%.0fm", distance];
+    if(distance>1)
+    {
+        m_lable_distance.text =[NSString stringWithFormat:@"%.2lf  km", distance];
+    }else
+    {
+         m_lable_distance.text =[NSString stringWithFormat:@"%.0lf m", distance*1000];
+    }
     return cell;
 }
 
@@ -220,6 +226,8 @@ static NSDictionary *          m_cityinfo;//城市信息
 //搜索小区
 -(void)GetCommunity:(NSString*)URL
 {
+    m_pageSize = 10;
+    m_pageOffset = 0;
     NSDictionary *plistDic = [[NSBundle mainBundle] infoDictionary];
     NSLog(@"plistDic = %@",plistDic);
     NSString *urlstr = [plistDic objectForKey: @"URL"];
@@ -233,7 +241,7 @@ static NSDictionary *          m_cityinfo;//城市信息
     {
         m_city_id =[m_data objectForKey:@"id"];
         str = @"city_id=";//设置参数
-        str = [str stringByAppendingFormat:@"%@&name=%@&longitude=%f&latitude=%f", m_city_id,m_CommunityName,longitude,latitude];
+        str = [str stringByAppendingFormat:@"%@&name=%@&longitude=%f&latitude=%f&pageSize=%d&pageOffset=%d", m_city_id,m_CommunityName,longitude,latitude,m_pageSize,m_pageOffset];
     }else if([[m_data objectForKey:@"id"] isEqualToString:@""]||[m_data objectForKey:@"id"] == nil)
     {
         if (m_CommunityName == nil)
