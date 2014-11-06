@@ -9,10 +9,11 @@
 #import <UIKit/UIKit.h>
 #import <CoreLocation/CoreLocation.h>
 #import <CoreLocation/CLLocationManagerDelegate.h>
+#import "AWaterfallTableView.h"
 @interface LYSelectCommunit : UIViewController <UITableViewDataSource,UITableViewDelegate,UISearchBarDelegate,CLLocationManagerDelegate>
 {
     //@private    UIButton *          m_selectCityButton;
-    @private    UITableView *       m_tab;
+    @private    AWaterfallTableView  *       m_tab;
     @private    UITableViewCell *   m_cell;
     @private    UISearchBar *       m_Serch;
     @private    CLLocationManager *locationManager;
@@ -31,6 +32,8 @@
     @public NSDictionary *          m_data;
     @private NSString *             m_city_name;
     @private NSString *m_city_id;
+    int m_pageSize;
+    int m_pageOffset;
 }
 @property(nonatomic, retain)IBOutlet UITableView    *  m_tab;
 @property(nonatomic, retain)IBOutlet UISearchBar *     Serch;
