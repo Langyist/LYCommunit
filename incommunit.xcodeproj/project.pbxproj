@@ -195,6 +195,7 @@
 		F14F18FB1A0A15C200731239 /* AddActionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F14F18FA1A0A15C200731239 /* AddActionViewController.m */; };
 		F14F18FE1A0A2D0F00731239 /* ColMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = F14F18FD1A0A2D0F00731239 /* ColMenu.m */; };
 		F14F19041A0B583900731239 /* ArrowButton.m in Sources */ = {isa = PBXBuildFile; fileRef = F14F19031A0B583900731239 /* ArrowButton.m */; };
+		F14F19061A0B65C400731239 /* call_btr.png in Resources */ = {isa = PBXBuildFile; fileRef = F14F19051A0B65C400731239 /* call_btr.png */; };
 		F14F51F01A0378CF006CC884 /* InfoHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = F14F51EE1A0378CF006CC884 /* InfoHeader.m */; };
 		F14F51F11A0378CF006CC884 /* InfoHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = F14F51EF1A0378CF006CC884 /* InfoHeader.xib */; };
 		F14F51F41A0382B7006CC884 /* MyStoresTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F14F51F31A0382B7006CC884 /* MyStoresTableViewController.m */; };
@@ -548,6 +549,7 @@
 		F14F18FD1A0A2D0F00731239 /* ColMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ColMenu.m; sourceTree = "<group>"; };
 		F14F19021A0B583900731239 /* ArrowButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ArrowButton.h; sourceTree = "<group>"; };
 		F14F19031A0B583900731239 /* ArrowButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ArrowButton.m; sourceTree = "<group>"; };
+		F14F19051A0B65C400731239 /* call_btr.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = call_btr.png; sourceTree = "<group>"; };
 		F14F51ED1A0378CF006CC884 /* InfoHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InfoHeader.h; sourceTree = "<group>"; };
 		F14F51EE1A0378CF006CC884 /* InfoHeader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InfoHeader.m; sourceTree = "<group>"; };
 		F14F51EF1A0378CF006CC884 /* InfoHeader.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = InfoHeader.xib; sourceTree = "<group>"; };
@@ -702,6 +704,7 @@
 		AD33ECC119FBCA2D00FE0C11 /* Image */ = {
 			isa = PBXGroup;
 			children = (
+				F14F19051A0B65C400731239 /* call_btr.png */,
 				F14F18F71A0A14F900731239 /* 商品详情管理_02.png */,
 				F14F18E71A08C96600731239 /* 添加_03.png */,
 				EF8A277B1A08768600CE03C6 /* 上面分割线_03.png */,
@@ -1238,6 +1241,7 @@
 				AD33ED1F19FBCA2D00FE0C11 /* goods.jpg in Resources */,
 				AD33EC9919FBB13F00FE0C11 /* Main.storyboard in Resources */,
 				AD33ED2C19FBCA2D00FE0C11 /* V_07.png in Resources */,
+				F14F19061A0B65C400731239 /* call_btr.png in Resources */,
 				AD6A9B801A09CA420031B7C2 /* DownCell.xib in Resources */,
 				AD7FBAB21A0216FF008CC80A /* InfoCell1.xib in Resources */,
 				AD33ED1E19FBCA2D00FE0C11 /* down_dark0.png in Resources */,

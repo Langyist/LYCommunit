@@ -47,7 +47,7 @@
 
     [lable2 setAttributedText:attrString];
     
-    CGFloat height =[self heightOfLabel:@[text] size:CGSizeMake(CGFLOAT_MAX, CGRectGetWidth(lable2.frame)) font:lable2.font];
+    CGFloat height =[self heightOfLabel:@[text] size:CGSizeMake(CGRectGetWidth(lable2.frame), CGFLOAT_MAX) font:lable2.font];
 
     CGRect rect = lable2.frame;
     rect.size.height = MIN(height, 55);

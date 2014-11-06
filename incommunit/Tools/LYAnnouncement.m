@@ -56,7 +56,7 @@
     
     [self.contentLabel setAttributedText:attrString];
     
-    CGFloat height =[self heightOfLabel:@[text] size:CGSizeMake(CGFLOAT_MAX, CGRectGetWidth(self.contentLabel.frame)) font:[UIFont systemFontOfSize:14]];
+    CGFloat height =[self heightOfLabel:@[text] size:CGSizeMake(CGRectGetWidth(self.contentLabel.frame), CGFLOAT_MAX) font:[UIFont systemFontOfSize:14]];
     
     CGRect rect = self.contentLabel.frame;
     rect.size.height = MIN(height, 52);
