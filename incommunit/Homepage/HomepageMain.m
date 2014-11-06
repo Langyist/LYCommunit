@@ -1,7 +1,7 @@
 //
 //  HomepageMain.m
 //  incommunit
-//
+//  我的主页
 //  Created by LANGYI on 14/10/27.
 //  Copyright (c) 2014年 LANGYI. All rights reserved.
 //
