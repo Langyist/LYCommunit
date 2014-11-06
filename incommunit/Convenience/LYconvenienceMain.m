@@ -191,10 +191,8 @@
     m_backtable1.separatorStyle = UITableViewCellSeparatorStyleNone;
     [m_backView addSubview:m_backtable1];
     
-    UIButton *m_backButton = [[UIButton alloc] initWithFrame:CGRectMake(self.view.frame.size.width / 2 + 100, m_backView.frame.size.height - 60, 80, 60)];
-    [m_backButton setTitle:@">>" forState:UIControlStateNormal];
-    [m_backButton setTitleColor:[UIColor greenColor] forState:UIControlStateNormal];
-    m_backButton.tag = 1;
+    UIButton *m_backButton = [[UIButton alloc] initWithFrame:CGRectMake(m_backView.frame.size.width - 40, m_backView.frame.size.height - 40, 30, 30)];
+    [m_backButton setImage:[UIImage imageNamed:@"ic_dismiss"] forState:UIControlStateNormal];
     [m_backButton addTarget:self action:@selector(downBackViewButton:) forControlEvents:UIControlEventTouchUpInside];
     [m_backView addSubview:m_backButton];
     
@@ -271,9 +269,8 @@
     m_shoptable1.separatorStyle = UITableViewCellSeparatorStyleNone;
     [m_shopView addSubview:m_shoptable1];
     //关闭弹出框
-    UIButton *m_shopdownButton = [[UIButton alloc] initWithFrame:CGRectMake(m_shopView.frame.size.width- 60, m_shopView.frame.size.height - 80, 80, 60)];
-    [m_shopdownButton setTitle:@">>" forState:UIControlStateNormal];
-    [m_shopdownButton setTitleColor:[UIColor greenColor] forState:UIControlStateNormal];
+    UIButton *m_shopdownButton = [[UIButton alloc] initWithFrame:CGRectMake(m_shopView.frame.size.width- 40, m_shopView.frame.size.height - 40, 30, 30)];
+    [m_shopdownButton setImage:[UIImage imageNamed:@"ic_dismiss"] forState:UIControlStateNormal];
     [m_shopdownButton addTarget:self action:@selector(shopdownBackViewButton:) forControlEvents:UIControlEventTouchUpInside];
     [m_shopView addSubview:m_shopdownButton];
     
@@ -806,6 +803,9 @@
         UIView *m_cellbackView = [[UIView alloc] initWithFrame:cell.contentView.frame];
         m_cellbackView.backgroundColor = [UIColor REDCOLOR];
         cell.selectedBackgroundView = m_cellbackView;
+        //默认选中第一行
+        [m_backtable selectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] animated:YES scrollPosition:UITableViewScrollPositionTop];
+        
         return cell;
     }
     else if (tableView ==  m_backtable1 ) {
@@ -829,6 +829,9 @@
         UIView *m_cellbackView = [[UIView alloc] initWithFrame:cell.contentView.frame];
         m_cellbackView.backgroundColor = [UIColor REDCOLOR];
         cell.selectedBackgroundView = m_cellbackView;
+        //默认选中第一行
+        [m_backtable1 selectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] animated:YES scrollPosition:UITableViewScrollPositionTop];
+        
         return cell;
     }
     else if (tableView ==  m_shoptable ) {
@@ -848,6 +851,9 @@
         UIView *m_cellbackView = [[UIView alloc] initWithFrame:cell.contentView.frame];
         m_cellbackView.backgroundColor = [UIColor REDCOLOR];
         cell.selectedBackgroundView = m_cellbackView;
+        //默认选中第一行
+        [m_shoptable selectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] animated:YES scrollPosition:UITableViewScrollPositionTop];
+        
         return cell;
     }
     else if (tableView == m_shoptable1) {
@@ -872,6 +878,8 @@
         UIView *m_cellbackView = [[UIView alloc] initWithFrame:cell.contentView.frame];
         m_cellbackView.backgroundColor = [UIColor REDCOLOR];
         cell.selectedBackgroundView = m_cellbackView;
+        //默认选中第一行
+        [m_shoptable1 selectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] animated:YES scrollPosition:UITableViewScrollPositionTop];
         
         return cell;
     }

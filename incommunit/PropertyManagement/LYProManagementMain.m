@@ -22,6 +22,8 @@
 @interface LYProManagementMain () {
     UIView *m_liuView;
     
+    UIButton *repairButton;//我要报修button
+    
 }
 
 @property (nonatomic, strong) XHFriendlyLoadingView *friendlyLoadingView;
@@ -151,8 +153,8 @@
     m_MaintableView.delegate = self;
     m_MaintableView.dataSource = self;
     [m_view04 addSubview:m_MaintableView];
-    
-    UIButton *repairButton = [[UIButton alloc] initWithFrame:CGRectMake(0, m_view04.frame.size.height - 150, 150, 50)];
+    //我要报修button
+    repairButton = [[UIButton alloc] initWithFrame:CGRectMake(0, m_view04.frame.size.height - 150, 150, 50)];
     repairButton.backgroundColor = [UIColor greenColor];
     repairButton.layer.cornerRadius = 3;
     repairButton.alpha = 0.7;
@@ -630,6 +632,18 @@
 //            [[segue destinationViewController] setMessageID:idString];
 //        }
 //    }
+}
+//开始滑动隐藏button
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView{
+    if (scrollView == m_MaintableView) {
+        repairButton.hidden = YES;
+    }
+}
+//结束滑动显示button
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
+    if (scrollView == m_MaintableView) {
+        repairButton.hidden = NO;
+    }
 }
 
 #pragma mark 获取网络数据

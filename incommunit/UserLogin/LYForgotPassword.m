@@ -159,6 +159,8 @@
         if (![self isPureInt:string]) {
             ret = NO;
         }
+        if (MobilenumberText.text.length >= 11)
+            ret = NO;
     }
     return ret;
 }
