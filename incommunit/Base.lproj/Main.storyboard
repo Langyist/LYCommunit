@@ -2892,9 +2892,14 @@
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="QZX-Se-I2a">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="504"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                <color key="backgroundColor" red="0.9137254901960784" green="0.90980392156862744" blue="0.90980392156862744" alpha="1" colorSpace="calibratedRGB"/>
+                                <view key="tableFooterView" contentMode="scaleToFill" id="jBw-Ft-Tux">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                </view>
                                 <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="administrativeCell" rowHeight="60" id="8sw-kJ-8ff">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="administrativeCell" rowHeight="60" id="8sw-kJ-8ff" customClass="LYNumbersenseCell">
                                         <rect key="frame" x="0.0" y="22" width="320" height="60"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="8sw-kJ-8ff" id="r5c-dH-rvO">
@@ -2920,6 +2925,10 @@
                                                 </label>
                                             </subviews>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="callNumberLabel" destination="H5V-Hk-F8t" id="a4n-Uw-Ntj"/>
+                                            <outlet property="nameLabel" destination="lwJ-1K-Rjw" id="iib-6j-AiW"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>

@@ -197,6 +197,8 @@
 		F14F18FE1A0A2D0F00731239 /* ColMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = F14F18FD1A0A2D0F00731239 /* ColMenu.m */; };
 		F14F19041A0B583900731239 /* ArrowButton.m in Sources */ = {isa = PBXBuildFile; fileRef = F14F19031A0B583900731239 /* ArrowButton.m */; };
 		F14F19061A0B65C400731239 /* call_btr.png in Resources */ = {isa = PBXBuildFile; fileRef = F14F19051A0B65C400731239 /* call_btr.png */; };
+		F14F190A1A0B6AA300731239 /* NumberSenceHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = F14F19081A0B6AA300731239 /* NumberSenceHeaderView.m */; };
+		F14F190B1A0B6AA300731239 /* NumberSenceHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F14F19091A0B6AA300731239 /* NumberSenceHeaderView.xib */; };
 		F14F51F01A0378CF006CC884 /* InfoHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = F14F51EE1A0378CF006CC884 /* InfoHeader.m */; };
 		F14F51F11A0378CF006CC884 /* InfoHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = F14F51EF1A0378CF006CC884 /* InfoHeader.xib */; };
 		F14F51F41A0382B7006CC884 /* MyStoresTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F14F51F31A0382B7006CC884 /* MyStoresTableViewController.m */; };
@@ -553,6 +555,9 @@
 		F14F19021A0B583900731239 /* ArrowButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ArrowButton.h; sourceTree = "<group>"; };
 		F14F19031A0B583900731239 /* ArrowButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ArrowButton.m; sourceTree = "<group>"; };
 		F14F19051A0B65C400731239 /* call_btr.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = call_btr.png; sourceTree = "<group>"; };
+		F14F19071A0B6AA300731239 /* NumberSenceHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NumberSenceHeaderView.h; sourceTree = "<group>"; };
+		F14F19081A0B6AA300731239 /* NumberSenceHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NumberSenceHeaderView.m; sourceTree = "<group>"; };
+		F14F19091A0B6AA300731239 /* NumberSenceHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NumberSenceHeaderView.xib; sourceTree = "<group>"; };
 		F14F51ED1A0378CF006CC884 /* InfoHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InfoHeader.h; sourceTree = "<group>"; };
 		F14F51EE1A0378CF006CC884 /* InfoHeader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InfoHeader.m; sourceTree = "<group>"; };
 		F14F51EF1A0378CF006CC884 /* InfoHeader.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = InfoHeader.xib; sourceTree = "<group>"; };
@@ -1040,6 +1045,9 @@
 				AD6A9B7D1A09CA420031B7C2 /* LYRejectedCell.m */,
 				AD6A9B7E1A09CA420031B7C2 /* NewCell.xib */,
 				AD6A9B7F1A09CA420031B7C2 /* RejectedCell.xib */,
+				F14F19071A0B6AA300731239 /* NumberSenceHeaderView.h */,
+				F14F19081A0B6AA300731239 /* NumberSenceHeaderView.m */,
+				F14F19091A0B6AA300731239 /* NumberSenceHeaderView.xib */,
 			);
 			path = XIB;
 			sourceTree = "<group>";
@@ -1241,6 +1249,7 @@
 				AD33ED4C19FBCA2D00FE0C11 /* 订单.png in Resources */,
 				AD33ED1719FBCA2D00FE0C11 /* 4@2x.png in Resources */,
 				AD7FBAB01A0216FF008CC80A /* AnnouncementCellNo.xib in Resources */,
+				F14F190B1A0B6AA300731239 /* NumberSenceHeaderView.xib in Resources */,
 				AD3DD40619FE348600364854 /* mapapi.bundle in Resources */,
 				AD33ED0F19FBCA2D00FE0C11 /* 2.png in Resources */,
 				AD33ED1F19FBCA2D00FE0C11 /* goods.jpg in Resources */,
@@ -1351,6 +1360,7 @@
 				AD6211AC19FD46BD009BECA6 /* LeslieAsyncImageDownloader.m in Sources */,
 				AD3DD3C319FE2E4A00364854 /* UIActionSheet+Blocks.m in Sources */,
 				AD3DD3B119FDEE5B00364854 /* LMComBoxView.m in Sources */,
+				F14F190A1A0B6AA300731239 /* NumberSenceHeaderView.m in Sources */,
 				AD6211CC19FD5583009BECA6 /* LYMyCommunit.m in Sources */,
 				AD6211AE19FD46BD009BECA6 /* UIImageView+AsyncDownload.m in Sources */,
 				AD6211EF19FDA95E009BECA6 /* LYReal-name.m in Sources */,
