@@ -63,6 +63,14 @@
     }
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    self.navigationController.navigationBarHidden = YES;
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    self.navigationController.navigationBarHidden = NO;
+}
+
 - (void)modify:(UITextField *)textFiled imageName:(NSString *)imageName size:(CGSize)iconSize {
     
     UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, textFiled.frame.size.height * 1.2, textFiled.frame.size.height)];
@@ -400,6 +408,7 @@
 }
 
 - (IBAction)clickName:(id)sender {
+    [self performSegueWithIdentifier:@"GoSelectConmunit" sender:nil];
 }
 
 @end
