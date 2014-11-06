@@ -381,5 +381,10 @@
 {
     [LYSqllite  wuser:userinfo];
     [self performSegueWithIdentifier:@"GoLYFunctionInterface" sender:self];
-}@end
+}
+
+- (IBAction)clickName:(id)sender {
+}
+
+@end
 

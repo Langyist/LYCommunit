@@ -189,9 +189,13 @@
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="中铁西城" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="gb8-pX-eq8">
                                 <rect key="frame" x="20" y="178" width="280" height="23"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <gestureRecognizers/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
                                 <color key="textColor" red="0.50196078431372548" green="0.50196078431372548" blue="0.50196078431372548" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="hyn-Vs-GX0" appends="YES" id="w0I-3r-LUz"/>
+                                </connections>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="749" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="oQz-YS-C30">
                                 <rect key="frame" x="10" y="536" width="60" height="27"/>
@@ -292,6 +296,11 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8WM-6T-z4S" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="hyn-Vs-GX0">
+                    <connections>
+                        <action selector="clickName:" destination="FZK-1q-QYC" id="BbG-ns-Mqf"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="-4093" y="1045"/>
         </scene>
@@ -995,7 +1004,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="其他" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="kvW-UJ-tM0">
-                                                    <rect key="frame" x="14" y="12" width="5728" height="21"/>
+                                                    <rect key="frame" x="14" y="12" width="6048" height="21"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -1154,12 +1163,17 @@
                                                     <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="置顶_02.png" id="flG-aQ-nSP">
+                                                    <rect key="frame" x="0.0" y="0.0" width="40" height="40"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                </imageView>
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="contentLabel" destination="KAB-VS-XmJ" id="vus-sU-eNg"/>
                                             <outlet property="timeLabel" destination="zGt-Tk-DX6" id="qwE-re-G3a"/>
                                             <outlet property="titleLabel" destination="mrv-WY-AH9" id="js9-5x-CeP"/>
+                                            <outlet property="topImageView" destination="flG-aQ-nSP" id="u8W-Bf-r8v"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -4738,6 +4752,7 @@
         <image name="电话_10.png" width="30" height="32"/>
         <image name="男_06.png" width="21" height="23"/>
         <image name="箭头_03.png" width="28" height="21"/>
+        <image name="置顶_02.png" width="56" height="56"/>
         <image name="蓝色_03.png" width="140" height="55"/>
         <image name="订单.png" width="30" height="30"/>
         <image name="购物车.png" width="30" height="30"/>
@@ -4752,9 +4767,9 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="Lzc-cq-hqV"/>
-        <segue reference="gne-12-lal"/>
+        <segue reference="CIe-4m-5oX"/>
         <segue reference="vk7-fL-aT2"/>
+        <segue reference="Lzc-cq-hqV"/>
         <segue reference="Bv1-7h-vqH"/>
     </inferredMetricsTieBreakers>
 </document>

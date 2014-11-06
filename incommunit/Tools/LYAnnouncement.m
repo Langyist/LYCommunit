@@ -12,6 +12,7 @@
 #import "XHFriendlyLoadingView.h"
 
 @interface LYAnnouncementCell ()
+@property (weak, nonatomic) IBOutlet UIImageView *topImageView;
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 @property (weak, nonatomic) IBOutlet UILabel *contentLabel;
 @property (weak, nonatomic) IBOutlet UILabel *timeLabel;
@@ -20,12 +21,16 @@
 
 @implementation LYAnnouncementCell
 
-- (void)setTopTag:(BOOL)top {
+- (void)setFirst:(BOOL)first {
     UIColor *color = [UIColor whiteColor];
-    if (top) {
+    if (first) {
         color = [UIColor colorWithRed:243/255.0f green:226/255.0f blue:197/255.0f alpha:1];
     }
     [self.contentView setBackgroundColor:color];
+}
+
+- (void)setTopTag:(BOOL)top {
+    self.topImageView.hidden = !top;
 }
 
 - (void)setTitleString:(NSString *)title {
@@ -162,6 +167,7 @@
     [cell setContentString:[temp objectForKey:@"content"]];
     [cell setTimestampString:[temp objectForKey:@"create_time"]];
     [cell setTopTag:[[temp objectForKey:@"top"] boolValue]];
+    [cell setFirst:(indexPath.section == 0)];
     return cell;
 }
 
