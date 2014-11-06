@@ -161,6 +161,10 @@
         }
         if (MobilenumberText.text.length >= 11)
             ret = NO;
+    }else if (textField == passwordText && range.length == 0) {
+        
+        if (passwordText.text.length >= 12)
+            ret = NO;
     }
     return ret;
 }

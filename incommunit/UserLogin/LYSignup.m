@@ -135,7 +135,7 @@
 
 -(void)Countdown
 {
-    if (m_dTime<0) {
+    if (m_dTime<=1) {
         [m_timer invalidate];
     }
     m_dTime --;
@@ -224,7 +224,7 @@
         [UIView commitAnimations];
     }
 }
-
+//限制输入
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
 {
     BOOL ret = YES;
@@ -233,6 +233,10 @@
             ret = NO;
         }
         if (m_Phone.text.length >= 11)
+            ret = NO;
+    }else if (textField == m_password && range.length == 0) {
+        
+        if (m_password.text.length >= 12)
             ret = NO;
     }
     return ret;

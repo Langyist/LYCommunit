@@ -15,6 +15,6 @@
 +(BOOL)wuser:(NSMutableDictionary *)userinfo;
 +(NSMutableDictionary *)Ruser;
 +(BOOL)Modifystate:(NSString *)GoodsID;
-+(NSMutableArray *)allSuerinfo;
++(NSMutableArray *)allSuerinfo:(NSString *) name;
 +(void)deletetable;
 @end
