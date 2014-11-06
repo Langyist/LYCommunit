@@ -15,6 +15,7 @@
     InsetTextField *passwordText;
     UIButton *codeButton;
     UIButton *submitButton;
+    int m_dTime;
 }
 
 @property(nonatomic,retain)IBOutlet InsetTextField *MobilenumberText;

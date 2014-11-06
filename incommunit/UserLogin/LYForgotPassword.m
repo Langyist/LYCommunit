@@ -159,6 +159,8 @@
         if (![self isPureInt:string]) {
             ret = NO;
         }
+        if (MobilenumberText.text.length >= 11)
+            ret = NO;
     }
     return ret;
 }
@@ -196,8 +198,8 @@
 }
 
 //提交
-- (IBAction)done:(id)sender {
-    
+- (IBAction)done:(id)sender
+{
     NSDictionary *plistDic = [[NSBundle mainBundle] infoDictionary];
     NSLog(@"plistDic = %@",plistDic);
     NSString *URl = [plistDic objectForKey: @"URL"];
@@ -206,14 +208,16 @@
     NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:urlstr]];
     //    将请求的url数据放到NSData对象中
     NSData *response = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
-    //    iOS5自带解析类NSJSONSerialization从response中解析出数据放到字典中
-    NSDictionary *getcodeDic = [NSJSONSerialization JSONObjectWithData:response options:NSJSONReadingMutableLeaves error:&error];
-    NSLog(@"%@",getcodeDic);
-    NSString *message = [getcodeDic objectForKey:@"message"];
-    NSLog(@"%@",message);
-    if (![[getcodeDic objectForKey:@"status"] isEqual:@"201"]) {
-        [self.navigationController popViewControllerAnimated:YES];
-    }else {
+    if(response!=nil)
+    {
+        //    iOS5自带解析类NSJSONSerialization从response中解析出数据放到字典中
+        NSDictionary *getcodeDic = [NSJSONSerialization JSONObjectWithData:response options:NSJSONReadingMutableLeaves error:&error];
+        NSLog(@"%@",getcodeDic);
+        NSString *message = [getcodeDic objectForKey:@"message"];
+        NSLog(@"%@",message);
+        if (![[getcodeDic objectForKey:@"status"] isEqual:@"201"]) {
+            [self.navigationController popViewControllerAnimated:YES];
+        }else {
         
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"温馨提示"
                                                         message:[getcodeDic objectForKey:@"message"]
@@ -221,9 +225,8 @@
                                               cancelButtonTitle:@"确认"
                                               otherButtonTitles:@"取消", nil];
         [alert show];
+        }
     }
-    
-    
 }
 
 @end

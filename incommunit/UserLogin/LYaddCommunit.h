@@ -22,6 +22,8 @@
     NSMutableArray * comboxlist;
     @public NSString *userID;//用户ID
     NSMutableArray *temp;
+    NSTimer *m_timer;
+    int m_dTime;
 }
 @property(nonatomic,retain)IBOutlet UILabel *m_lableinfo;
 @property(nonatomic,retain)IBOutlet InsetTextField *m_Nickname;

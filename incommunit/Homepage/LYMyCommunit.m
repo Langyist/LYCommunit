@@ -65,15 +65,18 @@
     {
         //    将请求的url数据放到NSData对象中
         NSData *response = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
-        //    iOS5自带解析类NSJSONSerialization从response中解析出数据放到字典中
-        NSDictionary *weatherDic = [NSJSONSerialization JSONObjectWithData:response options:NSJSONReadingMutableLeaves error:&error];
-        //    weatherDic字典中存放的数据也是字典型，从它里面通过键值取值
-        NSString *status = [weatherDic objectForKey:@"status"];
-        NSLog(@"%@",status);
-        dataDic = [[weatherDic objectForKey:@"data"] objectForKey:@"community"];
-        NSLog(@"%@",dataDic);
-        imageDic = [dataDic objectForKey:@"images"];
-        NSLog(@"%@",imageDic);
+        if(response!=nil)
+        {
+            //    iOS5自带解析类NSJSONSerialization从response中解析出数据放到字典中
+            NSDictionary *weatherDic = [NSJSONSerialization JSONObjectWithData:response options:NSJSONReadingMutableLeaves error:&error];
+            //    weatherDic字典中存放的数据也是字典型，从它里面通过键值取值
+            NSString *status = [weatherDic objectForKey:@"status"];
+            NSLog(@"%@",status);
+            dataDic = [[weatherDic objectForKey:@"data"] objectForKey:@"community"];
+            NSLog(@"%@",dataDic);
+            imageDic = [dataDic objectForKey:@"images"];
+            NSLog(@"%@",imageDic);
+        }
     }else
     {
         UIAlertView *al = [[UIAlertView alloc] initWithTitle:@"提示" message:@"加载网络数据失败" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];

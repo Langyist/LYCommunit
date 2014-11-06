@@ -1166,11 +1166,11 @@
 				TargetAttributes = {
 					AD33EC8919FBB13F00FE0C11 = {
 						CreatedOnToolsVersion = 6.1;
-						DevelopmentTeam = RVMYYQYXU5;
+						DevelopmentTeam = 95N42RGW4F;
 					};
 					AD33ECA219FBB13F00FE0C11 = {
 						CreatedOnToolsVersion = 6.1;
-						DevelopmentTeam = RVMYYQYXU5;
+						DevelopmentTeam = 95N42RGW4F;
 						TestTargetID = AD33EC8919FBB13F00FE0C11;
 					};
 				};

@@ -77,10 +77,10 @@
                                               otherButtonTitles:@"取消", nil];
         [alert show];
     }
-   // else if ([self GetRegistration:@""])
-    //{
+    else if ([self GetRegistration:@""])
+    {
         [self performSegueWithIdentifier:@"GoLYaddCommunit" sender:self];
-   // }
+    }
 }
 //获取验证码
 -(IBAction)GetRcode:(id)sender
@@ -139,7 +139,7 @@
         [m_timer invalidate];
     }
     m_dTime --;
-    [m_RButton setTitle: [[NSString alloc] initWithFormat:@"%d",m_dTime] forState: UIControlStateNormal];
+    [m_RButton setTitle: [[NSString alloc] initWithFormat:@"%d秒",m_dTime] forState: UIControlStateNormal];
 }
 //进行注册
 -(BOOL)GetRegistration:(NSString *)URL
@@ -232,6 +232,8 @@
         if (![self isPureInt:string]) {
             ret = NO;
         }
+        if (m_Phone.text.length >= 11)
+            ret = NO;
     }
     return ret;
 
