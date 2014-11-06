@@ -13,11 +13,13 @@
     @public NSDictionary *m_announMessage;//公告详情
     UIImageView *m_image;
 }
+@property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @property(nonatomic,retain)IBOutlet UIImageView *m_image;
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 @property (weak, nonatomic) IBOutlet UILabel *contentLabel;
 @property (weak, nonatomic) IBOutlet UILabel *timeLabel;
 
-
+- (void)setTextContent:(NSString *)text;
+- (void)setTimestamp:(NSString *)timestamp;
 
 @end
