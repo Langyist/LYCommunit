@@ -19,6 +19,7 @@
     int                 m_timer;
     UIView *            m_View;
     @public BOOL        Tourist ;
+    
 }
 @property(nonatomic, retain)IBOutlet UITabBar       *bar;
 @property(nonatomic,retain)IBOutlet UIImageView     *m_imageView;

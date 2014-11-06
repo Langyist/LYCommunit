@@ -102,7 +102,6 @@
 //获取注册码
 -(BOOL)GetRegistrationCode:(NSString *)url
 {
-    m_timer =  [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(Countdown) userInfo:nil repeats:YES];
     BOOL bc;
     NSDictionary *plistDic = [[NSBundle mainBundle] infoDictionary];
     NSLog(@"plistDic = %@",plistDic);
@@ -119,6 +118,7 @@
     NSString *status = [weatherDic objectForKey:@"status"];
     if ([status isEqual:@"200"])
     {
+        m_timer =  [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(Countdown) userInfo:nil repeats:YES];
         bc = TRUE;
     }else
     {

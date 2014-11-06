@@ -13,10 +13,12 @@
     UIBarButtonItem *mapItem;
     UIBarButtonItem *mineItem;
     UIBarButtonItem *toolItem;
+ 
 }
 @property (weak, nonatomic) IBOutlet UIButton *titleButton;
 @end
 @implementation LYFunctionInterface
+static NSMutableDictionary *Competence;//模块开通
 @synthesize bar,m_imageScrollView,m_page,m_imageView,m_View;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -97,24 +99,42 @@
 {
     [self performSegueWithIdentifier:@"GoLYMyCommunit" sender:self];
 }
+
 //跳转到物业管理
 - (IBAction)GoManagebutton:(id)sender
 {
-    if (Tourist) {
-        UIAlertView *alvie = [[UIAlertView alloc] initWithTitle:@"提示" message:@"你当前是游客登陆不能进入该功能是否进行注册？" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:@"取消", nil];
-        [alvie show];
+    if(![[[NSString alloc]initWithFormat:@"%@",[[Competence objectForKey:@"modb"] objectForKey:@"checked"]]isEqualToString:@"1"])
+    {
+        UIAlertView *alview = [[UIAlertView alloc] initWithTitle:@"提示" message:@"功能暂未开通敬请脐带" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+        [alview show];
     }else
     {
         [self performSegueWithIdentifier:@"GoLYProManagementMain" sender:self];
+
     }
 }
+//周边便民
 -(IBAction)ConvenienceMian:(id)sender
 {
-    [self performSegueWithIdentifier:@"GoLYconvenienceMain" sender:self];
+    if(![[[NSString alloc]initWithFormat:@"%@",[[Competence objectForKey:@"moda"] objectForKey:@"checked"]]isEqualToString:@"1"])
+    {
+        UIAlertView *alview = [[UIAlertView alloc] initWithTitle:@"提示" message:@"功能暂未开通敬请脐带" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+        [alview show];
+    }else
+    {
+       [self performSegueWithIdentifier:@"GoLYconvenienceMain" sender:self];
+    }
 }
 // 邻里互助
 - (IBAction)NCMain:(id)sender {
-    [self performSegueWithIdentifier:@"JumpToNC" sender:self];
+     if(![[[NSString alloc]initWithFormat:@"%@",[[Competence objectForKey:@"modc"] objectForKey:@"checked"]]isEqualToString:@"1"])
+     {
+        UIAlertView *alview = [[UIAlertView alloc] initWithTitle:@"提示" message:@"功能暂未开通敬请脐带" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+        [alview show];
+    }else
+    {
+        [self performSegueWithIdentifier:@"JumpToNC" sender:self];
+    }
 }
 
 -(void)pageTurn:(UIPageControl *)aPageControl
@@ -190,6 +210,7 @@
     NSLog(@"%@",status);
     NSDictionary *data = [weatherDic objectForKey:@"data"];
     NSDictionary *tem = [data objectForKey:@"community"];
+    Competence = [data objectForKey:@"level2"];
     m_picearry = [tem objectForKey:@"images"];
     m_imageScrollView.contentSize = CGSizeMake(m_picearry.count * self.m_imageScrollView.frame.size.width,0);
     
