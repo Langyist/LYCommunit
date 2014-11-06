@@ -7,6 +7,7 @@
 //
 #import "LYMyCommunit.h"
 #import "LYSelectCommunit.h"
+#import "LYSqllite.h"
 @interface LYMyCommunit ()
 {
     UILabel *redLabel;
@@ -21,7 +22,7 @@
 @end
 
 @implementation LYMyCommunit
-@synthesize m_view;
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -138,4 +139,22 @@
     grlable.font = [UIFont systemFontOfSize:15];
     [self.backView1 addSubview:grlable];
 }
+
+- (IBAction)deleteRecord:(id)sender {
+    [LYSqllite deletetable ];
+    [self.tableView reloadData];
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return [LYSqllite allSuerinfo].count;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"communitycell" forIndexPath:indexPath];
+    UILabel *name = (UILabel *)[cell viewWithTag:101];
+    NSMutableDictionary * temp = [[LYSqllite allSuerinfo] objectAtIndex:indexPath.row];
+    [name setText:[temp objectForKey:@"name"]];
+    return cell;
+}
+
 @end

@@ -57,20 +57,12 @@
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
     NSArray *array = [NSArray arrayWithObjects:@"版本更新",@"欢迎页",@"客服热线", nil];
-    UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 5, 80, 30)];
-    titleLabel.font = [UIFont systemFontOfSize:15];
-    titleLabel.text = array[indexPath.row];
-    [cell addSubview:titleLabel];
-    
+    [cell.textLabel setText:array[indexPath.row]];
+    [cell.detailTextLabel setText:@""];
     if (indexPath.row == 1) {
-        cell.selectionStyle = UITableViewCellStateShowingEditControlMask;
+        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     }else if (indexPath.row == 2) {
-        
-        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(160, 5, 160, 30)];
-        label.font = [UIFont systemFontOfSize:15];
-        label.text = @"028-65260204";
-        label.textAlignment = NSTextAlignmentCenter;
-        [cell addSubview:label];
+        [cell.detailTextLabel setText:@"028-65260204"];
     }
     
     return cell;
@@ -85,7 +77,7 @@ delegate:self cancelButtonTitle:@"确定" otherButtonTitles:@"取消", nil];
         [updatealert show];
     }
     else if (indexPath.row == 1) {
-        
+        [self performSegueWithIdentifier:@"Welcome" sender:nil];
     }
     else if (indexPath.row == 2) {
         

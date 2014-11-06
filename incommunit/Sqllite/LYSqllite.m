@@ -66,22 +66,52 @@
 +(BOOL)wuser:(NSMutableDictionary *)userinfo
 {
     BOOL bl;
+    if (userinfo!=nil) {
     sqlite3 *tempdatabase =  [[[LYSqllite alloc] init] openSqlite:@"LY_db.db"];
-    char * errmsg = NULL;
-    char **dbResult;
-    int nRow, nColumn;
-    int result = sqlite3_get_table( tempdatabase, "select * from USERINFO", &dbResult, &nRow, &nColumn, &errmsg );
-    if( SQLITE_OK == result )
+    sqlite3_stmt *statementst = nil;
+    NSString *sqlstc = [[NSString alloc] initWithFormat:@"SELECT * FROM USERINFO WHERE community_id = '%@'",[userinfo objectForKey:@"community_id"]];
+    if (sqlite3_prepare_v2(tempdatabase, [sqlstc UTF8String], -1, &statementst, NULL) != SQLITE_OK)
     {
-        if (nRow<4)
+        NSLog(@"Error: failed to prepare statement with message:get testValue.");
+        return FALSE;
+    }
+    else
+    {
+        NSString *quantity;
+        while (sqlite3_step(statementst)  == SQLITE_ROW)
         {
-            NSString *sql = [NSString stringWithFormat:
-                             @"INSERT INTO USERINFO ('city_id', 'community_id', 'communitname','communitaddress','communitdistance','communitmax_level',user,password) VALUES ('%@', '%@', '%@','%@','%@','%@','%@','%@')",[userinfo objectForKey:@"city_id"], [userinfo objectForKey:@"community_id"] ,[userinfo objectForKey:@"communitname"] , [userinfo objectForKey:@"communitaddress"] ,[userinfo objectForKey:@"communitdistance"],[userinfo objectForKey:@"communitmax_level"],[userinfo objectForKey:@"user"],[userinfo objectForKey:@"password"]];
-            bl = [[[LYSqllite alloc] init]execSql:sql database:tempdatabase];
+            char* strText03   = (char*)sqlite3_column_text(statementst, 1);
+            quantity = [NSString stringWithUTF8String:strText03];
+            //[temp setValue:[NSString stringWithUTF8String:strText03] forKey:@"commodity_id"];
         }
-    }else
-    {
-        bl = FALSE;
+        if (quantity==nil||[quantity isEqual:@""])
+        {
+            if(![[userinfo objectForKey:@"communitname"]isEqual: @"(null)"]||![[userinfo objectForKey:@"communitname"]isEqual: @""])
+            {
+                sqlite3 *tempdatabase =  [[[LYSqllite alloc] init] openSqlite:@"LY_db.db"];
+                char * errmsg = NULL;
+                char **dbResult;
+                int nRow, nColumn;
+                int result = sqlite3_get_table( tempdatabase, "select * from USERINFO", &dbResult, &nRow, &nColumn, &errmsg );
+                if( SQLITE_OK == result )
+                {
+                    if (nRow<4)
+                    {
+                        NSString *sql = [NSString stringWithFormat:
+                                         @"INSERT INTO USERINFO ('city_id', 'community_id', 'communitname','communitaddress','communitdistance','communitmax_level',user,password) VALUES ('%@', '%@', '%@','%@','%@','%@','%@','%@')",[userinfo objectForKey:@"city_id"], [userinfo objectForKey:@"community_id"] ,[userinfo objectForKey:@"communitname"] , [userinfo objectForKey:@"communitaddress"] ,[userinfo objectForKey:@"communitdistance"],[userinfo objectForKey:@"communitmax_level"],[userinfo objectForKey:@"user"],[userinfo objectForKey:@"password"]];
+                        bl = [[[LYSqllite alloc] init]execSql:sql database:tempdatabase];
+                    }
+                }else
+                {
+                    bl = FALSE;
+                }
+            }
+            else
+            {
+                bl = FALSE;
+            }
+        }
+    }
     }
     return bl;
 }
@@ -123,6 +153,54 @@
     return temp;
 }
 
+
++(NSMutableArray *)allSuerinfo
+{
+    NSMutableArray *Arraytemp = [[NSMutableArray alloc] init];
+    sqlite3 *tempdatabase =  [[[LYSqllite alloc] init] openSqlite:@"LY_db.db"];
+    sqlite3_stmt *statementst = nil;
+    char *sqlst = "SELECT * FROM USERINFO";
+    if (sqlite3_prepare_v2(tempdatabase, sqlst, -1, &statementst, NULL) != SQLITE_OK)
+    {
+        NSLog(@"Error: failed to prepare statement with message:get testValue.");
+        return nil;
+    }
+    else
+    {
+        while (sqlite3_step(statementst)  == SQLITE_ROW)
+        {
+            NSMutableDictionary *temp = [[NSMutableDictionary alloc] init];
+            char* strText   = (char*)sqlite3_column_text(statementst, 1);
+            [temp setValue:[NSString stringWithUTF8String:strText] forKey:@"city_id"];
+            char* strText01   = (char*)sqlite3_column_text(statementst, 2);
+            [temp setValue:[NSString stringWithUTF8String:strText01] forKey:@"id"];
+            char* strText02   = (char*)sqlite3_column_text(statementst, 3);
+            [temp setValue:[NSString stringWithUTF8String:strText02] forKey:@"name"];
+            char* strText03   = (char*)sqlite3_column_text(statementst, 4);
+            [temp setValue:[NSString stringWithUTF8String:strText03] forKey:@"communitaddress"];
+            char* strText04   = (char*)sqlite3_column_text(statementst, 5);
+            [temp setValue:[NSString stringWithUTF8String:strText04] forKey:@"communitdistance"];
+            char* strText05   = (char*)sqlite3_column_text(statementst, 6);
+            [temp setValue:[NSString stringWithUTF8String:strText05] forKey:@"communitmax_level"];
+            char* strText06   = (char*)sqlite3_column_text(statementst, 7);
+            [temp setValue:[NSString stringWithUTF8String:strText06] forKey:@"user"];
+            char* strText07   = (char*)sqlite3_column_text(statementst, 8);
+            [temp setValue:[NSString stringWithUTF8String:strText07] forKey:@"password"];
+            [Arraytemp addObject:temp];
+        }
+    }
+    return Arraytemp;
+
+}
+//删除用户表中数据
++(void)deletetable
+{
+    sqlite3 *tempdatabase =  [[[LYSqllite alloc] init] openSqlite:@"LY_db.db"];
+    NSString *sql = @"drop table USERINFO";
+    [[[LYSqllite alloc] init] execSql:sql database:tempdatabase];
+    sqlite3_close(tempdatabase);
+    [self CreatUserTable];
+}
 #pragma mark -购物车信息表
 //创建购物车表
 +(void)CreatShoppingcart
