@@ -21,8 +21,9 @@
     {
         [m_image setImageWithURL:url placeholderImage:nil];
     }
-    
-    // Do any additional setup after loading the view.
+    [self.titleLabel setText:@"通知标题"];
+    [self setTextContent:@"通知内容，balabalabalabalabalabalabala，balabalabalabalabalabalabala，balabalabalabalabalabalabala……"];
+    [self setTimestamp:@"1415260743000"];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -52,13 +53,13 @@
     
     [attrString addAttribute:NSForegroundColorAttributeName value:[UIColor darkGrayColor] range:NSMakeRange(0, text.length)];
     
-    [self.titleLabel setAttributedText:attrString];
+    [self.contentLabel setAttributedText:attrString];
     
-    CGFloat height =[self heightOfLabel:@[text] size:CGSizeMake(CGFLOAT_MAX, CGRectGetWidth(self.titleLabel.frame)) font:[UIFont systemFontOfSize:14]];
+    CGFloat height =[self heightOfLabel:@[text] size:CGSizeMake(CGRectGetWidth(self.contentLabel.frame), CGFLOAT_MAX) font:[UIFont systemFontOfSize:14]];
     
-    CGRect rect = self.titleLabel.frame;
+    CGRect rect = self.contentLabel.frame;
     rect.size.height = height;
-    self.titleLabel.frame = rect;
+    self.contentLabel.frame = rect;
     
     CGRect timeLabelFrame = self.timeLabel.frame;
     timeLabelFrame.origin.y = CGRectGetMaxY(rect) + 20;

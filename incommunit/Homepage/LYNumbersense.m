@@ -7,7 +7,27 @@
 //
 
 #import "LYNumbersense.h"
-#import "LYSelectCommunity.h"
+#import "LYSelectCommunit.h"
+#import "NumberSenceHeaderView.h"
+
+@interface LYNumbersenseCell : UITableViewCell
+@property (weak, nonatomic) IBOutlet UILabel *nameLabel;
+@property (weak, nonatomic) IBOutlet UILabel *callNumberLabel;
+
+@end
+
+@implementation LYNumbersenseCell
+
+- (void)setName:(NSString *)name {
+    [self.nameLabel setText:name];
+}
+
+- (void)setCallNumber:(NSInteger)number {
+    NSString *numberString = [NSString stringWithFormat:@"%d次拨打", number];
+    [self.callNumberLabel setText:numberString];
+}
+
+@end
 
 @interface LYNumbersense ()
 
@@ -46,19 +66,12 @@
 
 #pragma mark UITableView delegate
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    
     return 2;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    if (section == 0) {
-        return 2;
-    }else if (section == 1) {
-        
-        return 3;
-    }else {
-        return 0;
-    }
+    NSInteger numberOfRowsInSection = 2;
+    return numberOfRowsInSection;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -68,39 +81,28 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    if (indexPath.section == 0) {
-        UITableViewCell *cell;
-        cell = [tableView dequeueReusableCellWithIdentifier:@"administrativeCell"];
-        return cell;
-    }else if (indexPath.section == 1) {
-        
-        UITableViewCell *cell;
-        cell = [tableView dequeueReusableCellWithIdentifier:@"personalCell"];
-        return cell;
-    }else {
-        
-        return nil;
-    }
+    LYNumbersenseCell *cell = [tableView dequeueReusableCellWithIdentifier:@"administrativeCell" forIndexPath:indexPath];
+    [cell setName:@"xxx"];
+    [cell setCallNumber:0];
+    return cell;
 }
 
-- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-    
-    if (section == 0) {
-        return @"行政";
-    }else if (section == 1) {
-        
-        return @"个人";
-    }else {
-        
-        return nil;
-    }
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    return 50;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    NSArray *nibViews = [[NSBundle mainBundle] loadNibNamed:@"NumberSenceHeaderView" owner:self options:nil];
+    NumberSenceHeaderView *view = nibViews.lastObject;
+    [view setName:@"xxx"];
+    return view;
 }
 
 #pragma mark 网络请求数据
 - (void)getNumbersense:(NSString *)url {
     
     NSError *error;
-    NSString *urlstr = [[NSString alloc] initWithFormat:@"http://115.29.244.142/inCommunity/services/community/contact_list/community_id=%@",[[LYSelectCommunity GetCommunityInfo] objectForKey:@"id"]];
+    NSString *urlstr = [[NSString alloc] initWithFormat:@"http://115.29.244.142/inCommunity/services/community/contact_list/community_id=%@",[[LYSelectCommunit GetCommunityInfo] objectForKey:@"id"]];
     //    加载一个NSURL对象
     NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:urlstr]];
     //    将请求的url数据放到NSData对象中

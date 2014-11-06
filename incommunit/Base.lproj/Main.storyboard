@@ -29,7 +29,7 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="55" sectionHeaderHeight="22" sectionFooterHeight="22" id="3Qx-lH-qBa" customClass="AWaterfallTableView">
-                                <rect key="frame" x="0.0" y="44" width="320" height="524"/>
+                                <rect key="frame" x="0.0" y="44" width="320" height="460"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
@@ -99,23 +99,24 @@
                     <extendedEdge key="edgesForExtendedLayout"/>
                     <navigationItem key="navigationItem" id="h7L-xf-yuH">
                         <nil key="title"/>
-                        <button key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="88a-m5-jfF">
-                            <rect key="frame" x="110" y="11" width="100" height="22"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <button key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="tAh-ZE-tdZ" customClass="ArrowButton">
+                            <rect key="frame" x="90" y="7" width="140" height="30"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                             <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
-                            <inset key="titleEdgeInsets" minX="-17" minY="0.0" maxX="35" maxY="0.0"/>
-                            <inset key="imageEdgeInsets" minX="67" minY="7" maxX="22" maxY="7"/>
-                            <state key="normal" title="Button" image="箭头_03.png">
+                            <state key="normal" title="Button">
                                 <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
+                            <connections>
+                                <action selector="GoselectCity" destination="5z7-iZ-aVI" eventType="touchUpInside" id="IYJ-db-XEv"/>
+                            </connections>
                         </button>
                     </navigationItem>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <connections>
                         <outlet property="Serch" destination="LlY-R7-l9A" id="fmO-B6-nBd"/>
                         <outlet property="m_tab" destination="3Qx-lH-qBa" id="dYd-3d-Gj2"/>
-                        <outlet property="selectCityButton" destination="88a-m5-jfF" id="hG7-ED-mM6"/>
+                        <outlet property="selectCityButton" destination="tAh-ZE-tdZ" id="ueA-MC-QcF"/>
                         <segue destination="HR0-wN-xV8" kind="push" identifier="GoLYSelectCity" id="i8U-7h-cTL"/>
                         <segue destination="FZK-1q-QYC" kind="push" identifier="GoLYUserloginView" id="vk7-fL-aT2"/>
                         <segue destination="195-Ap-2Gv" kind="modal" identifier="Gomain4" id="gne-12-lal"/>
@@ -390,12 +391,11 @@
                     <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
                     <navigationItem key="navigationItem" id="Nng-ca-OAx">
                         <nil key="title"/>
-                        <button key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="Zga-Ji-KEf">
-                            <rect key="frame" x="110" y="11" width="100" height="22"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <inset key="titleEdgeInsets" minX="-17" minY="0.0" maxX="35" maxY="0.0"/>
-                            <inset key="imageEdgeInsets" minX="67" minY="7" maxX="22" maxY="7"/>
-                            <state key="normal" title="Button" image="箭头_03.png">
+                        <button key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="Zga-Ji-KEf" customClass="ArrowButton">
+                            <rect key="frame" x="60" y="11" width="200" height="22"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                            <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                            <state key="normal" title="Button">
                                 <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
@@ -995,7 +995,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="其他" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="kvW-UJ-tM0">
-                                                    <rect key="frame" x="14" y="12" width="5408" height="21"/>
+                                                    <rect key="frame" x="14" y="12" width="5728" height="21"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -1868,7 +1868,7 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="BmH-Z0-6eh">
-                                            <rect key="frame" x="2163" y="69.5" width="68" height="20"/>
+                                            <rect key="frame" x="2483" y="-241.5" width="68" height="20"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -2881,27 +2881,25 @@
             </objects>
             <point key="canvasLocation" x="-538" y="9230"/>
         </scene>
-        <!--Numbersense-->
+        <!--小区号码通-->
         <scene sceneID="c4O-1Z-tYb">
             <objects>
                 <viewController id="VzL-hf-L0Q" customClass="LYNumbersense" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Pzr-Kw-MUy">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <navigationBar contentMode="scaleToFill" id="1Q3-pR-0Lo">
-                                <rect key="frame" x="0.0" y="20" width="320" height="44"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <items>
-                                    <navigationItem title="小区号码通" id="DWB-ql-LQR"/>
-                                </items>
-                            </navigationBar>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="QZX-Se-I2a">
-                                <rect key="frame" x="0.0" y="64" width="320" height="504"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="504"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <color key="backgroundColor" red="0.9137254901960784" green="0.90980392156862744" blue="0.90980392156862744" alpha="1" colorSpace="calibratedRGB"/>
+                                <view key="tableFooterView" contentMode="scaleToFill" id="jBw-Ft-Tux">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                </view>
                                 <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="administrativeCell" rowHeight="60" id="8sw-kJ-8ff">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="administrativeCell" rowHeight="60" id="8sw-kJ-8ff" customClass="LYNumbersenseCell">
                                         <rect key="frame" x="0.0" y="22" width="320" height="60"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="8sw-kJ-8ff" id="r5c-dH-rvO">
@@ -2909,57 +2907,37 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="街道派出所" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="lwJ-1K-Rjw">
-                                                    <rect key="frame" x="20" y="19" width="131" height="21"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <rect key="frame" x="17" y="19" width="220" height="21"/>
+                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_community_phones.png" id="AQS-lj-pQd">
-                                                    <rect key="frame" x="267" y="9" width="30" height="30"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="call_btr.png" id="AQS-lj-pQd" customClass="call_btr">
+                                                    <rect key="frame" x="267" y="8" width="30" height="30"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
                                                 </imageView>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="50次拨打" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="H5V-Hk-F8t">
-                                                    <rect key="frame" x="245" y="38" width="74" height="21"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <rect key="frame" x="245" y="37" width="74" height="21"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
                                         </tableViewCellContentView>
-                                    </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="personalCell" rowHeight="60" id="Z7k-d8-J0w">
-                                        <rect key="frame" x="0.0" y="82" width="320" height="60"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Z7k-d8-J0w" id="c2C-1L-gFe">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="59"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="物业中心电话" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="gvI-aA-BkX">
-                                                    <rect key="frame" x="20" y="19" width="121" height="21"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_community_phones.png" id="qMD-dZ-Idc">
-                                                    <rect key="frame" x="268" y="9" width="30" height="30"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                </imageView>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="50次拨打" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="kBp-Xj-g7d">
-                                                    <rect key="frame" x="246" y="38" width="74" height="21"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
-                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="callNumberLabel" destination="H5V-Hk-F8t" id="a4n-Uw-Ntj"/>
+                                            <outlet property="nameLabel" destination="lwJ-1K-Rjw" id="iib-6j-AiW"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" id="CKG-bP-bRG"/>
+                    <extendedEdge key="edgesForExtendedLayout"/>
+                    <navigationItem key="navigationItem" title="小区号码通" id="CKG-bP-bRG"/>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <connections>
                         <outlet property="m_tabeView" destination="QZX-Se-I2a" id="NTa-xw-c1s"/>
                     </connections>
@@ -3764,17 +3742,17 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" id="CO3-5s-Fvu">
-                                                    <rect key="frame" x="0.0" y="-1" width="320" height="1"/>
+                                                    <rect key="frame" x="0.0" y="-1" width="640" height="1"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                                     <color key="backgroundColor" red="0.9137254901960784" green="0.90980392156862744" blue="0.90980392156862744" alpha="1" colorSpace="deviceRGB"/>
                                                 </view>
                                                 <view contentMode="scaleToFill" id="DJ2-gG-Adx">
-                                                    <rect key="frame" x="0.0" y="43" width="320" height="1"/>
+                                                    <rect key="frame" x="0.0" y="43" width="640" height="1"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                                     <color key="backgroundColor" red="0.91372549020000005" green="0.90980392160000001" blue="0.90980392160000001" alpha="1" colorSpace="deviceRGB"/>
                                                 </view>
                                                 <label opaque="NO" userInteractionEnabled="NO" tag="101" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="xc4-sL-SLY">
-                                                    <rect key="frame" x="22" y="11" width="276" height="21"/>
+                                                    <rect key="frame" x="22" y="11" width="596" height="21"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -4700,6 +4678,17 @@
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
                 </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="vk5-fc-xdt" customClass="ArrowButton">
+                    <rect key="frame" x="0.0" y="0.0" width="248" height="22"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                    <state key="normal" title="Button">
+                        <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="GoMycommunit:" destination="oLB-1p-2Il" eventType="touchUpInside" id="cnS-6O-n9o"/>
+                    </connections>
+                </button>
             </objects>
             <point key="canvasLocation" x="-1565" y="4718"/>
         </scene>
@@ -4720,6 +4709,7 @@
         <image name="Default.png" width="640" height="1136"/>
         <image name="Unselected.png" width="32" height="33"/>
         <image name="add.png" width="64" height="64"/>
+        <image name="call_btr.png" width="54" height="54"/>
         <image name="ic_community_phones.png" width="40" height="40"/>
         <image name="ic_default_commodity.png" width="151" height="124"/>
         <image name="ic_default_shop.png" width="151" height="124"/>
@@ -4762,9 +4752,9 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
+        <segue reference="Lzc-cq-hqV"/>
         <segue reference="gne-12-lal"/>
-        <segue reference="h8b-UJ-TZd"/>
-        <segue reference="ZlB-3N-nCw"/>
-        <segue reference="8a5-KE-Zjw"/>
+        <segue reference="vk7-fL-aT2"/>
+        <segue reference="Bv1-7h-vqH"/>
     </inferredMetricsTieBreakers>
 </document>
