@@ -41,12 +41,11 @@ static NSMutableDictionary  *m_selectCityInfo;
 #pragma mark - Navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-//    if ([segue.identifier isEqualToString: @"GoLYSelectCommunit"])
-//    {
-//        LYSelectCommunit *detailViewController = (LYSelectCommunit*) segue.destinationViewController;
-//        detailViewController->m_cityinfo = m_selectCityInfo;
-//        detailViewController->m_Refresh = TRUE;
-//    }
+    if ([segue.identifier isEqualToString: @"GoLYSelectCommunit"])
+    {
+        LYSelectCommunit *detailViewController = (LYSelectCommunit*) segue.destinationViewController;
+        [detailViewController->selectCityButton setTitle:[m_selectCityInfo objectForKey:@"name"]  forState:UIControlStateNormal];
+    }
 }
 
 #pragma mark - Table view data source 协议函数
@@ -1000,5 +999,12 @@ static NSMutableDictionary  *m_selectCityInfo;
 +(NSDictionary*)CityInfo
 {
     return m_selectCityInfo;
+}
+-(void)viewWillDisappear:(BOOL)animated
+{
+    if (m_selectCityInfo.count>0)
+    {
+        [selectcity setTitle: [m_selectCityInfo objectForKey:@"name"] forState: UIControlStateNormal];
+    }
 }
 @end

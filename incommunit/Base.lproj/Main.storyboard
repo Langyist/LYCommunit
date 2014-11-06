@@ -171,7 +171,7 @@
             <objects>
                 <viewController id="FZK-1q-QYC" customClass="LYUserloginView" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="4xI-rW-Qoz">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="504"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo.png" id="rAm-bu-frL">
@@ -190,7 +190,7 @@
                                 </connections>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="749" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="oQz-YS-C30">
-                                <rect key="frame" x="10" y="472" width="60" height="27"/>
+                                <rect key="frame" x="10" y="536" width="60" height="27"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="13"/>
                                 <state key="normal" title="快速注册">
@@ -259,7 +259,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="DbY-lc-CXq">
-                                <rect key="frame" x="242" y="471" width="68" height="30"/>
+                                <rect key="frame" x="242" y="535" width="68" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="13"/>
                                 <state key="normal" title="游客登录">

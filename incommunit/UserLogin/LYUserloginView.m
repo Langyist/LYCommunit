@@ -16,9 +16,7 @@
     NSThread* myThread;
 }
 @end
-
 @implementation LYUserloginView
-
 @synthesize userText,passwordtext,login,m_Pview,m_iamgeview,m_communityName,m_loginbutton;
 - (void)viewDidLoad
 {
@@ -27,10 +25,8 @@
     
     [m_loginbutton.layer setMasksToBounds:YES];
     [m_loginbutton.layer setCornerRadius:3.0];
-    
     [self modify:userText imageName:@"ic_username" size:CGSizeMake(31, 32)];
     [self modify:passwordtext imageName:@"ic_password" size:CGSizeMake(29, 37)];
-    
     userText.delegate=self;
     passwordtext.delegate=self;
     passwordtext.secureTextEntry = YES;
@@ -114,11 +110,11 @@
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-//        if ([segue.identifier isEqualToString: @"GoLYFunctionInterface"])
-//        {
-//            LYFunctionInterface *detailViewController = (LYFunctionInterface*) segue.destinationViewController;
-//            detailViewController->Tourist = TRUE;
-//        }
+    if ([segue.identifier isEqualToString: @"GoSelectConmunit"])
+    {
+        LYSelectCommunit *detailViewController = (LYSelectCommunit*) segue.destinationViewController;
+        detailViewController->m_bl = TRUE;
+    }
 }
 //login 登陆函数
 -(IBAction)login:(NSString*)user password:(NSString *)password

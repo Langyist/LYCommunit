@@ -32,6 +32,7 @@
     @public NSDictionary *          m_data;
     @private NSString *             m_city_name;
     @private NSString *m_city_id;
+    @public  UIButton *selectCityButton;
     int m_pageSize;
     int m_pageOffset;
 }

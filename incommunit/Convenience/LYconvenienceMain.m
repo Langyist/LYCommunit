@@ -803,9 +803,6 @@
         UIView *m_cellbackView = [[UIView alloc] initWithFrame:cell.contentView.frame];
         m_cellbackView.backgroundColor = [UIColor REDCOLOR];
         cell.selectedBackgroundView = m_cellbackView;
-        //默认选中第一行
-        [m_backtable selectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] animated:YES scrollPosition:UITableViewScrollPositionTop];
-        
         return cell;
     }
     else if (tableView ==  m_backtable1 ) {
@@ -829,9 +826,6 @@
         UIView *m_cellbackView = [[UIView alloc] initWithFrame:cell.contentView.frame];
         m_cellbackView.backgroundColor = [UIColor REDCOLOR];
         cell.selectedBackgroundView = m_cellbackView;
-        //默认选中第一行
-        [m_backtable1 selectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] animated:YES scrollPosition:UITableViewScrollPositionTop];
-        
         return cell;
     }
     else if (tableView ==  m_shoptable ) {
@@ -851,9 +845,6 @@
         UIView *m_cellbackView = [[UIView alloc] initWithFrame:cell.contentView.frame];
         m_cellbackView.backgroundColor = [UIColor REDCOLOR];
         cell.selectedBackgroundView = m_cellbackView;
-        //默认选中第一行
-        [m_shoptable selectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] animated:YES scrollPosition:UITableViewScrollPositionTop];
-        
         return cell;
     }
     else if (tableView == m_shoptable1) {
@@ -879,7 +870,7 @@
         m_cellbackView.backgroundColor = [UIColor REDCOLOR];
         cell.selectedBackgroundView = m_cellbackView;
         //默认选中第一行
-        [m_shoptable1 selectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] animated:YES scrollPosition:UITableViewScrollPositionTop];
+//        [m_shoptable1 selectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] animated:YES scrollPosition:UITableViewScrollPositionTop];
         
         return cell;
     }

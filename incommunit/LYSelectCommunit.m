@@ -48,7 +48,7 @@
 
 @end
 @implementation LYSelectCommunit
-@synthesize m_tab,Serch,m_lable_address,m_lable_distance,m_lable_name,m_lable_st;
+@synthesize m_tab,Serch,m_lable_address,m_lable_distance,m_lable_name,m_lable_st,selectCityButton;
 static BOOL m_Refresh;//是否刷新界面
 static NSDictionary *          m_cityinfo;//城市信息
 - (void)awakeFromNib
@@ -65,12 +65,12 @@ static NSDictionary *          m_cityinfo;//城市信息
         [self performSegueWithIdentifier:@"Gomain4" sender:self];
         m_cityinfo = userinfo;
     }
-    m_pageSize = 10;
+    m_pageSize = 1000;
     m_pageOffset = 0;
     
     self->Serch.delegate=self;
-    [_selectCityButton addTarget:self action:@selector(GoselectCity) forControlEvents:UIControlEventTouchUpInside];
-    [_selectCityButton setTitle: @"成都" forState: UIControlStateNormal];
+    [selectCityButton addTarget:self action:@selector(GoselectCity) forControlEvents:UIControlEventTouchUpInside];
+    [selectCityButton setTitle: @"成都" forState: UIControlStateNormal];
     self->locationManager = [[CLLocationManager alloc] init];
     self->locationManager.delegate = self;
     if([[[UIDevice currentDevice] systemVersion] floatValue]>=8.0)
@@ -118,6 +118,7 @@ static NSDictionary *          m_cityinfo;//城市信息
     {
         LYSelectCity *detailViewController = (LYSelectCity*) segue.destinationViewController;
         detailViewController->locCityName = m_city_name;
+        detailViewController->selectcity = selectCityButton;
     }
 }
 #pragma mark - CLLocationManagerDelegate 定位协议函数
@@ -134,10 +135,10 @@ static NSDictionary *          m_cityinfo;//城市信息
          {
              if (m_data.count>0)
              {
-                 [_selectCityButton setTitle: [m_data objectForKey:@"name"] forState: UIControlStateNormal];
+                 [selectCityButton setTitle: [m_data objectForKey:@"name"] forState: UIControlStateNormal];
              }else
              {
-                 [_selectCityButton setTitle: [[NSString alloc]initWithFormat:@"%@",[[placemark.addressDictionary objectForKey:@"City"] substringToIndex:2] ] forState: UIControlStateNormal];
+                 [selectCityButton setTitle: [[NSString alloc]initWithFormat:@"%@",[[placemark.addressDictionary objectForKey:@"City"] substringToIndex:2] ] forState: UIControlStateNormal];
                  m_city_name  =[[placemark.addressDictionary objectForKey:@"City"] substringToIndex:2];
              }
              [self.m_tab reloadData];
@@ -255,7 +256,7 @@ static NSDictionary *          m_cityinfo;//城市信息
 //搜索小区
 -(void)GetCommunity:(NSString*)URL
 {
-    int pagesize = 0;
+    int pagesize = 1000;
     NSDictionary *plistDic = [[NSBundle mainBundle] infoDictionary];
     NSLog(@"plistDic = %@",plistDic);
     NSString *urlstr = [plistDic objectForKey: @"URL"];
@@ -289,7 +290,6 @@ static NSDictionary *          m_cityinfo;//城市信息
     if(received!=nil)
     {
         NSDictionary *weatherDic = [NSJSONSerialization JSONObjectWithData:received options:NSJSONReadingMutableLeaves error:&error];
-        pagesize = [[weatherDic objectForKey:@"pageSize"] intValue];
         m_pageOffset = [[weatherDic objectForKey:@"pageOffset"] intValue];
         if(weatherDic!=nil)
         {
@@ -302,11 +302,11 @@ static NSDictionary *          m_cityinfo;//城市信息
             }else
             {
                 NSDictionary *data1 = [weatherDic objectForKey:@"data"];
-                CommunitylistON = [data1 objectForKey:@"communities"];
-                CommunitylistOF = [data1 objectForKey:@"refCommunities"];
+                m_CommunitylistON = [data1 objectForKey:@"communities"];
+                m_CommunitylistOF = [data1 objectForKey:@"refCommunities"];
             }
-            [m_CommunitylistON addObjectsFromArray:CommunitylistON];
-            [m_CommunitylistOF addObjectsFromArray:CommunitylistOF];
+//            [m_CommunitylistON addObjectsFromArray:CommunitylistON];
+//            [m_CommunitylistOF addObjectsFromArray:CommunitylistOF];
             [m_tab reloadData];
         }
         else
@@ -351,7 +351,7 @@ static NSDictionary *          m_cityinfo;//城市信息
         }
         m_CommunityName = @"";
         m_data = [LYSelectCity CityInfo];
-        [_selectCityButton setTitle: [m_data objectForKey:@"name"] forState: UIControlStateNormal];
+        //[_selectCityButton setTitle: [m_data objectForKey:@"name"] forState: UIControlStateNormal];
         self.view.userInteractionEnabled = YES;
         [m_tab refreshStart];
         [self.m_tab reloadData];
