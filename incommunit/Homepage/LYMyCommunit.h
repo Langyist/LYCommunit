@@ -19,5 +19,6 @@
 @property (weak, nonatomic) IBOutlet UIView *backView;
 @property (weak, nonatomic) IBOutlet UIView *backView1;
 @property (weak, nonatomic) IBOutlet UIButton *m_button;
-@property(nonatomic,retain)IBOutlet UIView *m_view;
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
+
 @end

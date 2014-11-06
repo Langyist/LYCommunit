@@ -21,7 +21,7 @@
 @end
 
 @implementation LYMyCommunit
-@synthesize m_view;
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -135,4 +135,19 @@
     grlable.font = [UIFont systemFontOfSize:15];
     [self.backView1 addSubview:grlable];
 }
+
+- (IBAction)deleteRecord:(id)sender {
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return 0;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"communitycell" forIndexPath:indexPath];
+    UILabel *name = (UILabel *)[cell viewWithTag:101];
+    [name setText:@"xxxxx"];
+    return cell;
+}
+
 @end
