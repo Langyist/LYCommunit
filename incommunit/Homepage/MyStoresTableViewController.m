@@ -1,7 +1,7 @@
 //
 //  MyStoresTableViewController.m
 //  incommunit
-//
+//  我的店铺
 //  Created by 李忠良 on 14/10/31.
 //  Copyright (c) 2014年 LANGYI. All rights reserved.
 //

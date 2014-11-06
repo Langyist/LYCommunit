@@ -306,6 +306,22 @@
     }
     return YES;
 }
+
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
+{
+    BOOL ret = YES;
+    if (textField == userText && range.length == 0) {
+        if (userText.text.length >= 20)
+            ret = NO;
+    }else if (textField == passwordtext && range.length == 0) {
+        
+        if (passwordtext.text.length >= 12)
+            ret = NO;
+    }
+    return ret;
+    
+}
+
 //开始编辑输入框
 - (void)textFieldDidBeginEditing:(UITextField *)textField
 {

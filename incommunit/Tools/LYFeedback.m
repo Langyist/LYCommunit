@@ -9,7 +9,7 @@
 #import "LYFeedback.h"
 #import "LYSelectCommunit.h"
 
-@interface LYFeedback ()
+@interface LYFeedback () <UIScrollViewDelegate>
 
 @end
 
@@ -33,7 +33,14 @@
     
     m_textView.delegate = self;
     
+    UITapGestureRecognizer *gesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(downKeyboard)];
+    [self.view addGestureRecognizer:gesture];
+}
+
+- (void)downKeyboard {
     
+    [m_textView resignFirstResponder];
+    [mothedText resignFirstResponder];
 }
 
 //提交
@@ -46,6 +53,15 @@
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
     if (textField == mothedText) {
         [mothedText resignFirstResponder];
+    }
+    return YES;
+}
+
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+    if (textField == mothedText) {
+        if (mothedText.text.length >= 40) {
+            return NO;
+        }
     }
     return YES;
 }
@@ -88,8 +104,19 @@
         [textView resignFirstResponder];
         [mothedText becomeFirstResponder];
         return NO;
+    }else if (textView == m_textView) {
+        
+        if (m_textView.text.length >= 500)
+        return NO;
     }
     return YES;
+}
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    
+    if (scrollView == m_textView) {
+        [m_textView resignFirstResponder];
+    }
 }
 
 #pragma mark 请求数据
