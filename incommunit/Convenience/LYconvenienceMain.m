@@ -13,6 +13,7 @@
 #import "LYShop.h"
 #import "XHFriendlyLoadingView.h"
 #define REDCOLOR colorWithRed:255.0/255.0 green:230.0/255.0 blue:201.0/255.0 alpha:1
+#import "AppDelegate.h"
 @interface LYconvenienceMain ()
 {
     UISearchBar *m_deliverSearch;
@@ -133,11 +134,38 @@
     m_Featuredtableview.delegate = self;
     m_Featuredtableview.separatorStyle = UITableViewCellSeparatorStyleNone;
     UIView *footerView = [[UIView alloc] init];
-    [footerView setBackgroundColor:[UIColor clearColor]];
-    footerView.frame = CGRectMake(0, 0, 10, 10);
     m_Featuredtableview.tableFooterView = footerView;
     [m_view01 addSubview:m_Featuredtableview];
     [self._scrollView addSubview:m_view01];
+    
+    UIImageView *buttonimageView = [[UIImageView alloc] initWithFrame:CGRectMake(148, 14, 10, 10)];
+    buttonimageView.image = [UIImage imageNamed:@"小三角_11"];
+    [m_segment addSubview:buttonimageView];
+    buttonimageView.tag = @"1";
+    [arrow addObject:buttonimageView];
+    
+    footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(m_Featuredtableview.frame), 1)];
+    [footerView setBackgroundColor:[UIColor clearColor]];
+    footerView.clipsToBounds = NO;
+    
+    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(40, 130, 80, 90)];
+    imageView.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
+    [imageView setImage:[UIImage imageNamed:@"周边便民--未开店--帮帮娃_03"]];
+    
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(140, 130, 150, 100)];
+    label.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleRightMargin;
+    label.lineBreakMode = NSLineBreakByCharWrapping;
+    label.numberOfLines = 0;
+    [label setText:@"亲，帮帮娃加载后没有数据哦"];
+    label.font = [UIFont boldSystemFontOfSize:15.0f];
+    label.textColor = SPECIAL_GRAY;
+    
+    [footerView addSubview:imageView];
+    [footerView addSubview:label];
+    
+    [m_Featuredtableview setBackgroundColor:BK_GRAY];
+    [m_Featuredtableview addSubview:footerView];
+    
     //送餐送回
     m_view02 = [[UIView alloc] initWithFrame:CGRectMake(self.view.frame.size.width, 0, self._scrollView.frame.size.width, self._scrollView.frame.size.height)];
     m_Deliverytableview =[[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self._scrollView.frame.size.height)];
@@ -146,11 +174,6 @@
     [m_view02 addSubview:m_Deliverytableview];
     [self._scrollView addSubview:m_view02];
     
-    UIImageView *buttonimageView = [[UIImageView alloc] initWithFrame:CGRectMake(148, 14, 10, 10)];
-    buttonimageView.image = [UIImage imageNamed:@"小三角_11"];
-    [m_segment addSubview:buttonimageView];
-    buttonimageView.tag = @"1";
-    [arrow addObject:buttonimageView];
     //搜索
     m_deliverSearch = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, m_view02.frame.size.width, 40)];
     m_deliverSearch.delegate = self;
@@ -640,7 +663,21 @@
 {
     if (tableView == m_Featuredtableview )
     {
-        return m_Featuredlist.count;
+        NSInteger numberOfRowsInSection = m_Featuredlist.count;
+        if (numberOfRowsInSection == 0) {
+            m_Featuredtableview.tableFooterView.hidden = NO;
+//            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"温馨提示"
+//                                                            message:@"精选中没有数据"
+//                                                           delegate:self
+//                                                  cancelButtonTitle:@"确定"
+//                                                  otherButtonTitles:@"取消", nil];
+//            [alert show];
+        }
+        else {
+            m_Featuredtableview.tableFooterView.hidden = YES;
+        }
+        return numberOfRowsInSection;
+        
     }else if(tableView == m_Deliverytableview){
         return m_Deliverylist.count;
     }if (tableView == m_ShopDaquan) {
@@ -994,9 +1031,11 @@
     NSDictionary *weatherDic = [NSJSONSerialization JSONObjectWithData:response options:NSJSONReadingMutableLeaves error:&error];
     //    weatherDic字典中存放的数据也是字典型，从它里面通过键值取值
     NSString *status = [weatherDic objectForKey:@"status"];
-    NSLog(@"%@",status);
-    //    UIAlertView *aler = [[UIAlertView alloc] initWithTitle:@"提示" message:status delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
-    //    [aler show];
+        if (![status isEqual:@"200"]) {
+            UIAlertView *aler = [[UIAlertView alloc] initWithTitle:@"提示" message:@"数据加载失败，请检查网络" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+            [aler show];
+        }
+    
     m_Featuredlist = [weatherDic objectForKey:@"data"];
         dispatch_async(dispatch_get_main_queue(), ^{
             [m_Featuredtableview reloadData];

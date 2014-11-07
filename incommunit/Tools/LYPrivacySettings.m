@@ -41,7 +41,7 @@
     m_UIbuttonArry = [[NSMutableArray alloc] init];
     select = [[NSMutableDictionary alloc] init];
     m_UIbutton = [[NSMutableArray alloc] init];
-    isselect= NO;
+    isselect= YES;
     m_tableView.delegate = self;
     m_tableView.dataSource = self;
     address = [NSMutableArray arrayWithCapacity:4];
@@ -289,9 +289,19 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UIButton *button;
+    UIButton *button ;
     if (indexPath.section ==0) {
         button = [m_UIbuttonArry objectAtIndex:indexPath.row];
+        if (isselect) {
+            if (indexPath.row) {
+                button.selected = NO;
+                isselect = NO;
+            }else {
+                
+                button.selected = YES;
+                isselect = YES;
+            }
+        }
     }else if(indexPath.section == 1)
     {
          button = [m_UIbutton objectAtIndex:indexPath.row];
@@ -414,7 +424,7 @@
             return FALSE;
         }
     }
-    return nil;
+    return NO;
 }
 -(BOOL)Submit
 {

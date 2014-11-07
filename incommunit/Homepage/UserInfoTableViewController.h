@@ -12,7 +12,9 @@
 
 @end
 
-@interface UserInfoTableViewController : UITableViewController
+@interface UserInfoTableViewController : UITableViewController <UIActionSheetDelegate
+,UIImagePickerControllerDelegate
+,UINavigationControllerDelegate>
 
 @property (strong, nonatomic) NSString *userLogoPath; //用户头像路径，setter方法需要修改
 @property (strong, nonatomic) NSString *userNameString; //用户名字
