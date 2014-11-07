@@ -68,10 +68,10 @@
     [self.view addSubview:bgScrollView];
     [self setUpBgScrollView];
     
-    
     m_iamgeview.userInteractionEnabled = YES;
     UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(Photograph)];
     [m_iamgeview addGestureRecognizer:singleTap];
+
 }
 
 -(void)Photograph
@@ -432,6 +432,13 @@
 
 -(IBAction)Carryout:(id)sender
 {
-    [self Submitinfo];
+    if(![m_Nickname.text isEqual:@""])
+    {
+        [self Submitinfo];
+    }else
+    {
+        UIAlertView *alview = [[UIAlertView alloc] initWithTitle:@"提示" message:@"昵称不能为空" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+        [alview show];
+    }
 }
 @end

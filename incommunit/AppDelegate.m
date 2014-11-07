@@ -10,6 +10,9 @@
 #import "UIImage+Scale.h"
 
 @interface AppDelegate ()
+{
+    BMKMapManager* _mapManager;
+}
 
 @end
 
@@ -19,6 +22,11 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     
+        _mapManager = [[BMKMapManager alloc]init];
+        BOOL ret = [_mapManager start:@"lK7gaSg80peIGLH15plumdwW"  generalDelegate:nil];
+        if (!ret) {
+            NSLog(@"manager start failed!");
+        }
     //去掉返回按钮自动添加的’back‘文字
     [[UIBarButtonItem appearance] setBackButtonTitlePositionAdjustment:UIOffsetMake(0, -60)
                                                          forBarMetrics:UIBarMetricsDefault];
@@ -34,7 +42,6 @@
                                                           SPECIAL_BLACK,
                                                           NSForegroundColorAttributeName,
                                                           nil]];
-    
     [[UINavigationBar appearance] setBarTintColor:TOP_BAR_YELLOW];
     
     [self.window setBackgroundColor:TOP_BAR_YELLOW];

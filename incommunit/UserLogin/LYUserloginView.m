@@ -23,7 +23,6 @@ static BOOL YTourist;
 {
     [super viewDidLoad];
     self.m_communityName.userInteractionEnabled = YES;
-    
     [m_loginbutton.layer setMasksToBounds:YES];
     [m_loginbutton.layer setCornerRadius:3.0];
     [self modify:userText imageName:@"ic_username" size:CGSizeMake(31, 32)];
@@ -63,7 +62,8 @@ static BOOL YTourist;
     }
 }
 
-- (void)viewWillAppear:(BOOL)animated {
+- (void)viewWillAppear:(BOOL)animated
+{
     [self.navigationController setNavigationBarHidden:YES animated:YES];
     //self.navigationController.navigationBarHidden = YES;
 }

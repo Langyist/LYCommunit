@@ -39,7 +39,6 @@
     int m_pageOffset;
     
     BMKMapView * m_mapview;
-    BMKMapManager* _mapManager;
 }
 @property(nonatomic, retain)IBOutlet UITableView    *  m_tab;
 @property(nonatomic, retain)IBOutlet UISearchBar *     Serch;

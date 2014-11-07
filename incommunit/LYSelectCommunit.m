@@ -55,20 +55,6 @@ static NSDictionary *   m_cityinfo;//城市信息
 -(void)viewDidLoad
 {
     [super viewDidLoad];
-    if(_mapManager==nil)
-    {
-        _mapManager = [[BMKMapManager alloc]init];
-        BOOL ret = [_mapManager start:@"lK7gaSg80peIGLH15plumdwW"  generalDelegate:nil];
-        if (!ret) {
-            NSLog(@"manager start failed!");
-        }
-        //适配ios7
-        if( ([[[UIDevice currentDevice] systemVersion] doubleValue]>=7.0))
-        {
-            // self.edgesForExtendedLayout=UIRectEdgeNone;
-            self.navigationController.navigationBar.translucent = NO;
-        }
-    }
     m_CommunitylistOF = [[NSMutableArray alloc]init];
     m_CommunitylistON = [[NSMutableArray alloc]init];
     NSMutableDictionary *userinfo =  [LYSqllite Ruser];
@@ -154,7 +140,7 @@ static NSDictionary *   m_cityinfo;//城市信息
          m_city_name  =CityName;
     }
     [m_tab refreshStart];
-    [self.m_tab reloadData];
+    //[self.m_tab reloadData];
     self.view.userInteractionEnabled = YES;
     //BMKReverseGeoCodeResult是编码的结果，包括地理位置，道路名称，uid，城市名等信息
 }
@@ -304,7 +290,11 @@ static NSDictionary *   m_cityinfo;//城市信息
             }
 //          [m_CommunitylistON addObjectsFromArray:CommunitylistON];
 //          [m_CommunitylistOF addObjectsFromArray:CommunitylistOF];
-            [m_tab reloadData];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [m_tab reloadData];
+                // 更新UI
+            });
+          //  [m_tab reloadData];
         }
         else
         {
@@ -371,11 +361,9 @@ static NSDictionary *   m_cityinfo;//城市信息
 {
     m_Refresh =  sender;
 }
-
 - (void)refresh:(AWaterfallTableView *)tableView {
    [NSThread detachNewThreadSelector:@selector(GetCommunity:) toTarget:self withObject:nil];
 }
-
 - (void)more:(AWaterfallTableView *)tableView
 {
     [NSThread detachNewThreadSelector:@selector(GetCommunity:) toTarget:self withObject:nil];

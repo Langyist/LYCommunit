@@ -15,7 +15,9 @@
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
+    if (self)
+    {
+        
     }
     return self;
 }
@@ -63,7 +65,7 @@
 {
     if (m_password.text == nil || [m_password.text isEqual:@""]) {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"温馨提示"
-                                                        message:@"密码不能为空"
+                                                        message:@"请先获取验证码"
                                                        delegate:self
                                               cancelButtonTitle:@"确定"
                                               otherButtonTitles:@"取消", nil];
