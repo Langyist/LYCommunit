@@ -21,9 +21,9 @@
     {
         [m_image setImageWithURL:url placeholderImage:nil];
     }
-    [self.titleLabel setText:@"通知标题"];
-    [self setTextContent:@"通知内容，balabalabalabalabalabalabala，balabalabalabalabalabalabala，balabalabalabalabalabalabala……"];
-    [self setTimestamp:@"1415260743000"];
+    [self.titleLabel setText:[m_announMessage objectForKey:@"name"]];
+    [self setTextContent:[m_announMessage objectForKey:@"content"]];
+    [self setTimestamp:@"create_time"];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -78,7 +78,7 @@
     NSDate *date = [NSDate dateWithTimeIntervalSince1970:timestampInt];
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     formatter.locale = [[NSLocale alloc] initWithLocaleIdentifier:@"zh_CN"];
-    formatter.dateFormat = @"yyyy-MM-dd";
+    formatter.dateFormat = @"yyyy年MM月dd日";
     NSString *time = [formatter stringFromDate:date];
     if (!time) {
         [self.timeLabel setText:@""];

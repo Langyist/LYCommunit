@@ -43,15 +43,16 @@
     if (_showBorderLine) {
         CGContextRef context = UIGraphicsGetCurrentContext();
         
-        CGContextSetStrokeColorWithColor(context, [[UIColor colorWithRed:212/255.0f green:210/255.0f blue:210/255.0f alpha:1] CGColor]);
-        CGContextSetLineWidth(context, 1.0);
+        CGContextSetStrokeColorWithColor(context, [[UIColor lightGrayColor] CGColor]);
+        CGFloat lineWidth = 0.2f;
+        CGContextSetLineWidth(context, lineWidth);
         //top line
-        CGContextMoveToPoint(context, 0.0, 0.0);
-        CGContextAddLineToPoint(context, self.frame.size.width, 0.0);
+        CGContextMoveToPoint(context, 0.0, lineWidth);
+        CGContextAddLineToPoint(context, self.frame.size.width, lineWidth);
         CGContextDrawPath(context, kCGPathStroke);
         //bottom line
-        CGContextMoveToPoint(context, 0.0, CGRectGetHeight(self.frame));
-        CGContextAddLineToPoint(context, self.frame.size.width, CGRectGetHeight(self.frame));
+        CGContextMoveToPoint(context, 0.0, CGRectGetHeight(self.frame) - lineWidth);
+        CGContextAddLineToPoint(context, self.frame.size.width, CGRectGetHeight(self.frame) - lineWidth);
         CGContextDrawPath(context, kCGPathStroke);
     }
 }

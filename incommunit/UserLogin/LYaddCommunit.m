@@ -68,6 +68,11 @@
     [self.view addSubview:bgScrollView];
     [self setUpBgScrollView];
     
+    CGFloat y = CGRectGetMaxY(bgScrollView.frame);
+    CGRect rect = self.m_button.frame;
+    rect.origin.y = y + 94;
+    self.m_button.frame = rect;
+    
     UITapGestureRecognizer* singleRecognizer;
     singleRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(ClickView)];
     singleRecognizer.numberOfTapsRequired = 1; // 单击

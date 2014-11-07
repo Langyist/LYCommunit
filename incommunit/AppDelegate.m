@@ -29,7 +29,7 @@
     [[UINavigationBar appearance] setBackIndicatorTransitionMaskImage:backImage];
     
     [[UINavigationBar appearance] setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
-                                                          [UIFont boldSystemFontOfSize:19.0f],
+                                                          [UIFont systemFontOfSize:19.0f],
                                                           NSFontAttributeName,
                                                           SPECIAL_BLACK,
                                                           NSForegroundColorAttributeName,

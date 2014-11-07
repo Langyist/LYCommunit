@@ -8,6 +8,95 @@
 #import "LYMyCommunit.h"
 #import "LYSelectCommunit.h"
 #import "LYSqllite.h"
+#import "AppDelegate.h"
+
+@interface MyCommunitCell : UITableViewCell
+@end
+
+@implementation MyCommunitCell
+
+- (void)drawRect:(CGRect)rect {
+    
+    [super drawRect:rect];
+    
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    
+    CGContextSetStrokeColorWithColor(context, [UIColor grayColor].CGColor);
+    
+    CGFloat linewidth = 0.5f;
+    CGContextSetLineWidth(context, linewidth);
+    
+    CGContextMoveToPoint(context, 0, 0); //start at this point
+    CGContextAddLineToPoint(context, CGRectGetWidth(rect), 0); //draw to this point
+    CGContextMoveToPoint(context, 0, CGRectGetHeight(rect) + linewidth); //start at this point
+    CGContextAddLineToPoint(context, CGRectGetWidth(rect), CGRectGetHeight(rect) + linewidth);
+    
+    CGContextStrokePath(context);
+}
+
+@end
+
+@interface MyCommunitBkView : UIView
+@end
+
+@implementation MyCommunitBkView
+
+- (void)drawRect:(CGRect)rect {
+    [super drawRect:rect];
+    
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    
+    CGContextSetStrokeColorWithColor(context, [UIColor grayColor].CGColor);
+    
+    CGFloat linewidth = 0.2f;
+    CGContextSetLineWidth(context, linewidth);
+    
+    CGFloat x = 0;
+    CGFloat ex = CGRectGetWidth(rect) - x;
+    CGFloat y = 48 - linewidth;
+    CGFloat move = 48;
+    CGContextMoveToPoint(context, x, y); //start at this point
+    CGContextAddLineToPoint(context, ex, y); //draw to this point
+    y += move;
+    CGContextMoveToPoint(context, x, y); //start at this point
+    CGContextAddLineToPoint(context, ex, y); //draw to this point
+    
+    CGContextMoveToPoint(context, x, CGRectGetHeight(rect) - linewidth); //start at this point
+    CGContextAddLineToPoint(context, ex, CGRectGetHeight(rect) - linewidth); //
+    
+    // and now draw the Path!
+    CGContextStrokePath(context);
+}
+
+@end
+
+@interface MyCommunitSepView : UIView
+@end
+
+@implementation MyCommunitSepView
+
+- (void)drawRect:(CGRect)rect {
+    [super drawRect:rect];
+    
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    
+    CGContextSetStrokeColorWithColor(context, [UIColor grayColor].CGColor);
+    
+    CGFloat linewidth = 0.2f;
+    CGContextSetLineWidth(context, linewidth);
+    
+    CGFloat x = 0;
+    CGFloat ex = CGRectGetWidth(rect) - x;
+    
+    CGContextMoveToPoint(context, x, 0); //start at this point
+    CGContextAddLineToPoint(context, ex, 0); //
+    
+    // and now draw the Path!
+    CGContextStrokePath(context);
+}
+
+@end
+
 @interface LYMyCommunit ()
 {
     UILabel *redLabel;
@@ -36,17 +125,8 @@
 {
     [NSThread detachNewThreadSelector:@selector(Getdata:) toTarget:self withObject:nil];
     [super viewDidLoad];
-    [_m_button.layer setMasksToBounds:YES];
-    [_m_button.layer setCornerRadius:3.0];
-    
-    UILabel *customLab = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 100, 30)];
-    [customLab setTextColor:[UIColor colorWithRed:(0.0/255) green:(0.0/255) blue:(0.0/255) alpha:1.0]];
-    [customLab setText:@"我的小区"];
-    customLab.font = [UIFont boldSystemFontOfSize:17];
-    customLab.textAlignment = NSTextAlignmentCenter;
-    self.navigationItem.titleView = customLab;
-    self.navigationController.navigationBar.tintColor= [UIColor colorWithRed:(0.0/255) green:(0.0/255) blue:(0.0/255) alpha:1.0];
-    
+    [self.selectButton.layer setMasksToBounds:YES];
+    [self.selectButton.layer setCornerRadius:3.0];
 }
 
 -(IBAction)GoMycommunit:(id)sender
@@ -108,11 +188,11 @@
     
     if ([[[NSString alloc] initWithFormat:@"%@",[dataDic objectForKey:@"wuye_index"]] integerValue] >= 100) {
         redView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.backView.frame.size.width, self.backView.frame.size.height)];
-        redView.backgroundColor = [UIColor redColor];
+        redView.backgroundColor = SPECIAL_RED;
         [self.backView addSubview:redView];
     }else {
         redView = [[UIView alloc] initWithFrame:CGRectMake(0, self.backView.frame.size.height - self.backView.frame.size.height / 100 * redheight, self.backView.frame.size.width, self.backView.frame.size.height / 100 *redheight)];
-        redView.backgroundColor = [UIColor redColor];
+        redView.backgroundColor = SPECIAL_RED;
         [self.backView addSubview:redView];
     }
     
@@ -120,24 +200,26 @@
     
     if ([[[NSString alloc ]initWithFormat:@"%@",[dataDic objectForKey:@"live_index"]] integerValue] >=100) {
         greenView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.backView1.frame.size.width, self.backView1.frame.size.height)];
-        greenView.backgroundColor = [UIColor greenColor];
+        greenView.backgroundColor = SPECIAL_GREEN;
         [self.backView1 addSubview:greenView];
     }else {
         
         greenView = [[UIView alloc] initWithFrame:CGRectMake(0, self.backView1.frame.size.height - self.backView1.frame.size.height / 100 *greenheight, self.backView1.frame.size.width, self.backView1.frame.size.height / 100 *greenheight)];
-        greenView.backgroundColor = [UIColor greenColor];
+        greenView.backgroundColor = SPECIAL_GREEN;
         [self.backView1 addSubview:greenView];
     }
     
-    UILabel * redlable = [[UILabel alloc] initWithFrame:CGRectMake(20, self.backView.frame.size.height/3, 30, 30)];
+    UILabel * redlable = [[UILabel alloc] initWithFrame:CGRectMake(0, (self.backView.frame.size.height - 30) / 2, CGRectGetWidth(self.backView.frame), 30)];
     redlable.text = [[NSString alloc ]initWithFormat:@"%@",[dataDic objectForKey:@"wuye_index"]];
     redlable.textColor = [UIColor whiteColor];
+    redlable.textAlignment = NSTextAlignmentCenter;
     redlable.font = [UIFont systemFontOfSize:15];
     [self.backView addSubview:redlable];
     
-    UILabel * grlable = [[UILabel alloc] initWithFrame:CGRectMake(20, self.backView1.frame.size.height/3, 30, 30)];
+    UILabel * grlable = [[UILabel alloc] initWithFrame:CGRectMake(0, (self.backView1.frame.size.height - 30) / 2, CGRectGetWidth(self.backView.frame), 30)];
     grlable.text = [[NSString alloc ]initWithFormat:@"%@",[dataDic objectForKey:@"live_index"]];
     grlable.textColor = [UIColor whiteColor];
+    grlable.textAlignment = NSTextAlignmentCenter;
     grlable.font = [UIFont systemFontOfSize:15];
     [self.backView1 addSubview:grlable];
 }
@@ -147,14 +229,29 @@
     [self.tableView reloadData];
 }
 
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10, 10)];
+    [view setBackgroundColor:[UIColor clearColor]];
+    return view;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    return 10;
+}
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
+    return 3;
+    
         return [LYSqllite allSuerinfo:[dataDic objectForKey:@"name"]].count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"communitycell" forIndexPath:indexPath];
+    MyCommunitCell *cell = (MyCommunitCell *)[tableView dequeueReusableCellWithIdentifier:@"communitycell" forIndexPath:indexPath];
     UILabel *name = (UILabel *)[cell viewWithTag:101];
+    [name setText:@"温馨"];
+    return cell;
+    
     NSMutableDictionary * temp = [[LYSqllite allSuerinfo:[dataDic objectForKey:@"name"]] objectAtIndex:indexPath.row];
     [name setText:[temp objectForKey:@"name"]];
     return cell;

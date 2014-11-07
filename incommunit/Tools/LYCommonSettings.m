@@ -8,6 +8,32 @@
 
 #import "LYCommonSettings.h"
 
+@interface LYCommonSettingsCell : UITableViewCell
+@end
+
+@implementation LYCommonSettingsCell
+
+- (void)drawRect:(CGRect)rect {
+    [super drawRect:rect];
+    
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    CGContextSetStrokeColorWithColor(context, [UIColor lightGrayColor].CGColor);
+    
+    CGFloat lineWidth = 0.2f;
+    CGFloat move = 1.0f - lineWidth;
+    // Draw them with a 2.0 stroke width so they are a bit more visible.
+    CGContextSetLineWidth(context, lineWidth);
+    
+    CGContextMoveToPoint(context, 0.0f, CGRectGetHeight(rect) - move); //start at this point
+    
+    CGContextAddLineToPoint(context, CGRectGetWidth(rect), CGRectGetHeight(rect) - move); //draw to this point
+    
+    // and now draw the Path!
+    CGContextStrokePath(context);
+}
+
+@end
+
 @interface LYCommonSettings ()
 @end
 @implementation LYCommonSettings

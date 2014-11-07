@@ -54,7 +54,7 @@
     _listTable.dataSource = self;
     _listTable.layer.borderWidth = 0.5;
     _listTable.layer.borderColor = kBorderColor.CGColor;
-    _listTable.backgroundColor = [UIColor grayColor];
+    _listTable.backgroundColor = [UIColor whiteColor];
     [_supView addSubview:_listTable];
     titleLabel.text = [_titlesList objectAtIndex:_defaultIndex];
 }
@@ -170,8 +170,8 @@
         cell.backgroundColor = [UIColor clearColor];
         UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(2, 0, self.frame.size.width-4, self.frame.size.height)];
         label.backgroundColor = [UIColor clearColor];
-        label.textAlignment = NSTextAlignmentLeft;
-        label.font = [UIFont systemFontOfSize:11];
+        label.textAlignment = NSTextAlignmentCenter;
+        label.font = [UIFont boldSystemFontOfSize:15];
         label.textColor = kTextColor;
         label.tag = 1000;
         [cell addSubview:label];

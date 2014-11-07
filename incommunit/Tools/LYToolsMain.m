@@ -32,13 +32,6 @@
      privacy= [[LYPrivacySettings alloc] init];
     [self.m_exitbutton.layer setMasksToBounds:YES];
     [self.m_exitbutton.layer setCornerRadius:3.0];
-    UILabel *customLab = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 100, 30)];
-    [customLab setTextColor:[UIColor colorWithRed:(0.0/255) green:(0.0/255) blue:(0.0/255) alpha:1.0]];
-    [customLab setText:@"工具"];
-    customLab.font = [UIFont boldSystemFontOfSize:17];
-    customLab.textAlignment = NSTextAlignmentCenter;
-    self.navigationItem.titleView = customLab;
-    self.navigationController.navigationBar.tintColor= [UIColor colorWithRed:(0.0/255) green:(0.0/255) blue:(0.0/255) alpha:1.0];
     // Do any additional setup after loading the view.
 }
 - (void)didReceiveMemoryWarning
