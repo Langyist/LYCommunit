@@ -5,18 +5,18 @@
 //  Created by LANGYI on 14/10/25.
 //  Copyright (c) 2014年 LANGYI. All rights reserved.
 //
-
 #import "LYSelectCommunit.h"
 #import "LYSelectCity.h"
 #import "LYUIview.h"
 #import "LYUserloginView.h"
 #import "LYSqllite.h"
 #import "AppDelegate.h"
-
 @interface LYSelectCommunitCell : UITableViewCell
+{
+    NSString *Cityname;
+}
 
 @end
-
 @implementation LYSelectCommunitCell
 
 - (void)drawRect:(CGRect)rect {
@@ -100,7 +100,6 @@ static NSDictionary *          m_cityinfo;//城市信息
     }
     [super viewDidLoad];
     
-    [m_tab refreshStart];
 }
 - (void)didReceiveMemoryWarning
 {
@@ -145,7 +144,7 @@ static NSDictionary *          m_cityinfo;//城市信息
              self.view.userInteractionEnabled = YES;
          }
      }];
-    [NSThread detachNewThreadSelector:@selector(GetCommunity:) toTarget:self withObject:nil];
+    [m_tab refreshStart];
     [locationManager stopUpdatingLocation];
 }
 // 定位失误时触发
@@ -173,16 +172,6 @@ static NSDictionary *          m_cityinfo;//城市信息
     return YES;
 }
 
-//- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
-//{
-//    if (editingStyle == UITableViewCellEditingStyleDelete)
-//    {
-//        [self.objects removeObjectAtIndex:indexPath.row];
-//        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-//    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
-//        
-//    }
-//}
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -194,13 +183,18 @@ static NSDictionary *          m_cityinfo;//城市信息
     m_lable_st=(UILabel *)[cell.contentView viewWithTag:103];
     
     UIColor *color = [UIColor darkTextColor];
-    NSString *text = @"已开通";
+    
+    NSString *text = @"未开通";
+    color = [UIColor lightGrayColor];
     if (m_CommunitylistON.count > indexPath.row) {
         Community=[m_CommunitylistON objectAtIndex:indexPath.row];
+        if ([[[NSString alloc]initWithFormat:@"%@",[Community objectForKey:@"enable"]]isEqualToString:@"1"]) {
+            text = @"已开通";
+        }
     }
     else if (m_CommunitylistOF.count > indexPath.row - m_CommunitylistON.count) {
         Community=[m_CommunitylistOF objectAtIndex:indexPath.row - m_CommunitylistON.count];
-        color = [UIColor lightGrayColor];
+       
         text = @"未开通";
     }
     m_lable_st.text = text;
@@ -224,12 +218,12 @@ static NSDictionary *          m_cityinfo;//城市信息
 {
     NSUInteger row = [indexPath row];
     NSLog(@"%lu",(unsigned long)row);
-    if (m_CommunitylistON.count>indexPath.row)
+     m_cityinfo = [m_CommunitylistON objectAtIndex:indexPath.row];
+    if ([[[NSString alloc]initWithFormat:@"%@",[m_cityinfo objectForKey:@"enable"]]isEqualToString:@"1"])
     {
-        m_cityinfo = [m_CommunitylistON objectAtIndex:indexPath.row];
         [self performSegueWithIdentifier:@"GoLYUserloginView" sender:self];
         
-    }else if (m_CommunitylistOF.count>indexPath.row - m_CommunitylistON.count)
+    }else if ([[[NSString alloc]initWithFormat:@"%@",[m_cityinfo objectForKey:@"enable"]]isEqualToString:@"0"])
     {
         UIAlertView *al = [[UIAlertView alloc] initWithTitle:@"提示" message:@"小区暂未开通" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
         [al show];
@@ -277,11 +271,12 @@ static NSDictionary *          m_cityinfo;//城市信息
         {
             m_CommunityName = @"";
         }
-        if ([m_data objectForKey:@"name"]!=nil||m_data!=nil) {
+        if ([m_data objectForKey:@"name"]!=nil||m_data!=nil)
+        {
             m_city_name =[m_data objectForKey:@"name"];
         }
         str = @"city_name=";//设置参数
-         str = [str stringByAppendingFormat:@"%@&name=%@&longitude=%f&latitude=%f&pageSize=%d&pageOffset=%d", m_city_id,m_CommunityName,longitude,latitude,m_pageSize,m_pageOffset];
+        str = [str stringByAppendingFormat:@"%@&name=%@&longitude=%f&latitude=%f&pageSize=%d&pageOffset=%d", m_city_id,m_CommunityName,longitude,latitude,m_pageSize,m_pageOffset];
     }
     NSData *data = [str dataUsingEncoding:NSUTF8StringEncoding];
     [request setHTTPBody:data];
@@ -305,8 +300,8 @@ static NSDictionary *          m_cityinfo;//城市信息
                 m_CommunitylistON = [data1 objectForKey:@"communities"];
                 m_CommunitylistOF = [data1 objectForKey:@"refCommunities"];
             }
-//            [m_CommunitylistON addObjectsFromArray:CommunitylistON];
-//            [m_CommunitylistOF addObjectsFromArray:CommunitylistOF];
+//          [m_CommunitylistON addObjectsFromArray:CommunitylistON];
+//          [m_CommunitylistOF addObjectsFromArray:CommunitylistOF];
             [m_tab reloadData];
         }
         else
@@ -315,7 +310,6 @@ static NSDictionary *          m_cityinfo;//城市信息
             [ale show];
         }
     }
-    
      if (pagesize < m_pageSize) {
         m_tab.canMore = NO;
      }
@@ -326,7 +320,8 @@ static NSDictionary *          m_cityinfo;//城市信息
         [m_tab refreshEnd];
         m_pageOffset = 0;
     }
-    else if (m_tab.status == AWaterfallTableViewMoring) {
+    else if (m_tab.status == AWaterfallTableViewMoring)
+    {
         [m_tab moreEnd];
         m_pageOffset++;
     }
@@ -337,7 +332,7 @@ static NSDictionary *          m_cityinfo;//城市信息
 {
     if (m_Refresh)
     {
-        m_pageSize = 10;
+        m_pageSize = 1000;
         m_pageOffset = 0;
         m_CommunitylistOF = [[NSMutableArray alloc] init];
         m_CommunitylistON = [[NSMutableArray alloc] init];
@@ -352,6 +347,11 @@ static NSDictionary *          m_cityinfo;//城市信息
         m_CommunityName = @"";
         m_data = [LYSelectCity CityInfo];
         //[_selectCityButton setTitle: [m_data objectForKey:@"name"] forState: UIControlStateNormal];
+        if(![[m_data objectForKey:@"name"]isEqualToString:m_city_name])
+        {
+            UIAlertView *alview = [[UIAlertView alloc] initWithTitle:@"提示" message:@"请输入关键字搜小区" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+            [alview show];
+        }
         self.view.userInteractionEnabled = YES;
         [m_tab refreshStart];
         [self.m_tab reloadData];
@@ -371,12 +371,12 @@ static NSDictionary *          m_cityinfo;//城市信息
 }
 
 - (void)refresh:(AWaterfallTableView *)tableView {
-    [self GetCommunity:@""];
+   [NSThread detachNewThreadSelector:@selector(GetCommunity:) toTarget:self withObject:nil];
 }
 
 - (void)more:(AWaterfallTableView *)tableView
 {
-    [self GetCommunity:@""];
+    [NSThread detachNewThreadSelector:@selector(GetCommunity:) toTarget:self withObject:nil];
 }
 
 @end

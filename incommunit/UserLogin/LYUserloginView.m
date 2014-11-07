@@ -17,6 +17,7 @@
 }
 @end
 @implementation LYUserloginView
+static BOOL YTourist;
 @synthesize userText,passwordtext,login,m_Pview,m_iamgeview,m_communityName,m_loginbutton;
 - (void)viewDidLoad
 {
@@ -63,7 +64,6 @@
 }
 
 - (void)viewWillAppear:(BOOL)animated {
-
     [self.navigationController setNavigationBarHidden:YES animated:YES];
     //self.navigationController.navigationBarHidden = YES;
 }
@@ -160,9 +160,6 @@
             [userinfo setValue:[[LYSelectCommunit GetCommunityInfo] objectForKey:@"distance"] forKey:@"communitdistance"];
             [userinfo setValue:[[LYSelectCommunit GetCommunityInfo] objectForKey:@"max_level"] forKey:@"communitmax_level"];
         }
-        
-        
-        
         NSDictionary *plistDic = [[NSBundle mainBundle] infoDictionary];
         NSLog(@"plistDic = %@",plistDic);
         NSString *urlstr = [plistDic objectForKey: @"URL"];
@@ -396,6 +393,7 @@
 //游客登陆
 -(IBAction)touristsButton:(id)sender
 {
+    YTourist = TRUE;
     [LYSqllite  wuser:userinfo];
     [self performSegueWithIdentifier:@"GoLYFunctionInterface" sender:self];
 }
@@ -404,5 +402,9 @@
     [self performSegueWithIdentifier:@"GoSelectConmunit" sender:nil];
 }
 
++(BOOL )Getourist
+{
+    return YTourist;
+}
 @end
 

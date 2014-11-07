@@ -1004,7 +1004,7 @@
     NSDictionary *plistDic = [[NSBundle mainBundle] infoDictionary];
     NSLog(@"plistDic = %@",plistDic);
     NSString *url = [plistDic objectForKey: @"URL"];
-    int pagesize = 10;
+    int pagesize = 100;
     int pageoffset= 0;
     NSError *error;
     //    加载一个NSURL对象
@@ -1040,7 +1040,7 @@
     NSDictionary *plistDic = [[NSBundle mainBundle] infoDictionary];
     NSLog(@"plistDic = %@",plistDic);
     NSString *url = [plistDic objectForKey: @"URL"];
-    int pagesize = 10;
+    int pagesize = 100;
     int pageoffset= 0;
     NSError *error;
     //    加载一个NSURL对象
@@ -1073,7 +1073,7 @@
     NSDictionary *plistDic = [[NSBundle mainBundle] infoDictionary];
     NSLog(@"plistDic = %@",plistDic);
     NSString *url = [plistDic objectForKey: @"URL"];
-    int pagesize = 10;
+    int pagesize = 100;
     int pageoffset= 0;
     NSError *error;
     //    加载一个NSURL对象
@@ -1151,20 +1151,20 @@
     NSLog(@"plistDic = %@",plistDic);
     NSString *url = [plistDic objectForKey: @"URL"];
     NSError *error;
-    //    加载一个NSURL对象
+    // 加载一个NSURL对象
     NSString *urlstr = [[NSString alloc ]initWithFormat:@"%@/services/shop/search_in_scope?longitude=%f&latitude=%f",url,longitude,latitude];
     NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:urlstr]];
-    //    将请求的url数据放到NSData对象中
+    // 将请求的url数据放到NSData对象中
     NSData *response = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
     if (response!=nil) {
         if(response!=nil)
         {
-            //    iOS5自带解析类NSJSONSerialization从response中解析出数据放到字典中
+            //  iOS5自带解析类NSJSONSerialization从response中解析出数据放到字典中
             NSDictionary *weatherDic = [NSJSONSerialization JSONObjectWithData:response options:NSJSONReadingMutableLeaves error:&error];
             //    weatherDic字典中存放的数据也是字典型，从它里面通过键值取值
             NSString *status = [weatherDic objectForKey:@"status"];
             NSLog(@"%@",status);
-            //    UIAlertView *aler = [[UIAlertView alloc] initWithTitle:@"提示" message:status delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+            //  UIAlertView *aler = [[UIAlertView alloc] initWithTitle:@"提示" message:status delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
             //    [aler show];
             
             if (m_tempb == m_deliverSearch) {
@@ -1180,7 +1180,6 @@
                     [m_shoptable1 reloadData];
                     // 更新UI
                 });
-               
             }
         }
     }

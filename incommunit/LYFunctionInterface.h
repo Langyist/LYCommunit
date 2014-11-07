@@ -18,7 +18,7 @@
     UIScrollView        *m_imageScrollView;
     int                 m_timer;
     UIView *            m_View;
-    @public BOOL        Tourist ;
+    @public BOOL        *Tourist ;
     
 }
 @property(nonatomic, retain)IBOutlet UITabBar       *bar;

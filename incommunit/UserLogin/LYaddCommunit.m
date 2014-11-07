@@ -48,7 +48,6 @@
     CALayer *lay  = m_iamgeview.layer;//获取ImageView的层
     [lay setMasksToBounds:YES];
     [lay setCornerRadius:CGRectGetHeight(m_iamgeview.frame) / 2];
-    m_dTime = 60;
     UILabel *customLab = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 100, 30)];
     [customLab setTextColor:[UIColor colorWithRed:(0.0/255) green:(0.0/255) blue:(0.0/255) alpha:1.0]];
     [customLab setText:[[NSString alloc]initWithFormat:@"成为%@小区居民",[[LYSelectCommunit GetCommunityInfo] objectForKey:@"name"]]];
@@ -79,15 +78,6 @@
     [m_iamgeview addGestureRecognizer:singleTap];
     //[self.view addSubview:m_iamgeview];
     // Do any additional setup after loading the view.
-}
-
--(void)Countdown
-{
-    if (m_dTime<0) {
-        [m_timer invalidate];
-    }
-    m_dTime --;
-    [m_button setTitle: [[NSString alloc] initWithFormat:@"%d秒",m_dTime] forState: UIControlStateNormal];
 }
 
 -(void)Photograph
