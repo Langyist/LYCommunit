@@ -9,9 +9,34 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
+@class ColMenu;
+
+@protocol ColMenuDelegate <NSObject>
+
+@required
+
+- (NSInteger)colMune:(ColMenu *)colMenu numberOfRowsInSection:(NSInteger)section;
+- (NSString *)colMune:(ColMenu *)colMenu titleForItemOfSection:(NSInteger)section row:(NSInteger)row;
+
+@optional
+
+- (NSInteger)sectionOfColMenu:(ColMenu *)colMenu;
+- (void)colMune:(ColMenu *)colMenu didSelectItemOfSection:(NSInteger)section row:(NSInteger)row;
+
+@end
+
 @interface ColMenu : NSObject
 
++ (instancetype) sharedMenu;
+
 + (void) showMenuInView:(UIView *)view
-               fromRect:(CGRect)rect;
+               fromRect:(CGRect)rect
+               delegate:(id<ColMenuDelegate>)delegate;
+
++ (void) reloadData;
+
++ (void) dismissMenu;
+
++ (void) setSeletectItemOfSection:(NSInteger)section row:(NSInteger)row;
 
 @end
