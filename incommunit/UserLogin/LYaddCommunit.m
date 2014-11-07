@@ -13,6 +13,8 @@
 #import <QuartzCore/CoreAnimation.h>
 #import <MobileCoreServices/UTCoreTypes.h>
 #import "LYUserloginView.h"
+#define CAMERA @"相机"
+#define PHOTOES @"相册"
 #define kDropDownListTag 1000
 @interface LYaddCommunit () <UIActionSheetDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,UITextFieldDelegate>
 {
@@ -74,98 +76,55 @@
     [self.view addGestureRecognizer:singleRecognizer];
     
     m_iamgeview.userInteractionEnabled = YES;
-    UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(Photograph)];
+    UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(imageViewTap:)];
     [m_iamgeview addGestureRecognizer:singleTap];
 //    [self.view addSubview:m_iamgeview];
     // Do any additional setup after loading the view.
 }
 
--(void)Photograph
-{
+- (void)imageViewTap:(UITapGestureRecognizer *) tap {
     
-    sheet = [[UIActionSheet alloc] initWithTitle:@"上传照片"
-                                                    delegate:nil
-                                            cancelButtonTitle:@"取消"
-                                        destructiveButtonTitle:@"拍照"
-                                            otherButtonTitles:@"相册中选择", nil];
-    sheet.delegate = self;
-    [sheet showInView:self.view];
+    UIActionSheet *actionSheet = nil;
+    if ([UIImagePickerController isSourceTypeAvailable: UIImagePickerControllerSourceTypeCamera]) {
+        actionSheet = [[UIActionSheet alloc] initWithTitle:@"添加照片" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:CAMERA, PHOTOES, nil];
+    }
+    else {
+        actionSheet = [[UIActionSheet alloc] initWithTitle:@"添加照片" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:PHOTOES, nil];
+    }
+    
+    [actionSheet showInView:self.view];
 }
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
-    
-    if (buttonIndex == [actionSheet cancelButtonIndex]) {
+    NSString *title = [actionSheet buttonTitleAtIndex:buttonIndex];
+    if ([title isEqualToString:CAMERA]) {
+        UIImagePickerController *imagePickerController = [[UIImagePickerController alloc] init];
+        imagePickerController.sourceType = UIImagePickerControllerSourceTypeCamera;
+        imagePickerController.delegate = self;
+        [self presentViewController:imagePickerController animated:YES completion:nil];
+    }
+    else if ([title isEqualToString:PHOTOES]) {
+        UIImagePickerController *imagePickerController = [[UIImagePickerController alloc] init];
+        imagePickerController.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+        imagePickerController.delegate = self;
+        [self presentViewController:imagePickerController animated:YES completion:nil];
+    }
+    else {
         
-    }else if (buttonIndex == [actionSheet destructiveButtonIndex]) {
-        [self shootPiicturePrVideo];
-    }else {
-        [self selectExistingPictureOrVideo];
     }
 }
 
-//从相机上选择
--(void)shootPiicturePrVideo
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
-    [self getMediaFromSource:UIImagePickerControllerSourceTypeCamera];
-}
-
-//从相册中选择
--(void)selectExistingPictureOrVideo{
-    
-    [self getMediaFromSource:UIImagePickerControllerSourceTypePhotoLibrary];
-}
-
-//#pragma 拍照模块
--(void) imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info{
-    self.lastChosenMediaType=[info objectForKey:UIImagePickerControllerMediaType];
-    if([self.lastChosenMediaType isEqual:(NSString *) kUTTypeImage])
-    {
-        UIImage *chosenImage=[info objectForKey:UIImagePickerControllerEditedImage];
-        m_iamgeview.image = chosenImage;
-        headimage = chosenImage;
-    }
-    if([self.lastChosenMediaType isEqual:(NSString *) kUTTypeMovie])
-    {
-        UIAlertView *alert=[[UIAlertView alloc] initWithTitle:@"提示信息!" message:@"系统只支持图片格式" delegate:nil cancelButtonTitle:@"确认" otherButtonTitles: nil];
-        [alert show];
-    }
-    [picker dismissModalViewControllerAnimated:YES];
-}
-
--(void) imagePickerControllerDidCancel:(UIImagePickerController *)picker
-{
-    [picker dismissModalViewControllerAnimated:YES];
-}
-
--(void)getMediaFromSource:(UIImagePickerControllerSourceType)sourceType {
-    NSArray *mediatypes=[UIImagePickerController availableMediaTypesForSourceType:sourceType];
-    if([UIImagePickerController isSourceTypeAvailable:sourceType] &&[mediatypes count]>0){
-        NSArray *mediatypes=[UIImagePickerController availableMediaTypesForSourceType:sourceType];
-        UIImagePickerController *picker=[[UIImagePickerController alloc] init];
-        picker.mediaTypes=mediatypes;
-        picker.delegate=self;
-        picker.allowsEditing=YES;
-        picker.sourceType=sourceType;
-        NSString *requiredmediatype=(NSString *)kUTTypeImage;
-        NSArray *arrmediatypes=[NSArray arrayWithObject:requiredmediatype];
-        [picker setMediaTypes:arrmediatypes];
-        [self presentModalViewController:picker animated:YES];
-    }
-    else{
-        UIAlertView *alert=[[UIAlertView alloc] initWithTitle:@"错误信息!" message:@"当前设备不支持拍摄功能" delegate:nil cancelButtonTitle:@"确认" otherButtonTitles: nil];
-        [alert show];
-    }
-}
-    static UIImage *shrinkImage(UIImage *orignal,CGSize size) {
-    CGFloat scale=[UIScreen mainScreen].scale;
-    CGColorSpaceRef colorSpace=CGColorSpaceCreateDeviceRGB();
-    CGContextRef context=CGBitmapContextCreate(NULL, size.width *scale,size.height*scale, 8, 0, colorSpace, kCGImageAlphaPremultipliedFirst);
-    CGContextDrawImage(context, CGRectMake(0, 0, size.width*scale, size.height*scale), orignal.CGImage);
-    CGImageRef shrunken=CGBitmapContextCreateImage(context);
-    UIImage *final=[UIImage imageWithCGImage:shrunken];
-    CGContextRelease(context);
-    CGImageRelease(shrunken);
-    return  final;
+    [picker dismissViewControllerAnimated:YES completion:^{
+        UIImage *image = [info valueForKey:UIImagePickerControllerOriginalImage];
+        NSData *data = UIImageJPEGRepresentation(image, 1.0);
+        if (data.length > 1024 * 200) {
+            data = UIImageJPEGRepresentation(image, 1024.0f * 200.0f / (CGFloat)data.length);
+            m_iamgeview.image = image;
+            
+        }
+    }];
 }
 
 -(void)ClickView

@@ -56,7 +56,7 @@
 //获取验证码
 - (void)Getverificationcode:(NSString *)url
 {
-    
+    BOOL bc;
     m_timer =  [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(Countdown) userInfo:nil repeats:YES];
     NSDictionary *plistDic = [[NSBundle mainBundle] infoDictionary];
     NSLog(@"plistDic = %@",plistDic);
@@ -70,7 +70,8 @@
     NSDictionary *getcodeDic = [NSJSONSerialization JSONObjectWithData:response options:NSJSONReadingMutableLeaves error:&error];
     NSLog(@"%@",getcodeDic);
     if (![[getcodeDic objectForKey:@"status"] isEqual:@"201"]) {
-        
+        m_timer =  [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(Countdown) userInfo:nil repeats:YES];
+        bc = TRUE;
     }else {
         
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"温馨提示"
@@ -133,7 +134,8 @@
     [UIView setAnimationsEnabled:NO];
     [codeButton setTitle:[NSString stringWithFormat:@"%d秒", m_dTime] forState:UIControlStateNormal];
     [codeButton layoutIfNeeded];
-    [UIView setAnimationsEnabled:YES];}
+    [UIView setAnimationsEnabled:YES];
+}
 
 //开始编辑输入框
 - (void)textFieldDidBeginEditing:(UITextField *)textField

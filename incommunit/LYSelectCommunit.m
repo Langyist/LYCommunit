@@ -60,6 +60,29 @@ static NSDictionary *          m_cityinfo;//城市信息
 {
     m_CommunitylistOF = [[NSMutableArray alloc]init];
     m_CommunitylistON = [[NSMutableArray alloc]init];
+    
+    UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.m_tab.frame), 1)];
+    [footerView setBackgroundColor:[UIColor clearColor]];
+    footerView.clipsToBounds = NO;
+    
+    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(10, 100, 130, 150)];
+    imageView.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
+    [imageView setImage:[UIImage imageNamed:@"周边便民--未开店--帮帮娃_03"]];
+    
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(150, 100, 150, 100)];
+    label.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleRightMargin;
+    label.lineBreakMode = NSLineBreakByCharWrapping;
+    label.numberOfLines = 0;
+    [label setText:@"亲，帮帮娃玩命加载失败，此功能尚未开启"];
+    label.font = [UIFont boldSystemFontOfSize:17.0f];
+    label.textColor = SPECIAL_GRAY;
+    
+    [footerView addSubview:imageView];
+    [footerView addSubview:label];
+    
+    [self.m_tab setBackgroundColor:BK_GRAY];
+    self.m_tab.tableFooterView = footerView;
+    
     NSMutableDictionary *userinfo =  [LYSqllite Ruser];
     if (userinfo != nil&&m_bl ==FALSE) {
         [self performSegueWithIdentifier:@"Gomain4" sender:self];
@@ -99,7 +122,6 @@ static NSDictionary *          m_cityinfo;//城市信息
         NSLog(@"请开启定位功能！");
     }
     [super viewDidLoad];
-    
 }
 - (void)didReceiveMemoryWarning
 {
@@ -165,7 +187,14 @@ static NSDictionary *          m_cityinfo;//城市信息
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return m_CommunitylistON.count+m_CommunitylistOF.count;
+    NSInteger numberOfRowsInSection = m_CommunitylistON.count+m_CommunitylistOF.count;
+    if (numberOfRowsInSection == 0) {
+        self.m_tab.tableFooterView.hidden = NO;
+    }
+    else {
+        self.m_tab.tableFooterView.hidden = YES;
+    }
+    return numberOfRowsInSection;
 }
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
 {
