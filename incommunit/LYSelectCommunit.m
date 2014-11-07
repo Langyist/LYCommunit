@@ -11,6 +11,35 @@
 #import "LYUIview.h"
 #import "LYUserloginView.h"
 #import "LYSqllite.h"
+#import "AppDelegate.h"
+
+@interface LYSelectCommunitCell : UITableViewCell
+
+@end
+
+@implementation LYSelectCommunitCell
+
+- (void)drawRect:(CGRect)rect {
+    [super drawRect:rect];
+    
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    CGContextSetStrokeColorWithColor(context, [UIColor lightGrayColor].CGColor);
+    
+    CGFloat lineWidth = 0.2f;
+    CGFloat move = 1.0f - lineWidth;
+    // Draw them with a 2.0 stroke width so they are a bit more visible.
+    CGContextSetLineWidth(context, lineWidth);
+    
+    CGContextMoveToPoint(context, 0.0f, CGRectGetHeight(rect) - move); //start at this point
+    
+    CGContextAddLineToPoint(context, CGRectGetWidth(rect), CGRectGetHeight(rect) - move); //draw to this point
+    
+    // and now draw the Path!
+    CGContextStrokePath(context);
+}
+
+@end
+
 @interface LYSelectCommunit ()
 {
     NSMutableArray * CommunitylistON;
@@ -32,24 +61,16 @@ static NSDictionary *          m_cityinfo;//城市信息
     m_CommunitylistOF = [[NSMutableArray alloc]init];
     m_CommunitylistON = [[NSMutableArray alloc]init];
     NSMutableDictionary *userinfo =  [LYSqllite Ruser];
-    if (userinfo != nil&&m_bl ==FALSE)
-    {
+    if (userinfo != nil&&m_bl ==FALSE) {
         [self performSegueWithIdentifier:@"Gomain4" sender:self];
         m_cityinfo = userinfo;
     }
     m_pageSize = 1000;
     m_pageOffset = 0;
-//[LY_Sqllite CreatShoppingcart]; //创建购物车信息表
+    
     self->Serch.delegate=self;
-    self.navigationController.navigationBar.barTintColor = [UIColor colorWithRed:(238.0/255) green:(183.0/255) blue:(88.0/255) alpha:1.0];
-    //m_selectCityButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 50, 30)];
     [selectCityButton addTarget:self action:@selector(GoselectCity) forControlEvents:UIControlEventTouchUpInside];
     [selectCityButton setTitle: @"成都" forState: UIControlStateNormal];
-    self.navigationItem.titleView = selectCityButton;
-    //m_selectCityButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
-    [selectCityButton setTitleColor:[UIColor grayColor] forState:UIControlStateHighlighted];
-    [selectCityButton setTitleColor:[UIColor colorWithRed:(0.0/255) green:(0.0/255) blue:(0.0/255) alpha:1.0] forState:UIControlStateNormal];
-    //[m_selectCityButton.titleLabel setFont:[UIFont fontWithName: @"Helvetica"   size : 17.0 ]];
     self->locationManager = [[CLLocationManager alloc] init];
     self->locationManager.delegate = self;
     if([[[UIDevice currentDevice] systemVersion] floatValue]>=8.0)

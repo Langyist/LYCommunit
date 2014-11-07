@@ -401,9 +401,7 @@
 }
 
 - (IBAction)clickName:(id)sender {
-    
     [self performSegueWithIdentifier:@"GoSelectConmunit" sender:nil];
-
 }
 
 @end
