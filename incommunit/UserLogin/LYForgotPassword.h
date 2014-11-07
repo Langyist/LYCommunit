@@ -16,6 +16,7 @@
     UIButton *codeButton;
     UIButton *submitButton;
     int m_dTime;
+    NSTimer *m_timer;
 }
 
 @property(nonatomic,retain)IBOutlet InsetTextField *MobilenumberText;

@@ -56,6 +56,8 @@
 //获取验证码
 - (void)Getverificationcode:(NSString *)url
 {
+    
+    m_timer =  [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(Countdown) userInfo:nil repeats:YES];
     NSDictionary *plistDic = [[NSBundle mainBundle] infoDictionary];
     NSLog(@"plistDic = %@",plistDic);
     NSString *URl = [plistDic objectForKey: @"URL"];
@@ -121,6 +123,17 @@
     
     return YES;
 }
+
+-(void)Countdown
+{
+    if (m_dTime<=1) {
+        [m_timer invalidate];
+    }
+    m_dTime --;
+    [UIView setAnimationsEnabled:NO];
+    [codeButton setTitle:[NSString stringWithFormat:@"%d秒", m_dTime] forState:UIControlStateNormal];
+    [codeButton layoutIfNeeded];
+    [UIView setAnimationsEnabled:YES];}
 
 //开始编辑输入框
 - (void)textFieldDidBeginEditing:(UITextField *)textField

@@ -17,6 +17,7 @@
 {
     UISearchBar *m_deliverSearch;
     UISearchBar *m_shopSearch;
+    UISearchBar *m_microShop;
     UIView *background;//
     UIView *grayView;
     
@@ -226,7 +227,7 @@
     [arrow addObject:shopimageView];
     [m_segment addSubview:shopimageView];
     //搜索
-    m_shopSearch = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, m_view02.frame.size.width, 40)];
+    m_shopSearch = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, m_view03.frame.size.width, 40)];
     m_shopSearch.delegate = self;
     m_shopSearch.placeholder = @"搜索店铺";
     m_ShopDaquan.tableHeaderView = m_shopSearch;
@@ -288,6 +289,12 @@
     m_CellmicroShop.delegate = self;
     [m_view04 addSubview:m_CellmicroShop];
     [self._scrollView addSubview:m_view04];
+    //搜索
+    m_microShop = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, m_view04.frame.size.width, 40)];
+    m_microShop.delegate = self;
+    m_microShop.placeholder = @"搜索店铺";
+    m_CellmicroShop.tableHeaderView = m_microShop;
+    
     //切换页面手势
     UISwipeGestureRecognizer *recognizer;
     recognizer = [[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(m_view01leftSwipe:)];

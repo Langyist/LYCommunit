@@ -1,7 +1,7 @@
 //
 //  LYShop.m
 //  incommunit
-//
+//  我的店铺
 //  Created by LANGYI on 14/10/27.
 //  Copyright (c) 2014年 LANGYI. All rights reserved.
 //
@@ -13,9 +13,16 @@
 #import "CustomToolbarItem.h"
 #import "StoreslistTableViewCell.h"
 #define kDropDownListTag 1000
+#import "KxMenu.h"
 @interface LYShop ()
 {
     LMContainsLMComboxScrollView *bgScrollView;
+    LMComBoxView *comboxView;
+    LMComBoxView *comboxView1;
+    
+    NSMutableArray  *itemsArray;
+    NSMutableArray  *itemsArray1;
+    
     NSMutableArray *tempgoodstype;
     NSString *categoryid ;
     NSString *order;
@@ -66,6 +73,7 @@
                       ,nil];
     [self setToolbarItems:array animated:YES];
     [NSThread detachNewThreadSelector:@selector(Getstoresdata:) toTarget:self withObject:nil];
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -149,7 +157,37 @@
                     break;
                 case 5:
                 {
+                    bgScrollView = [[LMContainsLMComboxScrollView alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 44)];
+                    bgScrollView.backgroundColor = [UIColor clearColor];
+                    bgScrollView.showsVerticalScrollIndicator = NO;
+                    bgScrollView.showsHorizontalScrollIndicator = NO;
+                    [cell addSubview:bgScrollView];
                     
+                    comboxView = [[LMComBoxView alloc] initWithFrame:
+                                  CGRectMake(CGRectGetWidth(self.view.frame) / 2 * 0,
+                                             0,
+                                             CGRectGetWidth(self.view.frame) / 2,
+                                             44)];
+                    
+                    comboxView.backgroundColor = [UIColor clearColor];
+                    comboxView.titlesList = itemsArray;
+                    comboxView.delegate = self;
+                    comboxView.supView = bgScrollView;
+                    [comboxView defaultSettings];
+                    [bgScrollView addSubview:comboxView];
+                    
+                    comboxView1 = [[LMComBoxView alloc] initWithFrame:
+                                   CGRectMake(CGRectGetWidth(self.view.frame) / 2 * 1,
+                                              0,
+                                              CGRectGetWidth(self.view.frame) / 2,
+                                              44)];
+                    
+                    comboxView1.backgroundColor = [UIColor clearColor];
+                    comboxView1.titlesList = itemsArray1;
+                    comboxView1.delegate = self;
+                    comboxView1.supView = bgScrollView;
+                    [comboxView1 defaultSettings];
+                    [bgScrollView addSubview:comboxView1];
                 }
                     break;
                 default:
@@ -356,24 +394,24 @@
         LMComBoxView *comBox = [[LMComBoxView alloc]initWithFrame:CGRectMake(self.view.frame.size.width/2*i+15, 3, self.view.frame.size.width/2-20, 32)];
         comBox.backgroundColor = [UIColor whiteColor];
         comBox.arrowImgName = @"down_dark0.png";
-        NSMutableArray  *itemsArray = [[NSMutableArray alloc]initWithCapacity:1];
+        NSMutableArray  *itemsArray2 = [[NSMutableArray alloc]initWithCapacity:1];
         switch (i) {
             case 0:
                 if (tempgoodstype.count>0)
                 {
-                    [itemsArray addObjectsFromArray:tempgoodstype];
+                    [itemsArray2 addObjectsFromArray:tempgoodstype];
                 }
                 break;
             case 1:
                 if (Properties.count>0)
                 {
-                    [itemsArray addObjectsFromArray:Properties];
+                    [itemsArray2 addObjectsFromArray:Properties];
                 }
                 break;
             default:
                 break;
         }
-        comBox.titlesList = itemsArray;
+        comBox.titlesList = itemsArray2;
         comBox.delegate = self;
         comBox.supView = bgScrollView;
         [comBox defaultSettings];
@@ -427,8 +465,12 @@
 
 
 - (IBAction)all:(id)sender {
+    
+    
 }
 
 - (IBAction)autoSort:(id)sender {
+    
+    
 }
 @end

@@ -373,7 +373,6 @@
 
 - (NSMutableArray *)done:(NSString *)COMMUNITY_ID pid:(NSString *)PID
 {
-    m_timer =  [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(Countdown) userInfo:nil repeats:YES];
     NSLog(@"完成");
     NSMutableArray * temp1;
     NSDictionary *plistDic = [[NSBundle mainBundle] infoDictionary];
