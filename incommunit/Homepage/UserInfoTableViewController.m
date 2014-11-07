@@ -9,7 +9,10 @@
 #import "UserInfoTableViewController.h"
 #import "LYaddCommunit.h"
 
-@interface PersonalTagCell () {
+#define CAMERA @"相机"
+#define PHOTOES @"相册"
+
+@interface PersonalTagCell () <UIActionSheetDelegate>{
     
     
 }
@@ -65,31 +68,8 @@
     self.userPhoto.layer.cornerRadius = CGRectGetWidth(self.userPhoto.frame) / 2;
     self.userPhoto.clipsToBounds = YES;
     self.userPhoto.userInteractionEnabled = YES;
-    UITapGestureRecognizer *recognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(Photograph)];
+    UITapGestureRecognizer *recognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(imageViewTap:)];
     [self.userPhoto addGestureRecognizer:recognizer];
-}
-
--(void)Photograph
-{
-    
-    sheet = [[UIActionSheet alloc] initWithTitle:@"上传照片"
-                                        delegate:nil
-                               cancelButtonTitle:@"取消"
-                          destructiveButtonTitle:@"拍照"
-                               otherButtonTitles:@"相册中选择", nil];
-    sheet.delegate = self;
-    [sheet showInView:self.view];
-}
-
-- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
-    
-    if (buttonIndex == [actionSheet cancelButtonIndex]) {
-        
-    }else if (buttonIndex == [actionSheet destructiveButtonIndex]) {
-        
-    }else {
-        
-    }
 }
 
 - (void)didReceiveMemoryWarning {
@@ -358,8 +338,53 @@
     // TUDO: 修改头像
 }
 
+- (void)imageViewTap:(UITapGestureRecognizer *) tap {
+    
+    UIActionSheet *actionSheet = nil;
+    if ([UIImagePickerController isSourceTypeAvailable: UIImagePickerControllerSourceTypeCamera]) {
+        actionSheet = [[UIActionSheet alloc] initWithTitle:@"添加照片" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:CAMERA, PHOTOES, nil];
+    }
+    else {
+        actionSheet = [[UIActionSheet alloc] initWithTitle:@"添加照片" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:PHOTOES, nil];
+    }
+    
+    [actionSheet showInView:self.view];
+}
+
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
+    NSString *title = [actionSheet buttonTitleAtIndex:buttonIndex];
+    if ([title isEqualToString:CAMERA]) {
+        UIImagePickerController *imagePickerController = [[UIImagePickerController alloc] init];
+        imagePickerController.sourceType = UIImagePickerControllerSourceTypeCamera;
+        imagePickerController.delegate = self;
+        [self presentViewController:imagePickerController animated:YES completion:nil];
+    }
+    else if ([title isEqualToString:PHOTOES]) {
+        UIImagePickerController *imagePickerController = [[UIImagePickerController alloc] init];
+        imagePickerController.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+        imagePickerController.delegate = self;
+        [self presentViewController:imagePickerController animated:YES completion:nil];
+    }
+    else {
+        
+    }
+}
+
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
+{
+    [picker dismissViewControllerAnimated:YES completion:^{
+        UIImage *image = [info valueForKey:UIImagePickerControllerOriginalImage];
+        NSData *data = UIImageJPEGRepresentation(image, 1.0);
+        if (data.length > 1024 * 200) {
+            data = UIImageJPEGRepresentation(image, 1024.0f * 200.0f / (CGFloat)data.length);
+            self.userPhoto.image = image;
+            
+        }
+    }];
+}
+
 - (IBAction)addressPress:(UIButton *)sender {
-    NSInteger type = sender.tag;
+//    NSInteger type = sender.tag;
     // TUDO: 选择地址， type为 100-104， 对应5中类型， sender.titleLabel.text 为当前地址
 }
 

@@ -106,17 +106,15 @@ static NSMutableDictionary *Competence;//模块开通
 {
     if(![[[NSString alloc]initWithFormat:@"%@",[[Competence objectForKey:@"modb"] objectForKey:@"checked"]]isEqualToString:@"1"])
     {
-        UIAlertView *alview = [[UIAlertView alloc] initWithTitle:@"提示" message:@"功能暂未开通敬请脐带" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+        UIAlertView *alview = [[UIAlertView alloc] initWithTitle:@"提示" message:@"功能暂未开通敬请期待" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
         [alview show];
-    }
-    if ([LYUserloginView Getourist])
+    }else if ([LYUserloginView Getourist])
     {
         UIAlertView *alview = [[UIAlertView alloc] initWithTitle:@"提示" message:@"你当前是游客登陆是否登陆？" delegate:self cancelButtonTitle:@"是" otherButtonTitles:@"取消", nil];
         [alview show];
     }else
     {
         [self performSegueWithIdentifier:@"GoLYProManagementMain" sender:self];
-        
     }
 }
 //周边便民
@@ -137,8 +135,7 @@ static NSMutableDictionary *Competence;//模块开通
      {
         UIAlertView *alview = [[UIAlertView alloc] initWithTitle:@"提示" message:@"功能暂未开通敬请脐带" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
         [alview show];
-    }
-    if ([LYUserloginView Getourist])
+    }else if ([LYUserloginView Getourist])
     {
         UIAlertView *alview = [[UIAlertView alloc] initWithTitle:@"提示" message:@"你当前是游客登陆是否登陆？" delegate:self cancelButtonTitle:@"是" otherButtonTitles:@"取消", nil];
         [alview show];

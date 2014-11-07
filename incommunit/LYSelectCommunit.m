@@ -57,6 +57,29 @@ static NSDictionary *   m_cityinfo;//城市信息
     [super viewDidLoad];
     m_CommunitylistOF = [[NSMutableArray alloc]init];
     m_CommunitylistON = [[NSMutableArray alloc]init];
+    
+    UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.m_tab.frame), 1)];
+    [footerView setBackgroundColor:[UIColor clearColor]];
+    footerView.clipsToBounds = NO;
+    
+    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(10, 100, 130, 150)];
+    imageView.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
+    [imageView setImage:[UIImage imageNamed:@"周边便民--未开店--帮帮娃_03"]];
+    
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(150, 100, 150, 100)];
+    label.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleRightMargin;
+    label.lineBreakMode = NSLineBreakByCharWrapping;
+    label.numberOfLines = 0;
+    [label setText:@"亲，帮帮娃玩命加载失败，此功能尚未开启"];
+    label.font = [UIFont boldSystemFontOfSize:17.0f];
+    label.textColor = SPECIAL_GRAY;
+    
+    [footerView addSubview:imageView];
+    [footerView addSubview:label];
+    
+    [self.m_tab setBackgroundColor:BK_GRAY];
+    self.m_tab.tableFooterView = footerView;
+    
     NSMutableDictionary *userinfo =  [LYSqllite Ruser];
     if (userinfo != nil&&m_bl ==FALSE) {
         [self performSegueWithIdentifier:@"Gomain4" sender:self];
@@ -73,12 +96,35 @@ static NSDictionary *   m_cityinfo;//城市信息
     {
         [self->locationManager requestWhenInUseAuthorization];
     }
+
     //初始化BMKLocationService
     locService = [[BMKLocationService alloc]init];
     locService.delegate = self;
     //启动LocationService
     [locService startUserLocationService];
 
+    // 设置定位精度
+    // kCLLocationAccuracyNearestTenMeters:精度10米
+    // kCLLocationAccuracyHundredMeters:精度100 米
+    // kCLLocationAccuracyKilometer:精度1000 米
+    // kCLLocationAccuracyThreeKilometers:精度3000米
+    // kCLLocationAccuracyBest:设备使用电池供电时候最高的精度
+    // kCLLocationAccuracyBestForNavigation:导航情况下最高精度，一般要有外接电源时才能使用
+    self->locationManager.desiredAccuracy = kCLLocationAccuracyBest;
+    // distanceFilter是距离过滤器，为了减少对定位装置的轮询次数，位置的改变不会每次都去通知委托，而是在移动了足够的距离时才通知委托程序
+    // 它的单位是米，这里设置为至少移动1000再通知委托处理更新;
+    self->locationManager.distanceFilter = 1000.0f; // 如果设为kCLDistanceFilterNone，则每秒更新一次;
+    if ([CLLocationManager locationServicesEnabled])
+    {
+        [self->locationManager startUpdatingLocation];
+        self.view.userInteractionEnabled = YES;
+        [m_View removeFromSuperview];
+    }
+    else
+    {
+        NSLog(@"请开启定位功能！");
+    }
+    [super viewDidLoad];
 }
 - (void)didReceiveMemoryWarning
 {
@@ -158,7 +204,14 @@ static NSDictionary *   m_cityinfo;//城市信息
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return m_CommunitylistON.count+m_CommunitylistOF.count;
+    NSInteger numberOfRowsInSection = m_CommunitylistON.count+m_CommunitylistOF.count;
+    if (numberOfRowsInSection == 0) {
+        self.m_tab.tableFooterView.hidden = NO;
+    }
+    else {
+        self.m_tab.tableFooterView.hidden = YES;
+    }
+    return numberOfRowsInSection;
 }
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
 {

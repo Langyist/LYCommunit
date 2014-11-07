@@ -14,8 +14,8 @@
 @implementation LYForgotPassword
 @synthesize MobilenumberText,CodeText,codeButton,passwordText,submitButton;
 - (void)viewDidLoad {
-    
     [super viewDidLoad];
+    m_dTime = 60;
     UIEdgeInsets inset = UIEdgeInsetsMake(0, 25, 0, 25);
     [MobilenumberText setTextInset:inset];
     [CodeText setTextInset:inset];
@@ -56,23 +56,24 @@
 //获取验证码
 - (void)Getverificationcode:(NSString *)url
 {
-    
-    m_timer =  [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(Countdown) userInfo:nil repeats:YES];
+    [m_timer invalidate];
+    m_dTime = 60;
+    BOOL bc;
     NSDictionary *plistDic = [[NSBundle mainBundle] infoDictionary];
     NSLog(@"plistDic = %@",plistDic);
     NSString *URl = [plistDic objectForKey: @"URL"];
     NSError *error;
     NSString *urlstr = [[NSString alloc] initWithFormat:@"%@/services/validate_code?phone=%@&type=mod",URl,MobilenumberText.text];
     NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:urlstr]];
-    //    将请求的url数据放到NSData对象中
+    //  将请求的url数据放到NSData对象中
     NSData *response = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
-    //    iOS5自带解析类NSJSONSerialization从response中解析出数据放到字典中
+    //  iOS5自带解析类NSJSONSerialization从response中解析出数据放到字典中
     NSDictionary *getcodeDic = [NSJSONSerialization JSONObjectWithData:response options:NSJSONReadingMutableLeaves error:&error];
     NSLog(@"%@",getcodeDic);
-    if (![[getcodeDic objectForKey:@"status"] isEqual:@"201"]) {
-        
+    if ([[getcodeDic objectForKey:@"status"] isEqual:@"200"]) {
+        m_timer =  [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(Countdown) userInfo:nil repeats:YES];
+        bc = TRUE;
     }else {
-        
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"温馨提示"
                                                         message:[getcodeDic objectForKey:@"message"]
                                                        delegate:self
@@ -126,14 +127,17 @@
 
 -(void)Countdown
 {
-    if (m_dTime<=1) {
+    if (m_dTime<=0) {
         [m_timer invalidate];
+    }else
+    {
+        m_dTime --;
+        [UIView setAnimationsEnabled:NO];
+        [codeButton setTitle:[NSString stringWithFormat:@"%d秒", m_dTime] forState:UIControlStateNormal];
+        [codeButton layoutIfNeeded];
+        [UIView setAnimationsEnabled:YES];
     }
-    m_dTime --;
-    [UIView setAnimationsEnabled:NO];
-    [codeButton setTitle:[NSString stringWithFormat:@"%d秒", m_dTime] forState:UIControlStateNormal];
-    [codeButton layoutIfNeeded];
-    [UIView setAnimationsEnabled:YES];}
+}
 
 //开始编辑输入框
 - (void)textFieldDidBeginEditing:(UITextField *)textField
