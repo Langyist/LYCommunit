@@ -12,7 +12,7 @@
 @end
 
 @implementation LYProductinformation
-@synthesize m_iamgeview,m_GoodsName,m_Introduction,m_Price,m_textField;
+@synthesize m_iamgeview,m_GoodsName,m_Introduction,m_Price,m_textField,m_ProductDetails;
 - (void)viewDidLoad {
     [super viewDidLoad];
     NSThread *myThread01 = [[NSThread alloc] initWithTarget:self
