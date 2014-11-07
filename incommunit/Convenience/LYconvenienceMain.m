@@ -148,16 +148,16 @@
     [footerView setBackgroundColor:[UIColor clearColor]];
     footerView.clipsToBounds = NO;
     
-    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(10, 100, 130, 150)];
+    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(40, 130, 80, 90)];
     imageView.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
     [imageView setImage:[UIImage imageNamed:@"周边便民--未开店--帮帮娃_03"]];
     
-    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(150, 130, 150, 100)];
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(140, 130, 150, 100)];
     label.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleRightMargin;
     label.lineBreakMode = NSLineBreakByCharWrapping;
     label.numberOfLines = 0;
-    [label setText:@"亲，帮帮娃玩命加载失败，此功能尚未开启"];
-    label.font = [UIFont boldSystemFontOfSize:17.0f];
+    [label setText:@"亲，帮帮娃加载后没有数据哦"];
+    label.font = [UIFont boldSystemFontOfSize:15.0f];
     label.textColor = SPECIAL_GRAY;
     
     [footerView addSubview:imageView];
@@ -666,6 +666,12 @@
         NSInteger numberOfRowsInSection = m_Featuredlist.count;
         if (numberOfRowsInSection == 0) {
             m_Featuredtableview.tableFooterView.hidden = NO;
+//            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"温馨提示"
+//                                                            message:@"精选中没有数据"
+//                                                           delegate:self
+//                                                  cancelButtonTitle:@"确定"
+//                                                  otherButtonTitles:@"取消", nil];
+//            [alert show];
         }
         else {
             m_Featuredtableview.tableFooterView.hidden = YES;
@@ -1025,9 +1031,11 @@
     NSDictionary *weatherDic = [NSJSONSerialization JSONObjectWithData:response options:NSJSONReadingMutableLeaves error:&error];
     //    weatherDic字典中存放的数据也是字典型，从它里面通过键值取值
     NSString *status = [weatherDic objectForKey:@"status"];
-    NSLog(@"%@",status);
-    //    UIAlertView *aler = [[UIAlertView alloc] initWithTitle:@"提示" message:status delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
-    //    [aler show];
+        if (![status isEqual:@"200"]) {
+            UIAlertView *aler = [[UIAlertView alloc] initWithTitle:@"提示" message:@"数据加载失败，请检查网络" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+            [aler show];
+        }
+    
     m_Featuredlist = [weatherDic objectForKey:@"data"];
         dispatch_async(dispatch_get_main_queue(), ^{
             [m_Featuredtableview reloadData];

@@ -65,15 +65,15 @@ static NSDictionary *          m_cityinfo;//城市信息
     [footerView setBackgroundColor:[UIColor clearColor]];
     footerView.clipsToBounds = NO;
     
-    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(10, 100, 130, 150)];
+    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(40, 130, 80, 90)];
     imageView.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
     [imageView setImage:[UIImage imageNamed:@"周边便民--未开店--帮帮娃_03"]];
     
-    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(150, 100, 150, 100)];
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(140, 130, 150, 100)];
     label.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleRightMargin;
     label.lineBreakMode = NSLineBreakByCharWrapping;
     label.numberOfLines = 0;
-    [label setText:@"亲，帮帮娃玩命加载失败，此功能尚未开启"];
+    [label setText:@"亲，帮帮娃提醒，请检查网络连接"];
     label.font = [UIFont boldSystemFontOfSize:17.0f];
     label.textColor = SPECIAL_GRAY;
     
