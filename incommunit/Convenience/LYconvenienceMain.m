@@ -1025,9 +1025,11 @@
     NSDictionary *weatherDic = [NSJSONSerialization JSONObjectWithData:response options:NSJSONReadingMutableLeaves error:&error];
     //    weatherDic字典中存放的数据也是字典型，从它里面通过键值取值
     NSString *status = [weatherDic objectForKey:@"status"];
-    NSLog(@"%@",status);
-    //    UIAlertView *aler = [[UIAlertView alloc] initWithTitle:@"提示" message:status delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
-    //    [aler show];
+        if (![status isEqual:@"200"]) {
+            UIAlertView *aler = [[UIAlertView alloc] initWithTitle:@"提示" message:@"数据加载失败，请检查网络" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+            [aler show];
+        }
+    
     m_Featuredlist = [weatherDic objectForKey:@"data"];
         dispatch_async(dispatch_get_main_queue(), ^{
             [m_Featuredtableview reloadData];

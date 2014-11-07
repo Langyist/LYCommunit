@@ -73,7 +73,6 @@
     m_iamgeview.userInteractionEnabled = YES;
     UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(imageViewTap:)];
     [m_iamgeview addGestureRecognizer:singleTap];
-
 }
 
 
