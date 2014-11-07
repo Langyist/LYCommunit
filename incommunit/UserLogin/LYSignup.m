@@ -85,10 +85,6 @@
 //获取验证码
 -(IBAction)GetRcode:(id)sender
 {
-    m_timer =  [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(Countdown) userInfo:nil repeats:YES];
-    
-    [m_timer setFireDate:[NSDate distantPast]];
-    return;
     if (m_Phone.text == nil || [m_Phone.text isEqual:@""]) {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"温馨提示"
                                                         message:@"手机号码不能为空"

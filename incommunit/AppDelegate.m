@@ -37,6 +37,8 @@
     
     [[UINavigationBar appearance] setBarTintColor:TOP_BAR_YELLOW];
     
+    [self.window setBackgroundColor:TOP_BAR_YELLOW];
+    
     return YES;
 }
 
