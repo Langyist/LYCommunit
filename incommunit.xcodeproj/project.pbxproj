@@ -179,6 +179,9 @@
 		F12DAE321A0231E700591CB5 /* send_info.png in Resources */ = {isa = PBXBuildFile; fileRef = F12DAE301A0231E700591CB5 /* send_info.png */; };
 		F12DAE331A0231E700591CB5 /* shop_introduce.png in Resources */ = {isa = PBXBuildFile; fileRef = F12DAE311A0231E700591CB5 /* shop_introduce.png */; };
 		F1392E521A0B909D00329FFF /* LicenseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F1392E511A0B909D00329FFF /* LicenseViewController.m */; };
+		F1392E871A0CC2E600329FFF /* StoreSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F1392E861A0CC2E600329FFF /* StoreSettingViewController.m */; };
+		F1392E8B1A0CD4C500329FFF /* StoreSettingCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F1392E891A0CD4C500329FFF /* StoreSettingCollectionViewCell.m */; };
+		F1392E8C1A0CD4C500329FFF /* StoreSettingCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F1392E8A1A0CD4C500329FFF /* StoreSettingCollectionViewCell.xib */; };
 		F13D4C291A0750B100E23FDB /* NCMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F13D4C281A0750B100E23FDB /* NCMainViewController.m */; };
 		F13D4C2D1A07510F00E23FDB /* CustomSegmentedControl.m in Sources */ = {isa = PBXBuildFile; fileRef = F13D4C2C1A07510F00E23FDB /* CustomSegmentedControl.m */; };
 		F13D4C311A07688600E23FDB /* NCTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F13D4C2F1A07688600E23FDB /* NCTableViewCell.m */; };
@@ -527,6 +530,11 @@
 		F12DAE311A0231E700591CB5 /* shop_introduce.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = shop_introduce.png; sourceTree = "<group>"; };
 		F1392E501A0B909D00329FFF /* LicenseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LicenseViewController.h; sourceTree = "<group>"; };
 		F1392E511A0B909D00329FFF /* LicenseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LicenseViewController.m; sourceTree = "<group>"; };
+		F1392E851A0CC2E600329FFF /* StoreSettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StoreSettingViewController.h; sourceTree = "<group>"; };
+		F1392E861A0CC2E600329FFF /* StoreSettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StoreSettingViewController.m; sourceTree = "<group>"; };
+		F1392E881A0CD4C500329FFF /* StoreSettingCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StoreSettingCollectionViewCell.h; sourceTree = "<group>"; };
+		F1392E891A0CD4C500329FFF /* StoreSettingCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StoreSettingCollectionViewCell.m; sourceTree = "<group>"; };
+		F1392E8A1A0CD4C500329FFF /* StoreSettingCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StoreSettingCollectionViewCell.xib; sourceTree = "<group>"; };
 		F13D4C271A0750B100E23FDB /* NCMainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NCMainViewController.h; sourceTree = "<group>"; };
 		F13D4C281A0750B100E23FDB /* NCMainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NCMainViewController.m; sourceTree = "<group>"; };
 		F13D4C2B1A07510F00E23FDB /* CustomSegmentedControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomSegmentedControl.h; sourceTree = "<group>"; };
@@ -983,6 +991,8 @@
 				F14F51F31A0382B7006CC884 /* MyStoresTableViewController.m */,
 				F14F18F91A0A15C200731239 /* AddActionViewController.h */,
 				F14F18FA1A0A15C200731239 /* AddActionViewController.m */,
+				F1392E851A0CC2E600329FFF /* StoreSettingViewController.h */,
+				F1392E861A0CC2E600329FFF /* StoreSettingViewController.m */,
 			);
 			path = Homepage;
 			sourceTree = "<group>";
@@ -1056,6 +1066,9 @@
 				F14F19071A0B6AA300731239 /* NumberSenceHeaderView.h */,
 				F14F19081A0B6AA300731239 /* NumberSenceHeaderView.m */,
 				F14F19091A0B6AA300731239 /* NumberSenceHeaderView.xib */,
+				F1392E881A0CD4C500329FFF /* StoreSettingCollectionViewCell.h */,
+				F1392E891A0CD4C500329FFF /* StoreSettingCollectionViewCell.m */,
+				F1392E8A1A0CD4C500329FFF /* StoreSettingCollectionViewCell.xib */,
 			);
 			path = XIB;
 			sourceTree = "<group>";
@@ -1339,6 +1352,7 @@
 				AD33ED2219FBCA2D00FE0C11 /* ic_default_no_data.png in Resources */,
 				AD33ED0E19FBCA2D00FE0C11 /* 1_10.png in Resources */,
 				AD33ED0D19FBCA2D00FE0C11 /* 1_03.png in Resources */,
+				F1392E8C1A0CD4C500329FFF /* StoreSettingCollectionViewCell.xib in Resources */,
 				AD33ED1819FBCA2D00FE0C11 /* 4_10.png in Resources */,
 				F10340C719FF4FCF00C5CB4E /* ic_username.png in Resources */,
 				AD33ED2E19FBCA2D00FE0C11 /* 主页_07.png in Resources */,
@@ -1382,6 +1396,7 @@
 				F1392E521A0B909D00329FFF /* LicenseViewController.m in Sources */,
 				F13D4C311A07688600E23FDB /* NCTableViewCell.m in Sources */,
 				AD3DD3C019FE13FE00364854 /* LY_FeaturedCell.m in Sources */,
+				F1392E8B1A0CD4C500329FFF /* StoreSettingCollectionViewCell.m in Sources */,
 				AD6A9B811A09CA420031B7C2 /* LYAcceptedCell.m in Sources */,
 				AD6211E919FD9F1C009BECA6 /* LYForgotPassword.m in Sources */,
 				AD09555A1A08C71200C53A6F /* LYAbout.m in Sources */,
@@ -1395,6 +1410,7 @@
 				AD7FBAB41A0216FF008CC80A /* LY_AnnouncementCell.m in Sources */,
 				AD3DD40919FE362D00364854 /* LYBaiduMap.mm in Sources */,
 				AD197F151A0B660D00E05089 /* LYNumbersense.m in Sources */,
+				F1392E871A0CC2E600329FFF /* StoreSettingViewController.m in Sources */,
 				F16D77AE1A033E680044D858 /* CommentTableViewCell.m in Sources */,
 				F13D4C291A0750B100E23FDB /* NCMainViewController.m in Sources */,
 				AD6A9B821A09CA420031B7C2 /* LYDownCell.m in Sources */,

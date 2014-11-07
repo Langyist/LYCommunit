@@ -8,6 +8,34 @@
 
 #import "MyStoresTableViewController.h"
 #import "KxMenu.h"
+#import "CustomSegmentedControl.h"
+
+@interface HeaderView : UIView
+
+@end
+
+@implementation HeaderView
+
+- (void)drawRect:(CGRect)rect {
+    [super drawRect:rect];
+    
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    CGContextSetStrokeColorWithColor(context, [UIColor lightGrayColor].CGColor);
+    
+    CGFloat lineWidth = 1.0f;
+    CGFloat move = 1.0f - lineWidth;
+    // Draw them with a 2.0 stroke width so they are a bit more visible.
+    CGContextSetLineWidth(context, lineWidth);
+    
+    CGContextMoveToPoint(context, 0.0f, CGRectGetHeight(rect) - move); //start at this point
+    
+    CGContextAddLineToPoint(context, CGRectGetWidth(rect), CGRectGetHeight(rect) - move); //draw to this point
+    
+    // and now draw the Path!
+    CGContextStrokePath(context);
+}
+
+@end
 
 @implementation MyStoresItemCell
 
@@ -21,13 +49,11 @@
 @end
 
 @interface MyStoresTableViewController () {
-    LMContainsLMComboxScrollView *bgScrollView;
-    LMComBoxView *comboxView;
-    LMComBoxView *comboxView1;
     
-    NSMutableArray  *itemsArray;
-    NSMutableArray  *itemsArray1;
+    NSInteger lastSelect;
 }
+
+@property (weak, nonatomic) IBOutlet CustomSegmentedControl *segmentedControl;
 
 @end
 
@@ -42,40 +68,7 @@
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
     
-    bgScrollView = [[LMContainsLMComboxScrollView alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(self.view.frame), self.view.frame.size.width, 44)];
-    bgScrollView.backgroundColor = [UIColor clearColor];
-    bgScrollView.showsVerticalScrollIndicator = NO;
-    bgScrollView.showsHorizontalScrollIndicator = NO;
-    
-    comboxView = [[LMComBoxView alloc] initWithFrame:
-                            CGRectMake(CGRectGetWidth(self.view.frame) / 2 * 0,
-                                       0,
-                                       CGRectGetWidth(self.view.frame) / 2,
-                                       44)];
-    
-    comboxView.backgroundColor = [UIColor whiteColor];
-    comboxView.arrowImgName = @"小三角_11";
-    itemsArray = [NSMutableArray arrayWithArray:@[@"全部", @""]];
-    comboxView.titlesList = itemsArray;
-    comboxView.delegate = self;
-    comboxView.supView = bgScrollView;
-    [comboxView defaultSettings];
-    [bgScrollView addSubview:comboxView];
-    
-    comboxView1 = [[LMComBoxView alloc] initWithFrame:
-                   CGRectMake(CGRectGetWidth(self.view.frame) / 2 * 1,
-                              0,
-                              CGRectGetWidth(self.view.frame) / 2,
-                             44)];
-    
-    comboxView1.backgroundColor = [UIColor whiteColor];
-    comboxView1.arrowImgName = @"小三角_11";
-    itemsArray1 = [NSMutableArray arrayWithArray:@[@"智能排序", @""]];
-    comboxView1.titlesList = itemsArray1;
-    comboxView1.delegate = self;
-    comboxView1.supView = bgScrollView;
-    [comboxView1 defaultSettings];
-    [bgScrollView addSubview:comboxView1];
+    [self.segmentedControl setMaskForItem:@[@"0", @"1"]];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -85,16 +78,8 @@
 
 #pragma mark - Table view data source
 
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    return CGRectGetHeight(bgScrollView.frame);
-}
-
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return 90;
-}
-
-- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-    return bgScrollView;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -109,10 +94,8 @@
     return cell;
 }
 
-#pragma mark -
-#pragma mark LMComBoxViewDelegate
--(void)selectAtIndex:(int)index inCombox:(LMComBoxView *)_combox {
-
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [self performSegueWithIdentifier:@"StoreSetting" sender:nil];
 }
 
 - (IBAction)showMenu:(UIButton *)sender {
@@ -161,6 +144,32 @@
 
 - (void)addAction:(id)sender {
     [self performSegueWithIdentifier:@"AddAction" sender:nil];
+}
+
+- (IBAction)valueChanged:(CustomSegmentedControl *)seg {
+    NSInteger index = seg.selectedSegmentIndex;
+    [ColMenu showMenuInView:self.view fromRect:CGRectMake(0, 64, CGRectGetWidth(self.view.frame), 44) delegate:self];
+    [ColMenu setSeletectItemOfSection:0 row:4];
+    lastSelect = index;
+}
+
+#pragma mark -
+#pragma mark ColMenuDelegate
+
+- (NSInteger)sectionOfColMenu:(ColMenu *)colMenu {
+    return 1;
+}
+
+- (NSInteger)colMune:(ColMenu *)colMenu numberOfRowsInSection:(NSInteger)section {
+    return 45;
+}
+
+- (NSString *)colMune:(ColMenu *)colMenu titleForItemOfSection:(NSInteger)section row:(NSInteger)row {
+    return @"text";
+}
+
+- (void)colMune:(ColMenu *)colMenu didSelectItemOfSection:(NSInteger)section row:(NSInteger)row {
+    
 }
 
 @end
