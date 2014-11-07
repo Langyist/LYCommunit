@@ -16,6 +16,8 @@
     UITableView* woodsInfoTableView;
     UITableView* carInfoTableView;
     UITableView* roomInfoTableView;
+    
+    NSInteger lastSelect;
 }
 
 @property (weak, nonatomic) IBOutlet CustomSegmentedControl *segmentedControl;
@@ -80,7 +82,12 @@
 
 - (IBAction)valueChanged:(CustomSegmentedControl *)seg {
     NSInteger index = seg.selectedSegmentIndex;
+    if (lastSelect == index && index == 0) {
+        [ColMenu showMenuInView:self.view fromRect:seg.superview.frame delegate:self];
+        [ColMenu setSeletectItemOfSection:0 row:4];
+    }
     [self.scrollView setContentOffset:CGPointMake(_scrollView.frame.size.width * index, 0) animated:YES];
+    lastSelect = index;
 }
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
@@ -125,6 +132,25 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [self performSegueWithIdentifier:@"NCDetail" sender:nil];
+}
+
+#pragma mark -
+#pragma mark ColMenuDelegate 
+
+- (NSInteger)sectionOfColMenu:(ColMenu *)colMenu {
+    return 1;
+}
+
+- (NSInteger)colMune:(ColMenu *)colMenu numberOfRowsInSection:(NSInteger)section {
+    return 45;
+}
+
+- (NSString *)colMune:(ColMenu *)colMenu titleForItemOfSection:(NSInteger)section row:(NSInteger)row {
+    return @"text";
+}
+
+- (void)colMune:(ColMenu *)colMenu didSelectItemOfSection:(NSInteger)section row:(NSInteger)row {
+    
 }
 
 @end

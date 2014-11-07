@@ -78,7 +78,7 @@
     NSDate *date = [NSDate dateWithTimeIntervalSince1970:timestampInt];
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     formatter.locale = [[NSLocale alloc] initWithLocaleIdentifier:@"zh_CN"];
-    formatter.dateFormat = @"yyyy-MM-dd";
+    formatter.dateFormat = @"yyyy年MM月dd日";
     NSString *time = [formatter stringFromDate:date];
     if (!time) {
         [self.timeLabel setText:@""];
@@ -140,6 +140,7 @@
     [self.friendlyLoadingView showFriendlyLoadingViewWithText:@"正在加载..." loadingAnimated:YES];
     [self.view addSubview:self.friendlyLoadingView];
     
+    [m_tableView setContentInset:UIEdgeInsetsMake(-1, 0, 0, 0)];
     m_tableView.delegate = self;
     m_tableView.dataSource = self;
     [NSThread detachNewThreadSelector:@selector(getAnnouncement:) toTarget:self withObject:nil];
@@ -176,7 +177,7 @@
 }
 
 - (CGFloat) tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
-    return 10;
+    return 6;
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {

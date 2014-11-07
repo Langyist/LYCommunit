@@ -16,6 +16,21 @@
     NSMutableArray *tagItemIndex;
 }
 
+- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    UITouch *touch = [touches anyObject];
+    CGPoint point = [touch locationInView:self];
+    NSInteger newTouchIndex = 0;
+    if (self.numberOfSegments != 0) {
+        newTouchIndex = point.x / (CGRectGetWidth(self.frame) / self.numberOfSegments);
+    }
+    if (newTouchIndex == self.selectedSegmentIndex) {
+        [self sendActionsForControlEvents:UIControlEventValueChanged];
+    }
+    
+    [super touchesEnded:touches withEvent:event];
+}
+
 - (void)awakeFromNib {
     CGRect rect = CGRectMake(0, 0, 1, 1);
     UIGraphicsBeginImageContext(rect.size);

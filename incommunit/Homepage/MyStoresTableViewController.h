@@ -7,8 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "LMComBoxView.h"
-#import "LMContainsLMComboxScrollView.h"
+#import "ColMenu.h"
 
 @interface MyStoresItemCell : UITableViewCell
 
@@ -21,7 +20,7 @@
 
 @interface MyStoresTableViewController : UITableViewController
 <
-LMComBoxViewDelegate
+    ColMenuDelegate
 >
 
 @end

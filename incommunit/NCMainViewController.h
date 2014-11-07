@@ -7,11 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ColMenu.h"
 
 @interface NCMainViewController : UIViewController
 <
     UITableViewDataSource,
-    UITableViewDelegate
+    UITableViewDelegate,
+    ColMenuDelegate
 >
 
 @end
