@@ -45,14 +45,11 @@
 @property (weak, nonatomic) IBOutlet UIButton *submitButton;
 - (IBAction)submitPress:(id)sender;
 
-
 @end
-
 @implementation SendNCInfoTableViewController {
     CGFloat itemSpace;
     CGPoint photoStartPoint;
     CGSize photoSize;
-    
     NSMutableArray *photoImageViewList;
     NSMutableArray *photoImageDataList;
 }

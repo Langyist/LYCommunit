@@ -65,7 +65,7 @@
     NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:urlstr]];
     if (request!=nil)
     {
-        //    将请求的url数据放到NSData对象中
+        // 将请求的url数据放到NSData对象中
         NSData *response = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
         if(response!=nil)
         {

@@ -9,6 +9,7 @@
 #import "LYFunctionInterface.h"
 #import "LYSelectCommunit.h"
 #import "CustomToolbarItem.h"
+#import "LYUserloginView.h"
 @interface LYFunctionInterface () {
     UIBarButtonItem *mapItem;
     UIBarButtonItem *mineItem;
@@ -107,10 +108,15 @@ static NSMutableDictionary *Competence;//模块开通
     {
         UIAlertView *alview = [[UIAlertView alloc] initWithTitle:@"提示" message:@"功能暂未开通敬请脐带" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
         [alview show];
+    }
+    if ([LYUserloginView Getourist])
+    {
+        UIAlertView *alview = [[UIAlertView alloc] initWithTitle:@"提示" message:@"你当前是游客登陆是否登陆？" delegate:self cancelButtonTitle:@"是" otherButtonTitles:@"取消", nil];
+        [alview show];
     }else
     {
         [self performSegueWithIdentifier:@"GoLYProManagementMain" sender:self];
-
+        
     }
 }
 //周边便民
@@ -130,6 +136,11 @@ static NSMutableDictionary *Competence;//模块开通
      if(![[[NSString alloc]initWithFormat:@"%@",[[Competence objectForKey:@"modc"] objectForKey:@"checked"]]isEqualToString:@"1"])
      {
         UIAlertView *alview = [[UIAlertView alloc] initWithTitle:@"提示" message:@"功能暂未开通敬请脐带" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+        [alview show];
+    }
+    if ([LYUserloginView Getourist])
+    {
+        UIAlertView *alview = [[UIAlertView alloc] initWithTitle:@"提示" message:@"你当前是游客登陆是否登陆？" delegate:self cancelButtonTitle:@"是" otherButtonTitles:@"取消", nil];
         [alview show];
     }else
     {
@@ -212,29 +223,35 @@ static NSMutableDictionary *Competence;//模块开通
     NSDictionary *tem = [data objectForKey:@"community"];
     Competence = [data objectForKey:@"level2"];
     m_picearry = [tem objectForKey:@"images"];
-    m_imageScrollView.contentSize = CGSizeMake(m_picearry.count * self.m_imageScrollView.frame.size.width,0);
-    
-    m_imageScrollView.pagingEnabled = YES;
-    m_imageScrollView.showsHorizontalScrollIndicator = NO;
-    for (int i = 0; i < m_picearry.count; i++)
-    {
-        m_imageView = [[UIImageView alloc] initWithFrame:CGRectMake(i * self.view.frame.size.width, 0, self.m_imageView.frame.size.width, m_imageView.frame.size.height)];
-        NSString *imageUrl = [[m_picearry objectAtIndex:i] objectForKey:@"path"];
-        if (imageUrl!=nil && ![imageUrl isEqualToString:@""])
-        {
-            NSURL *url = [NSURL URLWithString:imageUrl];
-            [m_imageView setImageWithURL:url placeholderImage:nil];
-        }
-        [m_imageScrollView addSubview:m_imageView];
-    }
-    m_page = [[UIPageControl alloc] initWithFrame:CGRectMake(m_imageScrollView.frame.size.width-80, m_imageScrollView.frame.size.height-30, 60, 30)];
-    m_page.tintColor = [UIColor grayColor];
-    m_page.currentPageIndicatorTintColor = [UIColor colorWithRed:(238.0/255) green:(183.0/255) blue:(88.0/255) alpha:1.0];
-    [m_View addSubview:m_page];
-    m_page.numberOfPages = m_picearry.count;
-    m_page.currentPage = 0;
-    [m_page addTarget:self action:@selector(pageTurn:) forControlEvents:UIControlEventValueChanged];
-    m_timer = 0;
-    }
+    dispatch_async(dispatch_get_main_queue(), ^{
+            [self updata];
+            // 更新UI
+        });
 }
+}
+
+-(void)updata{
+        m_imageScrollView.contentSize = CGSizeMake(m_picearry.count * self.m_imageScrollView.frame.size.width,0);
+        m_imageScrollView.pagingEnabled = YES;
+        m_imageScrollView.showsHorizontalScrollIndicator = NO;
+        for (int i = 0; i < m_picearry.count; i++)
+        {
+            m_imageView = [[UIImageView alloc] initWithFrame:CGRectMake(i * self.view.frame.size.width, 0, self.m_imageView.frame.size.width, m_imageView.frame.size.height)];
+            NSString *imageUrl = [[m_picearry objectAtIndex:i] objectForKey:@"path"];
+            if (imageUrl!=nil && ![imageUrl isEqualToString:@""])
+            {
+                NSURL *url = [NSURL URLWithString:imageUrl];
+                [m_imageView setImageWithURL:url placeholderImage:nil];
+            }
+            [m_imageScrollView addSubview:m_imageView];
+        }
+        m_page = [[UIPageControl alloc] initWithFrame:CGRectMake(m_imageScrollView.frame.size.width-80, m_imageScrollView.frame.size.height-30, 60, 30)];
+        m_page.tintColor = [UIColor grayColor];
+        m_page.currentPageIndicatorTintColor = [UIColor colorWithRed:(238.0/255) green:(183.0/255) blue:(88.0/255) alpha:1.0];
+        [m_View addSubview:m_page];
+        m_page.numberOfPages = m_picearry.count;
+        m_page.currentPage = 0;
+        [m_page addTarget:self action:@selector(pageTurn:) forControlEvents:UIControlEventValueChanged];
+        m_timer = 0;
+    }
 @end
