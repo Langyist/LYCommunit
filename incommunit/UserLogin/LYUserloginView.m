@@ -63,7 +63,9 @@
 }
 
 - (void)viewWillAppear:(BOOL)animated {
-    self.navigationController.navigationBarHidden = YES;
+
+    [self.navigationController setNavigationBarHidden:YES animated:YES];
+    //self.navigationController.navigationBarHidden = YES;
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -391,11 +393,6 @@
     [self performSegueWithIdentifier:@"GoLYForgotPassword" sender:self];
 }
 
--(void)viewDidAppear:(BOOL)animated
-{
-    
-    self.navigationController.navigationBar.hidden = YES;
-}
 //游客登陆
 -(IBAction)touristsButton:(id)sender
 {
