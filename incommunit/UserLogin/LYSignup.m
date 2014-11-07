@@ -93,7 +93,6 @@
                                               otherButtonTitles:@"取消", nil];
         [alert show];
     }else {
-        
         [self GetRegistrationCode: @""];
     }
 }
@@ -102,6 +101,8 @@
 //获取注册码
 -(BOOL)GetRegistrationCode:(NSString *)url
 {
+    [m_timer invalidate];
+    m_dTime = 60;
     BOOL bc;
     NSDictionary *plistDic = [[NSBundle mainBundle] infoDictionary];
     NSLog(@"plistDic = %@",plistDic);
@@ -135,14 +136,21 @@
 
 -(void)Countdown
 {
-    if (m_dTime<=1) {
+    if (m_dTime<=0)
+    {
         [m_timer invalidate];
+        [UIView setAnimationsEnabled:NO];
+        [m_RButton setTitle:[NSString stringWithFormat:@"获取验证码"] forState:UIControlStateNormal];
+        [m_RButton layoutIfNeeded];
+        [UIView setAnimationsEnabled:YES];
+    }else
+    {
+        m_dTime --;
+        [UIView setAnimationsEnabled:NO];
+        [m_RButton setTitle:[NSString stringWithFormat:@"%d秒", m_dTime] forState:UIControlStateNormal];
+        [m_RButton layoutIfNeeded];
+        [UIView setAnimationsEnabled:YES];
     }
-    m_dTime --;
-    [UIView setAnimationsEnabled:NO];
-    [m_RButton setTitle:[NSString stringWithFormat:@"%d秒", m_dTime] forState:UIControlStateNormal];
-    [m_RButton layoutIfNeeded];
-    [UIView setAnimationsEnabled:YES];
 }
 //进行注册
 -(BOOL)GetRegistration:(NSString *)URL
@@ -152,7 +160,6 @@
     NSString *url = [plistDic objectForKey: @"URL"];
     BOOL bac = false;
         NSError *error;
-        //    加载一个NSURL对象
         NSString *urlstr = [[NSString alloc] initWithFormat:@"%@/services/reg?phone=%@&password=%@&validateCode=%@",url,m_Phone.text,m_password.text,m_VerificationText.text];
         NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:urlstr]];
         //    将请求的url数据放到NSData对象中

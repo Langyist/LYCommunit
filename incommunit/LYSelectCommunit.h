@@ -10,7 +10,8 @@
 #import <CoreLocation/CoreLocation.h>
 #import <CoreLocation/CLLocationManagerDelegate.h>
 #import "AWaterfallTableView.h"
-@interface LYSelectCommunit : UIViewController <UITableViewDataSource,UITableViewDelegate,UISearchBarDelegate,CLLocationManagerDelegate>
+#import "BMapKit.h"
+@interface LYSelectCommunit : UIViewController <UITableViewDataSource,UITableViewDelegate,UISearchBarDelegate,CLLocationManagerDelegate,BMKLocationServiceDelegate,BMKGeoCodeSearchDelegate>
 {
     //@private    UIButton *          m_selectCityButton;
     @private    AWaterfallTableView  *       m_tab;
@@ -33,8 +34,12 @@
     @private NSString *             m_city_name;
     @private NSString *m_city_id;
     @public  UIButton *selectCityButton;
+    BMKLocationService *locService;
     int m_pageSize;
     int m_pageOffset;
+    
+    BMKMapView * m_mapview;
+    BMKMapManager* _mapManager;
 }
 @property(nonatomic, retain)IBOutlet UITableView    *  m_tab;
 @property(nonatomic, retain)IBOutlet UISearchBar *     Serch;

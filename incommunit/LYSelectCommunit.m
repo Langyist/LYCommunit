@@ -31,26 +31,22 @@
     CGContextSetLineWidth(context, lineWidth);
     
     CGContextMoveToPoint(context, 0.0f, CGRectGetHeight(rect) - move); //start at this point
-    
     CGContextAddLineToPoint(context, CGRectGetWidth(rect), CGRectGetHeight(rect) - move); //draw to this point
-    
     // and now draw the Path!
     CGContextStrokePath(context);
 }
 
 @end
-
 @interface LYSelectCommunit ()
 {
     NSMutableArray * CommunitylistON;
     NSMutableArray * CommunitylistOF;
 }
-
 @end
 @implementation LYSelectCommunit
 @synthesize m_tab,Serch,m_lable_address,m_lable_distance,m_lable_name,m_lable_st,selectCityButton;
 static BOOL m_Refresh;//是否刷新界面
-static NSDictionary *          m_cityinfo;//城市信息
+static NSDictionary *   m_cityinfo;//城市信息
 - (void)awakeFromNib
 {
     [super awakeFromNib];
@@ -58,6 +54,21 @@ static NSDictionary *          m_cityinfo;//城市信息
 #pragma mark - 初始化
 -(void)viewDidLoad
 {
+    [super viewDidLoad];
+    if(_mapManager==nil)
+    {
+        _mapManager = [[BMKMapManager alloc]init];
+        BOOL ret = [_mapManager start:@"lK7gaSg80peIGLH15plumdwW"  generalDelegate:nil];
+        if (!ret) {
+            NSLog(@"manager start failed!");
+        }
+        //适配ios7
+        if( ([[[UIDevice currentDevice] systemVersion] doubleValue]>=7.0))
+        {
+            // self.edgesForExtendedLayout=UIRectEdgeNone;
+            self.navigationController.navigationBar.translucent = NO;
+        }
+    }
     m_CommunitylistOF = [[NSMutableArray alloc]init];
     m_CommunitylistON = [[NSMutableArray alloc]init];
     NSMutableDictionary *userinfo =  [LYSqllite Ruser];
@@ -67,7 +78,6 @@ static NSDictionary *          m_cityinfo;//城市信息
     }
     m_pageSize = 1000;
     m_pageOffset = 0;
-    
     self->Serch.delegate=self;
     [selectCityButton addTarget:self action:@selector(GoselectCity) forControlEvents:UIControlEventTouchUpInside];
     [selectCityButton setTitle: @"成都" forState: UIControlStateNormal];
@@ -77,29 +87,12 @@ static NSDictionary *          m_cityinfo;//城市信息
     {
         [self->locationManager requestWhenInUseAuthorization];
     }
-    // 设置定位精度
-    // kCLLocationAccuracyNearestTenMeters:精度10米
-    // kCLLocationAccuracyHundredMeters:精度100 米
-    // kCLLocationAccuracyKilometer:精度1000 米
-    // kCLLocationAccuracyThreeKilometers:精度3000米
-    // kCLLocationAccuracyBest:设备使用电池供电时候最高的精度
-    // kCLLocationAccuracyBestForNavigation:导航情况下最高精度，一般要有外接电源时才能使用
-    self->locationManager.desiredAccuracy = kCLLocationAccuracyBest;
-    // distanceFilter是距离过滤器，为了减少对定位装置的轮询次数，位置的改变不会每次都去通知委托，而是在移动了足够的距离时才通知委托程序
-    // 它的单位是米，这里设置为至少移动1000再通知委托处理更新;
-    self->locationManager.distanceFilter = 1000.0f; // 如果设为kCLDistanceFilterNone，则每秒更新一次;
-    if ([CLLocationManager locationServicesEnabled])
-    {
-        [self->locationManager startUpdatingLocation];
-        self.view.userInteractionEnabled = YES;
-        [m_View removeFromSuperview];
-    }
-    else
-    {
-        NSLog(@"请开启定位功能！");
-    }
-    [super viewDidLoad];
-    
+    //初始化BMKLocationService
+    locService = [[BMKLocationService alloc]init];
+    locService.delegate = self;
+    //启动LocationService
+    [locService startUserLocationService];
+
 }
 - (void)didReceiveMemoryWarning
 {
@@ -120,38 +113,52 @@ static NSDictionary *          m_cityinfo;//城市信息
         detailViewController->selectcity = selectCityButton;
     }
 }
-#pragma mark - CLLocationManagerDelegate 定位协议函数
-// 地理位置发生改变时触发
-- (void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation
+
+//实现相关delegate 处理位置信息更新
+//处理方向变更信息
+- (void)didUpdateUserHeading:(BMKUserLocation *)userLocation
 {
-    latitude=newLocation.coordinate.latitude;
-    longitude=newLocation.coordinate.longitude;
-    [manager stopUpdatingLocation];// 停止位置更新
-    CLGeocoder *geocoder=[[CLGeocoder alloc]init];
-    [geocoder reverseGeocodeLocation:newLocation completionHandler:^(NSArray *placemarks,NSError *error)
-     {
-         for(CLPlacemark *placemark in placemarks)
-         {
-             if (m_data.count>0)
-             {
-                 [selectCityButton setTitle: [m_data objectForKey:@"name"] forState: UIControlStateNormal];
-             }else
-             {
-                 [selectCityButton setTitle: [[NSString alloc]initWithFormat:@"%@",[[placemark.addressDictionary objectForKey:@"City"] substringToIndex:2] ] forState: UIControlStateNormal];
-                 m_city_name  =[[placemark.addressDictionary objectForKey:@"City"] substringToIndex:2];
-             }
-             [self.m_tab reloadData];
-             self.view.userInteractionEnabled = YES;
-         }
-     }];
-    [m_tab refreshStart];
-    [locationManager stopUpdatingLocation];
+    //    NSLog(@"heading is %@",userLocation.heading);
 }
+//处理位置坐标更新
+- (void)didUpdateUserLocation:(BMKUserLocation *)userLocation
+{
+    latitude =userLocation.location.coordinate.latitude;
+    longitude =userLocation.location.coordinate.longitude;
+    BMKGeoCodeSearch *_geoCodeSearch = [[BMKGeoCodeSearch alloc]init];
+    _geoCodeSearch.delegate = self;
+    //初始化逆地理编码类
+    BMKReverseGeoCodeOption *reverseGeoCodeOption= [[BMKReverseGeoCodeOption alloc] init];
+    //需要逆地理编码的坐标位置
+    reverseGeoCodeOption.reverseGeoPoint = userLocation.location.coordinate;
+    [_geoCodeSearch reverseGeoCode:reverseGeoCodeOption];
+    [locService stopUserLocationService];
+  //NSLog(@"didUpdateUserLocation lat %f,long %f",userLocation.location.coordinate.latitude,userLocation.location.coordinate.longitude);
+}
+
 // 定位失误时触发
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
 {
     NSLog(@"error:%@",error);
 }
+
+- (void)onGetReverseGeoCodeResult:(BMKGeoCodeSearch *)searcher result:(BMKReverseGeoCodeResult *)result errorCode:(BMKSearchErrorCode)error
+{
+   // NSString *cityname = result.addressDetail.city;
+    NSString *CityName = [result.addressDetail.city stringByReplacingOccurrencesOfString:@"市" withString:@""];
+    if (m_data.count>0)
+    {
+        [selectCityButton setTitle: [m_data objectForKey:@"name"] forState: UIControlStateNormal];
+     }else{
+        [selectCityButton setTitle: CityName forState: UIControlStateNormal];
+         m_city_name  =CityName;
+    }
+    [m_tab refreshStart];
+    [self.m_tab reloadData];
+    self.view.userInteractionEnabled = YES;
+    //BMKReverseGeoCodeResult是编码的结果，包括地理位置，道路名称，uid，城市名等信息
+}
+
 //跳转到选择城市界面
 -(IBAction)GoselectCity
 {
@@ -171,8 +178,6 @@ static NSDictionary *          m_cityinfo;//城市信息
 {
     return YES;
 }
-
-
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSDictionary *Community;
@@ -181,20 +186,19 @@ static NSDictionary *          m_cityinfo;//城市信息
     m_lable_address = (UILabel *)[cell.contentView viewWithTag:101];
     m_lable_distance = (UILabel *)[cell.contentView viewWithTag:102];
     m_lable_st=(UILabel *)[cell.contentView viewWithTag:103];
-    
     UIColor *color = [UIColor darkTextColor];
-    
     NSString *text = @"未开通";
     color = [UIColor lightGrayColor];
-    if (m_CommunitylistON.count > indexPath.row) {
+    if (m_CommunitylistON.count > indexPath.row)
+    {
         Community=[m_CommunitylistON objectAtIndex:indexPath.row];
         if ([[[NSString alloc]initWithFormat:@"%@",[Community objectForKey:@"enable"]]isEqualToString:@"1"]) {
             text = @"已开通";
+            color = [UIColor blackColor];
         }
     }
     else if (m_CommunitylistOF.count > indexPath.row - m_CommunitylistON.count) {
         Community=[m_CommunitylistOF objectAtIndex:indexPath.row - m_CommunitylistON.count];
-       
         text = @"未开通";
     }
     m_lable_st.text = text;
@@ -211,8 +215,6 @@ static NSDictionary *          m_cityinfo;//城市信息
     }
     return cell;
 }
-
-
 //点击事件
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -285,7 +287,7 @@ static NSDictionary *          m_cityinfo;//城市信息
     if(received!=nil)
     {
         NSDictionary *weatherDic = [NSJSONSerialization JSONObjectWithData:received options:NSJSONReadingMutableLeaves error:&error];
-        m_pageOffset = [[weatherDic objectForKey:@"pageOffset"] intValue];
+       // m_pageOffset = [[weatherDic objectForKey:@"pageOffset"] intValue];
         if(weatherDic!=nil)
         {
             NSString *status = [weatherDic objectForKey:@"status"];
@@ -323,7 +325,7 @@ static NSDictionary *          m_cityinfo;//城市信息
     else if (m_tab.status == AWaterfallTableViewMoring)
     {
         [m_tab moreEnd];
-        m_pageOffset++;
+        //m_pageOffset++;
     }
 }
 

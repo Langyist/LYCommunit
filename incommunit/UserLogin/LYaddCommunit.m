@@ -68,21 +68,14 @@
     [self.view addSubview:bgScrollView];
     [self setUpBgScrollView];
     
-//    UITapGestureRecognizer* singleRecognizer;
-//    singleRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(ClickView)];
-//    singleRecognizer.numberOfTapsRequired = 1; // 单击
-//    [self.view addGestureRecognizer:singleRecognizer];
     
     m_iamgeview.userInteractionEnabled = YES;
     UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(Photograph)];
     [m_iamgeview addGestureRecognizer:singleTap];
-    //[self.view addSubview:m_iamgeview];
-    // Do any additional setup after loading the view.
 }
 
 -(void)Photograph
 {
-    
     sheet = [[UIActionSheet alloc] initWithTitle:@"上传照片"
                                                     delegate:nil
                                             cancelButtonTitle:@"取消"

@@ -5,7 +5,7 @@
 //  Created by LANGYI on 14/10/27.
 //  Copyright (c) 2014年 LANGYI. All rights reserved.
 //
-
+#define BaidKey @"lK7gaSg80peIGLH15plumdwW"
 #import "LYBaiduMap.h"
 @interface LYBaiduMap ()
 @end
@@ -23,7 +23,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     _mapManager = [[BMKMapManager alloc]init];
-    BOOL ret = [_mapManager start:@"在此处输入您的授权Key"  generalDelegate:nil];
+    BOOL ret = [_mapManager start:BaidKey  generalDelegate:nil];
     if (!ret) {
         NSLog(@"manager start failed!");
     }
