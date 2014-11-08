@@ -8,12 +8,19 @@
 
 #import "StoreSettingCollectionViewCell.h"
 
+@interface StoreSettingCollectionViewCell ()
+@property (weak, nonatomic) IBOutlet UIButton *button;
+
+@end
+
 @implementation StoreSettingCollectionViewCell {
     DeletePressBlock block;
 }
 
 - (void)awakeFromNib {
     // Initialization code
+    
+    [self.button setExclusiveTouch:YES];
 }
 
 - (IBAction)deleteButton:(id)sender {

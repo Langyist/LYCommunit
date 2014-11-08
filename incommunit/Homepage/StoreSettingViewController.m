@@ -10,6 +10,7 @@
 #import "InsetTextField.h"
 #import "StoreSettingCollectionViewCell.h"
 #import "StoreSettingAddCollectionViewCell.h"
+#import "KxMenu.h"
 
 @interface StoreSettingBkView : UIView
 @end
@@ -133,6 +134,22 @@
 - (IBAction)donePress:(id)sender {
 }
 
+- (IBAction)more:(UIButton *)sender {
+    NSArray *menuItems =
+    @[
+      [KxMenuItem menuItem:@"关闭店铺"
+                     image:nil
+                    target:self
+                    action:@selector(closeStore:)]
+      ];
+
+    CGRect frame = sender.frame;
+    frame.origin.y -= 40;
+    [KxMenu showMenuInView:self.view
+                  fromRect:frame
+                 menuItems:menuItems];
+}
+
 #pragma mark -
 #pragma mark UITextViewDelegate
 
@@ -151,6 +168,10 @@
 
 #pragma mark -
 #pragma mark Method
+
+- (void)closeStore:(id)sender {
+    
+}
 
 - (void)setInsetTextFieldProperty:(InsetTextField *)field {
     UIEdgeInsets inset = UIEdgeInsetsMake(0, 15, 0, 15);
