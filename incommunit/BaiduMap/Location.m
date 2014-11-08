@@ -90,14 +90,19 @@ NSMutableDictionary * Locationinfo;
 // 定位失误时触发
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
 {
-    NSLog(@"error:%@",error);
     [Locationinfo setValue:@"定位失败" forKey:@"error"];
+    if ([self.locDelegate respondsToSelector:@selector(userLocation:locInfo:)]) {
+        [self.locDelegate userLocation:self locInfo:Locationinfo];
+    }
 }
 
 - (void)onGetReverseGeoCodeResult:(BMKGeoCodeSearch *)searcher result:(BMKReverseGeoCodeResult *)result errorCode:(BMKSearchErrorCode)error
 {
     NSString *CityName = [result.addressDetail.city stringByReplacingOccurrencesOfString:@"市" withString:@""];
     [Locationinfo setValue:CityName forKey:@"city"];
+    if ([self.locDelegate respondsToSelector:@selector(userLocation:locInfo:)]) {
+        [self.locDelegate userLocation:self locInfo:Locationinfo];
+    }
 }
 
 @end
