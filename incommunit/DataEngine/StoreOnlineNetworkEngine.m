@@ -7,9 +7,13 @@
 //
 
 #import "StoreOnlineNetworkEngine.h"
+#import <UIKit/UIKit.h>
+#import "AppDelegate.h"
 
 @interface StoreOnlineNetworkEngine () {
     NSMutableArray *operationNetworkArray;
+    
+    UIActivityIndicatorView *activityView;
 }
 
 @property (strong, nonatomic) NSMutableArray *operationNetworkArray;
@@ -28,6 +32,15 @@
     return instance;
 }
 
+- (id)init {
+    self = [super init];
+    if (self) {
+        activityView = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(0, 0, 80, 80)];
+        activityView.activityIndicatorViewStyle = UIActivityIndicatorViewStyleGray;
+    }
+    return self;
+}
+
 -(NSMutableArray*) operationNetworkArray {
     
     if (!operationNetworkArray) {
@@ -44,8 +57,17 @@
 - (MKNetworkOperation *) startNetWorkWithPath:(NSString *)path
                                        params:(NSDictionary *)params
                                        repeat:(BOOL)canRepeat
+                                        isGet:(BOOL)isGet
                                   resultBlock:(AnalyzeResponseResult)result {
-    
+    return [self startNetWorkWithPath:path params:params repeat:canRepeat isGet:isGet activity:NO resultBlock:result];
+}
+
+- (MKNetworkOperation *) startNetWorkWithPath:(NSString *)path
+                                       params:(NSDictionary *)params
+                                       repeat:(BOOL)canRepeat
+                                        isGet:(BOOL)isGet
+                                     activity:(BOOL)activity
+                                  resultBlock:(AnalyzeResponseResult)result {
     // 接口调用成功
     MKNKResponseBlock responseBlock = ^(MKNetworkOperation *completedOperation) {
         id responseJSON = [completedOperation responseJSON];
@@ -93,7 +115,7 @@
     MKNKResponseErrorBlock errorBlock = ^(MKNetworkOperation* completedOperation, NSError* error) {
         
         if (result) {
-            result(NO, @"网络提了一个问题", nil);
+            result(NO, @"提示：网络连接错误，请检查网络！", nil);
         }
         
         [self.operationNetworkArray removeObject:completedOperation];
@@ -108,9 +130,13 @@
     if (!params) {
         params = @{};
     }
+    NSString *httpMethod = @"GET";
+    if (!isGet) {
+        httpMethod = @"POST";
+    }
     MKNetworkOperation *op = [self operationWithPath:path
                                               params:params
-                                          httpMethod:@"GET"
+                                          httpMethod:httpMethod
                               ];
     [op addCompletionHandler:responseBlock errorHandler:errorBlock];
     if (!self.operationNetworkArray) {
@@ -132,6 +158,9 @@
         self.operationNetworkArray = tempArray;
         [self enqueueOperation:op];
     }
+    
+    //[ShareAppDelegate waiting:YES];
+    
     return op;
 }
 
