@@ -8,7 +8,7 @@
 #import "LYUserloginView.h"
 #import"LYSqllite.h"
 #import "LYSelectCommunit.h"
-#import "LYReachability.h"
+#import "Reachability.h"
 #import "UIImage+Scale.h"
 #import "LYFunctionInterface.h"
 @interface LYUserloginView () {
@@ -122,7 +122,7 @@ static BOOL YTourist;
 -(IBAction)login:(NSString*)user password:(NSString *)password
 {
     [passwordtext resignFirstResponder];
-    LYReachability *r = [LYReachability reachabilityWithHostName:@"www.baidu.com"];
+    Reachability *r = [Reachability reachabilityWithHostname:@"www.baidu.com"];
     if ([userText.text isEqual:@""]||userText.text==nil) {
         UIAlertView *aler = [[UIAlertView alloc] initWithTitle:@"提示"
                                                        message:@"用户不能为空"
