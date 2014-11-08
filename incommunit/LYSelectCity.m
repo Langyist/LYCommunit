@@ -34,6 +34,12 @@ static NSMutableDictionary  *m_selectCityInfo;
                                                             params:@{}
                                                             repeat:YES
                                                        resultBlock:^(BOOL bValidJSON, NSString *errorMsg, id result) {
+                                                    if(!bValidJSON)
+                                                    {
+                                                        UIAlertView * mslaView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"" delegate:errorMsg cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+                                                        [mslaView show];
+                                                    }else
+                                                    {
                                                    NSDictionary *data = result;
                                                    m_hotCities =[data objectForKey:@"hotCities"];
                                                    m_allcities = [data objectForKey:@"cities"];
@@ -149,7 +155,8 @@ static NSMutableDictionary  *m_selectCityInfo;
                                                        }
                                                    }
                                                    [self.m_tableview reloadData];
-                                               }];
+                                               }}];
+                                                       
     
 }
 - (void)didReceiveMemoryWarning
