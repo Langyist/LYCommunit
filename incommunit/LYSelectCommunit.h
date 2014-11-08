@@ -11,6 +11,7 @@
 #import <CoreLocation/CLLocationManagerDelegate.h>
 #import "AWaterfallTableView.h"
 #import "BMapKit.h"
+#import "Location.h"
 @interface LYSelectCommunit : UIViewController <UITableViewDataSource,UITableViewDelegate,UISearchBarDelegate,CLLocationManagerDelegate,BMKLocationServiceDelegate,BMKGeoCodeSearchDelegate>
 {
     //@private    UIButton *          m_selectCityButton;

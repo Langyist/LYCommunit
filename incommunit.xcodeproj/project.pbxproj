@@ -150,6 +150,7 @@
 		AD6A9B951A09CC4B0031B7C2 /* LYShopCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AD6A9B8F1A09CC4B0031B7C2 /* LYShopCell.xib */; };
 		AD6A9B961A09D0E20031B7C2 /* libbaidumapapi.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AD3DD40319FE348600364854 /* libbaidumapapi.a */; };
 		AD71C8E51A0DEC8900EAB40E /* StoreOnlineNetworkEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = AD71C8E41A0DEC8900EAB40E /* StoreOnlineNetworkEngine.m */; };
+		AD71C8E81A0DFBDD00EAB40E /* Location.m in Sources */ = {isa = PBXBuildFile; fileRef = AD71C8E71A0DFBDD00EAB40E /* Location.m */; };
 		AD7FBA8D1A0214E2008CC80A /* LYProManagementMain.m in Sources */ = {isa = PBXBuildFile; fileRef = AD7FBA8C1A0214E2008CC80A /* LYProManagementMain.m */; };
 		AD7FBAAE1A0216FF008CC80A /* ACCell1.xib in Resources */ = {isa = PBXBuildFile; fileRef = AD7FBA9E1A0216FF008CC80A /* ACCell1.xib */; };
 		AD7FBAAF1A0216FF008CC80A /* AnnouncementCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AD7FBA9F1A0216FF008CC80A /* AnnouncementCell.xib */; };
@@ -493,6 +494,8 @@
 		AD6A9B8F1A09CC4B0031B7C2 /* LYShopCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LYShopCell.xib; sourceTree = "<group>"; };
 		AD71C8E31A0DEC8900EAB40E /* StoreOnlineNetworkEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StoreOnlineNetworkEngine.h; sourceTree = "<group>"; };
 		AD71C8E41A0DEC8900EAB40E /* StoreOnlineNetworkEngine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StoreOnlineNetworkEngine.m; sourceTree = "<group>"; };
+		AD71C8E61A0DFBDD00EAB40E /* Location.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Location.h; sourceTree = "<group>"; };
+		AD71C8E71A0DFBDD00EAB40E /* Location.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Location.m; sourceTree = "<group>"; };
 		AD7FBA8B1A0214E2008CC80A /* LYProManagementMain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LYProManagementMain.h; sourceTree = "<group>"; };
 		AD7FBA8C1A0214E2008CC80A /* LYProManagementMain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LYProManagementMain.m; sourceTree = "<group>"; };
 		AD7FBA9E1A0216FF008CC80A /* ACCell1.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ACCell1.xib; sourceTree = "<group>"; };
@@ -887,6 +890,8 @@
 				AD3DD40419FE348600364854 /* mapapi.bundle */,
 				AD3DD40719FE362D00364854 /* LYBaiduMap.h */,
 				AD3DD40819FE362D00364854 /* LYBaiduMap.mm */,
+				AD71C8E61A0DFBDD00EAB40E /* Location.h */,
+				AD71C8E71A0DFBDD00EAB40E /* Location.m */,
 			);
 			path = BaiduMap;
 			sourceTree = "<group>";
@@ -1517,6 +1522,7 @@
 				F1D3726D1A0DF2BF0077BAAA /* StoreSettingAddCollectionViewCell.m in Sources */,
 				AD6A9B841A09CA420031B7C2 /* LYRejectedCell.m in Sources */,
 				AD30F7D61A00D97A00C8709E /* LYProductinformation.m in Sources */,
+				AD71C8E81A0DFBDD00EAB40E /* Location.m in Sources */,
 				F14F51F01A0378CF006CC884 /* InfoHeader.m in Sources */,
 				AD33EC9019FBB13F00FE0C11 /* main.m in Sources */,
 				F13D4C2D1A07510F00E23FDB /* CustomSegmentedControl.m in Sources */,

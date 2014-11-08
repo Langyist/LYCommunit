@@ -96,7 +96,7 @@ static NSDictionary *   m_cityinfo;//城市信息
     {
         [self->locationManager requestWhenInUseAuthorization];
     }
-
+    //NSDictionary * temp = [Location shareLocation].GetLocation;
     //初始化BMKLocationService
     locService = [[BMKLocationService alloc]init];
     locService.delegate = self;
