@@ -83,9 +83,8 @@
     m_iamgeview.userInteractionEnabled = YES;
     UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(imageViewTap:)];
     [m_iamgeview addGestureRecognizer:singleTap];
-//    [self.view addSubview:m_iamgeview];
-    // Do any additional setup after loading the view.
 }
+
 
 - (void)imageViewTap:(UITapGestureRecognizer *) tap {
     
@@ -96,7 +95,6 @@
     else {
         actionSheet = [[UIActionSheet alloc] initWithTitle:@"添加照片" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:PHOTOES, nil];
     }
-    
     [actionSheet showInView:self.view];
 }
 
@@ -403,6 +401,13 @@
 
 -(IBAction)Carryout:(id)sender
 {
-    [self Submitinfo];
+    if(![m_Nickname.text isEqual:@""])
+    {
+        [self Submitinfo];
+    }else
+    {
+        UIAlertView *alview = [[UIAlertView alloc] initWithTitle:@"提示" message:@"昵称不能为空" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+        [alview show];
+    }
 }
 @end
