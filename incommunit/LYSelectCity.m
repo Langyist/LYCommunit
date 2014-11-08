@@ -9,6 +9,7 @@
 #import "LYSelectCity.h"
 #import "LYSelectCommunit.h"
 #import "AppDelegate.h"
+#import "StoreOnlineNetworkEngine.h"
 @interface LYSelectCity ()
 @end
 static NSMutableDictionary  *m_selectCityInfo;
@@ -20,10 +21,6 @@ static NSMutableDictionary  *m_selectCityInfo;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    m_selectCityInfo = [[NSMutableDictionary alloc] init];
-    [NSThread detachNewThreadSelector:@selector(Getdata:) toTarget:self withObject:nil];
-    //self.navigationItem.rightBarButtonItem.title = @"返回";
-    
     char c = 'A';
     sectionIndexes = [[NSMutableArray alloc] init];
     [sectionIndexes addObject:@"热门"];
@@ -32,6 +29,128 @@ static NSMutableDictionary  *m_selectCityInfo;
         NSString *string = [NSString stringWithFormat:@"%c", cTemp];// [NSString stringWithUTF8String:cTemp];
         [sectionIndexes addObject:string];
     }
+    m_selectCityInfo = [[NSMutableDictionary alloc] init];
+    [[StoreOnlineNetworkEngine shareInstance] startNetWorkWithPath:@"services/city"
+                                                            params:@{}
+                                                            repeat:YES
+                                                       resultBlock:^(BOOL bValidJSON, NSString *errorMsg, id result) {
+                                                   NSDictionary *data = result;
+                                                   m_hotCities =[data objectForKey:@"hotCities"];
+                                                   m_allcities = [data objectForKey:@"cities"];
+                                                   m_Acities = [[NSMutableArray alloc] init];
+                                                   m_Bcities = [[NSMutableArray alloc] init];
+                                                   m_Ccities = [[NSMutableArray alloc] init];
+                                                   m_Dcities = [[NSMutableArray alloc] init];
+                                                   m_Ecities = [[NSMutableArray alloc] init];
+                                                   m_Fcities = [[NSMutableArray alloc] init];
+                                                   m_Gcities = [[NSMutableArray alloc] init];
+                                                   m_Hcities = [[NSMutableArray alloc] init];
+                                                   m_Icities = [[NSMutableArray alloc] init];
+                                                   m_Jcities = [[NSMutableArray alloc] init];
+                                                   m_Kcities = [[NSMutableArray alloc] init];
+                                                   m_Lcities = [[NSMutableArray alloc] init];
+                                                   m_Mcities = [[NSMutableArray alloc] init];
+                                                   m_Ncities = [[NSMutableArray alloc] init];
+                                                   m_Ocities = [[NSMutableArray alloc] init];
+                                                   m_Pcities = [[NSMutableArray alloc] init];
+                                                   m_Qcities = [[NSMutableArray alloc] init];
+                                                   m_Rcities = [[NSMutableArray alloc] init];
+                                                   m_Scities = [[NSMutableArray alloc] init];
+                                                   m_Tcities = [[NSMutableArray alloc] init];
+                                                   m_Ucities = [[NSMutableArray alloc] init];
+                                                   m_Vcities = [[NSMutableArray alloc] init];
+                                                   m_Wcities = [[NSMutableArray alloc] init];
+                                                   m_Xcities = [[NSMutableArray alloc] init];
+                                                   m_Ycities = [[NSMutableArray alloc] init];
+                                                   m_Zcities = [[NSMutableArray alloc] init];
+                                                   for (int i= 0;i< [m_allcities count]; i++)
+                                                   {
+                                                       NSDictionary *temp = [m_allcities objectAtIndex:i];
+                                                       NSString *pinyin =[temp objectForKey:@"pinyin"];
+                                                       
+                                                       if([pinyin isEqualToString:@"A"])
+                                                       {
+                                                           [m_Acities addObject:temp];
+                                                       }else if ([pinyin isEqualToString:@"B"])
+                                                       {
+                                                           [m_Bcities addObject:temp];
+                                                       }else if ([pinyin isEqualToString:@"C"])
+                                                       {
+                                                           [m_Ccities addObject:temp];
+                                                       }else if ([pinyin isEqualToString:@"D"])
+                                                       {
+                                                           [m_Dcities addObject:temp];
+                                                       }else if ([pinyin isEqualToString:@"E"])
+                                                       {
+                                                           [m_Ecities addObject:temp];
+                                                       }else if ([pinyin isEqualToString:@"F"])
+                                                       {
+                                                           [m_Fcities addObject:temp];
+                                                       }else if ([pinyin isEqualToString:@"G"])
+                                                       {
+                                                           [m_Gcities addObject:temp];
+                                                       }else if ([pinyin isEqualToString:@"H"])
+                                                       {
+                                                           [m_Hcities addObject:temp];
+                                                       }else if ([pinyin isEqualToString:@"I"])
+                                                       {
+                                                           [m_Icities addObject:temp];
+                                                       }else if ([pinyin isEqualToString:@"J"])
+                                                       {
+                                                           [m_Jcities addObject:temp];
+                                                       }else if ([pinyin isEqualToString:@"K"])
+                                                       {
+                                                           [m_Kcities addObject:temp];
+                                                       }else if ([pinyin isEqualToString:@"L"])
+                                                       {
+                                                           [m_Lcities addObject:temp];
+                                                       }else if ([pinyin isEqualToString:@"M"])
+                                                       {
+                                                           [m_Mcities addObject:temp];
+                                                       }else if ([pinyin isEqualToString:@"N"])
+                                                       {
+                                                           [m_Ncities addObject:temp];
+                                                       }else if ([pinyin isEqualToString:@"O"])
+                                                       {
+                                                           [m_Ocities addObject:temp];
+                                                       }else if ([pinyin isEqualToString:@"P"])
+                                                       {
+                                                           [m_Pcities addObject:temp];
+                                                       }else if ([pinyin isEqualToString:@"Q"])
+                                                       {
+                                                           [m_Qcities addObject:temp];
+                                                       }else if ([pinyin isEqualToString:@"R"])
+                                                       {
+                                                           [m_Rcities addObject:temp];
+                                                       }else if ([pinyin isEqualToString:@"S"])
+                                                       {
+                                                           [m_Scities addObject:temp];
+                                                       }else if ([pinyin isEqualToString:@"T"])
+                                                       {
+                                                           [m_Tcities addObject:temp];
+                                                       }else if ([pinyin isEqualToString:@"U"])
+                                                       {
+                                                           [m_Ucities addObject:temp];
+                                                       }else if ([pinyin isEqualToString:@"V"])
+                                                       {
+                                                           [m_Vcities addObject:temp];
+                                                       }else if ([pinyin isEqualToString:@"W"])
+                                                       {
+                                                           [m_Wcities addObject:temp];
+                                                       }else if ([pinyin isEqualToString:@"X"])
+                                                       {
+                                                           [m_Xcities addObject:temp];
+                                                       }else if ([pinyin isEqualToString:@"Y"])
+                                                       {
+                                                           [m_Ycities addObject:temp];
+                                                       }else if ([pinyin isEqualToString:@"Z"])
+                                                       {
+                                                           [m_Zcities addObject:temp];
+                                                       }
+                                                   }
+                                                   [self.m_tableview reloadData];
+                                               }];
+    
 }
 - (void)didReceiveMemoryWarning
 {
@@ -144,33 +263,26 @@ static NSMutableDictionary  *m_selectCityInfo;
             return 0;
             break;
     }
-    // Return the number of rows in the section.
 }
-
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSDictionary *city;
+    m_lable = [[UILabel alloc] init];
+    m_tablecell = [[UITableViewCell alloc] init] ;
+    m_tablecell = [tableView dequeueReusableCellWithIdentifier:@"City_cell"];
+    m_lable = (UILabel *)[m_tablecell viewWithTag:100];
     switch (indexPath.section) {
             
         case 0:
         {
             city=[m_hotCities objectAtIndex:indexPath.row];
-            m_lable = [[UILabel alloc] init];
-            m_tablecell = [[UITableViewCell alloc] init] ;
-            m_tablecell = [tableView dequeueReusableCellWithIdentifier:@"City_cell"];
-            m_lable = (UILabel *)[m_tablecell viewWithTag:100];
             m_lable.text =locCityName;
             return m_tablecell;
         }
         case 1:
         {
             city=[m_hotCities objectAtIndex:indexPath.row];
-            m_lable = [[UILabel alloc] init];
-            m_tablecell = [[UITableViewCell alloc] init] ;
-            m_tablecell = [tableView dequeueReusableCellWithIdentifier:@"City_cell"];
-            m_lable = (UILabel *)[m_tablecell viewWithTag:100];
-            NSLog(@"%@",[city objectForKey:@"name"]);
             m_lable.text =[city objectForKey:@"name"];
             return m_tablecell;
         }
@@ -178,11 +290,6 @@ static NSMutableDictionary  *m_selectCityInfo;
         case 2:
         {
             city=[m_Acities objectAtIndex:indexPath.row];
-            m_lable = [[UILabel alloc] init];
-            m_tablecell = [[UITableViewCell alloc] init] ;
-            m_tablecell = [tableView dequeueReusableCellWithIdentifier:@"City_cell"];
-            m_lable = (UILabel *)[m_tablecell viewWithTag:100];
-            NSLog(@"%@",[city objectForKey:@"name"]);
             m_lable.text =[city objectForKey:@"name"];
             return m_tablecell;
             
@@ -191,11 +298,6 @@ static NSMutableDictionary  *m_selectCityInfo;
         case 3:
         {
             city=[m_Bcities objectAtIndex:indexPath.row];
-            m_lable = [[UILabel alloc] init];
-            m_tablecell = [[UITableViewCell alloc] init] ;
-            m_tablecell = [tableView dequeueReusableCellWithIdentifier:@"City_cell"];
-            m_lable = (UILabel *)[m_tablecell viewWithTag:100];
-            NSLog(@"%@",[city objectForKey:@"name"]);
             m_lable.text =[city objectForKey:@"name"];
             return m_tablecell;
         }
@@ -203,77 +305,42 @@ static NSMutableDictionary  *m_selectCityInfo;
         case 4:
         {
             city=[m_Ccities objectAtIndex:indexPath.row];
-            m_lable = [[UILabel alloc] init];
-            m_tablecell = [[UITableViewCell alloc] init] ;
-            m_tablecell = [tableView dequeueReusableCellWithIdentifier:@"City_cell"];
-            m_lable = (UILabel *)[m_tablecell viewWithTag:100];
-            NSLog(@"%@",[city objectForKey:@"name"]);
             m_lable.text =[city objectForKey:@"name"];
             return m_tablecell;
         }
         case 5:
         {
             city=[m_Dcities objectAtIndex:indexPath.row];
-            m_lable = [[UILabel alloc] init];
-            m_tablecell = [[UITableViewCell alloc] init] ;
-            m_tablecell = [tableView dequeueReusableCellWithIdentifier:@"City_cell"];
-            m_lable = (UILabel *)[m_tablecell viewWithTag:100];
-            NSLog(@"%@",[city objectForKey:@"name"]);
             m_lable.text =[city objectForKey:@"name"];
             return m_tablecell;
         }
         case 6:
         {
             city=[m_Ecities objectAtIndex:indexPath.row];
-            m_lable = [[UILabel alloc] init];
-            m_tablecell = [[UITableViewCell alloc] init] ;
-            m_tablecell = [tableView dequeueReusableCellWithIdentifier:@"City_cell"];
-            m_lable = (UILabel *)[m_tablecell viewWithTag:100];
-            NSLog(@"%@",[city objectForKey:@"name"]);
             m_lable.text =[city objectForKey:@"name"];
             return m_tablecell;
         }
         case 7:
         {
             city=[m_Fcities objectAtIndex:indexPath.row];
-            m_lable = [[UILabel alloc] init];
-            m_tablecell = [[UITableViewCell alloc] init] ;
-            m_tablecell = [tableView dequeueReusableCellWithIdentifier:@"City_cell"];
-            m_lable = (UILabel *)[m_tablecell viewWithTag:100];
-            NSLog(@"%@",[city objectForKey:@"name"]);
             m_lable.text =[city objectForKey:@"name"];
             return m_tablecell;
         }
         case 8:
         {
             city=[m_Gcities objectAtIndex:indexPath.row];
-            m_lable = [[UILabel alloc] init];
-            m_tablecell = [[UITableViewCell alloc] init] ;
-            m_tablecell = [tableView dequeueReusableCellWithIdentifier:@"City_cell"];
-            m_lable = (UILabel *)[m_tablecell viewWithTag:100];
-            NSLog(@"%@",[city objectForKey:@"name"]);
             m_lable.text =[city objectForKey:@"name"];
             return m_tablecell;
         }
         case 9:
         {
             city=[m_Hcities objectAtIndex:indexPath.row];
-            m_lable = [[UILabel alloc] init];
-            m_tablecell = [[UITableViewCell alloc] init] ;
-            m_tablecell = [tableView dequeueReusableCellWithIdentifier:@"City_cell"];
-            m_lable = (UILabel *)[m_tablecell viewWithTag:100];
-            NSLog(@"%@",[city objectForKey:@"name"]);
             m_lable.text =[city objectForKey:@"name"];
             return m_tablecell;
         }
         case 10:
         {
             city=[m_Icities objectAtIndex:indexPath.row];
-            m_lable = [[UILabel alloc] init];
-            m_tablecell = [[UITableViewCell alloc] init] ;
-            m_tablecell = [tableView dequeueReusableCellWithIdentifier:@"City_cell"];
-            m_lable = (UILabel *)[m_tablecell viewWithTag:100];
-            NSLog(@"%@",[city objectForKey:@"name"]);
             m_lable.text =[city objectForKey:@"name"];
             return m_tablecell;
         }
@@ -281,184 +348,101 @@ static NSMutableDictionary  *m_selectCityInfo;
         {
             city=[m_Jcities objectAtIndex:indexPath.row];
             m_lable = [[UILabel alloc] init];
-            m_tablecell = [[UITableViewCell alloc] init] ;
-            m_tablecell = [tableView dequeueReusableCellWithIdentifier:@"City_cell"];
-            m_lable = (UILabel *)[m_tablecell viewWithTag:100];
-            NSLog(@"%@",[city objectForKey:@"name"]);
             m_lable.text =[city objectForKey:@"name"];
             return m_tablecell;
         }
         case 12:
         {
             city=[m_Kcities objectAtIndex:indexPath.row];
-            m_lable = [[UILabel alloc] init];
-            m_tablecell = [[UITableViewCell alloc] init] ;
-            m_tablecell = [tableView dequeueReusableCellWithIdentifier:@"City_cell"];
-            m_lable = (UILabel *)[m_tablecell viewWithTag:100];
-            NSLog(@"%@",[city objectForKey:@"name"]);
             m_lable.text =[city objectForKey:@"name"];
             return m_tablecell;
         }
         case 13:
         {
             city=[m_Lcities objectAtIndex:indexPath.row];
-            m_lable = [[UILabel alloc] init];
-            m_tablecell = [[UITableViewCell alloc] init] ;
-            m_tablecell = [tableView dequeueReusableCellWithIdentifier:@"City_cell"];
-            m_lable = (UILabel *)[m_tablecell viewWithTag:100];
-            NSLog(@"%@",[city objectForKey:@"name"]);
             m_lable.text =[city objectForKey:@"name"];
             return m_tablecell;
         }
         case 14:
         {
             city=[m_Mcities objectAtIndex:indexPath.row];
-            m_lable = [[UILabel alloc] init];
-            m_tablecell = [[UITableViewCell alloc] init] ;
-            m_tablecell = [tableView dequeueReusableCellWithIdentifier:@"City_cell"];
-            m_lable = (UILabel *)[m_tablecell viewWithTag:100];
-            NSLog(@"%@",[city objectForKey:@"name"]);
             m_lable.text =[city objectForKey:@"name"];
             return m_tablecell;
         }
         case 15:
         {
             city=[m_Ncities objectAtIndex:indexPath.row];
-            m_lable = [[UILabel alloc] init];
-            m_tablecell = [[UITableViewCell alloc] init] ;
-            m_tablecell = [tableView dequeueReusableCellWithIdentifier:@"City_cell"];
-            m_lable = (UILabel *)[m_tablecell viewWithTag:100];
-            NSLog(@"%@",[city objectForKey:@"name"]);
             m_lable.text =[city objectForKey:@"name"];
             return m_tablecell;
         }
         case 16:
         {
             city=[m_Ocities objectAtIndex:indexPath.row];
-            m_lable = [[UILabel alloc] init];
-            m_tablecell = [[UITableViewCell alloc] init] ;
-            m_tablecell = [tableView dequeueReusableCellWithIdentifier:@"City_cell"];
-            m_lable = (UILabel *)[m_tablecell viewWithTag:100];
-            NSLog(@"%@",[city objectForKey:@"name"]);
             m_lable.text =[city objectForKey:@"name"];
             return m_tablecell;
         }
         case 17:
         {
             city=[m_Pcities objectAtIndex:indexPath.row];
-            m_lable = [[UILabel alloc] init];
-            m_tablecell = [[UITableViewCell alloc] init] ;
-            m_tablecell = [tableView dequeueReusableCellWithIdentifier:@"City_cell"];
-            m_lable = (UILabel *)[m_tablecell viewWithTag:100];
-            NSLog(@"%@",[city objectForKey:@"name"]);
             m_lable.text =[city objectForKey:@"name"];
             return m_tablecell;
         }
         case 18:
         {
             city=[m_Qcities objectAtIndex:indexPath.row];
-            m_lable = [[UILabel alloc] init];
-            m_tablecell = [[UITableViewCell alloc] init] ;
-            m_tablecell = [tableView dequeueReusableCellWithIdentifier:@"City_cell"];
-            m_lable = (UILabel *)[m_tablecell viewWithTag:100];
-            NSLog(@"%@",[city objectForKey:@"name"]);
             m_lable.text =[city objectForKey:@"name"];
             return m_tablecell;
         }
         case 19:
         {
             city=[m_Rcities objectAtIndex:indexPath.row];
-            m_lable = [[UILabel alloc] init];
-            m_tablecell = [[UITableViewCell alloc] init] ;
-            m_tablecell = [tableView dequeueReusableCellWithIdentifier:@"City_cell"];
-            m_lable = (UILabel *)[m_tablecell viewWithTag:100];
-            NSLog(@"%@",[city objectForKey:@"name"]);
             m_lable.text =[city objectForKey:@"name"];
             return m_tablecell;
         }
         case 20:
         {
             city=[m_Scities objectAtIndex:indexPath.row];
-            m_lable = [[UILabel alloc] init];
-            m_tablecell = [[UITableViewCell alloc] init] ;
-            m_tablecell = [tableView dequeueReusableCellWithIdentifier:@"City_cell"];
-            m_lable = (UILabel *)[m_tablecell viewWithTag:100];
-            NSLog(@"%@",[city objectForKey:@"name"]);
             m_lable.text =[city objectForKey:@"name"];
             return m_tablecell;
         }
         case 21:
         {
             city=[m_Tcities objectAtIndex:indexPath.row];
-            m_lable = [[UILabel alloc] init];
-            m_tablecell = [[UITableViewCell alloc] init] ;
-            m_tablecell = [tableView dequeueReusableCellWithIdentifier:@"City_cell"];
-            m_lable = (UILabel *)[m_tablecell viewWithTag:100];
-            NSLog(@"%@",[city objectForKey:@"name"]);
             m_lable.text =[city objectForKey:@"name"];
             return m_tablecell;
         }case 22:
         {
             city=[m_Ucities objectAtIndex:indexPath.row];
-            m_lable = [[UILabel alloc] init];
-            m_tablecell = [[UITableViewCell alloc] init] ;
-            m_tablecell = [tableView dequeueReusableCellWithIdentifier:@"City_cell"];
-            m_lable = (UILabel *)[m_tablecell viewWithTag:100];
-            NSLog(@"%@",[city objectForKey:@"name"]);
             m_lable.text =[city objectForKey:@"name"];
             return m_tablecell;
         }
         case 23:
         {
             city=[m_Vcities objectAtIndex:indexPath.row];
-            m_lable = [[UILabel alloc] init];
-            m_tablecell = [[UITableViewCell alloc] init] ;
-            m_tablecell = [tableView dequeueReusableCellWithIdentifier:@"City_cell"];
-            m_lable = (UILabel *)[m_tablecell viewWithTag:100];
-            NSLog(@"%@",[city objectForKey:@"name"]);
             m_lable.text =[city objectForKey:@"name"];
             return m_tablecell;
         }
         case 24:
         {
             city=[m_Wcities objectAtIndex:indexPath.row];
-            m_lable = [[UILabel alloc] init];
-            m_tablecell = [[UITableViewCell alloc] init] ;
-            m_tablecell = [tableView dequeueReusableCellWithIdentifier:@"City_cell"];
-            m_lable = (UILabel *)[m_tablecell viewWithTag:100];
             NSLog(@"%@",[city objectForKey:@"name"]);
             m_lable.text =[city objectForKey:@"name"];
             return m_tablecell;
         }case 25:
         {
             city=[m_Xcities objectAtIndex:indexPath.row];
-            m_lable = [[UILabel alloc] init];
-            m_tablecell = [[UITableViewCell alloc] init] ;
-            m_tablecell = [tableView dequeueReusableCellWithIdentifier:@"City_cell"];
-            m_lable = (UILabel *)[m_tablecell viewWithTag:100];
-            NSLog(@"%@",[city objectForKey:@"name"]);
             m_lable.text =[city objectForKey:@"name"];
             return m_tablecell;
         }
         case 26:
         {
             city=[m_Ycities objectAtIndex:indexPath.row];
-            m_lable = [[UILabel alloc] init];
-            m_tablecell = [[UITableViewCell alloc] init] ;
-            m_tablecell = [tableView dequeueReusableCellWithIdentifier:@"City_cell"];
-            m_lable = (UILabel *)[m_tablecell viewWithTag:100];
-            NSLog(@"%@",[city objectForKey:@"name"]);
             m_lable.text =[city objectForKey:@"name"];
             return m_tablecell;
         }
         case 27:
         {
             city=[m_Zcities objectAtIndex:indexPath.row];
-            m_lable = [[UILabel alloc] init];
-            m_tablecell = [[UITableViewCell alloc] init] ;
-            m_tablecell = [tableView dequeueReusableCellWithIdentifier:@"City_cell"];
-            m_lable = (UILabel *)[m_tablecell viewWithTag:100];
-            NSLog(@"%@",[city objectForKey:@"name"]);
             m_lable.text =[city objectForKey:@"name"];
             return m_tablecell;
         }
@@ -482,17 +466,6 @@ static NSMutableDictionary  *m_selectCityInfo;
     }
 }
 
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
-{
-    
-}
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
     UIView* customView = [[UIView alloc] initWithFrame:CGRectMake(0.0, 0.0, self.view.frame.size.width, 28.0f)];
@@ -504,7 +477,7 @@ static NSMutableDictionary  *m_selectCityInfo;
     headerLabel.highlightedTextColor = [UIColor whiteColor];
     headerLabel.font = [UIFont systemFontOfSize:13];
     headerLabel.frame = CGRectMake(17.0f, 0, self.view.frame.size.width, 28.0f);
-    
+
     UIView *sepView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 0.5f)];
     sepView.backgroundColor = SEPLINE_GRAY;
     [customView addSubview:sepView];
@@ -744,161 +717,9 @@ static NSMutableDictionary  *m_selectCityInfo;
     return 28.0f;
 }
 
--(void)Getdata:(NSString *)URL
-{
-    NSDictionary *plistDic = [[NSBundle mainBundle] infoDictionary];
-    NSLog(@"plistDic = %@",plistDic);
-    NSString *urlstr = [plistDic objectForKey: @"URL"];
-    NSError *error;
-    //    加载一个NSURL对象
-    NSString *url = [[NSString alloc] initWithFormat:@"%@/services/city",urlstr];
-    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:url]];
-    //    将请求的url数据放到NSData对象中
-    NSData *response = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
-    if(response==nil)
-    {
-        UIAlertView *aler = [[UIAlertView alloc] initWithTitle:@"提示" message:@"没有加载到数据" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
-        [aler show];
-    }else
-    {
-    //    iOS5自带解析类NSJSONSerialization从response中解析出数据放到字典中
-    NSDictionary *weatherDic = [NSJSONSerialization JSONObjectWithData:response options:NSJSONReadingMutableLeaves error:&error];
-    //    weatherDic字典中存放的数据也是字典型，从它里面通过键值取值
-    NSString *status = [weatherDic objectForKey:@"status"];
-    NSLog(@"%@",status);
-    if(![status isEqual:@"200"])
-    {
-        UIAlertView *aler = [[UIAlertView alloc] initWithTitle:@"提示" message:status delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
-        [aler show];
-    }else
-    {
-        NSDictionary *data = [weatherDic objectForKey:@"data"];
-        m_hotCities =[data objectForKey:@"hotCities"];
-        m_allcities = [data objectForKey:@"cities"];
-        m_Acities = [[NSMutableArray alloc] init];
-        m_Bcities = [[NSMutableArray alloc] init];
-        m_Ccities = [[NSMutableArray alloc] init];
-        m_Dcities = [[NSMutableArray alloc] init];
-        m_Ecities = [[NSMutableArray alloc] init];
-        m_Fcities = [[NSMutableArray alloc] init];
-        m_Gcities = [[NSMutableArray alloc] init];
-        m_Hcities = [[NSMutableArray alloc] init];
-        m_Icities = [[NSMutableArray alloc] init];
-        m_Jcities = [[NSMutableArray alloc] init];
-        m_Kcities = [[NSMutableArray alloc] init];
-        m_Lcities = [[NSMutableArray alloc] init];
-        m_Mcities = [[NSMutableArray alloc] init];
-        m_Ncities = [[NSMutableArray alloc] init];
-        m_Ocities = [[NSMutableArray alloc] init];
-        m_Pcities = [[NSMutableArray alloc] init];
-        m_Qcities = [[NSMutableArray alloc] init];
-        m_Rcities = [[NSMutableArray alloc] init];
-        m_Scities = [[NSMutableArray alloc] init];
-        m_Tcities = [[NSMutableArray alloc] init];
-        m_Ucities = [[NSMutableArray alloc] init];
-        m_Vcities = [[NSMutableArray alloc] init];
-        m_Wcities = [[NSMutableArray alloc] init];
-        m_Xcities = [[NSMutableArray alloc] init];
-        m_Ycities = [[NSMutableArray alloc] init];
-        m_Zcities = [[NSMutableArray alloc] init];
-    for (int i= 0;i< [m_allcities count]; i++)
-    {
-        NSDictionary *temp = [m_allcities objectAtIndex:i];
-        NSString *pinyin =[temp objectForKey:@"pinyin"];
-        
-        if([pinyin isEqualToString:@"A"])
-        {
-            [m_Acities addObject:temp];
-        }else if ([pinyin isEqualToString:@"B"])
-        {
-            [m_Bcities addObject:temp];
-        }else if ([pinyin isEqualToString:@"C"])
-        {
-            [m_Ccities addObject:temp];
-        }else if ([pinyin isEqualToString:@"D"])
-        {
-            [m_Dcities addObject:temp];
-        }else if ([pinyin isEqualToString:@"E"])
-        {
-            [m_Ecities addObject:temp];
-        }else if ([pinyin isEqualToString:@"F"])
-        {
-            [m_Fcities addObject:temp];
-        }else if ([pinyin isEqualToString:@"G"])
-        {
-            [m_Gcities addObject:temp];
-        }else if ([pinyin isEqualToString:@"H"])
-        {
-            [m_Hcities addObject:temp];
-        }else if ([pinyin isEqualToString:@"I"])
-        {
-            [m_Icities addObject:temp];
-        }else if ([pinyin isEqualToString:@"J"])
-        {
-            [m_Jcities addObject:temp];
-        }else if ([pinyin isEqualToString:@"K"])
-        {
-            [m_Kcities addObject:temp];
-        }else if ([pinyin isEqualToString:@"L"])
-        {
-            [m_Lcities addObject:temp];
-        }else if ([pinyin isEqualToString:@"M"])
-        {
-            [m_Mcities addObject:temp];
-        }else if ([pinyin isEqualToString:@"N"])
-        {
-            [m_Ncities addObject:temp];
-        }else if ([pinyin isEqualToString:@"O"])
-        {
-            [m_Ocities addObject:temp];
-        }else if ([pinyin isEqualToString:@"P"])
-        {
-            [m_Pcities addObject:temp];
-        }else if ([pinyin isEqualToString:@"Q"])
-        {
-            [m_Qcities addObject:temp];
-        }else if ([pinyin isEqualToString:@"R"])
-        {
-            [m_Rcities addObject:temp];
-        }else if ([pinyin isEqualToString:@"S"])
-        {
-            [m_Scities addObject:temp];
-        }else if ([pinyin isEqualToString:@"T"])
-        {
-            [m_Tcities addObject:temp];
-        }else if ([pinyin isEqualToString:@"U"])
-        {
-            [m_Ucities addObject:temp];
-        }else if ([pinyin isEqualToString:@"V"])
-        {
-            [m_Vcities addObject:temp];
-        }else if ([pinyin isEqualToString:@"W"])
-        {
-            [m_Wcities addObject:temp];
-        }else if ([pinyin isEqualToString:@"X"])
-        {
-            [m_Xcities addObject:temp];
-        }else if ([pinyin isEqualToString:@"Y"])
-        {
-            [m_Ycities addObject:temp];
-        }else if ([pinyin isEqualToString:@"Z"])
-        {
-            [m_Zcities addObject:temp];
-        }
-    }
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self.m_tableview reloadData];
-            // 更新UI
-        });
-    }
-    }
-}
-
 //点击事件
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSLog(@"row%ld",(long)indexPath.row);
-    NSLog(@"section%ld",(long)indexPath.section);
     switch (indexPath.section) {
         case 0:
             [m_selectCityInfo setValue:locCityName forKey:@"name"];

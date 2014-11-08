@@ -149,6 +149,7 @@
 		AD6A9B941A09CC4B0031B7C2 /* LYShopCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AD6A9B8E1A09CC4B0031B7C2 /* LYShopCell.m */; };
 		AD6A9B951A09CC4B0031B7C2 /* LYShopCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AD6A9B8F1A09CC4B0031B7C2 /* LYShopCell.xib */; };
 		AD6A9B961A09D0E20031B7C2 /* libbaidumapapi.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AD3DD40319FE348600364854 /* libbaidumapapi.a */; };
+		AD71C8E51A0DEC8900EAB40E /* StoreOnlineNetworkEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = AD71C8E41A0DEC8900EAB40E /* StoreOnlineNetworkEngine.m */; };
 		AD7FBA8D1A0214E2008CC80A /* LYProManagementMain.m in Sources */ = {isa = PBXBuildFile; fileRef = AD7FBA8C1A0214E2008CC80A /* LYProManagementMain.m */; };
 		AD7FBAAE1A0216FF008CC80A /* ACCell1.xib in Resources */ = {isa = PBXBuildFile; fileRef = AD7FBA9E1A0216FF008CC80A /* ACCell1.xib */; };
 		AD7FBAAF1A0216FF008CC80A /* AnnouncementCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AD7FBA9F1A0216FF008CC80A /* AnnouncementCell.xib */; };
@@ -490,6 +491,8 @@
 		AD6A9B8D1A09CC4B0031B7C2 /* LYShopCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LYShopCell.h; sourceTree = "<group>"; };
 		AD6A9B8E1A09CC4B0031B7C2 /* LYShopCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LYShopCell.m; sourceTree = "<group>"; };
 		AD6A9B8F1A09CC4B0031B7C2 /* LYShopCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LYShopCell.xib; sourceTree = "<group>"; };
+		AD71C8E31A0DEC8900EAB40E /* StoreOnlineNetworkEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StoreOnlineNetworkEngine.h; sourceTree = "<group>"; };
+		AD71C8E41A0DEC8900EAB40E /* StoreOnlineNetworkEngine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StoreOnlineNetworkEngine.m; sourceTree = "<group>"; };
 		AD7FBA8B1A0214E2008CC80A /* LYProManagementMain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LYProManagementMain.h; sourceTree = "<group>"; };
 		AD7FBA8C1A0214E2008CC80A /* LYProManagementMain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LYProManagementMain.m; sourceTree = "<group>"; };
 		AD7FBA9E1A0216FF008CC80A /* ACCell1.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ACCell1.xib; sourceTree = "<group>"; };
@@ -643,6 +646,7 @@
 		AD33EC8C19FBB13F00FE0C11 /* incommunit */ = {
 			isa = PBXGroup;
 			children = (
+				AD71C8E21A0DEC8900EAB40E /* DataEngine */,
 				AD197F161A0B925C00E05089 /* License.html */,
 				F13D4C261A07506100E23FDB /* NeighborhoodCooperation */,
 				AD7FBA8A1A0214B7008CC80A /* PropertyManagement */,
@@ -1092,6 +1096,15 @@
 			path = XIB;
 			sourceTree = "<group>";
 		};
+		AD71C8E21A0DEC8900EAB40E /* DataEngine */ = {
+			isa = PBXGroup;
+			children = (
+				AD71C8E31A0DEC8900EAB40E /* StoreOnlineNetworkEngine.h */,
+				AD71C8E41A0DEC8900EAB40E /* StoreOnlineNetworkEngine.m */,
+			);
+			path = DataEngine;
+			sourceTree = "<group>";
+		};
 		AD7FBA8A1A0214B7008CC80A /* PropertyManagement */ = {
 			isa = PBXGroup;
 			children = (
@@ -1229,11 +1242,11 @@
 				TargetAttributes = {
 					AD33EC8919FBB13F00FE0C11 = {
 						CreatedOnToolsVersion = 6.1;
-						DevelopmentTeam = RVMYYQYXU5;
+						DevelopmentTeam = 95N42RGW4F;
 					};
 					AD33ECA219FBB13F00FE0C11 = {
 						CreatedOnToolsVersion = 6.1;
-						DevelopmentTeam = RVMYYQYXU5;
+						DevelopmentTeam = 95N42RGW4F;
 						TestTargetID = AD33EC8919FBB13F00FE0C11;
 					};
 				};
@@ -1475,6 +1488,7 @@
 				AD48230C1A03525F00A54F45 /* LYSettlement.m in Sources */,
 				AD33EC9319FBB13F00FE0C11 /* AppDelegate.m in Sources */,
 				AD62118219FD2FBC009BECA6 /* LYFunctionInterface.m in Sources */,
+				AD71C8E51A0DEC8900EAB40E /* StoreOnlineNetworkEngine.m in Sources */,
 				AD4823091A03238600A54F45 /* UserInfoTableViewController.m in Sources */,
 				AD8714D91A07728C00BEAF5E /* LYSubmitOrder.m in Sources */,
 				F10340D119FF7B1700C5CB4E /* CustomToolbarItem.m in Sources */,
