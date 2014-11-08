@@ -8,6 +8,8 @@
 
 #import "StoreSettingViewController.h"
 #import "InsetTextField.h"
+#import "StoreSettingCollectionViewCell.h"
+#import "StoreSettingAddCollectionViewCell.h"
 
 @interface StoreSettingBkView : UIView
 @end
@@ -20,7 +22,7 @@
     CGContextRef context = UIGraphicsGetCurrentContext();
     CGContextSetStrokeColorWithColor(context, [UIColor lightGrayColor].CGColor);
     
-    CGFloat linewidth = 1.0f;
+    CGFloat linewidth = 0.2;
     CGContextSetLineWidth(context, linewidth);
     
     CGFloat x = 15;
@@ -64,25 +66,36 @@
 
 @implementation StoreSettingViewController {
     UIView *editView;
+    
+    NSMutableArray *sendTimes;
+    NSMutableArray *itemClasses;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    UIEdgeInsets inset = UIEdgeInsetsMake(0, 15, 0, 15);
+    sendTimes = [[NSMutableArray alloc] init];
+    itemClasses = [[NSMutableArray alloc] init];
     
-    [self.nameTextField setTextInset:inset];
-    [self.phoneTextField setTextInset:inset];
-    [self.addressTextField setTextInset:inset];
-    [self.typeTextField setTextInset:inset];
+    UINib *nib = [UINib nibWithNibName:@"StoreSettingCollectionViewCell" bundle:nil];
+    UINib *addnib = [UINib nibWithNibName:@"StoreSettingAddCollectionViewCell" bundle:nil];
+    [self.sendTimeCollectionView registerNib:nib forCellWithReuseIdentifier:@"StoreSettingCollectionViewCell"];
+    [self.itemsClassesCollectionView registerNib:nib forCellWithReuseIdentifier:@"StoreSettingCollectionViewCell"];
+    [self.sendTimeCollectionView registerNib:addnib forCellWithReuseIdentifier:@"StoreSettingAddCollectionViewCell"];
+    [self.itemsClassesCollectionView registerNib:addnib forCellWithReuseIdentifier:@"StoreSettingAddCollectionViewCell"];
+    
+    [self setInsetTextFieldProperty:self.nameTextField];
+    [self setInsetTextFieldProperty:self.phoneTextField];
+    [self setInsetTextFieldProperty:self.addressTextField];
+    [self setInsetTextFieldProperty:self.typeTextField];
     
     self.logoImageView.layer.cornerRadius = 3.0f;
     self.logoImageView.clipsToBounds = YES;
     self.doneButton.layer.cornerRadius = 3.0f;
     
-    [self reloadCollectionViewData:self.sendTimeCollectionView itemCount:0];
-    [self reloadCollectionViewData:self.itemsClassesCollectionView itemCount:0];
+    [self reloadCollectionViewData:self.sendTimeCollectionView itemCount:sendTimes.count + 1];
+    [self reloadCollectionViewData:self.itemsClassesCollectionView itemCount:itemClasses.count + 1];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -139,7 +152,17 @@
 #pragma mark -
 #pragma mark Method
 
+- (void)setInsetTextFieldProperty:(InsetTextField *)field {
+    UIEdgeInsets inset = UIEdgeInsetsMake(0, 15, 0, 15);
+    [field setTextInset:inset];
+    [field setShowBorderLine:NO];
+}
+
 - (void)reloadCollectionViewData:(UICollectionView *)collectionView itemCount:(NSInteger)cellCount {
+    
+    if (!collectionView) {
+        return;
+    }
     
     CGFloat collectionViewHeight = collectionView.bounds.size.height;
     UICollectionViewFlowLayout *layout = (UICollectionViewFlowLayout *)collectionView.collectionViewLayout;
@@ -188,14 +211,76 @@
 #pragma mark UICollectionViewDataSource
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    NSInteger numberOfItemsInSection = 0;
+    NSInteger numberOfItemsInSection = 1;
+    if (self.sendTimeCollectionView == collectionView) {
+        numberOfItemsInSection += sendTimes.count;
+    }
+    else if (self.itemsClassesCollectionView == collectionView) {
+        numberOfItemsInSection += itemClasses.count;
+    }
     return numberOfItemsInSection;
 }
 
-// The cell that is returned must be retrieved from a call to -dequeueReusableCellWithReuseIdentifier:forIndexPath:
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-    UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"" forIndexPath:indexPath];
+    UICollectionViewCell *cell = nil;
+    NSArray *dataArray = nil;
+    NSString *typeName = @"";
+    if (self.sendTimeCollectionView == collectionView) {
+        dataArray = sendTimes;
+        typeName = @"time";
+    }
+    else if (self.itemsClassesCollectionView == collectionView) {
+        dataArray = itemClasses;
+        typeName = @"item";
+    }
+    
+    if (indexPath.row >= dataArray.count) {
+        StoreSettingAddCollectionViewCell *addCell = [collectionView dequeueReusableCellWithReuseIdentifier:@"StoreSettingAddCollectionViewCell" forIndexPath:indexPath];
+        cell = addCell;
+    }
+    else {
+        StoreSettingCollectionViewCell *normalCell = [collectionView dequeueReusableCellWithReuseIdentifier:@"StoreSettingCollectionViewCell" forIndexPath:indexPath];
+        [normalCell.textLabel setText:[dataArray objectAtIndex:indexPath.row]];
+        [normalCell setDeleteBlock:^(StoreSettingCollectionViewCell *cell) {
+            
+            UICollectionView *collectionView = nil;
+            NSMutableArray *tempArray = nil;
+            if ([cell.type isEqualToString:@"time"]) {
+                tempArray = sendTimes;
+                collectionView = self.sendTimeCollectionView;
+            }
+            else if ([cell.type isEqualToString:@"item"]) {
+                tempArray = itemClasses;
+                collectionView = self.itemsClassesCollectionView;
+            }
+            if (cell.tag < tempArray.count) {
+                [tempArray removeObjectAtIndex:cell.tag];
+                [self reloadCollectionViewData:collectionView itemCount:tempArray.count + 1];
+            }
+        }];
+        [normalCell setType:typeName];
+        cell = normalCell;
+    }
+    cell.tag = indexPath.row;
     return cell;
+}
+
+#pragma mark -
+#pragma mark UICollectionViewDelegate
+
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    if (self.sendTimeCollectionView == collectionView) {
+        if (indexPath.row >= sendTimes.count) {
+            [sendTimes addObject:@"时间"];
+            [self reloadCollectionViewData:collectionView itemCount:sendTimes.count + 1];
+        }
+    }
+    else if (self.itemsClassesCollectionView == collectionView) {
+        if (indexPath.row >= itemClasses.count) {
+            [itemClasses addObject:@"商品"];
+            [self reloadCollectionViewData:collectionView itemCount:itemClasses.count + 1];
+        }
+    }
 }
 
 #pragma mark - 键盘处理

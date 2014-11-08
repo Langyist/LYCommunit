@@ -121,7 +121,6 @@
                                              }
                                   forState:UIControlStateSelected];
     
-    self.navigationController.navigationBar.tintColor= [UIColor colorWithRed:(0.0/255) green:(0.0/255) blue:(0.0/255) alpha:1.0];
     [LYSqllite CreatShoppingcart];
     m_textfiled.delegate=self;
     [m_segment addTarget:self action:@selector(doSomethingInSegment:)forControlEvents:UIControlEventValueChanged];

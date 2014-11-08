@@ -45,9 +45,6 @@ static NSMutableDictionary *Competence;//模块开通
         [_titleButton setTitle: [[LYSelectCommunit GetCommunityInfo] objectForKey:@"name"] forState: UIControlStateNormal];
     }
     
-    self.navigationController.navigationBar.barTintColor = [UIColor colorWithRed:(238.0/255) green:(183.0/255) blue:(88.0/255) alpha:1.0];
-    self.navigationController.navigationBar.tintColor= [UIColor colorWithRed:(240.0/255) green:(174.0/255) blue:(64.0/255) alpha:1.0];
-    
     mapItem = [self createCustomItem:@"地图模式" imageName:@"4" selector:@selector(jumpToPage:) tag:100];
     mineItem = [self createCustomItem:@"我的主页" imageName:@"2" selector:@selector(jumpToPage:) tag:101];
     toolItem = [self createCustomItem:@"工具" imageName:@"3" selector:@selector(jumpToPage:) tag:102];
