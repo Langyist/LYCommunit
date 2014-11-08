@@ -19,11 +19,10 @@ NSMutableDictionary * Locationinfo;
 
 #define mark - 
 //获取定位信息
--(NSMutableDictionary *)GetLocation
+-(void)GetLocation
 {
     Locationinfo = [[NSMutableDictionary alloc] init];
     [self StartLocation];
-    return Locationinfo;
 }
 
 -(NSString *)StartLocation
@@ -90,27 +89,19 @@ NSMutableDictionary * Locationinfo;
 // 定位失误时触发
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
 {
-<<<<<<< HEAD
-    NSLog(@"error:%@",error);
-    [Locationinfo setValue:@"定位失败" forKey:@"error"];
-=======
     [Locationinfo setValue:@"定位失败" forKey:@"error"];
     if ([self.locDelegate respondsToSelector:@selector(userLocation:locInfo:)]) {
         [self.locDelegate userLocation:self locInfo:Locationinfo];
     }
->>>>>>> AndrewLee
 }
 
 - (void)onGetReverseGeoCodeResult:(BMKGeoCodeSearch *)searcher result:(BMKReverseGeoCodeResult *)result errorCode:(BMKSearchErrorCode)error
 {
     NSString *CityName = [result.addressDetail.city stringByReplacingOccurrencesOfString:@"市" withString:@""];
     [Locationinfo setValue:CityName forKey:@"city"];
-<<<<<<< HEAD
-=======
     if ([self.locDelegate respondsToSelector:@selector(userLocation:locInfo:)]) {
         [self.locDelegate userLocation:self locInfo:Locationinfo];
     }
->>>>>>> AndrewLee
 }
 
 @end

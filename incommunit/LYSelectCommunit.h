@@ -12,7 +12,7 @@
 #import "AWaterfallTableView.h"
 #import "BMapKit.h"
 #import "Location.h"
-@interface LYSelectCommunit : UIViewController <UITableViewDataSource,UITableViewDelegate,UISearchBarDelegate,CLLocationManagerDelegate,BMKLocationServiceDelegate,BMKGeoCodeSearchDelegate>
+@interface LYSelectCommunit : UIViewController <UITableViewDataSource,UITableViewDelegate,UISearchBarDelegate,CLLocationManagerDelegate,BMKLocationServiceDelegate,BMKGeoCodeSearchDelegate,UserLocationDelegate>
 {
     //@private    UIButton *          m_selectCityButton;
     @private    AWaterfallTableView  *       m_tab;
@@ -40,6 +40,7 @@
     int m_pageOffset;
     
     BMKMapView * m_mapview;
+    NSMutableDictionary *NetParameters;//网络请求参数
 }
 @property(nonatomic, retain)IBOutlet UITableView    *  m_tab;
 @property(nonatomic, retain)IBOutlet UISearchBar *     Serch;

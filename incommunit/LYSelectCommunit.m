@@ -11,11 +11,11 @@
 #import "LYUserloginView.h"
 #import "LYSqllite.h"
 #import "AppDelegate.h"
+#import "StoreOnlineNetworkEngine.h"
 @interface LYSelectCommunitCell : UITableViewCell
 {
     NSString *Cityname;
 }
-
 @end
 @implementation LYSelectCommunitCell
 
@@ -57,7 +57,7 @@ static NSDictionary *   m_cityinfo;//城市信息
     [super viewDidLoad];
     m_CommunitylistOF = [[NSMutableArray alloc]init];
     m_CommunitylistON = [[NSMutableArray alloc]init];
-    
+    NetParameters = [[NSMutableDictionary alloc] init];
     UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.m_tab.frame), 1)];
     [footerView setBackgroundColor:[UIColor clearColor]];
     footerView.clipsToBounds = NO;
@@ -281,7 +281,20 @@ static NSDictionary *   m_cityinfo;//城市信息
     m_pageOffset = 0;
     m_CommunityName = Serch.text;
     [Serch resignFirstResponder];
-    [NSThread detachNewThreadSelector:@selector(GetCommunity:) toTarget:self withObject:nil];
+    [NetParameters setValue:[m_data objectForKey:@"id"] forKey:@"city_id"];
+    [NetParameters setValue:m_CommunityName forKey:@"name"];
+    [NetParameters setValue:[[NSString alloc] initWithFormat:@"%f",longitude]forKey:@"longitude"];
+    [NetParameters setValue:[[NSString alloc] initWithFormat:@"%f",latitude]forKey:@"latitude"];
+    [NetParameters setValue:[[NSString alloc] initWithFormat:@"%d",m_pageSize]forKey:@"m_pageSize"];
+    [NetParameters setValue:[[NSString alloc] initWithFormat:@"%d",m_pageOffset]forKey:@"m_pageOffset"];
+    [[StoreOnlineNetworkEngine shareInstance] startNetWorkWithPath:@"services/community/search"
+                                                            params:NetParameters
+                                                            repeat:YES
+                                                       resultBlock:^(BOOL bValidJSON, NSString *errorMsg, id result) {
+                                                           NSDictionary *data = [result objectForKey:@"data"];
+                                                           m_CommunitylistON = [data objectForKey:@"communities"];
+                                                           m_CommunitylistOF = [data objectForKey:@"refCommunities"];
+                                                       }];
     [self.m_tab reloadData];
     self.view.userInteractionEnabled = YES;
     [m_View removeFromSuperview];
@@ -371,6 +384,14 @@ static NSDictionary *   m_cityinfo;//城市信息
         //m_pageOffset++;
     }
 }
+
+
+- (void)userLocation:(Location *)userLocation
+             locInfo:(NSDictionary *)locInfo
+{
+
+}
+
 
 #pragma mark - 切换界面进入协议函数
 -(void)viewDidAppear:(BOOL)animated
