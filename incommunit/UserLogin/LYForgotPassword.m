@@ -33,7 +33,6 @@
     customLab.font = [UIFont boldSystemFontOfSize:17];
     customLab.textAlignment = NSTextAlignmentCenter;
     self.navigationItem.titleView = customLab;;
-    self.navigationController.navigationBar.tintColor= [UIColor colorWithRed:(0.0/255) green:(0.0/255) blue:(0.0/255) alpha:1.0];
     self.CodeText.delegate = self;
     self.passwordText.delegate = self;
     UITapGestureRecognizer *tapgesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(downkeyboardGesture)];

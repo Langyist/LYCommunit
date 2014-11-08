@@ -43,6 +43,7 @@
                                                           NSForegroundColorAttributeName,
                                                           nil]];
     [[UINavigationBar appearance] setBarTintColor:TOP_BAR_YELLOW];
+    [[UINavigationBar appearance] setTintColor:SPECIAL_BLACK];
     
     [self.window setBackgroundColor:TOP_BAR_YELLOW];
     

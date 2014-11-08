@@ -56,7 +56,6 @@
     customLab.font = [UIFont boldSystemFontOfSize:17];
     customLab.textAlignment = NSTextAlignmentCenter;
     self.navigationItem.titleView = customLab;
-    self.navigationController.navigationBar.tintColor= [UIColor colorWithRed:(0.0/255) green:(0.0/255) blue:(0.0/255) alpha:1.0];
     self.navigationController.navigationBar.hidden = NO;
     BuildingData = [[NSMutableArray alloc] init];
     UnitData =  [[NSMutableArray alloc] init];

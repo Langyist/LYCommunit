@@ -26,8 +26,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.navigationController.navigationBar.tintColor= [UIColor colorWithRed:(0.0/255) green:(0.0/255) blue:(0.0/255) alpha:1.0];
-    
     CALayer *lay  = self.userPhoto.layer;//获取ImageView的层
     [lay setMasksToBounds:YES];
     [lay setCornerRadius:40.0];

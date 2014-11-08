@@ -14,7 +14,8 @@ typedef void (^DeletePressBlock)(StoreSettingCollectionViewCell *cell);
 
 @interface StoreSettingCollectionViewCell : UICollectionViewCell
 
-@property (weak, nonatomic) UILabel *textLabel;
+@property (strong, nonatomic) NSString *type;
+@property (weak, nonatomic) IBOutlet UILabel *textLabel;
 - (void)setDeleteBlock:(DeletePressBlock)deletePressBlock;
 
 @end

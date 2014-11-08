@@ -43,7 +43,6 @@ static BOOL YTourist;
     singleRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(ClickView)];
     singleRecognizer.numberOfTapsRequired = 1; // 单击
     [self.view addGestureRecognizer:singleRecognizer];
-    self.navigationController.navigationBar.tintColor= [UIColor colorWithRed:(0.0/255) green:(0.0/255) blue:(0.0/255) alpha:1.0];
     m_communityName.text = [[LYSelectCommunit GetCommunityInfo] objectForKey:@"name"];
     [LYSqllite CreatUserTable];
     if (!m_bool)
