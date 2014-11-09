@@ -30,8 +30,6 @@
 }
 
 @property (nonatomic, retain) id<UserLocationDelegate> locDelegate;
-
-
 + (Location *)shareLocation;
 //开起定位
 -(NSString *)StartLocation;

@@ -7,6 +7,7 @@
 //
 #import "LYSignup.h"
 #import "LYaddCommunit.h"
+#import "StoreOnlineNetworkEngine.h"
 @interface LYSignup ()
 @end
 
@@ -64,13 +65,12 @@
 {
     if (m_password.text == nil || [m_password.text isEqual:@""]) {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"温馨提示"
-                                                        message:@"请先获取验证码"
+                                                        message:@"请输入密码"
                                                        delegate:self
                                               cancelButtonTitle:@"确定"
                                               otherButtonTitles:@"取消", nil];
         [alert show];
     }else if (m_VerificationText.text == nil || [m_VerificationText.text isEqual:@""]){
-        
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"温馨提示"
                                                         message:@"请输入验证码"
                                                        delegate:self
@@ -78,9 +78,9 @@
                                               otherButtonTitles:@"取消", nil];
         [alert show];
     }
-    else if ([self GetRegistration:@""])
+    else
     {
-        [self performSegueWithIdentifier:@"GoLYaddCommunit" sender:self];
+        [self GetRegistration];
     }
 }
 //获取验证码
@@ -102,36 +102,28 @@
 //获取注册码
 -(BOOL)GetRegistrationCode:(NSString *)url
 {
+    bc = FALSE;
     m_dTime = 60;
     [m_timer invalidate];
-    m_timer =  [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(Countdowntime) userInfo:nil repeats:YES];
-    BOOL bc;
-    NSDictionary *plistDic = [[NSBundle mainBundle] infoDictionary];
-    NSLog(@"plistDic = %@",plistDic);
-    NSString *URL = [plistDic objectForKey: @"URL"];
-    NSError *error;
     //    加载一个NSURL对象
-    NSString *urlstr = [[NSString alloc] initWithFormat:@"%@services/validate_code?phone=%@&type=add",URL,m_Phone.text ];
-    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:urlstr]];
-    //    将请求的url数据放到NSData对象中
-    NSData *response = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
-    //    iOS5自带解析类NSJSONSerialization从response中解析出数据放到字典中
-    NSDictionary *weatherDic = [NSJSONSerialization JSONObjectWithData:response options:NSJSONReadingMutableLeaves error:&error];
-    //    weatherDic字典中存放的数据也是字典型，从它里面通过键值取值
-    NSString *status = [weatherDic objectForKey:@"status"];
-    if ([status isEqual:@"200"])
-    {
-        
-        bc = TRUE;
-    }else
-    {
-        NSLog(@"%@",status);
-        UIAlertView *aler = [[UIAlertView alloc] initWithTitle:@"提示" message:[weatherDic objectForKey:@"message"] delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
-        [aler show];
-        bc = FALSE;
-    }
-    m_VerificationCode = [weatherDic objectForKey:@"data"];
-    m_VerificationText.text =m_VerificationCode;
+    NSDictionary *dic = @{@"phone" : m_Phone.text
+                          ,@"type" : @"add"};
+    [[StoreOnlineNetworkEngine shareInstance] startNetWorkWithPath:@"services/validate_code"
+                                                            params:dic
+                                                            repeat:YES
+                                                             isGet:YES
+                                                       resultBlock:^(BOOL bValidJSON, NSString *errorMsg, id result) {
+                                                           if(!bValidJSON)
+                                                           {
+                                                               UIAlertView *alview = [[UIAlertView alloc] initWithTitle:@"提示" message:errorMsg delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+                                                               [alview show];
+                                                           }else
+                                                           {
+                                                               m_timer =  [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(Countdowntime) userInfo:nil repeats:YES];
+                                                               m_VerificationCode =result;
+                                                               bc = TRUE;
+                                                           }
+                                                       }];
     [m_timer setFireDate:[NSDate distantPast]];
     return bc;
 }
@@ -155,35 +147,26 @@
     }
 }
 //进行注册
--(BOOL)GetRegistration:(NSString *)URL
+-(void)GetRegistration
 {
-    NSDictionary *plistDic = [[NSBundle mainBundle] infoDictionary];
-    NSLog(@"plistDic = %@",plistDic);
-    NSString *url = [plistDic objectForKey: @"URL"];
-    BOOL bac = false;
-        NSError *error;
-        NSString *urlstr = [[NSString alloc] initWithFormat:@"%@/services/reg?phone=%@&password=%@&validateCode=%@",url,m_Phone.text,m_password.text,m_VerificationText.text];
-        NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:urlstr]];
-        //    将请求的url数据放到NSData对象中
-        NSData *response = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
-        //    iOS5自带解析类NSJSONSerialization从response中解析出数据放到字典中
-        NSDictionary *weatherDic = [NSJSONSerialization JSONObjectWithData:response options:NSJSONReadingMutableLeaves error:&error];
-        //    weatherDic字典中存放的数据也是字典型，从它里面通过键值取值
-        NSString *status = [weatherDic objectForKey:@"status"];
-        NSLog(@"%@",status);
-        m_VerificationText.text =m_VerificationCode;
-        if ([status isEqualToString:@"200"])
-        {
-            userID = [weatherDic objectForKey:@"data"];
-            bac = TRUE;
-        }else
-        {
-            NSString *message = [weatherDic objectForKey:@"message"];
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示信息" message:message delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
-            [alert show];
-            bac = FALSE;
-        }
-    return  bac;
+    NSDictionary *dic = @{@"phone" : m_Phone.text
+                          ,@"password" : m_password.text
+                          ,@"validateCode" : m_VerificationText.text};
+    [[StoreOnlineNetworkEngine shareInstance] startNetWorkWithPath:@"services/reg"
+                                                            params:dic
+                                                            repeat:YES
+                                                             isGet:YES
+                                                       resultBlock:^(BOOL bValidJSON, NSString *errorMsg, id result) {
+                                                           if(!bValidJSON)
+                                                           {
+                                                               UIAlertView *alview = [[UIAlertView alloc] initWithTitle:@"提示" message:errorMsg delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+                                                               [alview show];
+                                                           }else
+                                                           {
+                                                               userID =result;
+                                                               [self performSegueWithIdentifier:@"GoLYaddCommunit" sender:self];
+                                                           }
+                                                       }];
 }
 
 -(void)viewWillDisappear:(BOOL)animated

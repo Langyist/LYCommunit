@@ -32,14 +32,16 @@
     @public BOOL m_bl;
     @private UIView *               m_View;
     @public NSDictionary *          m_data;
-    @private NSString *             m_city_name;
     @private NSString *m_city_id;
     @public  UIButton *selectCityButton;
+    Location * location ;
     BMKLocationService *locService;
     int m_pageSize;
     int m_pageOffset;
-    
+    int m_pagenumber;
+    UIView *footerView;
     BMKMapView * m_mapview;
+    BOOL  firstloc;
     NSMutableDictionary *NetParameters;//网络请求参数
 }
 @property(nonatomic, retain)IBOutlet UITableView    *  m_tab;

@@ -33,6 +33,7 @@ static NSMutableDictionary  *m_selectCityInfo;
     [[StoreOnlineNetworkEngine shareInstance] startNetWorkWithPath:@"services/city"
                                                             params:@{}
                                                             repeat:YES
+                                                            isGet:YES
                                                        resultBlock:^(BOOL bValidJSON, NSString *errorMsg, id result) {
                                                     if(!bValidJSON)
                                                     {
@@ -815,7 +816,10 @@ static NSMutableDictionary  *m_selectCityInfo;
         default:
             break;
     }
-    [LYSelectCommunit Updata:YES];
+    if([[m_selectCityInfo objectForKey:@"name"]isEqualToString:locCityName])
+    {
+        [LYSelectCommunit Updata:YES];
+    }
     [[self navigationController] popViewControllerAnimated:YES];
 }
 

@@ -17,6 +17,7 @@
     NSString *Cityname;
 }
 @end
+static  NSString *    m_city_name;
 @implementation LYSelectCommunitCell
 
 - (void)drawRect:(CGRect)rect {
@@ -55,14 +56,18 @@ static NSDictionary *   m_cityinfo;//城市信息
 -(void)viewDidLoad
 {
     [super viewDidLoad];
+    firstloc = TRUE;
+    m_Refresh = FALSE;
     m_CommunitylistOF = [[NSMutableArray alloc]init];
     m_CommunitylistON = [[NSMutableArray alloc]init];
-    NetParameters = [[NSMutableDictionary alloc] init];
-    UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.m_tab.frame), 1)];
+    m_data = [[NSMutableDictionary alloc] init];
+    m_pagenumber = 0;
+    
+    footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.m_tab.frame), 1)];
     [footerView setBackgroundColor:[UIColor clearColor]];
     footerView.clipsToBounds = NO;
     
-    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(10, 100, 130, 150)];
+    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(40, 130, 80, 90)];
     imageView.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
     [imageView setImage:[UIImage imageNamed:@"周边便民--未开店--帮帮娃_03"]];
     
@@ -70,22 +75,23 @@ static NSDictionary *   m_cityinfo;//城市信息
     label.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleRightMargin;
     label.lineBreakMode = NSLineBreakByCharWrapping;
     label.numberOfLines = 0;
-    [label setText:@"亲，帮帮娃玩命加载失败，此功能尚未开启"];
-    label.font = [UIFont boldSystemFontOfSize:17.0f];
+    [label setText:@"亲，帮帮娃已玩命搜索，未找到你要的小区"];
+    label.font = [UIFont boldSystemFontOfSize:15.0f];
     label.textColor = SPECIAL_GRAY;
     
     [footerView addSubview:imageView];
     [footerView addSubview:label];
     
     [self.m_tab setBackgroundColor:BK_GRAY];
-    self.m_tab.tableFooterView = footerView;
+    [self.view addSubview:footerView];
+    footerView.hidden = YES;
     
     NSMutableDictionary *userinfo =  [LYSqllite Ruser];
     if (userinfo != nil&&m_bl ==FALSE) {
         [self performSegueWithIdentifier:@"Gomain4" sender:self];
         m_cityinfo = userinfo;
     }
-    m_pageSize = 1000;
+    m_pageSize = 10;
     m_pageOffset = 0;
     self->Serch.delegate=self;
     [selectCityButton addTarget:self action:@selector(GoselectCity) forControlEvents:UIControlEventTouchUpInside];
@@ -96,23 +102,11 @@ static NSDictionary *   m_cityinfo;//城市信息
     {
         [self->locationManager requestWhenInUseAuthorization];
     }
-    //NSDictionary * temp = [Location shareLocation].GetLocation;
-    //初始化BMKLocationService
     locService = [[BMKLocationService alloc]init];
     locService.delegate = self;
     //启动LocationService
     [locService startUserLocationService];
-
-    // 设置定位精度
-    // kCLLocationAccuracyNearestTenMeters:精度10米
-    // kCLLocationAccuracyHundredMeters:精度100 米
-    // kCLLocationAccuracyKilometer:精度1000 米
-    // kCLLocationAccuracyThreeKilometers:精度3000米
-    // kCLLocationAccuracyBest:设备使用电池供电时候最高的精度
-    // kCLLocationAccuracyBestForNavigation:导航情况下最高精度，一般要有外接电源时才能使用
     self->locationManager.desiredAccuracy = kCLLocationAccuracyBest;
-    // distanceFilter是距离过滤器，为了减少对定位装置的轮询次数，位置的改变不会每次都去通知委托，而是在移动了足够的距离时才通知委托程序
-    // 它的单位是米，这里设置为至少移动1000再通知委托处理更新;
     self->locationManager.distanceFilter = 1000.0f; // 如果设为kCLDistanceFilterNone，则每秒更新一次;
     if ([CLLocationManager locationServicesEnabled])
     {
@@ -124,7 +118,6 @@ static NSDictionary *   m_cityinfo;//城市信息
     {
         NSLog(@"请开启定位功能！");
     }
-    [super viewDidLoad];
 }
 - (void)didReceiveMemoryWarning
 {
@@ -183,10 +176,10 @@ static NSDictionary *   m_cityinfo;//城市信息
         [selectCityButton setTitle: [m_data objectForKey:@"name"] forState: UIControlStateNormal];
      }else{
         [selectCityButton setTitle: CityName forState: UIControlStateNormal];
+         [m_data setValue:CityName forKey:@"name"];
          m_city_name  =CityName;
     }
     [m_tab refreshStart];
-    //[self.m_tab reloadData];
     self.view.userInteractionEnabled = YES;
     //BMKReverseGeoCodeResult是编码的结果，包括地理位置，道路名称，uid，城市名等信息
 }
@@ -259,7 +252,7 @@ static NSDictionary *   m_cityinfo;//城市信息
 {
     NSUInteger row = [indexPath row];
     NSLog(@"%lu",(unsigned long)row);
-     m_cityinfo = [m_CommunitylistON objectAtIndex:indexPath.row];
+    m_cityinfo = [m_CommunitylistON objectAtIndex:indexPath.row];
     if ([[[NSString alloc]initWithFormat:@"%@",[m_cityinfo objectForKey:@"enable"]]isEqualToString:@"1"])
     {
         [self performSegueWithIdentifier:@"GoLYUserloginView" sender:self];
@@ -279,112 +272,75 @@ static NSDictionary *   m_cityinfo;//城市信息
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
 {
     m_pageOffset = 0;
+    m_CommunitylistON = [[NSMutableArray alloc] init];
+    m_CommunitylistOF = [[NSMutableArray alloc] init];
+    [self GetCommunity:TRUE];
+}
+
+//搜索小区
+-(void)GetCommunity:(BOOL)serchbarOn
+{
     m_CommunityName = Serch.text;
     [Serch resignFirstResponder];
-    [NetParameters setValue:[m_data objectForKey:@"id"] forKey:@"city_id"];
-    [NetParameters setValue:m_CommunityName forKey:@"name"];
-    [NetParameters setValue:[[NSString alloc] initWithFormat:@"%f",longitude]forKey:@"longitude"];
-    [NetParameters setValue:[[NSString alloc] initWithFormat:@"%f",latitude]forKey:@"latitude"];
-    [NetParameters setValue:[[NSString alloc] initWithFormat:@"%d",m_pageSize]forKey:@"m_pageSize"];
-    [NetParameters setValue:[[NSString alloc] initWithFormat:@"%d",m_pageOffset]forKey:@"m_pageOffset"];
-    [[StoreOnlineNetworkEngine shareInstance] startNetWorkWithPath:@"services/community/search"
-                                                            params:NetParameters
-                                                            repeat:YES
-                                                       resultBlock:^(BOOL bValidJSON, NSString *errorMsg, id result) {
-                                                           NSDictionary *data = [result objectForKey:@"data"];
-                                                           m_CommunitylistON = [data objectForKey:@"communities"];
-                                                           m_CommunitylistOF = [data objectForKey:@"refCommunities"];
-                                                       }];
-    [self.m_tab reloadData];
-    self.view.userInteractionEnabled = YES;
-    [m_View removeFromSuperview];
-}
-
-#pragma mark - 获取网络数据
-//搜索小区
--(void)GetCommunity:(NSString*)URL
-{
-    int pagesize = 1000;
-    NSDictionary *plistDic = [[NSBundle mainBundle] infoDictionary];
-    NSLog(@"plistDic = %@",plistDic);
-    NSString *urlstr = [plistDic objectForKey: @"URL"];
-    NSError *error;
-    NSString *str;
-    NSString *URLstr =[[NSString alloc] initWithFormat:@"%@/services/community/search",urlstr];
-    NSURL *url = [NSURL URLWithString:URLstr];
-    NSMutableURLRequest *request = [[NSMutableURLRequest alloc]initWithURL:url cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:10];
-    [request setHTTPMethod:@"POST"];//设置请求方式为POST，默认为GET
-    if (m_data.count>1)
-    {
-        m_city_id =[m_data objectForKey:@"id"];
-        str = @"city_id=";//设置参数
-        str = [str stringByAppendingFormat:@"%@&name=%@&longitude=%f&latitude=%f&pageSize=%d&pageOffset=%d", m_city_id,m_CommunityName,longitude,latitude,m_pageSize,m_pageOffset];
-    }else if([[m_data objectForKey:@"id"] isEqualToString:@""]||[m_data objectForKey:@"id"] == nil)
-    {
-        if (m_CommunityName == nil)
+    NSString *Key =@"city_id";
+    NSString * key;
+    if (m_data) {
+        if (m_data.count>1) {
+            Key = @"city_id";
+            key = @"id";
+        }else if (m_data.count>0)
         {
-            m_CommunityName = @"";
-        }
-        if ([m_data objectForKey:@"name"]!=nil||m_data!=nil)
-        {
+            Key = @"city_name";
+            key = @"name";
             m_city_name =[m_data objectForKey:@"name"];
         }
-        str = @"city_name=";//设置参数
-        str = [str stringByAppendingFormat:@"%@&name=%@&longitude=%f&latitude=%f&pageSize=%d&pageOffset=%d", m_city_id,m_CommunityName,longitude,latitude,m_pageSize,m_pageOffset];
     }
-    NSData *data = [str dataUsingEncoding:NSUTF8StringEncoding];
-    [request setHTTPBody:data];
-    //第三步，连接服务器
-    NSData *received = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
-    if(received!=nil)
-    {
-        NSDictionary *weatherDic = [NSJSONSerialization JSONObjectWithData:received options:NSJSONReadingMutableLeaves error:&error];
-       // m_pageOffset = [[weatherDic objectForKey:@"pageOffset"] intValue];
-        if(weatherDic!=nil)
-        {
-            NSString *status = [weatherDic objectForKey:@"status"];
-            NSLog(@"%@",status);
-            if(![status isEqual:@"200"])
-            {
-                UIAlertView *ale = [[UIAlertView alloc] initWithTitle:@"提示" message:@"连接网络失败" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
-                [ale show];
-            }else
-            {
-                NSDictionary *data1 = [weatherDic objectForKey:@"data"];
-                m_CommunitylistON = [data1 objectForKey:@"communities"];
-                m_CommunitylistOF = [data1 objectForKey:@"refCommunities"];
-            }
-//          [m_CommunitylistON addObjectsFromArray:CommunitylistON];
-//          [m_CommunitylistOF addObjectsFromArray:CommunitylistOF];
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [m_tab reloadData];
-                // 更新UI
-            });
-          //  [m_tab reloadData];
-        }
-        else
-        {
-            UIAlertView *ale = [[UIAlertView alloc] initWithTitle:@"提示" message:@"获取网络数据失败" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
-            [ale show];
-        }
+    
+    NSDictionary *dic = @{Key : [m_data objectForKey:key]
+                          ,@"name" : m_CommunityName
+                          ,@"longitude" : [[NSString alloc] initWithFormat:@"%f",longitude]
+                          ,@"latitude" : [[NSString alloc] initWithFormat:@"%f",latitude]
+                          ,@"pageSize" : [[NSString alloc] initWithFormat:@"%d",m_pageSize]
+                          ,@"pageOffset" : [[NSString alloc] initWithFormat:@"%d",m_pageOffset]
+                          };
+    [[StoreOnlineNetworkEngine shareInstance] startNetWorkWithPath:@"services/community/search"
+                                                            params:dic
+                                                            repeat:YES
+                                                             isGet:NO
+                                                       resultBlock:^(BOOL bValidJSON, NSString *errorMsg, id result) {
+                                                           if(!bValidJSON)
+                                                           {
+                                                               UIAlertView *msalview = [[UIAlertView alloc] initWithTitle:@"提示" message:errorMsg delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+                                                               [msalview show];
+                                                           }else if(bValidJSON)
+                                                           {
+                                                               CommunitylistON = [result objectForKey:@"communities"];
+                                                               CommunitylistOF = [result objectForKey:@"refCommunities"];
+                                                               if(CommunitylistON.count>0)
+                                                               {
+                                                                   m_tab.hidden = NO;
+                                                                   footerView.hidden = YES;
+                                                                   //m_pageOffset = []
+                                                                   [m_CommunitylistON addObjectsFromArray:CommunitylistON];
+                                                                   [m_CommunitylistOF addObjectsFromArray:CommunitylistOF];
+                                                                   [m_tab reloadData];
+                                                                   if (m_tab.status== AWaterfallTableViewRefreshing )
+                                                                   {
+                                                                       [m_tab reloadData];
+                                                                       [m_tab refreshEnd];
+                                                                   }else if (m_tab.status == AWaterfallTableViewMoring)
+                                                                   {
+                                                                       [m_tab reloadData];
+                                                                       [m_tab moreEnd];
+                                                                   }
+                                                               }else if(serchbarOn)
+                                                               {
+                                                                   m_tab.hidden = YES;
+                                                                   footerView.hidden = NO;
+                                                               }
+                                                            }
+                                                           }];
     }
-     if (pagesize < m_pageSize) {
-        m_tab.canMore = NO;
-     }
-     else {
-        m_tab.canMore = YES;
-     }
-    if (m_tab.status == AWaterfallTableViewRefreshing) {
-        [m_tab refreshEnd];
-        m_pageOffset = 0;
-    }
-    else if (m_tab.status == AWaterfallTableViewMoring)
-    {
-        [m_tab moreEnd];
-        //m_pageOffset++;
-    }
-}
-
 
 - (void)userLocation:(Location *)userLocation
              locInfo:(NSDictionary *)locInfo
@@ -392,39 +348,63 @@ static NSDictionary *   m_cityinfo;//城市信息
 
 }
 
-
 #pragma mark - 切换界面进入协议函数
 -(void)viewDidAppear:(BOOL)animated
 {
-    if (m_Refresh)
+    m_CommunitylistOF = [[NSMutableArray alloc] init];
+    m_CommunitylistON = [[NSMutableArray alloc] init];
+    footerView.hidden = YES;
+    if (!firstloc)
     {
-        m_pageSize = 1000;
-        m_pageOffset = 0;
-        m_CommunitylistOF = [[NSMutableArray alloc] init];
-        m_CommunitylistON = [[NSMutableArray alloc] init];
-        if ([CLLocationManager locationServicesEnabled])
-        {
-            [self->locationManager startUpdatingLocation];
-        }
-        else
-        {
-            NSLog(@"请开启定位功能！");
-        }
-        m_CommunityName = @"";
         m_data = [LYSelectCity CityInfo];
-        //[_selectCityButton setTitle: [m_data objectForKey:@"name"] forState: UIControlStateNormal];
-        if(![[m_data objectForKey:@"name"]isEqualToString:m_city_name])
+        if (m_Refresh)
         {
-            UIAlertView *alview = [[UIAlertView alloc] initWithTitle:@"提示" message:@"请输入关键字搜小区" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
-            [alview show];
+            m_pageOffset = 0;
+            if ([CLLocationManager locationServicesEnabled])
+            {
+                [self->locationManager startUpdatingLocation];
+            }
+            else
+            {
+                NSLog(@"请开启定位功能！");
+            }
+            m_CommunityName = @"";
+            Serch.text= @"";
+            [m_tab refreshStart];
+            Serch.placeholder = @"搜索小区";
+            m_Refresh = NO;
+        }else if(m_data.count>0)
+        {
+            Serch.text= @"";
+            Serch.placeholder = @"输入关键字搜索";
+        }else if(m_data.count<1)
+        {
+            Serch.placeholder = @"搜索小区";
+            [m_data setValue:m_city_name forKey:@"name"];
+            [m_tab refreshStart];
         }
-        self.view.userInteractionEnabled = YES;
-        [m_tab refreshStart];
-        [self.m_tab reloadData];
-        Serch.text= @"";
-        m_Refresh = NO;
+    }
+    [self.m_tab reloadData];
+    firstloc = FALSE;
+}
+
+- (void)refresh:(AWaterfallTableView *)tableView
+{
+    m_CommunitylistON = [[NSMutableArray alloc] init];
+    m_CommunitylistOF = [[NSMutableArray alloc] init];
+    m_pageOffset = 0;
+    [self GetCommunity:FALSE];
+}
+- (void)more:(AWaterfallTableView *)tableView
+{
+    if(CommunitylistON.count==m_pageSize)
+    {
+        m_pagenumber++;
+        m_pageOffset = m_pageSize*m_pagenumber;
+        [self GetCommunity:FALSE];
     }
 }
+
 #pragma  mark -获取小区ID
 +(NSDictionary *)GetCommunityInfo
 {
@@ -435,13 +415,5 @@ static NSDictionary *   m_cityinfo;//城市信息
 {
     m_Refresh =  sender;
 }
-- (void)refresh:(AWaterfallTableView *)tableView {
-   [NSThread detachNewThreadSelector:@selector(GetCommunity:) toTarget:self withObject:nil];
-}
-- (void)more:(AWaterfallTableView *)tableView
-{
-    [NSThread detachNewThreadSelector:@selector(GetCommunity:) toTarget:self withObject:nil];
-}
-
 @end
 

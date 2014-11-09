@@ -12,6 +12,7 @@
 #import "LYProductinformation.h"
 #import "CustomToolbarItem.h"
 #import "StoreslistTableViewCell.h"
+#import "StoreOnlineNetworkEngine.h"
 #define kDropDownListTag 1000
 #import "KxMenu.h"
 @interface LYShop ()
@@ -43,7 +44,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
+    m_pageSize = 10;
+    m_pageOffset = 0;
     UINib *nib = [UINib nibWithNibName:@"StoreslistTableViewCell" bundle:nil];
     [self.tableView registerNib:nib forCellReuseIdentifier:@"StoreslistTableViewCell"];
     tempgoodstype = [[NSMutableArray alloc] init];
@@ -259,12 +261,8 @@
 
 - (NSInteger)tableView:(UITableView *)tableView indentationLevelForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    int section = indexPath.section;
-    int row = indexPath.section;
-    
-    // if dynamic section make all rows the same indentation level as row 0
-    if (row < 6) {
-        return [super tableView:tableView indentationLevelForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:section]];
+    if (indexPath.section < 6) {
+        return [super tableView:tableView indentationLevelForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:indexPath.section]];
     } else {
         return [super tableView:tableView indentationLevelForRowAtIndexPath:indexPath];
     }
@@ -284,79 +282,64 @@
 #pragma mark - 获取数据
 -(IBAction)Getstoresdata:(NSString *)URL
 {
-    // m_viewms = [LYSelectCommunity showProgressAlert:self.view sms:@"正在获取店铺信息"];
-    NSDictionary *plistDic = [[NSBundle mainBundle] infoDictionary];
-    NSLog(@"plistDic = %@",plistDic);
-    NSString *url = [plistDic objectForKey: @"URL"];
-    NSError *error;
-    // 加载一个NSURL对象
-    NSString *urlstr = [[NSString alloc] initWithFormat:@"%@/services/shop/detail?id=%@",url,m_StoresID];
-    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:urlstr]];
-    //    将请求的url数据放到NSData对象中
-    NSData *response = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
-    if (response!=nil) {
-    //    iOS5自带解析类NSJSONSerialization从response中解析出数据放到字典中
-    NSDictionary *weatherDic = [NSJSONSerialization JSONObjectWithData:response options:NSJSONReadingMutableLeaves error:&error];
-    //    weatherDic字典中存放的数据也是字典型，从它里面通过键值取值
-    NSString *status = [weatherDic objectForKey:@"status"];
-    NSLog(@"%@",status);
-    //    UIAlertView *aler = [[UIAlertView alloc] initWithTitle:@"提示" message:status delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
-    //    [aler show];
-    m_storesinfo = [weatherDic objectForKey:@"data"];
-    m_Goodslist = [m_storesinfo objectForKey:@"commodities"];
-   // Goodstype  =[m_storesinfo objectForKey:@"categories"];
-    [tempgoodstype addObject:@"全部"];
-    for (int i=0; i<Goodstype.count; i++)
-    {
-        NSDictionary *temp = [Goodstype objectAtIndex:i];
-        [tempgoodstype addObject:[temp  objectForKey:@"name"]];
-    }
-    [m_stores setValue:[m_storesinfo objectForKey:@"name"] forKey:@"name"];
-    UILabel *customLab = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 100, 30)];
-    [customLab setTextColor:[UIColor colorWithRed:(0.0/255) green:(0.0/255) blue:(0.0/255) alpha:1.0]];
-    [customLab setText:[m_storesinfo objectForKey:@"name"]];
-    customLab.font = [UIFont boldSystemFontOfSize:17];
-    customLab.textAlignment = NSTextAlignmentCenter;
-    self.navigationItem.titleView = customLab;
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self.tableView reloadData];
-            // 更新UI
-        });
-    [self serachGoods:@""];
-    }
+    
+    NSDictionary *dic = @{@"id" : m_StoresID};
+    [[StoreOnlineNetworkEngine shareInstance] startNetWorkWithPath:@"services/shop/detail"
+                                                            params:dic
+                                                            repeat:YES
+                                                             isGet:YES
+                                                       resultBlock:^(BOOL bValidJSON, NSString *errorMsg, id result) {
+                                                           if(!bValidJSON)
+                                                           {
+                                                               NSLog(@"error %@",errorMsg);
+                                                           }else
+                                                           {
+                                                               m_storesinfo =result;
+                                                               m_Goodslist = [m_storesinfo objectForKey:@"commodities"];
+                                                               [tempgoodstype addObject:@"全部"];
+                                                               for (int i=0; i<Goodstype.count; i++)
+                                                               {
+                                                                   NSDictionary *temp = [Goodstype objectAtIndex:i];
+                                                                   [tempgoodstype addObject:[temp  objectForKey:@"name"]];
+                                                               }
+                                                               [m_stores setValue:[m_storesinfo objectForKey:@"name"] forKey:@"name"];
+                                                               UILabel *customLab = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 100, 30)];
+                                                               [customLab setTextColor:[UIColor colorWithRed:(0.0/255) green:(0.0/255) blue:(0.0/255) alpha:1.0]];
+                                                               [customLab setText:[m_storesinfo objectForKey:@"name"]];
+                                                               customLab.font = [UIFont boldSystemFontOfSize:17];
+                                                               customLab.textAlignment = NSTextAlignmentCenter;
+                                                               self.navigationItem.titleView = customLab;
+                                                               [self.tableView reloadData];
+                                                               [self serachGoods:@""];
+                                                           }
+                                                       }];
+    
 }
 
 -(void)serachGoods:(NSString *)URL
 {
-    //m_viewms = [LYSelectCommunity showProgressAlert:self.view sms:@"正在获取商品列表"];
-    NSDictionary *plistDic = [[NSBundle mainBundle] infoDictionary];
-    NSLog(@"plistDic = %@",plistDic);
-    NSString *url = [plistDic objectForKey: @"URL"];
-    NSError *error;
-    NSString *urlstr = [[NSString alloc] initWithFormat:@"%@/services/shop/commodity_list?shop_id=%@&category_id=%@&order=%@&pageSize=10&pageOffset=0",url,m_StoresID,categoryid,order];
-    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:urlstr]];
-    NSData *response1 = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
-    if(response1!=nil)
-    {
-        NSDictionary *weatherDic = [NSJSONSerialization JSONObjectWithData:response1 options:NSJSONReadingMutableLeaves error:&error];
-        NSString *status = [weatherDic objectForKey:@"status"];
-        m_Goodslist = [weatherDic objectForKey:@"data"];
-        NSLog(@"%@",status);
-        dispatch_async(dispatch_get_main_queue(), ^{
-        [self.tableView reloadData];
-        // 更新UI
-    });
-    }
+
+    NSDictionary *dic = @{@"shop_id" : m_StoresID
+                          ,@"category_id" : categoryid
+                          ,@"order" :order
+                          ,@"pageSize" : [[NSString alloc] initWithFormat:@"%d",m_pageSize]
+                          ,@"pageOffset" : [[NSString alloc] initWithFormat:@"%d",m_pageOffset]};
+    [[StoreOnlineNetworkEngine shareInstance] startNetWorkWithPath:@"services/shop/commodity_list"
+                                                            params:dic
+                                                            repeat:YES
+                                                             isGet:YES
+                                                       resultBlock:^(BOOL bValidJSON, NSString *errorMsg, id result) {
+                                                           if(!bValidJSON)
+                                                           {
+                                                               NSLog(@"error %@",errorMsg);
+                                                           }else
+                                                           {
+                                                               m_Goodslist = result;
+                                                               [self.tableView reloadData];
+                                                           }
+                                                       }];
 }
-//获取网络图片
--(UIImage *) getImageFromURL:(NSString *)fileURL
-{
-    NSLog(@"执行图片下载函数");
-    UIImage * result;
-    NSData * data = [NSData dataWithContentsOfURL:[NSURL URLWithString:fileURL]];
-    result = [UIImage imageWithData:data];
-    return result;
-}
+
 #pragma mark 添加购物车
 -(IBAction)addShoppingCart:(id)sender
 {

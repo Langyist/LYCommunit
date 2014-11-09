@@ -91,7 +91,7 @@
                 NSInteger statusCode = [responseStatus integerValue];
                 if (statusCode != 200) {
                     bValidJSON = NO;
-                    errorMsg = [responseDic objectForKey:@"msg"];
+                    errorMsg = [responseDic objectForKey:@"message"];
                     break;
                 }
             }
@@ -158,8 +158,6 @@
         self.operationNetworkArray = tempArray;
         [self enqueueOperation:op];
     }
-    
-    //[ShareAppDelegate waiting:YES];
     
     return op;
 }

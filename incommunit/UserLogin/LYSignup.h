@@ -21,6 +21,7 @@
     int m_dTime;
     NSTimer *m_timer;
     NSString *userID;
+    BOOL bc;//注册发送是否成功
 }
 @property(nonatomic,retain)IBOutlet InsetTextField *m_Phone;
 @property(nonatomic,retain)IBOutlet InsetTextField *m_VerificationText;

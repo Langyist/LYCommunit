@@ -7,13 +7,15 @@
 //
 
 #import "LYForgotPassword.h"
+#import "StoreOnlineNetworkEngine.h"
 @interface LYForgotPassword ()
 
 @end
 
 @implementation LYForgotPassword
 @synthesize MobilenumberText,CodeText,codeButton,passwordText,submitButton;
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
     [super viewDidLoad];
     m_dTime = 60;
     UIEdgeInsets inset = UIEdgeInsetsMake(0, 25, 0, 25);
@@ -53,42 +55,33 @@
 
 #pragma mark - 访问网络数据
 //获取验证码
-- (void)Getverificationcode:(NSString *)url
+- (void)Getverificationcode
 {
     [m_timer invalidate];
     m_dTime = 60;
-    BOOL bc;
-    NSDictionary *plistDic = [[NSBundle mainBundle] infoDictionary];
-    NSLog(@"plistDic = %@",plistDic);
-    NSString *URl = [plistDic objectForKey: @"URL"];
-    NSError *error;
-    NSString *urlstr = [[NSString alloc] initWithFormat:@"%@/services/validate_code?phone=%@&type=mod",URl,MobilenumberText.text];
-    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:urlstr]];
-    //  将请求的url数据放到NSData对象中
-    NSData *response = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
-    //  iOS5自带解析类NSJSONSerialization从response中解析出数据放到字典中
-    NSDictionary *getcodeDic = [NSJSONSerialization JSONObjectWithData:response options:NSJSONReadingMutableLeaves error:&error];
-    NSLog(@"%@",getcodeDic);
-    if ([[getcodeDic objectForKey:@"status"] isEqual:@"200"]) {
-        m_timer =  [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(Countdown) userInfo:nil repeats:YES];
-        bc = TRUE;
-    }else {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"温馨提示"
-                                                        message:[getcodeDic objectForKey:@"message"]
-                                                       delegate:self
-                                              cancelButtonTitle:@"确认"
-                                              otherButtonTitles:@"取消", nil];
-        [alert show];
-    }
-    NSString *codeString = [getcodeDic objectForKey:@"data"];
-    NSLog(@"%@",codeString);
-    self.CodeText.text = codeString;
+    
+    NSDictionary *dic = @{@"phone" : MobilenumberText.text
+                          ,@"type" : @"mod"};
+    [[StoreOnlineNetworkEngine shareInstance] startNetWorkWithPath:@"services/validate_code"
+                                                            params:dic
+                                                            repeat:YES
+                                                             isGet:YES
+                                                       resultBlock:^(BOOL bValidJSON, NSString *errorMsg, id result) {
+                                                           if(!bValidJSON)
+                                                           {
+                                                               UIAlertView *alview = [[UIAlertView alloc] initWithTitle:@"提示" message:errorMsg delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+                                                               [alview show];
+                                                           }else
+                                                           {
+                                                               m_timer =  [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(Countdown) userInfo:nil repeats:YES];
+                                                           }
+                                                       }];
+
 }
 
 #pragma mark UITextField delegate
 -(BOOL)textFieldShouldReturn:(UITextField *)textField{
     if (textField == self.MobilenumberText) {
-        
         [MobilenumberText resignFirstResponder];
         [passwordText becomeFirstResponder];
     }
@@ -126,8 +119,10 @@
 
 -(void)Countdown
 {
-    if (m_dTime<=0) {
+    if (m_dTime<=0)
+    {
         [m_timer invalidate];
+        [codeButton setTitle:[NSString stringWithFormat:@"获取验证码"] forState:UIControlStateNormal];
     }else
     {
         m_dTime --;
@@ -213,40 +208,39 @@
     else {
         
         NSLog(@"手机号:%@",self.MobilenumberText.text);
-        [self Getverificationcode:@""];
+        [self Getverificationcode];
     }
 }
 
-//提交
+//提交找回密码信息
 - (IBAction)done:(id)sender
 {
-    NSDictionary *plistDic = [[NSBundle mainBundle] infoDictionary];
-    NSLog(@"plistDic = %@",plistDic);
-    NSString *URl = [plistDic objectForKey: @"URL"];
-    NSError *error;
-    NSString *urlstr = [[NSString alloc] initWithFormat:@"%@/services/change_pwd?phone=%@&password=%@&validateCode=%@",URl,MobilenumberText.text,passwordText.text,CodeText.text];
-    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:urlstr]];
-    //    将请求的url数据放到NSData对象中
-    NSData *response = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
-    if(response!=nil)
+    if([MobilenumberText.text isEqualToString:@""]||[passwordText.text isEqualToString:@""]||[CodeText.text isEqualToString:@""])
     {
-        //    iOS5自带解析类NSJSONSerialization从response中解析出数据放到字典中
-        NSDictionary *getcodeDic = [NSJSONSerialization JSONObjectWithData:response options:NSJSONReadingMutableLeaves error:&error];
-        NSLog(@"%@",getcodeDic);
-        NSString *message = [getcodeDic objectForKey:@"message"];
-        NSLog(@"%@",message);
-        if (![[getcodeDic objectForKey:@"status"] isEqual:@"201"]) {
-            [self.navigationController popViewControllerAnimated:YES];
-        }else {
+        UIAlertView *alview = [[UIAlertView alloc] initWithTitle:@"提示" message:@"请填写完成的信息" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+        [alview show];
+    }else
         
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"温馨提示"
-                                                        message:[getcodeDic objectForKey:@"message"]
-                                                       delegate:self
-                                              cancelButtonTitle:@"确认"
-                                              otherButtonTitles:@"取消", nil];
-        [alert show];
+    {
+        NSDictionary *dic = @{@"phone" : MobilenumberText.text
+                              ,@"password" : passwordText.text
+                              ,@"validateCode" : CodeText.text};
+        [[StoreOnlineNetworkEngine shareInstance] startNetWorkWithPath:@"services/change_pwd"
+                                                                params:dic
+                                                                repeat:YES
+                                                                 isGet:YES
+                                                           resultBlock:^(BOOL bValidJSON, NSString *errorMsg, id result) {
+                                                               if(!bValidJSON)
+                                                               {
+                                                                   UIAlertView *alview = [[UIAlertView alloc] initWithTitle:@"提示" message:errorMsg delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+                                                                   [alview show];
+                                                               }else
+                                                               {
+                                                                   m_timer =  [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(Countdown) userInfo:nil repeats:YES];
+                                                                   [self performSegueWithIdentifier:@"Gologin" sender:self];
+                                                               }
+                                                           }];
         }
-    }
 }
 
 @end
