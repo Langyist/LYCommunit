@@ -67,11 +67,11 @@ static NSDictionary *   m_cityinfo;//城市信息
     [footerView setBackgroundColor:[UIColor clearColor]];
     footerView.clipsToBounds = NO;
     
-    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(40, 130, 80, 90)];
+    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(40, 101, 83, 95)];
     imageView.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
     [imageView setImage:[UIImage imageNamed:@"周边便民--未开店--帮帮娃_03"]];
     
-    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(150, 100, 150, 100)];
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(139, 107, 160, 89)];
     label.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleRightMargin;
     label.lineBreakMode = NSLineBreakByCharWrapping;
     label.numberOfLines = 0;
@@ -158,7 +158,6 @@ static NSDictionary *   m_cityinfo;//城市信息
     reverseGeoCodeOption.reverseGeoPoint = userLocation.location.coordinate;
     [_geoCodeSearch reverseGeoCode:reverseGeoCodeOption];
     [locService stopUserLocationService];
-  //NSLog(@"didUpdateUserLocation lat %f,long %f",userLocation.location.coordinate.latitude,userLocation.location.coordinate.longitude);
 }
 
 // 定位失误时触发
@@ -181,7 +180,6 @@ static NSDictionary *   m_cityinfo;//城市信息
     }
     [m_tab refreshStart];
     self.view.userInteractionEnabled = YES;
-    //BMKReverseGeoCodeResult是编码的结果，包括地理位置，道路名称，uid，城市名等信息
 }
 
 //跳转到选择城市界面

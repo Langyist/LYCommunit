@@ -8,13 +8,18 @@
 
 #import "LYToolsMain.h"
 #import "LYUserloginView.h"
+#import "StoreOnlineNetworkEngine.h"
+#import "LYPrivacySettings.h"
 @interface LYToolsMain ()
 {
- LYPrivacySettings *privacy;
+    LYPrivacySettings *privacy;
+    
 }
 
 @end
-
+static NSString *addfriend;
+static NSMutableArray * address ;
+static NSMutableArray *album;
 @implementation LYToolsMain
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -50,14 +55,7 @@
             [self performSegueWithIdentifier:@"GoUniversal" sender:self];
             break;
         case 2:
-            if ([privacy getprivacysetting:@""]) {
-                [self performSegueWithIdentifier:@"GoLYPrivacySettings" sender:self];
-            }
-            else
-            {
-                UIAlertView *al = [[UIAlertView alloc] initWithTitle:@"提示" message:@"对不起，你现在是游客登陆状态，无法使用此功能。是否登陆/注册" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
-                [al show];
-            }
+            [self getprivacysetting];
             break;
         case 4:
             [self performSegueWithIdentifier:@"GoAnnouncement" sender:self];
@@ -78,6 +76,32 @@
             break;
     }
 }
+
+
+#pragma mark getdata
+- (void)getprivacysetting
+{
+    NSDictionary *dic =@{};
+    [[StoreOnlineNetworkEngine shareInstance] startNetWorkWithPath:@"services/visible_setting/get"
+                                                            params:dic
+                                                            repeat:YES
+                                                             isGet:YES
+                                                       resultBlock:^(BOOL bValidJSON, NSString *errorMsg, id result) {
+                                                           if(!bValidJSON)
+                                                           {
+                                                               UIAlertView *al = [[UIAlertView alloc] initWithTitle:@"提示" message:@"对不起，你现在是游客登陆状态，无法使用此功能。是否登陆/注册" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+                                                               [al show];
+                                                           }else
+                                                           {
+                                                               [self performSegueWithIdentifier:@"GoLYPrivacySettings" sender:self];
+                                                               addfriend = [result objectForKey:@"add_friend"];
+                                                               address = [result objectForKey:@"address"];
+                                                               album = [result objectForKey:@"album"];
+                                             }}];
+}
+
+
+
 #pragma mark - Navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
@@ -85,6 +109,13 @@
     {
         LYUserloginView *detailViewController = (LYUserloginView*) segue.destinationViewController;
         detailViewController->m_bool = TRUE;
+    }
+    if ([segue.identifier isEqualToString: @"GoLYPrivacySettings"])
+    {
+        LYPrivacySettings *PrivacySettings = (LYPrivacySettings*) segue.destinationViewController;
+        PrivacySettings->m_addfriend = addfriend;
+        PrivacySettings->m_address = address;
+        PrivacySettings->m_album = album;
     }
 }
 

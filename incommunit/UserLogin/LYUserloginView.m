@@ -11,6 +11,7 @@
 #import "Reachability.h"
 #import "UIImage+Scale.h"
 #import "LYFunctionInterface.h"
+#import "StoreOnlineNetworkEngine.h"
 @interface LYUserloginView () {
     
     NSThread* myThread;
@@ -117,7 +118,7 @@ static BOOL YTourist;
 }
 
 //login 登陆函数
--(void)login:(NSString*)user password:(NSString *)password
+-(void)login:(NSString*)user password:(NSString *)password communitID:(NSString *)Communit
 {
     [passwordtext resignFirstResponder];
     Reachability *r = [Reachability reachabilityWithHostname:@"www.baidu.com"];
@@ -158,47 +159,27 @@ static BOOL YTourist;
             [userinfo setValue:[[LYSelectCommunit GetCommunityInfo] objectForKey:@"distance"] forKey:@"communitdistance"];
             [userinfo setValue:[[LYSelectCommunit GetCommunityInfo] objectForKey:@"max_level"] forKey:@"communitmax_level"];
         }
-        NSDictionary *plistDic = [[NSBundle mainBundle] infoDictionary];
-        NSLog(@"plistDic = %@",plistDic);
-        NSString *urlstr = [plistDic objectForKey: @"URL"];
-        NSString *Ustr = [[NSString alloc] initWithFormat:@"%@/services/login",urlstr];
-        NSError *error;
-        //    加载一个NSURL对象
-        NSURL *url = [NSURL URLWithString:Ustr];
-        NSMutableURLRequest *request = [[NSMutableURLRequest alloc]initWithURL:url cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:10];
-        [request setHTTPMethod:@"POST"];//设置请求方式为POST，默认为GET
-        NSString *str = @"username=";//设置参数
-        str = [str stringByAppendingFormat:@"%@&password=%@&community_id=%@", userText.text,passwordtext.text,[[LYSelectCommunit GetCommunityInfo] objectForKey:@"id"]];
+        NSDictionary *dic = @{@"username" : userText.text
+                              ,@"password" : passwordtext.text
+                              ,@"community_id" : [[LYSelectCommunit GetCommunityInfo] objectForKey:@"id"]};
+        [[StoreOnlineNetworkEngine shareInstance] startNetWorkWithPath:@"services/login"
+                                                                params:dic
+                                                                repeat:YES
+                                                                 isGet:YES
+                                                              activity:YES
+                                                           resultBlock:^(BOOL bValidJSON, NSString *errorMsg, id result) {
+                                                               if(!bValidJSON)
+                                                               {
+                                                                   UIAlertView *alview = [[UIAlertView alloc] initWithTitle:@"提示" message:errorMsg delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+                                                                   [alview show];
+                                                               }else
+                                                               {
+                                                                   [LYSqllite  wuser:userinfo];
+                                                                   [self performSegueWithIdentifier:@"GoLYFunctionInterface" sender:self];
+                                                               }
+                                                           }];
         
-        NSData *data = [str dataUsingEncoding:NSUTF8StringEncoding];
-        [request setHTTPBody:data];
-        //第三步，连接服务器
-        NSData *received = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
-        if (received!=nil) {
-            NSDictionary *weatherDic = [NSJSONSerialization JSONObjectWithData:received options:NSJSONReadingMutableLeaves error:&error];
-            if ([[weatherDic objectForKey:@"status"] isEqualToString:@"200"])
-            {
-                [LYSqllite  wuser:userinfo];
-                [self performSegueWithIdentifier:@"GoLYFunctionInterface" sender:self];
-            }else
-            {
-                UIAlertView *al =[[UIAlertView alloc]initWithTitle:@"提示"
-                                                           message:[weatherDic objectForKey:@"message"]
-                                                          delegate:self
-                                                 cancelButtonTitle:@"确定"
-                                                 otherButtonTitles:nil, nil];
-                [al show];
-            }
-            
-        }else
-        {
-            UIAlertView *al =[[UIAlertView alloc]initWithTitle:@"提示"
-                                                       message:@"登陆失败"
-                                                      delegate:self
-                                             cancelButtonTitle:@"确定"
-                                             otherButtonTitles:nil, nil];
-            [al show];
-        }
+        
     }
     
     switch ([r currentReachabilityStatus])
@@ -396,7 +377,8 @@ static BOOL YTourist;
     [self performSegueWithIdentifier:@"GoLYFunctionInterface" sender:self];
 }
 
-- (IBAction)clickName:(id)sender {
+- (IBAction)clickName:(id)sender
+{
     [self performSegueWithIdentifier:@"GoSelectConmunit" sender:nil];
 }
 

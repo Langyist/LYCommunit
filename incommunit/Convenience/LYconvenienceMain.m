@@ -14,8 +14,10 @@
 #import "XHFriendlyLoadingView.h"
 #import "LYSelectCommunit.h"
 #import "StoreOnlineNetworkEngine.h"
-#define REDCOLOR colorWithRed:255.0/255.0 green:230.0/255.0 blue:201.0/255.0 alpha:1
 #import "AppDelegate.h"
+#import "UIView+Clone.h"
+#define REDCOLOR colorWithRed:255.0/255.0 green:230.0/255.0 blue:201.0/255.0 alpha:1
+
 @interface LYconvenienceMain ()
 {
     UISearchBar *m_deliverSearch;
@@ -39,6 +41,8 @@
     NSInteger lastIndex;
     NSInteger selectCount;
     NSMutableArray *arrow;
+    
+    UIView *footerView;
 }
 
 @property (nonatomic, strong) XHFriendlyLoadingView *friendlyLoadingView;
@@ -131,12 +135,12 @@
     [__scrollView setScrollEnabled:NO];
     //精选
     m_view01 = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self._scrollView.frame.size.height)];
-    m_Featuredtableview = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self._scrollView.frame.size.height)];
+    m_Featuredtableview = [[AWaterfallTableView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self._scrollView.frame.size.height)];
     m_Featuredtableview.dataSource = self;
     m_Featuredtableview.delegate = self;
     m_Featuredtableview.separatorStyle = UITableViewCellSeparatorStyleNone;
-    UIView *footerView = [[UIView alloc] init];
-    m_Featuredtableview.tableFooterView = footerView;
+    m_Featuredtableview.canRefresh = NO;
+    m_Featuredtableview.canMore = NO;
     [m_view01 addSubview:m_Featuredtableview];
     [self._scrollView addSubview:m_view01];
     
@@ -150,16 +154,16 @@
     [footerView setBackgroundColor:[UIColor clearColor]];
     footerView.clipsToBounds = NO;
     
-    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(10, 100, 130, 150)];
+    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(40, 101, 83, 95)];
     imageView.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
     [imageView setImage:[UIImage imageNamed:@"周边便民--未开店--帮帮娃_03"]];
     
-    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(150, 130, 150, 100)];
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(139, 107, 160, 89)];
     label.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleRightMargin;
     label.lineBreakMode = NSLineBreakByCharWrapping;
     label.numberOfLines = 0;
-    [label setText:@"亲，帮帮娃玩命加载失败，此功能尚未开启"];
-    label.font = [UIFont boldSystemFontOfSize:17.0f];
+    [label setText:@"亲，帮帮娃玩命加载失败，没有数据"];
+    label.font = [UIFont boldSystemFontOfSize:15.0f];
     label.textColor = SPECIAL_GRAY;
     
     [footerView addSubview:imageView];
@@ -230,7 +234,7 @@
         label.font = [UIFont systemFontOfSize:16];
         [m_backView addSubview:label];
     }
-    m_Deliverytableview.tableFooterView = footerView;
+//    m_Deliverytableview.tableFooterView = footerView;
     /*
      店铺大全
      */
@@ -328,6 +332,12 @@
     m_microShop.placeholder = @"搜索店铺";
     m_CellmicroShop.tableHeaderView = m_microShop;
     
+    m_Deliverytableview = [self addTableViewWithIndex:1];
+    m_ShopDaquan = [self addTableViewWithIndex:2];
+    m_CellmicroShop = [self addTableViewWithIndex:3];
+    CGSize size = CGSizeMake(CGRectGetMaxX(m_CellmicroShop.frame), 0);
+    [self._scrollView setContentSize:size];
+    
     //切换页面手势
     UISwipeGestureRecognizer *recognizer;
     recognizer = [[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(m_view01leftSwipe:)];
@@ -354,6 +364,24 @@
     [recognizer setDirection:(UISwipeGestureRecognizerDirectionRight)];
     [m_view04 addGestureRecognizer:recognizer];
 
+}
+
+- (AWaterfallTableView *)addTableViewWithIndex:(NSInteger)index {
+    AWaterfallTableView *tableView = [m_Featuredtableview clone];
+    tableView.delegate = self;
+    tableView.dataSource = self;
+    tableView.canRefresh = NO;
+    tableView.canMore = NO;
+    
+    tableView.tableFooterView = [footerView clone];
+    
+    CGRect frame = m_Featuredtableview.frame;
+    frame.origin.x = frame.size.width * index;
+    tableView.frame = frame;
+    
+    [self._scrollView addSubview:tableView];
+    
+    return tableView;
 }
 //点击阴影关闭弹出框
 - (void)clackgrayView {
@@ -649,9 +677,25 @@
         return numberOfRowsInSection;
         
     }if (tableView == m_ShopDaquan) {
-        return  m_ShopDaquanlist.count;
+        
+        NSInteger numberOfRowsInSection = m_ShopDaquanlist.count;
+        if (numberOfRowsInSection == 0) {
+            m_ShopDaquan.tableFooterView.hidden = NO;
+        }
+        else {
+            m_ShopDaquan.tableFooterView.hidden = YES;
+        }
+        return numberOfRowsInSection;
     }if (tableView == m_CellmicroShop) {
-        return m_CellmicroShoplist.count;
+        
+        NSInteger numberOfRowsInSection = m_CellmicroShoplist.count;
+        if (numberOfRowsInSection == 0) {
+            m_CellmicroShop.tableFooterView.hidden = NO;
+        }
+        else {
+            m_CellmicroShop.tableFooterView.hidden = YES;
+        }
+        return numberOfRowsInSection;
     }
     else if (tableView == m_backtable) {
         
@@ -1116,25 +1160,6 @@
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
 {
     m_tempb =searchBar;
-}
-- (void)refresh:(AWaterfallTableView *)tableView
-{
-//    if (tableView == m_Deliverytableview) {
-//        [m_Deliverytableview.]
-//    }
-//    m_CommunitylistON = [[NSMutableArray alloc] init];
-//    m_CommunitylistOF = [[NSMutableArray alloc] init];
-//    m_pageOffset = 0;
-//    [self GetCommunity:FALSE];
-}
-- (void)more:(AWaterfallTableView *)tableView
-{
-//    if(CommunitylistON.count==m_pageSize)
-//    {
-//        m_pagenumber++;
-//        m_pageOffset = m_pageSize*m_pagenumber;
-//        [self GetCommunity:FALSE];
-//    }
 }
 
 @end

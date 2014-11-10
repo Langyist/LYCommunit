@@ -93,7 +93,7 @@
         }
         [passwordText resignFirstResponder];
     }else if (textField == CodeText) {
-        if (!(CodeText.text.length == 6)) {
+        if (!(CodeText.text.length == 4)) {
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"温馨提示"
                                                             message:@"请输入4位验证码"
                                                            delegate:self

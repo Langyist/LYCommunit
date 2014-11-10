@@ -371,8 +371,14 @@
 -(NSString *)CovertImage:(UIImage *)iamge
 {
     NSData *_data = UIImageJPEGRepresentation(iamge, 1.0f);
-    NSString *_encodedImageStr = [_data base64Encoding];
-    return _encodedImageStr;
+    if(_data!=nil)
+    {
+        NSString *_encodedImageStr = [_data base64Encoding];
+        return _encodedImageStr;
+    }else
+    {
+        return @"";
+    }
 }
 //完成
 -(void)Submitinfo

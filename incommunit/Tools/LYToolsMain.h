@@ -11,5 +11,4 @@
 @interface LYToolsMain : UITableViewController
 
 @property(nonatomic, weak)IBOutlet UIButton *m_exitbutton;
-
 @end

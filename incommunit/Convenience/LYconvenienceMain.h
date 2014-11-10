@@ -21,7 +21,7 @@
     UIView * m_view02;
     UIView * m_view03;
     UIView * m_view04;
-    UITableView * m_Featuredtableview ;
+    AWaterfallTableView * m_Featuredtableview ;
     AWaterfallTableView * m_Deliverytableview;
     AWaterfallTableView * m_ShopDaquan;
     AWaterfallTableView *m_CellmicroShop;
