@@ -13,6 +13,7 @@
 #import <QuartzCore/CoreAnimation.h>
 #import <MobileCoreServices/UTCoreTypes.h>
 #import "LYUserloginView.h"
+#import "StoreOnlineNetworkEngine.h"
 #define CAMERA @"相机"
 #define PHOTOES @"相册"
 #define kDropDownListTag 1000
@@ -73,11 +74,6 @@
     CGRect rect = self.m_button.frame;
     rect.origin.y = y + 94;
     self.m_button.frame = rect;
-    
-    UITapGestureRecognizer* singleRecognizer;
-    singleRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(ClickView)];
-    singleRecognizer.numberOfTapsRequired = 1; // 单击
-    [self.view addGestureRecognizer:singleRecognizer];
     
     m_iamgeview.userInteractionEnabled = YES;
     UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(imageViewTap:)];
@@ -207,7 +203,6 @@
                 cityCombox.titlesList = BuildingData;
                 [cityCombox reloadData];
             }
-            
         }
             break;
         case 1:
@@ -369,33 +364,35 @@
     return _encodedImageStr;
 }
 //完成
--(BOOL)Submitinfo
+-(void)Submitinfo
 {
-    NSDictionary *plistDic = [[NSBundle mainBundle] infoDictionary];
-    NSLog(@"plistDic = %@",plistDic);
-    NSString *urlstr = [plistDic objectForKey: @"URL"];
-    NSError *error;
-    //    加载一个NSURL对象
-    NSString    *URLString = [NSString stringWithFormat:@"%@/services/reg_community",urlstr];
-    NSURL *url = [NSURL URLWithString:URLString];
-    NSMutableURLRequest *request = [[NSMutableURLRequest alloc]initWithURL:url cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:10];
-    [request setHTTPMethod:@"POST"];//设置请求方式为POST，默认为GET
-    NSString *str = @"user_id=";//设置参数
-    str = [str stringByAppendingFormat:@"%@&community_id=%@&nick_name=%@&head=%@&l1=%@&l2=%@&l3=%@&l4=%@&l5=%@",userID,[[LYSelectCommunit GetCommunityInfo] objectForKey:@"id"],m_Nickname.text,[self CovertImage:headimage],l1str,l2str,l3str,l4str,l5str];
-    NSData *data = [str dataUsingEncoding:NSUTF8StringEncoding];
-    [request setHTTPBody:data];
-    //第三步，连接服务器
-    NSData *received = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
-    NSDictionary *weatherDic = [NSJSONSerialization JSONObjectWithData:received options:NSJSONReadingMutableLeaves error:&error];
-    if ([[weatherDic objectForKey:@"status"] isEqualToString:@"200"])
-    {
-        UIAlertView *al =[[UIAlertView alloc]initWithTitle:@"提示" message:@"成功加入该小区" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
-        [al show];
-        return YES;
-    }else
-    {
-        return NO;
-    }
+    
+    NSDictionary *dic = @{ @"user_id" : userID
+                          ,@"community_id" : [[LYSelectCommunit GetCommunityInfo] objectForKey:@"id"]
+                          ,@"nick_name" : m_Nickname.text
+                          ,@"head" : [self CovertImage:headimage]
+                          ,@"l1" : l1str
+                          ,@"l2" : l2str
+                          ,@"l3" :l3str
+                          ,@"l4" :l4str
+                          ,@"l6" :l5str
+                          };
+    [[StoreOnlineNetworkEngine shareInstance] startNetWorkWithPath:@"services/reg_community"
+                                                            params:dic
+                                                            repeat:YES
+                                                             isGet:NO
+                                                       resultBlock:^(BOOL bValidJSON, NSString *errorMsg, id result) {
+                                                           if(!bValidJSON)
+                                                           {
+                                                               UIAlertView *al =[[UIAlertView alloc]initWithTitle:@"提示" message:errorMsg delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+                                                               [al show];
+                                                               
+                                                           }else
+                                                           {
+                                                               UIAlertView *al =[[UIAlertView alloc]initWithTitle:@"提示" message:@"成功加入该小区" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+                                                               [al show];
+                                                           }
+                                                       }];
 }
 
 -(IBAction)Carryout:(id)sender

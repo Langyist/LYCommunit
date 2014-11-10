@@ -11,6 +11,7 @@
 #import <CoreLocation/CLLocationManagerDelegate.h>
 #import "BMapKit.h"
 
+
 @class Location;
 
 @protocol UserLocationDelegate <NSObject>
@@ -21,6 +22,7 @@
 
 @end
 
+
 @interface Location : NSObject<CLLocationManagerDelegate,BMKLocationServiceDelegate,BMKGeoCodeSearchDelegate>
 {
     CLLocationManager    *   m_locationManager;
@@ -28,11 +30,9 @@
 }
 
 @property (nonatomic, retain) id<UserLocationDelegate> locDelegate;
-
 + (Location *)shareLocation;
 //开起定位
 -(NSString *)StartLocation;
 //关闭定位
--(NSMutableDictionary *)GetLocation;
-
+-(void)GetLocation;
 @end

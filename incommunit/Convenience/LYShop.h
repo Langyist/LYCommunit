@@ -46,6 +46,8 @@
     NSString *m_Goodsid;//商品ID
     
     UITabBar *m_tabBar;
+    int m_pageSize;
+    int m_pageOffset;
     
     NSArray *Goodstype;
     NSArray *Properties;

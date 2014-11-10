@@ -9,7 +9,7 @@
 #import "LYSelectCommunit.h"
 #import "LYSqllite.h"
 #import "AppDelegate.h"
-
+#import "StoreOnlineNetworkEngine.h"
 @interface MyCommunitCell : UITableViewCell
 @end
 
@@ -18,9 +18,7 @@
 - (void)drawRect:(CGRect)rect {
     
     [super drawRect:rect];
-    
     CGContextRef context = UIGraphicsGetCurrentContext();
-    
     CGContextSetStrokeColorWithColor(context, [UIColor grayColor].CGColor);
     
     CGFloat linewidth = 0.5f;
@@ -123,7 +121,7 @@
 
 - (void)viewDidLoad
 {
-    [NSThread detachNewThreadSelector:@selector(Getdata:) toTarget:self withObject:nil];
+    [self Getdata];
     [super viewDidLoad];
     [self.selectButton.layer setMasksToBounds:YES];
     [self.selectButton.layer setCornerRadius:3.0];
@@ -134,41 +132,28 @@
     [self performSegueWithIdentifier:@"Goselectcommunit" sender:self];
 }
 //获取网络数据
--(void)Getdata:(NSString *)URL
+-(void)Getdata
 {
-    NSDictionary *plistDic = [[NSBundle mainBundle] infoDictionary];
-    NSLog(@"plistDic = %@",plistDic);
-    NSString *url = [plistDic objectForKey: @"URL"];
-    NSError *error;
-    NSString *urlstr = [[NSString alloc] initWithFormat:@"%@/services/community/index?id=%@",url,[[LYSelectCommunit GetCommunityInfo] objectForKey:@"id"]];
-    //    加载一个NSURL对象
-    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:urlstr]];
-    if (request!=nil)
-    {
-        // 将请求的url数据放到NSData对象中
-        NSData *response = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
-        if(response!=nil)
-        {
-            //    iOS5自带解析类NSJSONSerialization从response中解析出数据放到字典中
-            NSDictionary *weatherDic = [NSJSONSerialization JSONObjectWithData:response options:NSJSONReadingMutableLeaves error:&error];
-            //    weatherDic字典中存放的数据也是字典型，从它里面通过键值取值
-            NSString *status = [weatherDic objectForKey:@"status"];
-            NSLog(@"%@",status);
-            dataDic = [[weatherDic objectForKey:@"data"] objectForKey:@"community"];
-            NSLog(@"%@",dataDic);
-            imageDic = [dataDic objectForKey:@"images"];
-            NSLog(@"%@",imageDic);
-        }
-    }else
-    {
-        UIAlertView *al = [[UIAlertView alloc] initWithTitle:@"提示" message:@"加载网络数据失败" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
-        [al show];
-    }
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [self updata];
-        [self.tableView reloadData];
-        // 更新UI
-    });
+    NSDictionary *dic = @{@"id" : [[LYSelectCommunit GetCommunityInfo] objectForKey:@"id"]};
+    [[StoreOnlineNetworkEngine shareInstance] startNetWorkWithPath:@"services/community/index"
+                                                            params:dic
+                                                            repeat:YES
+                                                             isGet:YES
+                                                       resultBlock:^(BOOL bValidJSON, NSString *errorMsg, id result) {
+                                                           if(!bValidJSON)
+                                                           {
+                                                               UIAlertView *al = [[UIAlertView alloc] initWithTitle:@"提示" message:errorMsg delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+                                                               [al show];
+                                                           }
+                                                           else
+                                                           {
+                                                               dataDic = [result objectForKey:@"community"];
+                                                               imageDic = [dataDic objectForKey:@"images"];
+                                                               HistoricDistrict =[LYSqllite allSuerinfo:[dataDic objectForKey:@"name"]];
+                                                               [self updata];
+                                                               [self.tableView reloadData];
+                                                           }
+                                                       }];
 }
 #pragma mark - Segues
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
@@ -224,8 +209,10 @@
     [self.backView1 addSubview:grlable];
 }
 
-- (IBAction)deleteRecord:(id)sender {
+- (IBAction)deleteRecord:(id)sender
+{
     [LYSqllite deletetable];
+    HistoricDistrict = [[NSMutableArray alloc] init];
     [self.tableView reloadData];
 }
 
@@ -241,21 +228,23 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 3;
-    
-        return [LYSqllite allSuerinfo:[dataDic objectForKey:@"name"]].count;
+        return HistoricDistrict.count;
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
     MyCommunitCell *cell = (MyCommunitCell *)[tableView dequeueReusableCellWithIdentifier:@"communitycell" forIndexPath:indexPath];
     UILabel *name = (UILabel *)[cell viewWithTag:101];
-    [name setText:@"温馨"];
-    return cell;
-    
-    NSMutableDictionary * temp = [[LYSqllite allSuerinfo:[dataDic objectForKey:@"name"]] objectAtIndex:indexPath.row];
+    NSMutableDictionary * temp = [HistoricDistrict objectAtIndex:indexPath.row];
     [name setText:[temp objectForKey:@"name"]];
     return cell;
 }
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+
+}
+
 -(void)viewDidAppear:(BOOL)animated
 {
 

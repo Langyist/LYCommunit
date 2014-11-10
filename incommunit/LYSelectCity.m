@@ -33,7 +33,14 @@ static NSMutableDictionary  *m_selectCityInfo;
     [[StoreOnlineNetworkEngine shareInstance] startNetWorkWithPath:@"services/city"
                                                             params:@{}
                                                             repeat:YES
+                                                            isGet:YES
                                                        resultBlock:^(BOOL bValidJSON, NSString *errorMsg, id result) {
+                                                    if(!bValidJSON)
+                                                    {
+                                                        UIAlertView * mslaView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"" delegate:errorMsg cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+                                                        [mslaView show];
+                                                    }else
+                                                    {
                                                    NSDictionary *data = result;
                                                    m_hotCities =[data objectForKey:@"hotCities"];
                                                    m_allcities = [data objectForKey:@"cities"];
@@ -149,7 +156,8 @@ static NSMutableDictionary  *m_selectCityInfo;
                                                        }
                                                    }
                                                    [self.m_tableview reloadData];
-                                               }];
+                                               }}];
+                                                       
     
 }
 - (void)didReceiveMemoryWarning
@@ -808,7 +816,10 @@ static NSMutableDictionary  *m_selectCityInfo;
         default:
             break;
     }
-    [LYSelectCommunit Updata:YES];
+    if([[m_selectCityInfo objectForKey:@"name"]isEqualToString:locCityName])
+    {
+        [LYSelectCommunit Updata:YES];
+    }
     [[self navigationController] popViewControllerAnimated:YES];
 }
 

@@ -12,6 +12,7 @@
 @interface LYMyCommunit : UIViewController
 {
     UIView *m_view;
+    NSMutableArray * HistoricDistrict;
 }
 @property (strong, nonatomic) IBOutlet UILabel *communitNameLabel;
 @property (strong, nonatomic) IBOutlet UILabel *PercentLabel;

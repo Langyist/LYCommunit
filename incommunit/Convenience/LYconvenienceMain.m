@@ -12,6 +12,8 @@
 #import "LY_DeliveryCell.h"
 #import "LYShop.h"
 #import "XHFriendlyLoadingView.h"
+#import "LYSelectCommunit.h"
+#import "StoreOnlineNetworkEngine.h"
 #define REDCOLOR colorWithRed:255.0/255.0 green:230.0/255.0 blue:201.0/255.0 alpha:1
 #import "AppDelegate.h"
 @interface LYconvenienceMain ()
@@ -64,7 +66,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
+    m_pagesize = 5;
+    m_pageoffset= 0;
     self->locationManager = [[CLLocationManager alloc] init];
     self->locationManager.delegate = self;
     if([[[UIDevice currentDevice] systemVersion] floatValue]>=8.0)
@@ -166,8 +169,8 @@
     [m_Featuredtableview addSubview:footerView];
     
     //送餐送回
-    m_view02 = [[UIView alloc] initWithFrame:CGRectMake(self.view.frame.size.width, 0, self._scrollView.frame.size.width, self._scrollView.frame.size.height)];
-    m_Deliverytableview =[[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self._scrollView.frame.size.height)];
+    m_view02 = [[UIView alloc] initWithFrame:CGRectMake(self.view.frame.size.width, 0, self.view.frame.size.width, self._scrollView.frame.size.height)];
+    m_Deliverytableview =[[AWaterfallTableView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
     m_Deliverytableview.dataSource = self;
     m_Deliverytableview.delegate = self;
     [m_view02 addSubview:m_Deliverytableview];
@@ -228,7 +231,7 @@
     }
     //店铺大全
     m_view03 = [[UIView alloc] initWithFrame:CGRectMake(self.view.frame.size.width * 2, 0, self._scrollView.frame.size.width, self._scrollView.frame.size.height)];
-    m_ShopDaquan = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self._scrollView.frame.size.height)];
+    m_ShopDaquan = [[AWaterfallTableView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self._scrollView.frame.size.height)];
     m_ShopDaquan.dataSource = self;
     m_ShopDaquan.delegate = self;
     UIImageView *imageview = [[UIImageView alloc] initWithFrame:CGRectMake(m_view03.frame.size.width/3+10, m_view03.frame.size.height/3, 80, 80)];
@@ -297,7 +300,8 @@
     [m_shopdownButton addTarget:self action:@selector(shopdownBackViewButton:) forControlEvents:UIControlEventTouchUpInside];
     [m_shopView addSubview:m_shopdownButton];
     
-    for (int i = 0; i < 2; i ++) {
+    for (int i = 0; i < 2; i ++)
+    {
         NSArray *labelarray = [NSArray arrayWithObjects:@"信息查询",@"排列顺序", nil];
         UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(5 + m_shopView.frame.size.width / 2 * i, 5, m_shopView.frame.size.width / 2 - 5, 25)];
         label.text = labelarray[i];
@@ -306,7 +310,7 @@
     }
     //小区微店
     m_view04 = [[UIView alloc] initWithFrame:CGRectMake(self.view.frame.size.width * 3, 0, self._scrollView.frame.size.width, self._scrollView.frame.size.height)];
-    m_CellmicroShop = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self._scrollView.frame.size.height)];
+    m_CellmicroShop = [[AWaterfallTableView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self._scrollView.frame.size.height)];
     m_CellmicroShop.dataSource = self;
     m_CellmicroShop.delegate = self;
     [m_view04 addSubview:m_CellmicroShop];
@@ -364,27 +368,11 @@
     latitude=newLocation.coordinate.latitude;
     longitude=newLocation.coordinate.longitude;
     [manager stopUpdatingLocation];// 停止位置更新
-    
-    myThread01 = [[NSThread alloc] initWithTarget:self
-                                         selector:@selector(GetData:)
-                                           object:nil];
-    [myThread01 start];
-    myThread02 = [[NSThread alloc] initWithTarget:self
-                                         selector:@selector(GetdataDelivery:)
-                                           object:nil];
-    [myThread02 start];
-    myThread03 = [[NSThread alloc] initWithTarget:self
-                                         selector:@selector(GetShopDaquandata:)
-                                           object:nil];
-    [myThread03 start];
-    myThread04 = [[NSThread alloc] initWithTarget:self
-                                         selector:@selector(GetCellmicroShopdata:)
-                                           object:nil];
-    [myThread04 start];
-    myThread05 = [[NSThread alloc] initWithTarget:self
-                                         selector:@selector(GetShoptype:)
-                                           object:nil];
-    [myThread05 start];
+    [self GetData];
+    [self GetdataDelivery];
+    [self GetShopDaquandata];
+    [self GetCellmicroShopdata];
+    [self GetShoptype];
     [locationManager stopUpdatingLocation];
 }
 // 定位失误时触发
@@ -548,10 +536,7 @@
             
             if(m_Deliverylist.count<1)
             {
-                dispatch_queue_t groupBack=dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
-                dispatch_async(groupBack, ^{
-                    [self GetdataDelivery:@""];
-                });
+                    [self GetdataDelivery];
             }
             
         }
@@ -641,7 +626,7 @@
     {
         dispatch_queue_t groupBack=dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
         dispatch_async(groupBack, ^{
-            [self GetdataDelivery:@""];
+            [self GetdataDelivery];
         });
     }
     background.hidden = YES;
@@ -671,8 +656,10 @@
         }
         return numberOfRowsInSection;
         
-    }else if(tableView == m_Deliverytableview){
+    }else if(tableView == m_Deliverytableview)
+    {
         return m_Deliverylist.count;
+        
     }if (tableView == m_ShopDaquan) {
         return  m_ShopDaquanlist.count;
     }if (tableView == m_CellmicroShop) {
@@ -1007,162 +994,125 @@
 
 #pragma mark - 获取数据
 //获取精选数据
--(void)GetData:(NSString *)URL
+-(void)GetData
 {
-    NSDictionary *plistDic = [[NSBundle mainBundle] infoDictionary];
-    NSLog(@"plistDic = %@",plistDic);
-    NSString *url = [plistDic objectForKey: @"URL"];
-    NSError *error;
-    //    加载一个NSURL对象
-    NSString *urlstr = [[NSString alloc] initWithFormat:@"%@/services/shop/cool?community_id=%@",url,@"1"];
-    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:urlstr]];
-    //    将请求的url数据放到NSData对象中
-    NSData *response = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
-    if(response!=nil)
-    {
-    //    iOS5自带解析类NSJSONSerialization从response中解析出数据放到字典中
-    NSDictionary *weatherDic = [NSJSONSerialization JSONObjectWithData:response options:NSJSONReadingMutableLeaves error:&error];
-    //    weatherDic字典中存放的数据也是字典型，从它里面通过键值取值
-    NSString *status = [weatherDic objectForKey:@"status"];
-        if (![status isEqual:@"200"]) {
-            UIAlertView *aler = [[UIAlertView alloc] initWithTitle:@"提示" message:@"数据加载失败，请检查网络" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
-            [aler show];
-        }
-    
-    m_Featuredlist = [weatherDic objectForKey:@"data"];
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [m_Featuredtableview reloadData];
-            // 更新UI
-        });
-    }
+    NSDictionary *dic = @{@"community_id" : [[LYSelectCommunit GetCommunityInfo] objectForKey:@"id"]};
+    [[StoreOnlineNetworkEngine shareInstance] startNetWorkWithPath:@"services/shop/cool"
+                                                            params:dic
+                                                            repeat:YES
+                                                             isGet:YES
+                                                       resultBlock:^(BOOL bValidJSON, NSString *errorMsg, id result) {
+                                                           if(!bValidJSON)
+                                                           {
+                                                               UIAlertView *aler = [[UIAlertView alloc] initWithTitle:@"提示" message:errorMsg delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+                                                               [aler show];
+                                                           }else
+                                                           {
+                                                               m_Featuredlist =result;
+                                                               [m_Featuredtableview reloadData];
+                                                           }
+                                                       }];
 }
 
 //获取送餐送货数据
--(IBAction)GetdataDelivery:(NSString *)URL
+-(IBAction)GetdataDelivery
 {
-    NSDictionary *plistDic = [[NSBundle mainBundle] infoDictionary];
-    NSLog(@"plistDic = %@",plistDic);
-    NSString *url = [plistDic objectForKey: @"URL"];
-    int pagesize = 100;
-    int pageoffset= 0;
-    NSError *error;
-    //    加载一个NSURL对象
-    NSString *urlstr = [[NSString alloc ]initWithFormat:@"%@/services/shop/list?sendable=1&order=%@&longitude=%f&latitude=%f&pageSize=%d&pageOffset=%d&type_id=%@", url,orderstr,longitude,latitude,pagesize,pageoffset,StoreType];
-    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:urlstr]];
-    if(request!=nil)
-    {
-    //    将请求的url数据放到NSData对象中
-    NSData *response = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
-    if(response!=nil)
-    {
-    //    iOS5自带解析类NSJSONSerialization从response中解析出数据放到字典中
-    NSDictionary *weatherDic = [NSJSONSerialization JSONObjectWithData:response options:NSJSONReadingMutableLeaves error:&error];
-    //    weatherDic字典中存放的数据也是字典型，从它里面通过键值取值
-    NSString *status = [weatherDic objectForKey:@"status"];
-    NSLog(@"%@",status);
-    m_Deliverylist = [weatherDic objectForKey:@"data"];
-    dispatch_async(dispatch_get_main_queue(), ^{
-             [m_Deliverytableview reloadData];
-            // 更新UI
-        });
-    }else
-    {
-        ///提示框
-    }
-    }
+    
+    NSDictionary *dic = @{@"sendable" : @"1"
+                          ,@"order" : orderstr
+                          ,@"longitude" : [[NSString alloc] initWithFormat:@"%f",longitude]
+                          ,@"latitude" : [[NSString alloc] initWithFormat:@"%f",latitude]
+                          ,@"pagesize" : [[NSString alloc] initWithFormat:@"%d",m_pagesize]
+                          ,@"pageoffset" : [[NSString alloc] initWithFormat:@"%d",m_pageoffset]
+                          ,@"type_id" :StoreType };
+    [[StoreOnlineNetworkEngine shareInstance] startNetWorkWithPath:@"services/shop/list"
+                                                            params:dic
+                                                            repeat:YES
+                                                             isGet:YES
+                                                       resultBlock:^(BOOL bValidJSON, NSString *errorMsg, id result) {
+                                                           if(!bValidJSON)
+                                                           {
+                                                               NSLog(@"error %@",errorMsg);
+                                                           }else
+                                                           {
+                                                               m_Deliverylist =result;
+                                                               [m_Deliverytableview reloadData];
+                                                           }
+                                                       }];
+    
 }
 
 //获取店铺大全数据
--(IBAction)GetShopDaquandata:(NSString *)URL
+-(IBAction)GetShopDaquandata
 {
-
-    NSDictionary *plistDic = [[NSBundle mainBundle] infoDictionary];
-    NSLog(@"plistDic = %@",plistDic);
-    NSString *url = [plistDic objectForKey: @"URL"];
-    int pagesize = 100;
-    int pageoffset= 0;
-    NSError *error;
-    //    加载一个NSURL对象
-    NSString *urlstr = [[NSString alloc ]initWithFormat:@"%@/services/shop/list?category=1&order=%@&longitude=%f&latitude=%f&pageSize=%d&pageOffset=%d&type_id=%@",url, orderstr,longitude,latitude,pagesize,pageoffset,StoreType];
-    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:urlstr]];
-    //    将请求的url数据放到NSData对象中
-    NSData *response = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
-    if (response!=nil) {
-    if(response!=nil)
-    {
-    //    iOS5自带解析类NSJSONSerialization从response中解析出数据放到字典中
-    NSDictionary *weatherDic = [NSJSONSerialization JSONObjectWithData:response options:NSJSONReadingMutableLeaves error:&error];
-    //    weatherDic字典中存放的数据也是字典型，从它里面通过键值取值
-    NSString *status = [weatherDic objectForKey:@"status"];
-    NSLog(@"%@",status);
-    //    UIAlertView *aler = [[UIAlertView alloc] initWithTitle:@"提示" message:status delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
-    //    [aler show];
-    m_ShopDaquanlist = [weatherDic objectForKey:@"data"];
-    dispatch_async(dispatch_get_main_queue(), ^{
-            [m_ShopDaquan reloadData];
-            // 更新UI
-        });
-    }
-    }
+    NSDictionary *dic = @{@"category" : @"1"
+                          ,@"order" : orderstr
+                          ,@"longitude" : [[NSString alloc] initWithFormat:@"%f",longitude]
+                          ,@"latitude" : [[NSString alloc] initWithFormat:@"%f",latitude]
+                          ,@"pagesize" : [[NSString alloc] initWithFormat:@"%d",m_pagesize]
+                          ,@"pageoffset" : [[NSString alloc] initWithFormat:@"%d",m_pageoffset]
+                          ,@"type_id" :StoreType };
+    [[StoreOnlineNetworkEngine shareInstance] startNetWorkWithPath:@"services/shop/list"
+                                                            params:dic
+                                                            repeat:YES
+                                                             isGet:YES
+                                                       resultBlock:^(BOOL bValidJSON, NSString *errorMsg, id result) {
+                                                           if(!bValidJSON)
+                                                           {
+                                                               NSLog(@"error %@",errorMsg);
+                                                           }else
+                                                           {
+                                                               m_ShopDaquanlist =result;
+                                                               [m_ShopDaquan reloadData];
+                                                           }
+                                                       }];
 }
 
--(IBAction)GetCellmicroShopdata:(NSString *)URL
+-(IBAction)GetCellmicroShopdata
 {
 
-    NSDictionary *plistDic = [[NSBundle mainBundle] infoDictionary];
-    NSLog(@"plistDic = %@",plistDic);
-    NSString *url = [plistDic objectForKey: @"URL"];
-    int pagesize = 100;
-    int pageoffset= 0;
-    NSError *error;
-    //    加载一个NSURL对象
-    NSString *urlstr = [[NSString alloc ]initWithFormat:@"%@/services/shop/list?category=2&order=%@&longitude=%f&latitude=%f&pageSize=%d&pageOffset=%d&type_id=%@", url,@"1",longitude,latitude,pagesize,pageoffset,@""];
-    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:urlstr]];
-    //    将请求的url数据放到NSData对象中
-    NSData *response = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
-    if(response!=nil)
-    {
-    //    iOS5自带解析类NSJSONSerialization从response中解析出数据放到字典中
-    NSDictionary *weatherDic = [NSJSONSerialization JSONObjectWithData:response options:NSJSONReadingMutableLeaves error:&error];
-    //    weatherDic字典中存放的数据也是字典型，从它里面通过键值取值
-    NSString *status = [weatherDic objectForKey:@"status"];
-    NSLog(@"%@",status);
-    m_CellmicroShoplist = [weatherDic objectForKey:@"data"];
-    dispatch_async(dispatch_get_main_queue(), ^{
-            [m_CellmicroShop reloadData];
-            // 更新UI
-        });
-    }
+    NSDictionary *dic = @{@"category" : @"2"
+                          ,@"order" : orderstr
+                          ,@"longitude" : [[NSString alloc] initWithFormat:@"%f",longitude]
+                          ,@"latitude" : [[NSString alloc] initWithFormat:@"%f",latitude]
+                          ,@"pagesize" : [[NSString alloc] initWithFormat:@"%d",m_pagesize]
+                          ,@"pageoffset" : [[NSString alloc] initWithFormat:@"%d",m_pageoffset]
+                          ,@"type_id" :StoreType };
+    [[StoreOnlineNetworkEngine shareInstance] startNetWorkWithPath:@"services/shop/list"
+                                                            params:dic
+                                                            repeat:YES
+                                                             isGet:YES
+                                                       resultBlock:^(BOOL bValidJSON, NSString *errorMsg, id result) {
+                                                           if(!bValidJSON)
+                                                           {
+                                                               NSLog(@"error %@",errorMsg);
+                                                           }else
+                                                           {
+                                                               m_CellmicroShoplist =result;
+                                                               [m_CellmicroShop reloadData];
+                                                           }
+                                                       }];
 }
 
 //获取店铺类型接口
--(IBAction)GetShoptype:(NSString *)URL
+-(IBAction)GetShoptype
 {
-    NSDictionary *plistDic = [[NSBundle mainBundle] infoDictionary];
-    NSLog(@"plistDic = %@",plistDic);
-    NSString *url = [plistDic objectForKey: @"URL"];
-    NSError *error;
-    //    加载一个NSURL对象
-    NSString *urlstr = [[NSString alloc ]initWithFormat:@"%@/services/shop/type", url];
-    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:urlstr]];
-    //    将请求的url数据放到NSData对象中
-    NSData *response = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
-    if(response!=nil)
-    {
-        //    iOS5自带解析类NSJSONSerialization从response中解析出数据放到字典中
-        NSDictionary *weatherDic = [NSJSONSerialization JSONObjectWithData:response options:NSJSONReadingMutableLeaves error:&error];
-        //    weatherDic字典中存放的数据也是字典型，从它里面通过键值取值
-        NSString *status = [weatherDic objectForKey:@"status"];
-        NSLog(@"%@",status);
-        //    UIAlertView *aler = [[UIAlertView alloc] initWithTitle:@"提示" message:status delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
-        //    [aler show];
-        m_shoptypelist = [weatherDic objectForKey:@"data"];
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [m_backtable reloadData];
-            // 更新UI
-        });
-    }
-    [self.friendlyLoadingView hideLoadingView];
+    NSDictionary *dic = @{};
+    [[StoreOnlineNetworkEngine shareInstance] startNetWorkWithPath:@"services/shop/type"
+                                                            params:dic
+                                                            repeat:YES
+                                                             isGet:YES
+                                                       resultBlock:^(BOOL bValidJSON, NSString *errorMsg, id result) {
+                                                           if(!bValidJSON)
+                                                           {
+                                                               NSLog(@"error %@",errorMsg);
+                                                           }else
+                                                           {
+                                                               m_shoptypelist =result;
+                                                               [m_backtable reloadData];
+                                                           }
+                                                       }];
+   [self.friendlyLoadingView hideLoadingView];
 }
 
 #pragma UIStoryboardSegue 协议函数
@@ -1178,50 +1128,26 @@
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
 {
     m_tempb =searchBar;
-    myThread01 = [[NSThread alloc] initWithTarget:self
-                                         selector:@selector(search)
-                                           object:nil];
-    [myThread01 start];
 }
 
--(void)search
+- (void)refresh:(AWaterfallTableView *)tableView
 {
-    NSDictionary *plistDic = [[NSBundle mainBundle] infoDictionary];
-    NSLog(@"plistDic = %@",plistDic);
-    NSString *url = [plistDic objectForKey: @"URL"];
-    NSError *error;
-    // 加载一个NSURL对象
-    NSString *urlstr = [[NSString alloc ]initWithFormat:@"%@/services/shop/search_in_scope?longitude=%f&latitude=%f",url,longitude,latitude];
-    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:urlstr]];
-    // 将请求的url数据放到NSData对象中
-    NSData *response = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
-    if (response!=nil) {
-        if(response!=nil)
-        {
-            //  iOS5自带解析类NSJSONSerialization从response中解析出数据放到字典中
-            NSDictionary *weatherDic = [NSJSONSerialization JSONObjectWithData:response options:NSJSONReadingMutableLeaves error:&error];
-            //    weatherDic字典中存放的数据也是字典型，从它里面通过键值取值
-            NSString *status = [weatherDic objectForKey:@"status"];
-            NSLog(@"%@",status);
-            //  UIAlertView *aler = [[UIAlertView alloc] initWithTitle:@"提示" message:status delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
-            //    [aler show];
-            
-            if (m_tempb == m_deliverSearch) {
-                m_Deliverylist = [weatherDic objectForKey:@"data"];
-                dispatch_async(dispatch_get_main_queue(), ^{
-                        [m_Deliverytableview reloadData];
-                    // 更新UI
-                });
-            }else if(m_tempb ==  m_shopSearch)
-            {
-                m_ShopDaquanlist = [weatherDic objectForKey:@"data"];
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    [m_shoptable1 reloadData];
-                    // 更新UI
-                });
-            }
-        }
-    }
+//    if (tableView == m_Deliverytableview) {
+//        [m_Deliverytableview.]
+//    }
+//    m_CommunitylistON = [[NSMutableArray alloc] init];
+//    m_CommunitylistOF = [[NSMutableArray alloc] init];
+//    m_pageOffset = 0;
+//    [self GetCommunity:FALSE];
+}
+- (void)more:(AWaterfallTableView *)tableView
+{
+//    if(CommunitylistON.count==m_pageSize)
+//    {
+//        m_pagenumber++;
+//        m_pageOffset = m_pageSize*m_pagenumber;
+//        [self GetCommunity:FALSE];
+//    }
 }
 
 @end

@@ -19,11 +19,10 @@ NSMutableDictionary * Locationinfo;
 
 #define mark - 
 //获取定位信息
--(NSMutableDictionary *)GetLocation
+-(void)GetLocation
 {
     Locationinfo = [[NSMutableDictionary alloc] init];
     [self StartLocation];
-    return Locationinfo;
 }
 
 -(NSString *)StartLocation

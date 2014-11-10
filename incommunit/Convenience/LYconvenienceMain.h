@@ -9,6 +9,7 @@
 #import <CoreLocation/CoreLocation.h>
 #import <CoreLocation/CLLocationManagerDelegate.h>
 #import "UIImageView+AsyncDownload.h"
+#import "AWaterfallTableView.h"
 @interface LYconvenienceMain : UIViewController<UITextFieldDelegate,UIGestureRecognizerDelegate,UITableViewDelegate,UITableViewDataSource,CLLocationManagerDelegate,UISearchBarDelegate>
 {
     UITextField *m_textfiled;
@@ -21,9 +22,9 @@
     UIView * m_view03;
     UIView * m_view04;
     UITableView * m_Featuredtableview ;
-    UITableView * m_Deliverytableview;
-    UITableView * m_ShopDaquan;
-    UITableView *m_CellmicroShop;
+    AWaterfallTableView * m_Deliverytableview;
+    AWaterfallTableView * m_ShopDaquan;
+    AWaterfallTableView *m_CellmicroShop;
     NSMutableArray *m_Featuredlist;
     NSMutableArray *m_Deliverylist;
     NSMutableArray *m_ShopDaquanlist;
@@ -53,6 +54,9 @@
     NSThread* myThread03;
     NSThread* myThread04;
     NSThread* myThread05;
+    
+    int m_pagesize;
+    int m_pageoffset;
     
 }
 @property (weak, nonatomic) IBOutlet UIScrollView *_scrollView;
