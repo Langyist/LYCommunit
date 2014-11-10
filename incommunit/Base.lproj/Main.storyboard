@@ -4439,7 +4439,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo.jpg" id="u8A-Em-FyN">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="default_icon.png" id="u8A-Em-FyN">
                                 <rect key="frame" x="120" y="45" width="80" height="80"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
@@ -5066,6 +5066,7 @@
         <image name="Unselected.png" width="32" height="33"/>
         <image name="add.png" width="64" height="64"/>
         <image name="call_btr.png" width="54" height="54"/>
+        <image name="default_icon.png" width="87" height="88"/>
         <image name="ic_community_phones.png" width="40" height="40"/>
         <image name="ic_default_commodity.png" width="151" height="124"/>
         <image name="ic_default_shop.png" width="151" height="124"/>
