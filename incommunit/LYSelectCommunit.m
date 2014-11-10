@@ -158,7 +158,6 @@ static NSDictionary *   m_cityinfo;//城市信息
     reverseGeoCodeOption.reverseGeoPoint = userLocation.location.coordinate;
     [_geoCodeSearch reverseGeoCode:reverseGeoCodeOption];
     [locService stopUserLocationService];
-  //NSLog(@"didUpdateUserLocation lat %f,long %f",userLocation.location.coordinate.latitude,userLocation.location.coordinate.longitude);
 }
 
 // 定位失误时触发
@@ -181,7 +180,6 @@ static NSDictionary *   m_cityinfo;//城市信息
     }
     [m_tab refreshStart];
     self.view.userInteractionEnabled = YES;
-    //BMKReverseGeoCodeResult是编码的结果，包括地理位置，道路名称，uid，城市名等信息
 }
 
 //跳转到选择城市界面

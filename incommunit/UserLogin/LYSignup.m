@@ -237,7 +237,8 @@
     return ret;
 }
 
-- (BOOL)isPureInt:(NSString*)string{
+- (BOOL)isPureInt:(NSString*)string
+{
     NSScanner* scan = [NSScanner scannerWithString:string];
     int val;
     return[scan scanInt:&val] && [scan isAtEnd];

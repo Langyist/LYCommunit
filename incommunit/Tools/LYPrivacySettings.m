@@ -7,7 +7,7 @@
 //
 
 #import "LYPrivacySettings.h"
-
+#import "StoreOnlineNetworkEngine.h"
 @interface LYPrivacySettings () {
     
     BOOL isselect;
@@ -46,7 +46,6 @@
     m_tableView.dataSource = self;
     address = [NSMutableArray arrayWithCapacity:4];
     album = [NSMutableArray arrayWithCapacity:4];
-    [NSThread detachNewThreadSelector:@selector(getprivacysetting:) toTarget:self withObject:nil];
 }
 
 #pragma mark UITableView delegate
@@ -390,42 +389,7 @@
 }
 
 
-#pragma mark getdata
-- (BOOL)getprivacysetting:(NSString *)url
-{
-    NSDictionary *plistDic = [[NSBundle mainBundle] infoDictionary];
-    NSLog(@"plistDic = %@",plistDic);
-    NSString *strurl = [plistDic objectForKey: @"URL"];
-    NSError *error;
-    //加载一个NSURL对象
-    NSString *urlstr =[[NSString alloc] initWithFormat:@"%@/services/visible_setting/get",strurl] ;
-    //NSString *urlstr = [NSString stringWithFormat:@"%@/inCommunity/services/wuye/notice/list",URL];
-    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:urlstr]];
-    //将请求的url数据放到NSData对象中
-    NSData *response = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
-    if(response!=nil)
-    {
-        // iOS5自带解析类NSJSONSerialization从response中解析出数据放到字典中
-        NSDictionary *weatherDic = [NSJSONSerialization JSONObjectWithData:response options:NSJSONReadingMutableLeaves error:&error];
-        NSDictionary *data = [weatherDic objectForKey:@"data"];
-        m_addfriend = [data objectForKey:@"add_friend"];
-        m_address = [data objectForKey:@"address"];
-        m_album = [data objectForKey:@"album"];
-        if ([[weatherDic objectForKey:@"status"] isEqualToString:@"200"]){
-            NSString *add_frend = [weatherDic objectForKey:@"add_friend"];
-            NSLog(@"add_friend%@",add_frend);
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [m_tableView reloadData];
-                // 更新UI
-            });
-            return TRUE;
-        }else
-        {
-            return FALSE;
-        }
-    }
-    return NO;
-}
+
 -(BOOL)Submit
 {
     NSDictionary *plistDic = [[NSBundle mainBundle] infoDictionary];

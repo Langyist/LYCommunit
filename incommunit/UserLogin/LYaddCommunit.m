@@ -199,10 +199,13 @@
                 LMComBoxView *cityCombox = (LMComBoxView *)[bgScrollView viewWithTag:tag + 1 + kDropDownListTag];
                 [self done:m_communitid pid:@"1" ComBoxView:cityCombox];
             }
+<<<<<<< Updated upstream
             l1str = [[allPeriodData objectAtIndex:index] objectForKey:@"id"];
             BuildingData = [[NSMutableArray alloc] init];
             LMComBoxView *cityCombox = (LMComBoxView *)[bgScrollView viewWithTag:tag + 1 + kDropDownListTag];
             [self done:m_communitid pid:@"1" ComBoxView:cityCombox];
+=======
+>>>>>>> Stashed changes
         }
             break;
         case 1:
@@ -215,10 +218,13 @@
                 [self done:m_communitid pid:@"2"ComBoxView:cityCombox];
             }
             
+<<<<<<< Updated upstream
             UnitData = [[NSMutableArray alloc] init];
             l2str = [[temp objectAtIndex:index] objectForKey:@"id"];
             LMComBoxView *cityCombox = (LMComBoxView *)[bgScrollView viewWithTag:tag + 1 + kDropDownListTag];
             [self done:m_communitid pid:@"2"ComBoxView:cityCombox];
+=======
+>>>>>>> Stashed changes
         }
             break;
         case 2:
@@ -231,15 +237,22 @@
                 [self done:m_communitid pid:@"3" ComBoxView:cityCombox];
             }
             
+<<<<<<< Updated upstream
             HouseholdsData = [[NSMutableArray alloc] init];
             l3str = [[temp objectAtIndex:index] objectForKey:@"id"];
             temp = [[NSMutableArray alloc] init];
             LMComBoxView *cityCombox = (LMComBoxView *)[bgScrollView viewWithTag:tag + 1 + kDropDownListTag];
             [self done:m_communitid pid:@"3" ComBoxView:cityCombox];
+=======
+>>>>>>> Stashed changes
         }
             break;
         case 3:
         {
+<<<<<<< Updated upstream
+=======
+
+>>>>>>> Stashed changes
             if (tempdata4.count>0)
             {
                 HomeNumber = [[NSMutableArray alloc] init];
@@ -248,10 +261,13 @@
                 [self done:m_communitid pid:@"4" ComBoxView:cityCombox];
             }
             
+<<<<<<< Updated upstream
             HomeNumber = [[NSMutableArray alloc] init];
             l4str = [[temp objectAtIndex:index] objectForKey:@"id"];
             LMComBoxView *cityCombox = (LMComBoxView *)[bgScrollView viewWithTag:tag + 1 + kDropDownListTag];
             [self done:m_communitid pid:@"4" ComBoxView:cityCombox];
+=======
+>>>>>>> Stashed changes
         }
             break;
         case 4:
@@ -397,8 +413,14 @@
 -(NSString *)CovertImage:(UIImage *)iamge
 {
     NSData *_data = UIImageJPEGRepresentation(iamge, 1.0f);
-    NSString *_encodedImageStr = [_data base64Encoding];
-    return _encodedImageStr;
+    if(_data!=nil)
+    {
+        NSString *_encodedImageStr = [_data base64Encoding];
+        return _encodedImageStr;
+    }else
+    {
+        return @"";
+    }
 }
 //完成
 -(void)Submitinfo
