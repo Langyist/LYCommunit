@@ -7,6 +7,7 @@
 //
 
 #import "LYProductinformation.h"
+#import "CustomToolbarItem.h"
 @interface LYProductinformation ()
 
 @end
@@ -19,7 +20,56 @@
                                          selector:@selector(GetProductDetails:)
                                            object:self];
     [myThread01 start];
+    
+    UIBarButtonItem *homePage = [self createCustomItem:@"首页" imageName:@"首页" selector:nil tag:100];
+    UIBarButtonItem *persionalPage = [self createCustomItem:@"个人主页" imageName:@"2" selector:nil tag:101];
+    UIBarButtonItem *shoppingCartPage = [self createCustomItem:@"购物车" imageName:@"购物车" selector:nil tag:102];
+    UIBarButtonItem *orderPage = [self createCustomItem:@"我的订单" imageName:@"订单" selector:nil tag:103];
+    NSArray *array = [NSArray arrayWithObjects:
+                      [self createFixableItem:17]
+                      ,homePage
+                      ,[self createFixableItem:0]
+                      ,persionalPage
+                      ,[self createFixableItem:0]
+                      ,shoppingCartPage
+                      ,[self createFixableItem:0]
+                      ,orderPage
+                      ,[self createFixableItem:17]
+                      ,nil];
+    [self setToolbarItems:array animated:YES];
 }
+
+- (void)viewWillAppear:(BOOL)animated {
+    [self.navigationController setToolbarHidden:NO];
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [self.navigationController setToolbarHidden:YES];
+}
+
+- (UIBarButtonItem *)createFixableItem:(NSInteger)width {
+    UIBarButtonItem *item = nil;
+    UIBarButtonSystemItem type = UIBarButtonSystemItemFlexibleSpace;
+    if (width > 0) {
+        type = UIBarButtonSystemItemFixedSpace;
+    }
+    item = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:type target:nil action:nil];
+    item.width = width;
+    return item;
+}
+
+- (UIBarButtonItem *)createCustomItem:(NSString *)title imageName:(NSString *)imageName selector:(SEL)selector tag:(NSInteger)tag {
+    NSArray *nibViews = [[NSBundle mainBundle] loadNibNamed:@"CustomToolbarItem" owner:self options:nil];
+    CustomToolbarItem *customItem = [nibViews objectAtIndex:0];
+    customItem.tag = tag;
+    customItem.autoresizingMask = UIViewAutoresizingNone;
+    [customItem setImage:[UIImage imageNamed:imageName] forState:UIControlStateNormal];
+    [customItem setTitle:title forState:UIControlStateNormal];
+    [customItem addTarget:self action:selector forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithCustomView:customItem];
+    return item;
+}
+
 -(void)ClickView
 {
     [m_textField resignFirstResponder];
