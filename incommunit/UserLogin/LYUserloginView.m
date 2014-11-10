@@ -117,8 +117,13 @@ static BOOL YTourist;
         detailViewController->m_bl = TRUE;
     }
 }
+
+- (IBAction)login:(UIButton *)button {
+
+}
+
 //login 登陆函数
--(IBAction)login:(NSString*)user password:(NSString *)password
+-(void)login:(NSString*)user password:(NSString *)password
 {
     [passwordtext resignFirstResponder];
     Reachability *r = [Reachability reachabilityWithHostname:@"www.baidu.com"];
