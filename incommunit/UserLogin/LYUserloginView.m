@@ -119,12 +119,13 @@ static BOOL YTourist;
     }
 }
 
-- (IBAction)login:(UIButton *)button {
-
+- (IBAction)login:(UIButton *)button
+{
+    [self login:userText.text password:passwordtext.text communitID:[[LYSelectCommunit GetCommunityInfo] objectForKey:@"id"]];
 }
 
 //login 登陆函数
--(void)login:(NSString*)user password:(NSString *)password communitID:(NSString *)Communit
+-(void)login:(NSString*)user password:(NSString *)password communitID:(NSString *)Communitid
 {
     [passwordtext resignFirstResponder];
     Reachability *r = [Reachability reachabilityWithHostname:@"www.baidu.com"];
@@ -165,13 +166,13 @@ static BOOL YTourist;
             [userinfo setValue:[[LYSelectCommunit GetCommunityInfo] objectForKey:@"distance"] forKey:@"communitdistance"];
             [userinfo setValue:[[LYSelectCommunit GetCommunityInfo] objectForKey:@"max_level"] forKey:@"communitmax_level"];
         }
-        NSDictionary *dic = @{@"username" : userText.text
-                              ,@"password" : passwordtext.text
-                              ,@"community_id" : [[LYSelectCommunit GetCommunityInfo] objectForKey:@"id"]};
+        NSDictionary *dic = @{@"username" : user
+                              ,@"password" : password
+                              ,@"community_id" : Communitid};
         [[StoreOnlineNetworkEngine shareInstance] startNetWorkWithPath:@"services/login"
                                                                 params:dic
                                                                 repeat:YES
-                                                                 isGet:YES
+                                                                 isGet:NO
                                                               activity:YES
                                                            resultBlock:^(BOOL bValidJSON, NSString *errorMsg, id result) {
                                                                if(!bValidJSON)
@@ -184,8 +185,6 @@ static BOOL YTourist;
                                                                    [self performSegueWithIdentifier:@"GoLYFunctionInterface" sender:self];
                                                                }
                                                            }];
-        
-        
     }
     
     switch ([r currentReachabilityStatus])
