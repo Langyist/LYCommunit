@@ -63,26 +63,25 @@
 //下一步button
 -(IBAction)Signup:(id)sender
 {
-    [self performSegueWithIdentifier:@"GoLYaddCommunit" sender:self];
-//    if (m_password.text == nil || [m_password.text isEqual:@""]) {
-//        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"温馨提示"
-//                                                        message:@"请输入密码"
-//                                                       delegate:self
-//                                              cancelButtonTitle:@"确定"
-//                                              otherButtonTitles:@"取消", nil];
-//        [alert show];
-//    }else if (m_VerificationText.text == nil || [m_VerificationText.text isEqual:@""]){
-//        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"温馨提示"
-//                                                        message:@"请输入验证码"
-//                                                       delegate:self
-//                                              cancelButtonTitle:@"确定"
-//                                              otherButtonTitles:@"取消", nil];
-//        [alert show];
-//    }
-//    else
-//    {
-//        [self GetRegistration];
-//    }
+    if (m_password.text == nil || [m_password.text isEqual:@""]) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"温馨提示"
+                                                        message:@"请输入密码"
+                                                       delegate:self
+                                              cancelButtonTitle:@"确定"
+                                              otherButtonTitles:@"取消", nil];
+        [alert show];
+    }else if (m_VerificationText.text == nil || [m_VerificationText.text isEqual:@""]){
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"温馨提示"
+                                                        message:@"请输入验证码"
+                                                       delegate:self
+                                              cancelButtonTitle:@"确定"
+                                              otherButtonTitles:@"取消", nil];
+        [alert show];
+    }
+    else
+    {
+        [self GetRegistration];
+    }
 }
 //获取验证码
 -(IBAction)GetRcode:(id)sender
@@ -157,6 +156,7 @@
                                                             params:dic
                                                             repeat:YES
                                                              isGet:YES
+                                                          activity:YES
                                                        resultBlock:^(BOOL bValidJSON, NSString *errorMsg, id result) {
                                                            if(!bValidJSON)
                                                            {
@@ -164,7 +164,7 @@
                                                                [alview show];
                                                            }else
                                                            {
-                                                               userID =result;
+                                                               UserID =result;
                                                                [self performSegueWithIdentifier:@"GoLYaddCommunit" sender:self];
                                                            }
                                                        }];
@@ -174,7 +174,6 @@
 {
     self.navigationController.navigationBar.hidden = YES;
 }
-
 #pragma mark UITextField delegate 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
     if (textField == m_Phone) {
@@ -236,7 +235,6 @@
             ret = NO;
     }
     return ret;
-
 }
 
 - (BOOL)isPureInt:(NSString*)string{
@@ -250,8 +248,7 @@
         if ([segue.identifier isEqualToString: @"GoLYaddCommunit"])
         {
             LYaddCommunit *detailViewController = (LYaddCommunit*) segue.destinationViewController;
-            detailViewController->userID = userID;
+            detailViewController->userID = UserID;
         }
-    
 }
 @end

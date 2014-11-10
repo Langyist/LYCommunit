@@ -40,6 +40,11 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    l1str=@"";
+    l2str=@"";
+    l3str=@"";
+    l4str=@"";
+    l5str=@"";
     PeriodData = [[NSMutableArray alloc] init];
     [m_Nickname setShowBorderLine:NO];
     [m_Nickname setTextInset:UIEdgeInsetsMake(0, 15, 0, 15)];
@@ -187,40 +192,54 @@
     switch (tag) {
         case 0:
         {
-            l1str = [[allPeriodData objectAtIndex:index] objectForKey:@"id"];
-            BuildingData = [[NSMutableArray alloc] init];
-            LMComBoxView *cityCombox = (LMComBoxView *)[bgScrollView viewWithTag:tag + 1 + kDropDownListTag];
-            [self done:m_communitid pid:@"1" ComBoxView:cityCombox];
+            if(tempdata1.count>0)
+            {
+                l1str = [[tempdata1 objectAtIndex:index] objectForKey:@"id"];
+                BuildingData = [[NSMutableArray alloc] init];
+                LMComBoxView *cityCombox = (LMComBoxView *)[bgScrollView viewWithTag:tag + 1 + kDropDownListTag];
+                [self done:m_communitid pid:@"1" ComBoxView:cityCombox];
+            }
         }
             break;
         case 1:
         {
-            UnitData = [[NSMutableArray alloc] init];
-            l2str = [[temp objectAtIndex:index] objectForKey:@"id"];
-            LMComBoxView *cityCombox = (LMComBoxView *)[bgScrollView viewWithTag:tag + 1 + kDropDownListTag];
-            [self done:m_communitid pid:@"2"ComBoxView:cityCombox];
+            if (tempdata2.count>0)
+            {
+                UnitData = [[NSMutableArray alloc] init];
+                l2str = [[tempdata2 objectAtIndex:index] objectForKey:@"id"];
+                LMComBoxView *cityCombox = (LMComBoxView *)[bgScrollView viewWithTag:tag + 1 + kDropDownListTag];
+                [self done:m_communitid pid:@"2"ComBoxView:cityCombox];
+            }
         }
             break;
         case 2:
         {
-            HouseholdsData = [[NSMutableArray alloc] init];
-            l3str = [[temp objectAtIndex:index] objectForKey:@"id"];
-            temp = [[NSMutableArray alloc] init];
-            LMComBoxView *cityCombox = (LMComBoxView *)[bgScrollView viewWithTag:tag + 1 + kDropDownListTag];
-            [self done:m_communitid pid:@"3" ComBoxView:cityCombox];
+            if (tempdata3.count>0)
+            {
+                HouseholdsData = [[NSMutableArray alloc] init];
+                l3str = [[tempdata3 objectAtIndex:index] objectForKey:@"id"];
+                LMComBoxView *cityCombox = (LMComBoxView *)[bgScrollView viewWithTag:tag + 1 + kDropDownListTag];
+                [self done:m_communitid pid:@"3" ComBoxView:cityCombox];
+            }
         }
             break;
         case 3:
         {
-            HomeNumber = [[NSMutableArray alloc] init];
-            l4str = [[temp objectAtIndex:index] objectForKey:@"id"];
-            LMComBoxView *cityCombox = (LMComBoxView *)[bgScrollView viewWithTag:tag + 1 + kDropDownListTag];
-            [self done:m_communitid pid:@"4" ComBoxView:cityCombox];
+            if (tempdata4.count>0)
+            {
+                HomeNumber = [[NSMutableArray alloc] init];
+                l4str = [[tempdata4 objectAtIndex:index] objectForKey:@"id"];
+                LMComBoxView *cityCombox = (LMComBoxView *)[bgScrollView viewWithTag:tag + 1 + kDropDownListTag];
+                [self done:m_communitid pid:@"4" ComBoxView:cityCombox];
+            }
         }
             break;
         case 4:
         {
-            l5str = [[temp objectAtIndex:index] objectForKey:@"id"];
+            if(tempdata5.count>0)
+            {
+                l5str = [[tempdata5 objectAtIndex:index] objectForKey:@"id"];
+            }
         }
             break;
         default:
@@ -284,7 +303,6 @@
             ret = NO;
     }
     return ret;
-    
 }
 
 - (void)done:(NSString *)COMMUNITY_ID pid:(NSString *)PID ComBoxView:(LMComBoxView *)BoxView
@@ -295,7 +313,7 @@
     [[StoreOnlineNetworkEngine shareInstance] startNetWorkWithPath:@"services/community/level"
                                                             params:dic
                                                             repeat:YES
-                                                             isGet:NO
+                                                             isGet:YES
                                                        resultBlock:^(BOOL bValidJSON, NSString *errorMsg, id result) {
                                                            if(!bValidJSON)
                                                            {
@@ -304,44 +322,51 @@
                                                                
                                                            }else
                                                            {
-                                                               tempdata = result;
                                                                if ([PID isEqual:@"0"]) {
-                                                                   if (temp.count>0) {
-                                                                       for (int i = 0; i<temp.count; i++)
+                                                                   tempdata1 = result;
+                                                                   if (tempdata1.count>0) {
+                                                                       for (int i = 0; i<tempdata1.count; i++)
                                                                        {
-                                                                           [PeriodData addObject:[[tempdata objectAtIndex:i] objectForKey:@"name"]];
+                                                                           [PeriodData addObject:[[tempdata1 objectAtIndex:i] objectForKey:@"name"]];
+
                                                                        }
                                                                        BoxView.titlesList = PeriodData;
                                                                        [BoxView reloadData];
                                                                    }
                                                                }else if ([PID isEqual:@"1"])
                                                                {
-                                                                   for (int i = 0; i<temp.count; i++) {
-                                                                       [BuildingData addObject:[[temp objectAtIndex:i] objectForKey:@"name"]];
+                                                                   tempdata2 = result;
+                                                                   for (int i = 0; i<tempdata2.count; i++) {
+                                                                       [BuildingData addObject:[[tempdata2 objectAtIndex:i] objectForKey:@"name"]];
                                                                    }
                                                                    BoxView.titlesList = BuildingData;
                                                                    [BoxView reloadData];
                                                                }else if([PID isEqual:@"2"])
                                                                {
-                                                                   for (int i = 0; i<temp.count; i++)
+                                                                    tempdata3 = result;
+                                                                   for (int i = 0; i<tempdata3.count; i++)
                                                                    {
-                                                                       [UnitData addObject:[[temp objectAtIndex:i] objectForKey:@"name"]];
+                                                                       [UnitData addObject:[[tempdata3 objectAtIndex:i] objectForKey:@"name"]];
+
                                                                    }
                                                                    BoxView.titlesList = UnitData;
                                                                    [BoxView reloadData];
                                                                }else if([PID isEqual:@"3"])
                                                                {
-                                                                   for (int i = 0; i<temp.count; i++)
+
+                                                                   tempdata4 = result;
+                                                                   for (int i = 0; i<tempdata4.count; i++)
                                                                    {
-                                                                       [HouseholdsData addObject:[[temp objectAtIndex:i] objectForKey:@"name"]];
-                                                                   }
+                                                                       [HouseholdsData addObject:[[tempdata4 objectAtIndex:i] objectForKey:@"name"]];
+                                                                    }
                                                                    BoxView.titlesList = HouseholdsData;
                                                                    [BoxView reloadData];
                                                                }else if([PID isEqual:@"4"])
                                                                {
-                                                                   for (int i = 0; i<temp.count; i++)
+                                                                   tempdata5 = result;
+                                                                   for (int i = 0; i<tempdata5.count; i++)
                                                                    {
-                                                                       [HomeNumber addObject:[[temp objectAtIndex:i] objectForKey:@"name"]];
+                                                                       [HomeNumber addObject:[[tempdata5 objectAtIndex:i] objectForKey:@"name"]];
                                                                    }
                                                                    BoxView.titlesList = HomeNumber;
                                                                    [BoxView reloadData];
@@ -360,14 +385,14 @@
 {
     
     NSDictionary *dic = @{ @"user_id" : userID
-                          ,@"community_id" : [[LYSelectCommunit GetCommunityInfo] objectForKey:@"id"]
+                          ,@"community_id" : m_communitid
                           ,@"nick_name" : m_Nickname.text
                           ,@"head" : [self CovertImage:headimage]
                           ,@"l1" : l1str
                           ,@"l2" : l2str
                           ,@"l3" :l3str
                           ,@"l4" :l4str
-                          ,@"l6" :l5str
+                          ,@"l5" :l5str
                           };
     [[StoreOnlineNetworkEngine shareInstance] startNetWorkWithPath:@"services/reg_community"
                                                             params:dic
@@ -378,11 +403,13 @@
                                                            {
                                                                UIAlertView *al =[[UIAlertView alloc]initWithTitle:@"提示" message:errorMsg delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
                                                                [al show];
+                                                               [self performSegueWithIdentifier:@"GoFunction" sender:self];
                                                                
                                                            }else
                                                            {
                                                                UIAlertView *al =[[UIAlertView alloc]initWithTitle:@"提示" message:@"成功加入该小区" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
                                                                [al show];
+                                                               [self performSegueWithIdentifier:@"GoFunction" sender:self];
                                                            }
                                                        }];
 }

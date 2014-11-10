@@ -20,6 +20,7 @@
                                          selector:@selector(GetProductDetails:)
                                            object:self];
     [myThread01 start];
+
     
     UIBarButtonItem *homePage = [self createCustomItem:@"首页" imageName:@"首页" selector:nil tag:100];
     UIBarButtonItem *persionalPage = [self createCustomItem:@"个人主页" imageName:@"2" selector:nil tag:101];
@@ -37,6 +38,7 @@
                       ,[self createFixableItem:17]
                       ,nil];
     [self setToolbarItems:array animated:YES];
+
 }
 
 - (void)viewWillAppear:(BOOL)animated {

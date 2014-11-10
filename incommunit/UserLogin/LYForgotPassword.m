@@ -217,7 +217,7 @@
 {
     if([MobilenumberText.text isEqualToString:@""]||[passwordText.text isEqualToString:@""]||[CodeText.text isEqualToString:@""])
     {
-        UIAlertView *alview = [[UIAlertView alloc] initWithTitle:@"提示" message:@"请填写完成的信息" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+        UIAlertView *alview = [[UIAlertView alloc] initWithTitle:@"提示" message:@"请填写完整的信息" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
         [alview show];
     }else
         
