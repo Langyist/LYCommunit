@@ -67,11 +67,11 @@ static NSDictionary *   m_cityinfo;//城市信息
     [footerView setBackgroundColor:[UIColor clearColor]];
     footerView.clipsToBounds = NO;
     
-    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(40, 130, 80, 90)];
+    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(40, 101, 83, 95)];
     imageView.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
     [imageView setImage:[UIImage imageNamed:@"周边便民--未开店--帮帮娃_03"]];
     
-    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(150, 100, 150, 100)];
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(139, 107, 160, 89)];
     label.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleRightMargin;
     label.lineBreakMode = NSLineBreakByCharWrapping;
     label.numberOfLines = 0;
