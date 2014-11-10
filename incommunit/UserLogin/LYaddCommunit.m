@@ -67,7 +67,7 @@
     HouseholdsData = [[NSMutableArray alloc] init];
     HomeNumber = [[NSMutableArray alloc] init];
     
-    bgScrollView = [[LMContainsLMComboxScrollView alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(m_lableinfo.frame), self.view.frame.size.width, 35)];
+    bgScrollView = [[LMContainsLMComboxScrollView alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(m_lableinfo.frame), self.view.frame.size.width, 44)];
     bgScrollView.backgroundColor = [UIColor clearColor];
     bgScrollView.showsVerticalScrollIndicator = NO;
     bgScrollView.showsHorizontalScrollIndicator = NO;
@@ -199,13 +199,6 @@
                 LMComBoxView *cityCombox = (LMComBoxView *)[bgScrollView viewWithTag:tag + 1 + kDropDownListTag];
                 [self done:m_communitid pid:@"1" ComBoxView:cityCombox];
             }
-<<<<<<< Updated upstream
-            l1str = [[allPeriodData objectAtIndex:index] objectForKey:@"id"];
-            BuildingData = [[NSMutableArray alloc] init];
-            LMComBoxView *cityCombox = (LMComBoxView *)[bgScrollView viewWithTag:tag + 1 + kDropDownListTag];
-            [self done:m_communitid pid:@"1" ComBoxView:cityCombox];
-=======
->>>>>>> Stashed changes
         }
             break;
         case 1:
@@ -217,14 +210,6 @@
                 LMComBoxView *cityCombox = (LMComBoxView *)[bgScrollView viewWithTag:tag + 1 + kDropDownListTag];
                 [self done:m_communitid pid:@"2"ComBoxView:cityCombox];
             }
-            
-<<<<<<< Updated upstream
-            UnitData = [[NSMutableArray alloc] init];
-            l2str = [[temp objectAtIndex:index] objectForKey:@"id"];
-            LMComBoxView *cityCombox = (LMComBoxView *)[bgScrollView viewWithTag:tag + 1 + kDropDownListTag];
-            [self done:m_communitid pid:@"2"ComBoxView:cityCombox];
-=======
->>>>>>> Stashed changes
         }
             break;
         case 2:
@@ -236,23 +221,10 @@
                 LMComBoxView *cityCombox = (LMComBoxView *)[bgScrollView viewWithTag:tag + 1 + kDropDownListTag];
                 [self done:m_communitid pid:@"3" ComBoxView:cityCombox];
             }
-            
-<<<<<<< Updated upstream
-            HouseholdsData = [[NSMutableArray alloc] init];
-            l3str = [[temp objectAtIndex:index] objectForKey:@"id"];
-            temp = [[NSMutableArray alloc] init];
-            LMComBoxView *cityCombox = (LMComBoxView *)[bgScrollView viewWithTag:tag + 1 + kDropDownListTag];
-            [self done:m_communitid pid:@"3" ComBoxView:cityCombox];
-=======
->>>>>>> Stashed changes
         }
             break;
         case 3:
         {
-<<<<<<< Updated upstream
-=======
-
->>>>>>> Stashed changes
             if (tempdata4.count>0)
             {
                 HomeNumber = [[NSMutableArray alloc] init];
@@ -260,14 +232,6 @@
                 LMComBoxView *cityCombox = (LMComBoxView *)[bgScrollView viewWithTag:tag + 1 + kDropDownListTag];
                 [self done:m_communitid pid:@"4" ComBoxView:cityCombox];
             }
-            
-<<<<<<< Updated upstream
-            HomeNumber = [[NSMutableArray alloc] init];
-            l4str = [[temp objectAtIndex:index] objectForKey:@"id"];
-            LMComBoxView *cityCombox = (LMComBoxView *)[bgScrollView viewWithTag:tag + 1 + kDropDownListTag];
-            [self done:m_communitid pid:@"4" ComBoxView:cityCombox];
-=======
->>>>>>> Stashed changes
         }
             break;
         case 4:

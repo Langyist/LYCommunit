@@ -212,6 +212,8 @@
 		F15AE49A1A0208180084009C /* 黄色小三角_03.png in Resources */ = {isa = PBXBuildFile; fileRef = F15AE4991A0208180084009C /* 黄色小三角_03.png */; };
 		F16D77AE1A033E680044D858 /* CommentTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F16D77AC1A033E680044D858 /* CommentTableViewCell.m */; };
 		F16D77AF1A033E680044D858 /* CommentTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F16D77AD1A033E680044D858 /* CommentTableViewCell.xib */; };
+		F18E640C1A10B4D9001BD189 /* default_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = F18E640B1A10B4D9001BD189 /* default_icon.png */; };
+		F18E640F1A10BD91001BD189 /* CustomColorSearchBar.m in Sources */ = {isa = PBXBuildFile; fileRef = F18E640E1A10BD91001BD189 /* CustomColorSearchBar.m */; };
 		F1D3726D1A0DF2BF0077BAAA /* StoreSettingAddCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F1D3726B1A0DF2BF0077BAAA /* StoreSettingAddCollectionViewCell.m */; };
 		F1D3726E1A0DF2BF0077BAAA /* StoreSettingAddCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F1D3726C1A0DF2BF0077BAAA /* StoreSettingAddCollectionViewCell.xib */; };
 /* End PBXBuildFile section */
@@ -589,6 +591,9 @@
 		F16D77AB1A033E680044D858 /* CommentTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommentTableViewCell.h; sourceTree = "<group>"; };
 		F16D77AC1A033E680044D858 /* CommentTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommentTableViewCell.m; sourceTree = "<group>"; };
 		F16D77AD1A033E680044D858 /* CommentTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CommentTableViewCell.xib; sourceTree = "<group>"; };
+		F18E640B1A10B4D9001BD189 /* default_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = default_icon.png; sourceTree = "<group>"; };
+		F18E640D1A10BD91001BD189 /* CustomColorSearchBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomColorSearchBar.h; sourceTree = "<group>"; };
+		F18E640E1A10BD91001BD189 /* CustomColorSearchBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomColorSearchBar.m; sourceTree = "<group>"; };
 		F1D3726A1A0DF2BF0077BAAA /* StoreSettingAddCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StoreSettingAddCollectionViewCell.h; sourceTree = "<group>"; };
 		F1D3726B1A0DF2BF0077BAAA /* StoreSettingAddCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StoreSettingAddCollectionViewCell.m; sourceTree = "<group>"; };
 		F1D3726C1A0DF2BF0077BAAA /* StoreSettingAddCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StoreSettingAddCollectionViewCell.xib; sourceTree = "<group>"; };
@@ -744,6 +749,8 @@
 				F14F18FD1A0A2D0F00731239 /* ColMenu.m */,
 				F14F19021A0B583900731239 /* ArrowButton.h */,
 				F14F19031A0B583900731239 /* ArrowButton.m */,
+				F18E640D1A10BD91001BD189 /* CustomColorSearchBar.h */,
+				F18E640E1A10BD91001BD189 /* CustomColorSearchBar.m */,
 			);
 			path = CustomControls;
 			sourceTree = "<group>";
@@ -751,6 +758,7 @@
 		AD33ECC119FBCA2D00FE0C11 /* Image */ = {
 			isa = PBXGroup;
 			children = (
+				F18E640B1A10B4D9001BD189 /* default_icon.png */,
 				F14F19051A0B65C400731239 /* call_btr.png */,
 				F14F18F71A0A14F900731239 /* 商品详情管理_02.png */,
 				F14F18E71A08C96600731239 /* 添加_03.png */,
@@ -1328,6 +1336,7 @@
 				AD33ED3419FBCA2D00FE0C11 /* 加入购物车_13.png in Resources */,
 				AD33ED5719FBCA2D00FE0C11 /* 黄色_03.png in Resources */,
 				F1D3726E1A0DF2BF0077BAAA /* StoreSettingAddCollectionViewCell.xib in Resources */,
+				F18E640C1A10B4D9001BD189 /* default_icon.png in Resources */,
 				AD7FBAB81A0216FF008CC80A /* MaintenanceCell.xib in Resources */,
 				AD33ED2619FBCA2D00FE0C11 /* ic_share_to_friends.png in Resources */,
 				AD33ED3019FBCA2D00FE0C11 /* 减少_07.png in Resources */,
@@ -1467,6 +1476,7 @@
 				AD6211A019FD42CE009BECA6 /* LYnetwork.m in Sources */,
 				F14F51F41A0382B7006CC884 /* MyStoresTableViewController.m in Sources */,
 				F1392E521A0B909D00329FFF /* LicenseViewController.m in Sources */,
+				F18E640F1A10BD91001BD189 /* CustomColorSearchBar.m in Sources */,
 				F13D4C311A07688600E23FDB /* NCTableViewCell.m in Sources */,
 				AD3DD3C019FE13FE00364854 /* LY_FeaturedCell.m in Sources */,
 				F1392E8B1A0CD4C500329FFF /* StoreSettingCollectionViewCell.m in Sources */,

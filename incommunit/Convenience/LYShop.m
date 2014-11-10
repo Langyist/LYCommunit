@@ -196,7 +196,7 @@
 
 - (UIView *)sortView {
     if (!bgScrollView) {
-        bgScrollView = [[LMContainsLMComboxScrollView alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 44)];
+        bgScrollView = [[LMContainsLMComboxScrollView alloc]initWithFrame:CGRectMake(0, 10, self.view.frame.size.width, 34)];
         bgScrollView.backgroundColor = [UIColor clearColor];
         bgScrollView.showsVerticalScrollIndicator = NO;
         bgScrollView.showsHorizontalScrollIndicator = NO;
@@ -384,7 +384,7 @@
 {
     for(NSInteger i=0;i<2;i++)
     {
-        LMComBoxView *comBox = [[LMComBoxView alloc]initWithFrame:CGRectMake(self.view.frame.size.width/2*i, 0, self.view.frame.size.width/2, 44)];
+        LMComBoxView *comBox = [[LMComBoxView alloc]initWithFrame:CGRectMake(self.view.frame.size.width/2*i, 0, self.view.frame.size.width/2, CGRectGetHeight(bgScrollView.frame))];
         comBox.backgroundColor = [UIColor whiteColor];
         comBox.arrowImgName = @"down_dark0.png";
         NSMutableArray  *itemsArray2 = [[NSMutableArray alloc]initWithCapacity:1];

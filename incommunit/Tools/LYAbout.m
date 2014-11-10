@@ -34,7 +34,6 @@
     
     m_tableView.delegate = self;
     m_tableView.dataSource = self;
-    m_tableView.scrollEnabled = NO;
     
     [self getAboutinfo:@""];
 }
