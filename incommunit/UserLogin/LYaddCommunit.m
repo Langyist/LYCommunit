@@ -47,7 +47,6 @@
     [m_button.layer setCornerRadius:3.0];
     m_communitid = [[LYSelectCommunit GetCommunityInfo] objectForKey:@"id"];
     m_Nickname.delegate = self;
-    allPeriodData = [self done:m_communitid pid:@"0"];
     CALayer *lay  = m_iamgeview.layer;//获取ImageView的层
     [lay setMasksToBounds:YES];
     [lay setCornerRadius:CGRectGetHeight(m_iamgeview.frame) / 2];
@@ -144,8 +143,7 @@
         NSMutableArray  *itemsArray = [[NSMutableArray alloc]initWithCapacity:1];
         switch (i) {
             case 0:
-                [itemsArray addObjectsFromArray:PeriodData];
-                comBox.titlesList = itemsArray;
+                [self done:m_communitid pid:@"0" ComBoxView:comBox];
                 break;
             case 1:
                 if(BuildingData.count>0)
@@ -186,39 +184,22 @@
 
 -(void)selectAtIndex:(int)index inCombox:(LMComBoxView *)_combox
 {
-    
     NSInteger tag = _combox.tag - kDropDownListTag;
     switch (tag) {
         case 0:
         {
             l1str = [[allPeriodData objectAtIndex:index] objectForKey:@"id"];
             BuildingData = [[NSMutableArray alloc] init];
-            temp = [self done:m_communitid pid:@"1"];
-            if (temp.count>0) {
-                for (int i = 0; i<temp.count; i++)
-                {
-                    [BuildingData addObject:[[temp objectAtIndex:i] objectForKey:@"name"]];
-                }
-                LMComBoxView *cityCombox = (LMComBoxView *)[bgScrollView viewWithTag:tag + 1 + kDropDownListTag];
-                cityCombox.titlesList = BuildingData;
-                [cityCombox reloadData];
-            }
+            LMComBoxView *cityCombox = (LMComBoxView *)[bgScrollView viewWithTag:tag + 1 + kDropDownListTag];
+            [self done:m_communitid pid:@"1" ComBoxView:cityCombox];
         }
             break;
         case 1:
         {
             UnitData = [[NSMutableArray alloc] init];
             l2str = [[temp objectAtIndex:index] objectForKey:@"id"];
-            temp = [[NSMutableArray alloc] init];
-            temp = [self done:m_communitid pid:@"2"];
-            if (temp.count>0) {
-                for (int i = 0; i<temp.count; i++) {
-                    [UnitData addObject:[[temp objectAtIndex:i] objectForKey:@"name"]];
-                }
-                LMComBoxView *cityCombox = (LMComBoxView *)[bgScrollView viewWithTag:tag + 1 + kDropDownListTag];
-                cityCombox.titlesList = UnitData;
-                [cityCombox reloadData];
-            }
+            LMComBoxView *cityCombox = (LMComBoxView *)[bgScrollView viewWithTag:tag + 1 + kDropDownListTag];
+            [self done:m_communitid pid:@"2"ComBoxView:cityCombox];
         }
             break;
         case 2:
@@ -226,36 +207,16 @@
             HouseholdsData = [[NSMutableArray alloc] init];
             l3str = [[temp objectAtIndex:index] objectForKey:@"id"];
             temp = [[NSMutableArray alloc] init];
-            temp = [self done:m_communitid pid:@"3"];
-            if (temp.count>0) {
-                for (int i = 0; i<temp.count; i++)
-                {
-                    [HouseholdsData addObject:[[temp objectAtIndex:i] objectForKey:@"name"]];
-                }
-                LMComBoxView *cityCombox = (LMComBoxView *)[bgScrollView viewWithTag:tag + 1 + kDropDownListTag];
-                cityCombox.titlesList = HouseholdsData;
-                [cityCombox reloadData];
-            }
+            LMComBoxView *cityCombox = (LMComBoxView *)[bgScrollView viewWithTag:tag + 1 + kDropDownListTag];
+            [self done:m_communitid pid:@"3" ComBoxView:cityCombox];
         }
             break;
         case 3:
         {
             HomeNumber = [[NSMutableArray alloc] init];
-            if(temp.count>0)
-            {
-                l4str = [[temp objectAtIndex:index] objectForKey:@"id"];
-            }
-            temp = [[NSMutableArray alloc] init];
-            temp = [self done:m_communitid pid:@"4"];
-            if (temp.count>0) {
-                for (int i = 0; i<temp.count; i++)
-                {
-                    [HomeNumber addObject:[[temp objectAtIndex:i] objectForKey:@"name"]];
-                }
-                LMComBoxView *cityCombox = (LMComBoxView *)[bgScrollView viewWithTag:tag + 1 + kDropDownListTag];
-                cityCombox.titlesList = HomeNumber;
-                [cityCombox reloadData];
-            }
+            l4str = [[temp objectAtIndex:index] objectForKey:@"id"];
+            LMComBoxView *cityCombox = (LMComBoxView *)[bgScrollView viewWithTag:tag + 1 + kDropDownListTag];
+            [self done:m_communitid pid:@"4" ComBoxView:cityCombox];
         }
             break;
         case 4:
@@ -327,35 +288,62 @@
     
 }
 
-- (NSMutableArray *)done:(NSString *)COMMUNITY_ID pid:(NSString *)PID
+- (void)done:(NSString *)COMMUNITY_ID pid:(NSString *)PID ComBoxView:(LMComBoxView *)BoxView
 {
-    NSLog(@"完成");
-    NSMutableArray * temp1;
-    NSDictionary *plistDic = [[NSBundle mainBundle] infoDictionary];
-    NSLog(@"plistDic = %@",plistDic);
-    NSString * URl = [plistDic objectForKey: @"URL"];
-    NSError *error;
-    NSString *urlstr = [[NSString alloc] initWithFormat:@"%@/services/community/level?community_id=%@&pid=%@",URl,COMMUNITY_ID,PID];
-    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:urlstr]];
-    NSData *response = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
-    if (response!=nil)
-    {
-        NSDictionary *getcodeDic = [NSJSONSerialization JSONObjectWithData:response options:NSJSONReadingMutableLeaves error:&error];
-        NSLog(@"%@",getcodeDic);
-        NSString *message = [getcodeDic objectForKey:@"message"];
-        if (![[getcodeDic objectForKey:@"status"] isEqual:@"200"])
-        {
-            NSLog(@"%@",message);
-        }else
-        {
-            temp1 = [getcodeDic objectForKey:@"data"];
-            for (int i = 0; i<temp1.count; i++)
-            {
-                [PeriodData addObject:[[temp1 objectAtIndex:i] objectForKey:@"name"]];
-            }
-        }
-    }
-    return temp1;
+    NSDictionary *dic = @{ @"community_id" : COMMUNITY_ID
+                           ,@"pid" : PID
+                           };
+    [[StoreOnlineNetworkEngine shareInstance] startNetWorkWithPath:@"services/community/level"
+                                                            params:dic
+                                                            repeat:YES
+                                                             isGet:NO
+                                                       resultBlock:^(BOOL bValidJSON, NSString *errorMsg, id result) {
+                                                           if(!bValidJSON)
+                                                           {
+                                                               UIAlertView *al =[[UIAlertView alloc]initWithTitle:@"提示" message:errorMsg delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+                                                               [al show];
+                                                               
+                                                           }else
+                                                           {
+                                                               tempdata = result;
+                                                               if ([PID isEqual:@"1"]) {
+                                                                   if (temp.count>0) {
+                                                                       for (int i = 0; i<temp.count; i++)
+                                                                       {
+                                                                           [BuildingData addObject:[[tempdata objectAtIndex:i] objectForKey:@"name"]];
+                                                                       }
+                                                                       BoxView.titlesList = BuildingData;
+                                                                       [BoxView reloadData];
+                                                                   }
+                                                               }else if ([PID isEqual:@"2"])
+                                                               {
+                                                                   for (int i = 0; i<temp.count; i++) {
+                                                                       [UnitData addObject:[[temp objectAtIndex:i] objectForKey:@"name"]];
+                                                                   }
+                                                                   BoxView.titlesList = UnitData;
+                                                                   [BoxView reloadData];
+                                                               }else if([PID isEqual:@"3"])
+                                                               {
+                                                                   for (int i = 0; i<temp.count; i++)
+                                                                   {
+                                                                       [HouseholdsData addObject:[[temp objectAtIndex:i] objectForKey:@"name"]];
+                                                                   }
+                                                                   BoxView.titlesList = HouseholdsData;
+                                                                   [BoxView reloadData];
+                                                               }else if([PID isEqual:@"4"])
+                                                               {
+                                                                   for (int i = 0; i<temp.count; i++)
+                                                                   {
+                                                                       [HomeNumber addObject:[[temp objectAtIndex:i] objectForKey:@"name"]];
+                                                                   }
+                                                                   BoxView.titlesList = HomeNumber;
+                                                                   [BoxView reloadData];
+                                                               }else if([PID isEqual:@"5"])
+                                                               {
+                                                               
+                                                               }
+                                                           }
+                                               }];
 }
 -(NSString *)CovertImage:(UIImage *)iamge
 {

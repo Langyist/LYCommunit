@@ -19,7 +19,6 @@
                                          selector:@selector(GetProductDetails:)
                                            object:self];
     [myThread01 start];
-    // Do any additional setup after loading the view.
 }
 -(void)ClickView
 {
@@ -30,6 +29,7 @@
 {
     [super didReceiveMemoryWarning];
 }
+
 /*
  #pragma mark - Navigation
  

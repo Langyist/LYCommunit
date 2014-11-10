@@ -166,9 +166,10 @@
     [footerView addSubview:label];
     
     [m_Featuredtableview setBackgroundColor:BK_GRAY];
-    [m_Featuredtableview addSubview:footerView];
-    
-    //送餐送回
+    m_Featuredtableview.tableFooterView = footerView;
+    /*
+    送餐送货
+     */
     m_view02 = [[UIView alloc] initWithFrame:CGRectMake(self.view.frame.size.width, 0, self.view.frame.size.width, self._scrollView.frame.size.height)];
     m_Deliverytableview =[[AWaterfallTableView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
     m_Deliverytableview.dataSource = self;
@@ -176,7 +177,7 @@
     [m_view02 addSubview:m_Deliverytableview];
     [self._scrollView addSubview:m_view02];
     
-    //搜索
+  
     m_deliverSearch = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, m_view02.frame.size.width, 40)];
     m_deliverSearch.delegate = self;
     m_deliverSearch.placeholder = @"搜索店铺";
@@ -229,7 +230,10 @@
         label.font = [UIFont systemFontOfSize:16];
         [m_backView addSubview:label];
     }
-    //店铺大全
+    m_Deliverytableview.tableFooterView = footerView;
+    /*
+     店铺大全
+     */
     m_view03 = [[UIView alloc] initWithFrame:CGRectMake(self.view.frame.size.width * 2, 0, self._scrollView.frame.size.width, self._scrollView.frame.size.height)];
     m_ShopDaquan = [[AWaterfallTableView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self._scrollView.frame.size.height)];
     m_ShopDaquan.dataSource = self;
@@ -308,7 +312,10 @@
         label.font = [UIFont systemFontOfSize:16];
         [m_shopView addSubview:label];
     }
-    //小区微店
+    
+    /*
+     小区微店
+     */
     m_view04 = [[UIView alloc] initWithFrame:CGRectMake(self.view.frame.size.width * 3, 0, self._scrollView.frame.size.width, self._scrollView.frame.size.height)];
     m_CellmicroShop = [[AWaterfallTableView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self._scrollView.frame.size.height)];
     m_CellmicroShop.dataSource = self;
@@ -464,32 +471,6 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
-}
-
-#pragma mark - XDPopupListViewDataSource & XDPopupListViewDelegate
-- (NSInteger)numberOfRowsInSection:(NSInteger)section
-{
-    return m_listdata.count;
-}
-- (CGFloat)itemCellHeight:(NSIndexPath *)indexPath
-{
-    return 44.0f;
-}
-- (void)clickedListViewAtIndexPath:(NSIndexPath *)indexPath
-{
-    NSLog(@"%ld: %@", (long)indexPath.row, m_listdata[indexPath.row]);
-    m_temp.text =m_listdata[indexPath.row];
-}
-- (UITableViewCell *)itemCell:(NSIndexPath *)indexPath
-{
-    if (m_listdata.count == 0) {
-        return nil;
-    }
-    static NSString *identifier = @"ddd";
-    UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
-    cell.textLabel.text = m_listdata[indexPath.row];
-    cell.layer.borderColor = UIColor.grayColor.CGColor;
-    return cell;
 }
 
 #pragma mark - UITextFieldDelegate
@@ -658,7 +639,14 @@
         
     }else if(tableView == m_Deliverytableview)
     {
-        return m_Deliverylist.count;
+        NSInteger numberOfRowsInSection = m_Deliverylist.count;
+        if (numberOfRowsInSection == 0) {
+            m_Deliverytableview.tableFooterView.hidden = NO;
+        }
+        else {
+            m_Deliverytableview.tableFooterView.hidden = YES;
+        }
+        return numberOfRowsInSection;
         
     }if (tableView == m_ShopDaquan) {
         return  m_ShopDaquanlist.count;
@@ -1129,7 +1117,6 @@
 {
     m_tempb =searchBar;
 }
-
 - (void)refresh:(AWaterfallTableView *)tableView
 {
 //    if (tableView == m_Deliverytableview) {
