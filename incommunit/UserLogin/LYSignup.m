@@ -63,25 +63,26 @@
 //下一步button
 -(IBAction)Signup:(id)sender
 {
-    if (m_password.text == nil || [m_password.text isEqual:@""]) {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"温馨提示"
-                                                        message:@"请输入密码"
-                                                       delegate:self
-                                              cancelButtonTitle:@"确定"
-                                              otherButtonTitles:@"取消", nil];
-        [alert show];
-    }else if (m_VerificationText.text == nil || [m_VerificationText.text isEqual:@""]){
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"温馨提示"
-                                                        message:@"请输入验证码"
-                                                       delegate:self
-                                              cancelButtonTitle:@"确定"
-                                              otherButtonTitles:@"取消", nil];
-        [alert show];
-    }
-    else
-    {
-        [self GetRegistration];
-    }
+    [self performSegueWithIdentifier:@"GoLYaddCommunit" sender:self];
+//    if (m_password.text == nil || [m_password.text isEqual:@""]) {
+//        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"温馨提示"
+//                                                        message:@"请输入密码"
+//                                                       delegate:self
+//                                              cancelButtonTitle:@"确定"
+//                                              otherButtonTitles:@"取消", nil];
+//        [alert show];
+//    }else if (m_VerificationText.text == nil || [m_VerificationText.text isEqual:@""]){
+//        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"温馨提示"
+//                                                        message:@"请输入验证码"
+//                                                       delegate:self
+//                                              cancelButtonTitle:@"确定"
+//                                              otherButtonTitles:@"取消", nil];
+//        [alert show];
+//    }
+//    else
+//    {
+//        [self GetRegistration];
+//    }
 }
 //获取验证码
 -(IBAction)GetRcode:(id)sender
@@ -139,7 +140,7 @@
         [UIView setAnimationsEnabled:YES];
     }else
     {
-        m_dTime --;
+         m_dTime --;
         [UIView setAnimationsEnabled:NO];
         [m_RButton setTitle:[NSString stringWithFormat:@"%d秒", m_dTime] forState:UIControlStateNormal];
         [m_RButton layoutIfNeeded];
