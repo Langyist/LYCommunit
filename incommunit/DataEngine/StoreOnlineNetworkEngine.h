@@ -73,37 +73,6 @@ typedef void (^AnalyzeResponseResult)(BOOL bValidJSON, NSString *errorMsg, id re
  *  @param canRepeat
  *  标识这个请求是否可重复
  *
- *  @param isGet
- *  标识这个请求是否是‘GET’请求
- *
- *  @param activity
- *  是否启动进度窗口
- *
- *  @param result
- *  请求完成调用的回调函数
- *
- *  @discussion
- *  这个函数功能是异步执行，如有必要，请做界面处理
- *
- */
-- (MKNetworkOperation *) startNetWorkWithPath:(NSString *)path
-                                       params:(NSDictionary *)params
-                                       repeat:(BOOL)canRepeat
-                                        isGet:(BOOL)isGet
-                                  resultBlock:(AnalyzeResponseResult)result;
-
-/*!
- *  @abstract 发起网络请求
- *
- *  @param path
- *  请求的路径
- *
- *  @param params
- *  请求的参数
- *
- *  @param canRepeat
- *  标识这个请求是否可重复
- *
  *  @param activity
  *  是否启动进度窗口
  *

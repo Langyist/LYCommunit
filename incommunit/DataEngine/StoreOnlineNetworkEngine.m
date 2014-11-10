@@ -99,6 +99,13 @@
 }
 
 - (void)removeNetworkOperation:(MKNetworkOperation *)operation {
+    
+    //NSDictionary *dic = [self.operationNetworkArray objectForKey:[operation uniqueIdentifier]];
+    //NSNumber *activity = [dic objectForKey:@"activity"];
+    //if ([activity boolValue]) {
+        [self waiting:NO];
+    //}
+    
     [operation cancel];
     
     NSArray *allOperation = [self.operationNetworkArray allKeys];
@@ -141,11 +148,7 @@
 - (void)reportRestult:(MKNetworkOperation *)operation bValuedJSON:(BOOL)bValuedJSON errorMsg:(NSString *)errorMsg resultData:(id)resultData {
     NSDictionary *dic = [self.operationNetworkArray objectForKey:[operation uniqueIdentifier]];
     AnalyzeResponseResult result = [dic objectForKey:@"resultBlock"];
-    NSNumber *activity = [dic objectForKey:@"activity"];
     [self removeNetworkOperation:operation];
-    if ([activity boolValue]) {
-        [self waiting:NO];
-    }
     if (result) {
         result(bValuedJSON, errorMsg, resultData);
     }
@@ -258,12 +261,31 @@
     }
 }
 
-- (void)overlayViewDidReceiveTouchEvent:(NSSet *)touches forEvent:(UIEvent *)event {
-    UITouch *touch = [touches anyObject];
+- (void)overlayViewDidReceiveTouchEvent:(id)sender forEvent:(UIEvent *)event {
+    UITouch *touch = [event.allTouches anyObject];
     CGPoint point = [touch locationInView:self.overlayView];
     CGRect backRect = CGRectMake(0, 20, 60, 44);
     if (CGRectContainsPoint(backRect, point)) {
+        UIViewController * vc = [[UIApplication sharedApplication]keyWindow].rootViewController;
+        vc = [StoreOnlineNetworkEngine getVisibleViewControllerFrom:vc];
+        if (vc) {
+            [vc.navigationController popViewControllerAnimated:YES];
+        }
         [self removeNetworkOperation:waitingOperation];
+    }
+}
+
++ (UIViewController *) getVisibleViewControllerFrom:(UIViewController *) vc {
+    if ([vc isKindOfClass:[UINavigationController class]]) {
+        return [StoreOnlineNetworkEngine getVisibleViewControllerFrom:[((UINavigationController *) vc) visibleViewController]];
+    } else if ([vc isKindOfClass:[UITabBarController class]]) {
+        return [StoreOnlineNetworkEngine getVisibleViewControllerFrom:[((UITabBarController *) vc) selectedViewController]];
+    } else {
+        if (vc.presentedViewController) {
+            return [StoreOnlineNetworkEngine getVisibleViewControllerFrom:vc.presentedViewController];
+        } else {
+            return vc;
+        }
     }
 }
 
