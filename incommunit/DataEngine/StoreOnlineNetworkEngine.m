@@ -140,8 +140,17 @@
         [self enqueueOperation:operation];
         
         if (activity) {
-            [self waiting:YES];
+            waitingOperation = operation;
+            
+            [self performSelector:@selector(startUpdateWaiting:) withObject:operation afterDelay:1.5];
         }
+    }
+}
+
+- (void)startUpdateWaiting:(id)params {
+    
+    if ([waitingOperation isExecuting]) {
+        [self waiting:YES];
     }
 }
 
