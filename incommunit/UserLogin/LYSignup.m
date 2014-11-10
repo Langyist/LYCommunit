@@ -156,6 +156,7 @@
                                                             params:dic
                                                             repeat:YES
                                                              isGet:YES
+                                                          activity:YES
                                                        resultBlock:^(BOOL bValidJSON, NSString *errorMsg, id result) {
                                                            if(!bValidJSON)
                                                            {
@@ -163,7 +164,7 @@
                                                                [alview show];
                                                            }else
                                                            {
-                                                               userID =result;
+                                                               UserID =result;
                                                                [self performSegueWithIdentifier:@"GoLYaddCommunit" sender:self];
                                                            }
                                                        }];
@@ -173,7 +174,6 @@
 {
     self.navigationController.navigationBar.hidden = YES;
 }
-
 #pragma mark UITextField delegate 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
     if (textField == m_Phone) {
@@ -235,7 +235,6 @@
             ret = NO;
     }
     return ret;
-
 }
 
 - (BOOL)isPureInt:(NSString*)string{
@@ -249,8 +248,7 @@
         if ([segue.identifier isEqualToString: @"GoLYaddCommunit"])
         {
             LYaddCommunit *detailViewController = (LYaddCommunit*) segue.destinationViewController;
-            detailViewController->userID = userID;
+            detailViewController->userID = UserID;
         }
-    
 }
 @end

@@ -20,7 +20,7 @@
     UIButton * m_RButton;
     int m_dTime;
     NSTimer *m_timer;
-    NSString *userID;
+    NSString *UserID;
     BOOL bc;//注册发送是否成功
 }
 @property(nonatomic,retain)IBOutlet InsetTextField *m_Phone;

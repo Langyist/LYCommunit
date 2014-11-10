@@ -40,6 +40,11 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    l1str=@"";
+    l2str=@"";
+    l3str=@"";
+    l4str=@"";
+    l5str=@"";
     PeriodData = [[NSMutableArray alloc] init];
     [m_Nickname setShowBorderLine:NO];
     [m_Nickname setTextInset:UIEdgeInsetsMake(0, 15, 0, 15)];
@@ -380,14 +385,14 @@
 {
     
     NSDictionary *dic = @{ @"user_id" : userID
-                          ,@"community_id" : [[LYSelectCommunit GetCommunityInfo] objectForKey:@"id"]
+                          ,@"community_id" : m_communitid
                           ,@"nick_name" : m_Nickname.text
                           ,@"head" : [self CovertImage:headimage]
                           ,@"l1" : l1str
                           ,@"l2" : l2str
                           ,@"l3" :l3str
                           ,@"l4" :l4str
-                          ,@"l6" :l5str
+                          ,@"l5" :l5str
                           };
     [[StoreOnlineNetworkEngine shareInstance] startNetWorkWithPath:@"services/reg_community"
                                                             params:dic
@@ -398,6 +403,7 @@
                                                            {
                                                                UIAlertView *al =[[UIAlertView alloc]initWithTitle:@"提示" message:errorMsg delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
                                                                [al show];
+                                                               [self performSegueWithIdentifier:@"GoFunction" sender:self];
                                                                
                                                            }else
                                                            {
