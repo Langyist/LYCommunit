@@ -332,9 +332,9 @@
     m_microShop.placeholder = @"搜索店铺";
     m_CellmicroShop.tableHeaderView = m_microShop;
     
-    m_Deliverytableview = [self addTableViewWithIndex:1];
-    m_ShopDaquan = [self addTableViewWithIndex:2];
-    m_CellmicroShop = [self addTableViewWithIndex:3];
+    m_Deliverytableview = [self addTableViewWithIndex:1 searchBar:m_deliverSearch];
+    m_ShopDaquan = [self addTableViewWithIndex:2 searchBar:m_shopSearch];
+    m_CellmicroShop = [self addTableViewWithIndex:3 searchBar:m_microShop];
     CGSize size = CGSizeMake(CGRectGetMaxX(m_CellmicroShop.frame), 0);
     [self._scrollView setContentSize:size];
     
@@ -366,13 +366,14 @@
 
 }
 
-- (AWaterfallTableView *)addTableViewWithIndex:(NSInteger)index {
+- (AWaterfallTableView *)addTableViewWithIndex:(NSInteger)index searchBar:(UISearchBar *)searchBar {
     AWaterfallTableView *tableView = [m_Featuredtableview clone];
     tableView.delegate = self;
     tableView.dataSource = self;
     tableView.canRefresh = NO;
     tableView.canMore = NO;
     
+    tableView.tableHeaderView = searchBar;
     tableView.tableFooterView = [footerView clone];
     
     CGRect frame = m_Featuredtableview.frame;
