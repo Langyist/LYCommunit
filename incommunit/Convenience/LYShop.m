@@ -156,37 +156,11 @@
                     break;
                 case 5:
                 {
-                    bgScrollView = [[LMContainsLMComboxScrollView alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 44)];
-                    bgScrollView.backgroundColor = [UIColor clearColor];
-                    bgScrollView.showsVerticalScrollIndicator = NO;
-                    bgScrollView.showsHorizontalScrollIndicator = NO;
-                    [cell addSubview:bgScrollView];
+                    for (UIView *view in cell.contentView.subviews) {
+                        [view removeFromSuperview];
+                    }
                     
-                    comboxView = [[LMComBoxView alloc] initWithFrame:
-                                  CGRectMake(CGRectGetWidth(self.view.frame) / 2 * 0,
-                                             0,
-                                             CGRectGetWidth(self.view.frame) / 2,
-                                             44)];
-                    
-                    comboxView.backgroundColor = [UIColor clearColor];
-                    comboxView.titlesList = itemsArray;
-                    comboxView.delegate = self;
-                    comboxView.supView = bgScrollView;
-                    [comboxView defaultSettings];
-                    [bgScrollView addSubview:comboxView];
-                    
-                    comboxView1 = [[LMComBoxView alloc] initWithFrame:
-                                   CGRectMake(CGRectGetWidth(self.view.frame) / 2 * 1,
-                                              0,
-                                              CGRectGetWidth(self.view.frame) / 2,
-                                              44)];
-                    
-                    comboxView1.backgroundColor = [UIColor clearColor];
-                    comboxView1.titlesList = itemsArray1;
-                    comboxView1.delegate = self;
-                    comboxView1.supView = bgScrollView;
-                    [comboxView1 defaultSettings];
-                    [bgScrollView addSubview:comboxView1];
+                    [cell.contentView addSubview:[self sortView]];
                 }
                     break;
                 default:
@@ -219,6 +193,45 @@
     }
     return cell;
 }
+
+- (UIView *)sortView {
+    if (!bgScrollView) {
+        bgScrollView = [[LMContainsLMComboxScrollView alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 44)];
+        bgScrollView.backgroundColor = [UIColor clearColor];
+        bgScrollView.showsVerticalScrollIndicator = NO;
+        bgScrollView.showsHorizontalScrollIndicator = NO;
+        
+        [self setUpBgScrollView];
+        
+//        comboxView = [[LMComBoxView alloc] initWithFrame:
+//                      CGRectMake(CGRectGetWidth(self.view.frame) / 2 * 0,
+//                                 0,
+//                                 CGRectGetWidth(self.view.frame) / 2,
+//                                 44)];
+//        
+//        comboxView.backgroundColor = [UIColor clearColor];
+//        comboxView.titlesList = itemsArray;
+//        comboxView.delegate = self;
+//        comboxView.supView = bgScrollView;
+//        [comboxView defaultSettings];
+//        [bgScrollView addSubview:comboxView];
+//        
+//        comboxView1 = [[LMComBoxView alloc] initWithFrame:
+//                       CGRectMake(CGRectGetWidth(self.view.frame) / 2 * 1,
+//                                  0,
+//                                  CGRectGetWidth(self.view.frame) / 2,
+//                                  44)];
+//        
+//        comboxView1.backgroundColor = [UIColor clearColor];
+//        comboxView1.titlesList = itemsArray1;
+//        comboxView1.delegate = self;
+//        comboxView1.supView = bgScrollView;
+//        [comboxView1 defaultSettings];
+//        [bgScrollView addSubview:comboxView1];
+    }
+    return bgScrollView;
+}
+
 //点击事件
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -371,7 +384,7 @@
 {
     for(NSInteger i=0;i<2;i++)
     {
-        LMComBoxView *comBox = [[LMComBoxView alloc]initWithFrame:CGRectMake(self.view.frame.size.width/2*i+15, 3, self.view.frame.size.width/2-20, 32)];
+        LMComBoxView *comBox = [[LMComBoxView alloc]initWithFrame:CGRectMake(self.view.frame.size.width/2*i, 0, self.view.frame.size.width/2, 44)];
         comBox.backgroundColor = [UIColor whiteColor];
         comBox.arrowImgName = @"down_dark0.png";
         NSMutableArray  *itemsArray2 = [[NSMutableArray alloc]initWithCapacity:1];
