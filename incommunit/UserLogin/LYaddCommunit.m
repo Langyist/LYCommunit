@@ -129,7 +129,6 @@
     [m_Nickname resignFirstResponder];
 }
 
-
 -(void)setUpBgScrollView
 {
     for (NSInteger i = 0; i < 5; i++) {
@@ -306,18 +305,26 @@
                                                            }else
                                                            {
                                                                tempdata = result;
-                                                               if ([PID isEqual:@"1"]) {
+                                                               if ([PID isEqual:@"0"]) {
                                                                    if (temp.count>0) {
                                                                        for (int i = 0; i<temp.count; i++)
                                                                        {
-                                                                           [BuildingData addObject:[[tempdata objectAtIndex:i] objectForKey:@"name"]];
+                                                                           [PeriodData addObject:[[tempdata objectAtIndex:i] objectForKey:@"name"]];
                                                                        }
-                                                                       BoxView.titlesList = BuildingData;
+                                                                       BoxView.titlesList = PeriodData;
                                                                        [BoxView reloadData];
                                                                    }
-                                                               }else if ([PID isEqual:@"2"])
+                                                               }else if ([PID isEqual:@"1"])
                                                                {
                                                                    for (int i = 0; i<temp.count; i++) {
+                                                                       [BuildingData addObject:[[temp objectAtIndex:i] objectForKey:@"name"]];
+                                                                   }
+                                                                   BoxView.titlesList = BuildingData;
+                                                                   [BoxView reloadData];
+                                                               }else if([PID isEqual:@"2"])
+                                                               {
+                                                                   for (int i = 0; i<temp.count; i++)
+                                                                   {
                                                                        [UnitData addObject:[[temp objectAtIndex:i] objectForKey:@"name"]];
                                                                    }
                                                                    BoxView.titlesList = UnitData;
@@ -338,9 +345,6 @@
                                                                    }
                                                                    BoxView.titlesList = HomeNumber;
                                                                    [BoxView reloadData];
-                                                               }else if([PID isEqual:@"5"])
-                                                               {
-                                                               
                                                                }
                                                            }
                                                }];
