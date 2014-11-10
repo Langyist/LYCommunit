@@ -1112,7 +1112,6 @@
                                                                [m_backtable reloadData];
                                                            }
                                                        }];
-    
    [self.friendlyLoadingView hideLoadingView];
 }
 

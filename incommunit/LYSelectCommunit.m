@@ -280,6 +280,7 @@ static NSDictionary *   m_cityinfo;//城市信息
 //搜索小区
 -(void)GetCommunity:(BOOL)serchbarOn
 {
+    NSDictionary *dic;
     m_CommunityName = Serch.text;
     [Serch resignFirstResponder];
     NSString *Key =@"city_id";
@@ -295,14 +296,16 @@ static NSDictionary *   m_cityinfo;//城市信息
             m_city_name =[m_data objectForKey:@"name"];
         }
     }
-    
-    NSDictionary *dic = @{Key : [m_data objectForKey:key]
-                          ,@"name" : m_CommunityName
-                          ,@"longitude" : [[NSString alloc] initWithFormat:@"%f",longitude]
-                          ,@"latitude" : [[NSString alloc] initWithFormat:@"%f",latitude]
-                          ,@"pageSize" : [[NSString alloc] initWithFormat:@"%d",m_pageSize]
-                          ,@"pageOffset" : [[NSString alloc] initWithFormat:@"%d",m_pageOffset]
-                          };
+    if(m_data.count>0)
+    {
+        dic = @{Key : [m_data objectForKey:key]
+                              ,@"name" : m_CommunityName
+                              ,@"longitude" : [[NSString alloc] initWithFormat:@"%f",longitude]
+                              ,@"latitude" : [[NSString alloc] initWithFormat:@"%f",latitude]
+                              ,@"pageSize" : [[NSString alloc] initWithFormat:@"%d",m_pageSize]
+                              ,@"pageOffset" : [[NSString alloc] initWithFormat:@"%d",m_pageOffset]
+                              };
+    }
     [[StoreOnlineNetworkEngine shareInstance] startNetWorkWithPath:@"services/community/search"
                                                             params:dic
                                                             repeat:YES
@@ -310,6 +313,17 @@ static NSDictionary *   m_cityinfo;//城市信息
                                                        resultBlock:^(BOOL bValidJSON, NSString *errorMsg, id result) {
                                                            if(!bValidJSON)
                                                            {
+                                                               m_CommunitylistON = [[NSMutableArray alloc] init];
+                                                               m_CommunitylistOF = [[NSMutableArray alloc] init];
+                                                               if (m_tab.status== AWaterfallTableViewRefreshing )
+                                                               {
+                                                                   [m_tab reloadData];
+                                                                   [m_tab refreshEnd];
+                                                               }else if (m_tab.status == AWaterfallTableViewMoring)
+                                                               {
+                                                                   [m_tab reloadData];
+                                                                   [m_tab moreEnd];
+                                                               }
                                                                UIAlertView *msalview = [[UIAlertView alloc] initWithTitle:@"提示" message:errorMsg delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
                                                                [msalview show];
                                                            }else if(bValidJSON)
