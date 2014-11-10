@@ -67,7 +67,7 @@
     HouseholdsData = [[NSMutableArray alloc] init];
     HomeNumber = [[NSMutableArray alloc] init];
     
-    bgScrollView = [[LMContainsLMComboxScrollView alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(m_lableinfo.frame), self.view.frame.size.width, 35)];
+    bgScrollView = [[LMContainsLMComboxScrollView alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(m_lableinfo.frame), self.view.frame.size.width, 44)];
     bgScrollView.backgroundColor = [UIColor clearColor];
     bgScrollView.showsVerticalScrollIndicator = NO;
     bgScrollView.showsHorizontalScrollIndicator = NO;
