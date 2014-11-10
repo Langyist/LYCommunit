@@ -192,7 +192,6 @@
     switch (tag) {
         case 0:
         {
-<<<<<<< HEAD
             if(tempdata1.count>0)
             {
                 l1str = [[tempdata1 objectAtIndex:index] objectForKey:@"id"];
@@ -200,17 +199,14 @@
                 LMComBoxView *cityCombox = (LMComBoxView *)[bgScrollView viewWithTag:tag + 1 + kDropDownListTag];
                 [self done:m_communitid pid:@"1" ComBoxView:cityCombox];
             }
-=======
             l1str = [[allPeriodData objectAtIndex:index] objectForKey:@"id"];
             BuildingData = [[NSMutableArray alloc] init];
             LMComBoxView *cityCombox = (LMComBoxView *)[bgScrollView viewWithTag:tag + 1 + kDropDownListTag];
             [self done:m_communitid pid:@"1" ComBoxView:cityCombox];
->>>>>>> AndrewLee
         }
             break;
         case 1:
         {
-<<<<<<< HEAD
             if (tempdata2.count>0)
             {
                 UnitData = [[NSMutableArray alloc] init];
@@ -219,17 +215,14 @@
                 [self done:m_communitid pid:@"2"ComBoxView:cityCombox];
             }
             
-=======
             UnitData = [[NSMutableArray alloc] init];
             l2str = [[temp objectAtIndex:index] objectForKey:@"id"];
             LMComBoxView *cityCombox = (LMComBoxView *)[bgScrollView viewWithTag:tag + 1 + kDropDownListTag];
             [self done:m_communitid pid:@"2"ComBoxView:cityCombox];
->>>>>>> AndrewLee
         }
             break;
         case 2:
         {
-<<<<<<< HEAD
             if (tempdata3.count>0)
             {
                 HouseholdsData = [[NSMutableArray alloc] init];
@@ -238,18 +231,15 @@
                 [self done:m_communitid pid:@"3" ComBoxView:cityCombox];
             }
             
-=======
             HouseholdsData = [[NSMutableArray alloc] init];
             l3str = [[temp objectAtIndex:index] objectForKey:@"id"];
             temp = [[NSMutableArray alloc] init];
             LMComBoxView *cityCombox = (LMComBoxView *)[bgScrollView viewWithTag:tag + 1 + kDropDownListTag];
             [self done:m_communitid pid:@"3" ComBoxView:cityCombox];
->>>>>>> AndrewLee
         }
             break;
         case 3:
         {
-<<<<<<< HEAD
             if (tempdata4.count>0)
             {
                 HomeNumber = [[NSMutableArray alloc] init];
@@ -258,12 +248,10 @@
                 [self done:m_communitid pid:@"4" ComBoxView:cityCombox];
             }
             
-=======
             HomeNumber = [[NSMutableArray alloc] init];
             l4str = [[temp objectAtIndex:index] objectForKey:@"id"];
             LMComBoxView *cityCombox = (LMComBoxView *)[bgScrollView viewWithTag:tag + 1 + kDropDownListTag];
             [self done:m_communitid pid:@"4" ComBoxView:cityCombox];
->>>>>>> AndrewLee
         }
             break;
         case 4:
