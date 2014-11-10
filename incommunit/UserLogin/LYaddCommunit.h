@@ -27,6 +27,7 @@
     NSMutableArray * tempdata3;
     NSMutableArray * tempdata4;
     NSMutableArray * tempdata5;
+
 }
 @property(nonatomic,retain)IBOutlet UILabel *m_lableinfo;
 @property(nonatomic,retain)IBOutlet InsetTextField *m_Nickname;

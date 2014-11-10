@@ -192,6 +192,7 @@
     switch (tag) {
         case 0:
         {
+<<<<<<< HEAD
             if(tempdata1.count>0)
             {
                 l1str = [[tempdata1 objectAtIndex:index] objectForKey:@"id"];
@@ -199,10 +200,17 @@
                 LMComBoxView *cityCombox = (LMComBoxView *)[bgScrollView viewWithTag:tag + 1 + kDropDownListTag];
                 [self done:m_communitid pid:@"1" ComBoxView:cityCombox];
             }
+=======
+            l1str = [[allPeriodData objectAtIndex:index] objectForKey:@"id"];
+            BuildingData = [[NSMutableArray alloc] init];
+            LMComBoxView *cityCombox = (LMComBoxView *)[bgScrollView viewWithTag:tag + 1 + kDropDownListTag];
+            [self done:m_communitid pid:@"1" ComBoxView:cityCombox];
+>>>>>>> AndrewLee
         }
             break;
         case 1:
         {
+<<<<<<< HEAD
             if (tempdata2.count>0)
             {
                 UnitData = [[NSMutableArray alloc] init];
@@ -211,10 +219,17 @@
                 [self done:m_communitid pid:@"2"ComBoxView:cityCombox];
             }
             
+=======
+            UnitData = [[NSMutableArray alloc] init];
+            l2str = [[temp objectAtIndex:index] objectForKey:@"id"];
+            LMComBoxView *cityCombox = (LMComBoxView *)[bgScrollView viewWithTag:tag + 1 + kDropDownListTag];
+            [self done:m_communitid pid:@"2"ComBoxView:cityCombox];
+>>>>>>> AndrewLee
         }
             break;
         case 2:
         {
+<<<<<<< HEAD
             if (tempdata3.count>0)
             {
                 HouseholdsData = [[NSMutableArray alloc] init];
@@ -223,10 +238,18 @@
                 [self done:m_communitid pid:@"3" ComBoxView:cityCombox];
             }
             
+=======
+            HouseholdsData = [[NSMutableArray alloc] init];
+            l3str = [[temp objectAtIndex:index] objectForKey:@"id"];
+            temp = [[NSMutableArray alloc] init];
+            LMComBoxView *cityCombox = (LMComBoxView *)[bgScrollView viewWithTag:tag + 1 + kDropDownListTag];
+            [self done:m_communitid pid:@"3" ComBoxView:cityCombox];
+>>>>>>> AndrewLee
         }
             break;
         case 3:
         {
+<<<<<<< HEAD
             if (tempdata4.count>0)
             {
                 HomeNumber = [[NSMutableArray alloc] init];
@@ -235,6 +258,12 @@
                 [self done:m_communitid pid:@"4" ComBoxView:cityCombox];
             }
             
+=======
+            HomeNumber = [[NSMutableArray alloc] init];
+            l4str = [[temp objectAtIndex:index] objectForKey:@"id"];
+            LMComBoxView *cityCombox = (LMComBoxView *)[bgScrollView viewWithTag:tag + 1 + kDropDownListTag];
+            [self done:m_communitid pid:@"4" ComBoxView:cityCombox];
+>>>>>>> AndrewLee
         }
             break;
         case 4:
@@ -331,6 +360,7 @@
                                                                        for (int i = 0; i<tempdata1.count; i++)
                                                                        {
                                                                            [PeriodData addObject:[[tempdata1 objectAtIndex:i] objectForKey:@"name"]];
+
                                                                        }
                                                                        BoxView.titlesList = PeriodData;
                                                                        [BoxView reloadData];
@@ -349,16 +379,18 @@
                                                                    for (int i = 0; i<tempdata3.count; i++)
                                                                    {
                                                                        [UnitData addObject:[[tempdata3 objectAtIndex:i] objectForKey:@"name"]];
+
                                                                    }
                                                                    BoxView.titlesList = UnitData;
                                                                    [BoxView reloadData];
                                                                }else if([PID isEqual:@"3"])
                                                                {
+
                                                                    tempdata4 = result;
                                                                    for (int i = 0; i<tempdata4.count; i++)
                                                                    {
                                                                        [HouseholdsData addObject:[[tempdata4 objectAtIndex:i] objectForKey:@"name"]];
-                                                                   }
+                                                                    }
                                                                    BoxView.titlesList = HouseholdsData;
                                                                    [BoxView reloadData];
                                                                }else if([PID isEqual:@"4"])
