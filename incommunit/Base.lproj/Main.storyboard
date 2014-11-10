@@ -78,9 +78,10 @@
                                     <outlet property="delegate" destination="5z7-iZ-aVI" id="vDm-5w-kJS"/>
                                 </connections>
                             </tableView>
-                            <searchBar contentMode="redraw" text="" placeholder="搜索小区" id="LlY-R7-l9A">
+                            <searchBar contentMode="redraw" text="" placeholder="搜索小区" translucent="NO" id="LlY-R7-l9A">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                <color key="barTintColor" red="0.9137254901960784" green="0.90980392156862744" blue="0.90980392156862744" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <textInputTraits key="textInputTraits"/>
                             </searchBar>
                         </subviews>
@@ -4102,7 +4103,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" tag="101" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="wiS-Wp-hvS">
-                                                    <rect key="frame" x="23" y="9" width="914" height="21"/>
+                                                    <rect key="frame" x="23" y="9" width="1234" height="21"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -4499,7 +4500,7 @@
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="752" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="voL-Nr-wq5">
-                                <rect key="frame" x="10" y="291" width="300" height="40"/>
+                                <rect key="frame" x="10" y="280" width="300" height="40"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="0.73725490196078436" green="0.82352941176470584" blue="0.36862745098039218" alpha="1" colorSpace="deviceRGB"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
@@ -4512,7 +4513,7 @@
                                 </connections>
                             </button>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" allowsEditingTextAttributes="YES" placeholder="请输入您的手机号码" minimumFontSize="17" id="uo7-kJ-33e" customClass="InsetTextField">
-                                <rect key="frame" x="0.0" y="37" width="320" height="40"/>
+                                <rect key="frame" x="0.0" y="26" width="320" height="40"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="textColor"/>
@@ -4520,7 +4521,7 @@
                                 <textInputTraits key="textInputTraits" returnKeyType="next"/>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" allowsEditingTextAttributes="YES" placeholder="请输入您的密码（6-12位）" minimumFontSize="17" id="yke-ys-Hyw" customClass="InsetTextField">
-                                <rect key="frame" x="0.0" y="97" width="320" height="40"/>
+                                <rect key="frame" x="0.0" y="86" width="320" height="40"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="textColor"/>
@@ -4528,7 +4529,7 @@
                                 <textInputTraits key="textInputTraits" returnKeyType="next"/>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" allowsEditingTextAttributes="YES" placeholder="请输入验证码" minimumFontSize="17" id="3Be-SN-ibQ" customClass="InsetTextField">
-                                <rect key="frame" x="0.0" y="157" width="219" height="40"/>
+                                <rect key="frame" x="0.0" y="146" width="219" height="40"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="textColor"/>
@@ -4536,7 +4537,7 @@
                                 <textInputTraits key="textInputTraits" returnKeyType="next"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="1th-wt-CgI">
-                                <rect key="frame" x="227" y="160" width="83" height="34"/>
+                                <rect key="frame" x="227" y="149" width="83" height="34"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="0.73725490196078436" green="0.82352941176470584" blue="0.36862745098039218" alpha="1" colorSpace="deviceRGB"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
@@ -5105,10 +5106,10 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="ZlB-3N-nCw"/>
         <segue reference="kwL-jh-Juo"/>
         <segue reference="qLP-OD-hg1"/>
-        <segue reference="CIe-4m-5oX"/>
-        <segue reference="h8b-UJ-TZd"/>
+        <segue reference="ZlB-3N-nCw"/>
+        <segue reference="gne-12-lal"/>
+        <segue reference="Lzc-cq-hqV"/>
     </inferredMetricsTieBreakers>
 </document>

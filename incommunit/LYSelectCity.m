@@ -23,10 +23,10 @@ static NSMutableDictionary  *m_selectCityInfo;
     [super viewDidLoad];
     char c = 'A';
     sectionIndexes = [[NSMutableArray alloc] init];
-    [sectionIndexes addObject:@"热门"];
+    [sectionIndexes addObject:@"热"];
     for (NSInteger index = 0; index < 26; index++) {
         char cTemp = c + index;
-        NSString *string = [NSString stringWithFormat:@"%c", cTemp];// [NSString stringWithUTF8String:cTemp];
+        NSString *string = [NSString stringWithFormat:@"%c", cTemp];
         [sectionIndexes addObject:string];
     }
     m_selectCityInfo = [[NSMutableDictionary alloc] init];
