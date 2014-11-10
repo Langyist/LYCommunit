@@ -34,7 +34,7 @@
                                                          forBarMetrics:UIBarMetricsDefault];
     
     //修改返回按钮图标
-    UIImage *backImage = [UIImage imageWithImage:[UIImage imageNamed:@"箭头_04"] scaledToSize:CGSizeMake(13, 17)];
+    UIImage *backImage = [UIImage imageNamed:@"返回"];
     [[UINavigationBar appearance] setBackIndicatorImage:backImage];
     [[UINavigationBar appearance] setBackIndicatorTransitionMaskImage:backImage];
     

@@ -28,13 +28,6 @@
     [submitButton.layer setCornerRadius:3.0];
     self.MobilenumberText.delegate = self;
     self.navigationController.navigationBar.hidden = NO;
-    UILabel *customLab = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 100, 30)];
-    [customLab setTextColor:[UIColor colorWithRed:(0.0/255) green:(0.0/255) blue:(0.0/255) alpha:1.0]];
-    //[customLab setText:@"忘记密码"];
-    [customLab setText:@"找回密码"];
-    customLab.font = [UIFont boldSystemFontOfSize:17];
-    customLab.textAlignment = NSTextAlignmentCenter;
-    self.navigationItem.titleView = customLab;;
     self.CodeText.delegate = self;
     self.passwordText.delegate = self;
     UITapGestureRecognizer *tapgesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(downkeyboardGesture)];

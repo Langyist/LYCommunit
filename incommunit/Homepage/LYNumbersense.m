@@ -47,12 +47,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    UILabel *customLab = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 100, 30)];
-    [customLab setTextColor:[UIColor colorWithRed:(0.0/255) green:(0.0/255) blue:(0.0/255) alpha:1.0]];
-    [customLab setText:@"小区号码通"];
-    customLab.font = [UIFont boldSystemFontOfSize:17];
-    customLab.textAlignment = NSTextAlignmentCenter;
-    self.navigationItem.titleView = customLab;
     self.m_tabeView.delegate = self;
     self.m_tabeView.dataSource = self;
     [self getNumbersense:@""];
