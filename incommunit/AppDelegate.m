@@ -74,46 +74,4 @@
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
 
-#pragma mark -
-#pragma mark Public Method
-
-- (void)waiting:(BOOL)bStart {
-    if (!active) {
-        active = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-        active.hidesWhenStopped = YES;
-        active.frame = CGRectMake(0, 0, 70, 70);
-        //[active setBackgroundColor:[UIColor blackColor]];
-        //active.alpha = 0.8;
-        //active.transform = CGAffineTransformMakeScale(2, 2);
-        active.layer.cornerRadius = 6.0;
-        label = [[UILabel alloc] init];
-        label.frame = CGRectMake(0, 50, 70, 20);
-        label.textAlignment = NSTextAlignmentCenter;
-        label.textColor = [UIColor grayColor];
-        label.font = [UIFont systemFontOfSize:12.0f];
-        [label setText:@"正在载入..."];
-        active.center = self.window.center;
-        CGRect rect = label.frame;
-        rect.origin.x = (self.window.frame.size.width - rect.size.width) / 2 + 5;
-        rect.origin.y = self.window.center.y + 10;
-        label.frame = rect;
-        [self.window addSubview:active];
-        [self.window addSubview:label];
-    }
-    if (bStart && ![active isAnimating]) {
-        [self.window bringSubviewToFront:active];
-        [self.window bringSubviewToFront:label];
-        label.hidden = NO;
-        active.hidden = NO;
-        [active startAnimating];
-    }
-    else {
-        [self.window sendSubviewToBack:active];
-        [self.window sendSubviewToBack:label];
-        label.hidden = YES;
-        [active stopAnimating];
-    }
-    self.window.userInteractionEnabled = !bStart;
-}
-
 @end

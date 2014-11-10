@@ -23,7 +23,5 @@
 
 @property (strong, nonatomic) UIWindow *window;
 
-- (void)waiting:(BOOL)bStart;
-
 @end
 
