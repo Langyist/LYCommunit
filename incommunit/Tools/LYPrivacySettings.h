@@ -14,8 +14,8 @@
     NSMutableArray * m_UIbuttonArry;
     NSMutableArray *m_UIbutton;
     NSString * m_addfriend;//添加朋友时是否需要验证
-    NSArray *  m_address;//地址隐私设置
-    NSArray *  m_album;//相册隐私设置
+    NSMutableArray *  m_address;//地址隐私设置
+    NSMutableArray *  m_album;//相册隐私设置
     NSMutableArray *address;//地址隐私设置
     NSMutableArray *album;//相册隐私设置
 }

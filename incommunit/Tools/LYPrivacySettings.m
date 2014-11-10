@@ -7,6 +7,57 @@
 //
 
 #import "LYPrivacySettings.h"
+#import "AppDelegate.h"
+
+@interface TitleCell : UITableViewCell
+
+@property (weak, nonatomic) IBOutlet UILabel *name;
+@property (weak, nonatomic) IBOutlet UISwitch *switchUI;
+
+@end
+
+@implementation TitleCell
+
+- (void)drawRect:(CGRect)rect {
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    CGContextSetStrokeColorWithColor(context, TOP_BAR_YELLOW.CGColor);
+    
+    CGFloat linewidth = 2.0f;
+    CGFloat space = 15;
+    CGContextSetLineWidth(context, linewidth);
+    
+    CGContextMoveToPoint(context, space, CGRectGetHeight(rect) - linewidth); //start at this point
+    CGContextAddLineToPoint(context, CGRectGetWidth(rect) - space, CGRectGetHeight(rect) - linewidth);
+    
+    CGContextStrokePath(context);
+}
+
+@end
+
+@interface ContentCell : UITableViewCell
+
+@property (weak, nonatomic) IBOutlet UILabel *name;
+@property (weak, nonatomic) IBOutlet UIImageView *checkImageView;
+
+@end
+
+@implementation ContentCell
+
+- (void)drawRect:(CGRect)rect {
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    CGContextSetStrokeColorWithColor(context, SEPLINE_GRAY.CGColor);
+    
+    CGFloat linewidth = 0.2f;
+    CGFloat space = 15;
+    CGContextSetLineWidth(context, linewidth);
+    
+    CGContextMoveToPoint(context, space, CGRectGetHeight(rect) - linewidth); //start at this point
+    CGContextAddLineToPoint(context, CGRectGetWidth(rect) - space, CGRectGetHeight(rect) - linewidth);
+    
+    CGContextStrokePath(context);
+}
+
+@end
 
 @interface LYPrivacySettings () {
     
@@ -22,6 +73,7 @@
     NSString *album4;
     NSMutableDictionary *select;
     
+    NSArray *contentTitle;
 }
 @property (weak, nonatomic) IBOutlet UISwitch *isVisiable;
 @end
@@ -38,6 +90,13 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    contentTitle = @[@"朋友可见"
+                     ,@"实名用户可见"
+                     ,@"注册用户可见"
+                     ,@"所有人可见"
+                     ];
+    
     m_UIbuttonArry = [[NSMutableArray alloc] init];
     select = [[NSMutableDictionary alloc] init];
     m_UIbutton = [[NSMutableArray alloc] init];
@@ -51,341 +110,117 @@
 
 #pragma mark UITableView delegate
 
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (indexPath.row == 0) {
+        return 44;
+    }
+    else {
+        return 43;
+    }
+}
+
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 2;
+    return 3;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
     if (section == 0) {
-        return 4;
-    }else if (section == 1) {
-        
-        return 4;
-    }else {
-        return 0;
+        return 5;
+    }
+    else if (section == 1) {
+        return 5;
+    }
+    else {
+        return 1;
     }
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.section == 0) {
-        UITableViewCell *cell;
-        cell = [tableView dequeueReusableCellWithIdentifier:@"addresscellIdentifier"];
-        UIButton *addressButton = [[UIButton alloc] initWithFrame:CGRectMake(15, 9, 25, 25)];
-        [addressButton setImage:[UIImage imageNamed:@"Selected"] forState:UIControlStateNormal];
-        [addressButton setImage:[UIImage imageNamed:@"Unselected"] forState:UIControlStateSelected];
-        [cell addSubview:addressButton];
-        [m_UIbuttonArry addObject:addressButton];
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        switch (indexPath.row) {
-            case 0:
-            {
-                UILabel * lab = (UILabel *)[cell viewWithTag:100];
-                lab.text =@"朋友可见";
-                if([[m_address objectAtIndex:indexPath.row] intValue]==1)
-                {
-                    addressButton.selected = NO;
-                    [select setValue:@"1" forKey:@"address1"];
-                    address1=@"1";
-                }else
-                {
-                    addressButton.selected = YES;
-                    [select setValue:@"0" forKey:@"address1"];
-                    isselect = NO;
-                    address1=@"0";
-                }
-            }
-                break;
-            case 1:
-            {
-                UILabel * lab = (UILabel *)[cell viewWithTag:100];
-                lab.text =@"实名用户可见";
-                if([[m_address objectAtIndex:indexPath.row] intValue]==1)
-                {
-                    addressButton.selected = NO;
-                    [select setValue:@"1" forKey:@"address2"];
-                    isselect = YES;
-                    address2=@"1";
-                }else
-                {
-                    addressButton.selected = YES;
-                    isselect = NO;
-                    [select setValue:@"0" forKey:@"address2"];
-                    address2=@"0";
-                }
-            }
-                break;
-            case 2:
-            {
-                UILabel * lab = (UILabel *)[cell viewWithTag:100];
-                lab.text =@"注册用户可见";
-                if([[m_address objectAtIndex:indexPath.row] intValue]==1)
-                {
-                    addressButton.selected = NO;
-                    [select setValue:@"1" forKey:@"address3"];
-                    isselect = YES;
-                    address3=@"1";
-                }else
-                {
-                    addressButton.selected = YES;
-                    [select setValue:@"0" forKey:@"address3"];
-                    isselect = NO;
-                    address3=@"0";
-                }
-            }
-                break;
-            case 3:
-            {
-                UILabel * lab = (UILabel *)[cell viewWithTag:100];
-                lab.text =@"所有人可见";
-                if([[m_address objectAtIndex:indexPath.row] intValue]==1)
-                {
-                    addressButton.selected = NO;
-                    isselect = NO;
-                    [select setValue:@"1" forKey:@"address4"];
-                    address4=@"1";
-                }else
-                {
-                    addressButton.selected = YES;
-                    isselect = YES;
-                    [select setValue:@"0" forKey:@"address4"];
-                    address4=@"0";
-                }
-            }
-                break;
-            default:
-                break;
+    UITableViewCell *retcell = nil;
+    
+    NSString *title = @"";
+    NSArray *data = nil;
+    BOOL hideSwitch = YES;
+    switch (indexPath.section) {
+        case 0: {
+            title = @"我的住址";
+            data = m_address;
+            hideSwitch = YES;
         }
-        return cell;
-        
-    }else if (indexPath.section == 1) {
-        
-        UITableViewCell *cell;
-        cell = [tableView dequeueReusableCellWithIdentifier:@"addresscellIdentifier"];
-        UIButton *addressButton = [[UIButton alloc] initWithFrame:CGRectMake(15, 9, 25, 25)];
-        [addressButton setImage:[UIImage imageNamed:@"Selected"] forState:UIControlStateNormal];
-        [addressButton setImage:[UIImage imageNamed:@"Unselected"] forState:UIControlStateSelected];
-        [cell addSubview:addressButton];
-        [m_UIbutton addObject:addressButton];
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        switch (indexPath.row) {
-            case 0:
-            {
-                UILabel * lab = (UILabel *)[cell viewWithTag:100];
-                lab.text =@"朋友可见";
-                if([[m_album objectAtIndex:indexPath.row] intValue]==1)
-                {
-                    addressButton.selected = NO;
-                    isselect = NO;
-                    [select setValue:@"1" forKey:@"album1"];
-                    album1=@"1";
-                }else
-                {
-                    addressButton.selected = YES;
-                    isselect = YES;
-                    [select setValue:@"0" forKey:@"album1"];
-                    album1=@"0";
-                }
-            }
-                break;
-            case 1:
-            {
-                UILabel * lab = (UILabel *)[cell viewWithTag:100];
-                lab.text =@"实名用户可见";
-                if([[m_album objectAtIndex:indexPath.row] intValue]==1)
-                {
-                    addressButton.selected = NO;
-                    isselect = NO;
-                    [select setValue:@"1" forKey:@"album2"];
-                    album2=@"1";
-                }else
-                {
-                    addressButton.selected = YES;
-                    isselect = YES;
-                    [select setValue:@"0" forKey:@"album2"];
-                    album2=@"0";
-                }
-            }
-                break;
-            case 2:
-            {
-                UILabel * lab = (UILabel *)[cell viewWithTag:100];
-                lab.text =@"注册用户可见";
-                if([[m_album objectAtIndex:indexPath.row] intValue]==1)
-                {
-                    addressButton.selected = NO;
-                    isselect = NO;
-                    [select setValue:@"1" forKey:@"album3"];
-                    album3=@"1";
-                }else
-                {
-                    addressButton.selected = YES;
-                    isselect = YES;
-                    [select setValue:@"0" forKey:@"album3"];
-                    album3=@"0";
-                }
-            }
-                break;
-            case 3:
-            {
-                UILabel * lab = (UILabel *)[cell viewWithTag:100];
-                lab.text =@"所有人可见";
-                if([[m_album objectAtIndex:indexPath.row] intValue]==1)
-                {
-                    addressButton.selected = NO;
-                    isselect = NO;
-                    [select setValue:@"1" forKey:@"album4"];
-                    album4=@"1";
-                }else
-                {
-                    addressButton.selected = YES;
-                    isselect = YES;
-                    [select setValue:@"0" forKey:@"album4"];
-                    album4=@"0";
-                }
-            }
-                break;
-            default:
-                break;
-        }
-        return cell;
-    }else {
-        
-        return nil;
-    }
-}
-
-- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
-{
-    UIView* customView = [[UIView alloc] initWithFrame:CGRectMake(0.0, 0.0, self.view.frame.size.width, 30.0)];
-    customView.backgroundColor = [UIColor colorWithRed:(211/255.0) green:(211/255.0) blue:(211/255.0) alpha:1.0];
-    UILabel * headerLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-    headerLabel.backgroundColor = [UIColor clearColor];
-    headerLabel.opaque = NO;
-    headerLabel.textColor = [UIColor colorWithRed:(65/255.0) green:(65/255.0) blue:(64/255.0) alpha:1.0];
-    headerLabel.highlightedTextColor = [UIColor whiteColor];
-    headerLabel.font = [UIFont boldSystemFontOfSize:14];
-    headerLabel.frame = CGRectMake(20.0, 10.0, self.view.frame.size.width, 15.0);
-    switch (section) {
-        case 0:
-            headerLabel.text = @"我的住址";
-            [customView addSubview:headerLabel];
-            return customView;
             break;
-        case 1:
-            headerLabel.text = @"我的相册";
-            [customView addSubview:headerLabel];
-            return customView;
+        case 1: {
+            title = @"我的相册";
+            data = m_album;
+            hideSwitch = YES;
+        }
+            break;
+        case 2: {
+            title = @"加我为朋友时是否需要验证";
+            data = nil;
+            hideSwitch = NO;
+        }
+            break;
+        default:
             break;
     }
-    return nil;
-}
-
-- (CGFloat) tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
-{
-    return 30.0;
+    
+    if (indexPath.row == 0) {
+        TitleCell * cell = [tableView dequeueReusableCellWithIdentifier:@"TitleCell" forIndexPath:indexPath];
+        [cell.name setText:title];
+        cell.switchUI.hidden = hideSwitch;
+        if (!hideSwitch) {
+            [cell.switchUI setOn:[m_addfriend boolValue]];
+            [cell.switchUI addTarget:self action:@selector(valueChanged:) forControlEvents:UIControlEventValueChanged];
+            cell.switchUI.tag = indexPath.section;
+        }
+        retcell = cell;
+    }
+    else {
+        ContentCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ContentCell" forIndexPath:indexPath];
+        [cell.name setText:[contentTitle objectAtIndex:indexPath.row - 1]];
+        
+        NSString *value = [data objectAtIndex:indexPath.row - 1];
+        NSString *imageName = @"Unselected";
+        if([value intValue] == 1) {
+            imageName = @"Selected";
+        }
+        
+        [cell.checkImageView setImage:[UIImage imageNamed:imageName]];
+        
+        retcell = cell;
+    }
+    
+    retcell.selectionStyle = UITableViewCellSelectionStyleNone;
+    return retcell;
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UIButton *button ;
-    if (indexPath.section ==0) {
-        button = [m_UIbuttonArry objectAtIndex:indexPath.row];
-        if (isselect) {
-            if (indexPath.row) {
-                button.selected = NO;
-                isselect = NO;
-            }else {
-                
-                button.selected = YES;
-                isselect = YES;
-            }
+    NSMutableArray *data = nil;
+    switch (indexPath.section) {
+        case 0: {
+            data = m_address;
         }
-    }else if(indexPath.section == 1)
-    {
-         button = [m_UIbutton objectAtIndex:indexPath.row];
+            break;
+        case 1: {
+            data = m_album;
+        }
+            break;
+        default:
+            break;
     }
-    if (button.selected) {
-        if (indexPath.section==0) {
-            switch (indexPath.row) {
-                case 0:
-                    address1=@"1";
-                    break;
-                case 1:
-                    address2=@"1";
-                    break;
-                case 2:
-                    address3=@"1";
-                    break;
-                case 3:
-                    address4=@"1";
-                    break;
-                default:
-                    break;
-            }
-        }else if(indexPath.section ==1)
-        {
-            switch (indexPath.row) {
-                case 0:
-                    album1=@"1";
-                    break;
-                case 1:
-                    album2=@"1";
-                    break;
-                case 2:
-                    album3=@"1";
-                    break;
-                case 3:
-                    album4=@"1";
-                    break;
-                default:
-                    break;
-            }
-            
+    if (data && indexPath.row != 0) {
+        NSString *value = [data objectAtIndex:indexPath.row - 1];
+        if ([value boolValue]) {
+            value = @"0";
         }
-        button.selected = YES;
-        isselect = YES;
-    }else{
-        if (indexPath.section ==0) {
-            switch (indexPath.row) {
-                case 0:
-                    address1=@"0";
-                    break;
-                case 1:
-                    address2=@"0";
-                    break;
-                case 2:
-                    address3=@"0";
-                    break;
-                case 3:
-                    address4=@"0";
-                    break;
-                default:
-                    break;
-            }
-        }else if(indexPath.section ==1)
-        {
-            switch (indexPath.row) {
-                case 0:
-                    album1=@"0";
-                    break;
-                case 1:
-                    album2=@"0";
-                    break;
-                case 2:
-                    album3=@"0";
-                    break;
-                case 3:
-                    album4=@"0";
-                    break;
-                default:
-                    break;
-            }
-
+        else {
+            value = @"1";
         }
-        button.selected = NO;
-        isselect = NO;
+        [data setObject:value atIndexedSubscript:indexPath.row - 1];
+        [tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
     }
 }
 
@@ -409,8 +244,8 @@
         NSDictionary *weatherDic = [NSJSONSerialization JSONObjectWithData:response options:NSJSONReadingMutableLeaves error:&error];
         NSDictionary *data = [weatherDic objectForKey:@"data"];
         m_addfriend = [data objectForKey:@"add_friend"];
-        m_address = [data objectForKey:@"address"];
-        m_album = [data objectForKey:@"album"];
+        m_address = [NSMutableArray arrayWithArray:[data objectForKey:@"address"]];
+        m_album = [NSMutableArray arrayWithArray:[data objectForKey:@"album"]];
         if ([[weatherDic objectForKey:@"status"] isEqualToString:@"200"]){
             NSString *add_frend = [weatherDic objectForKey:@"add_friend"];
             NSLog(@"add_friend%@",add_frend);
@@ -455,5 +290,17 @@
 -(void)viewWillDisappear:(BOOL)animated
 {
     [self Submit];
+}
+
+- (void)valueChanged:(UISwitch *)sender {
+    if ([m_addfriend boolValue]) {
+        m_addfriend = @"0";
+    }
+    else {
+        m_addfriend = @"1";
+    }
+    
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:sender.tag];
+    [m_tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
 }
 @end
