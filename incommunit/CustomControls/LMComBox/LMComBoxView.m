@@ -6,7 +6,9 @@
 //  Copyright (c) 2014年 Eric Che. All rights reserved.
 //
 #import "LMComBoxView.h"
-@implementation LMComBoxView
+@implementation LMComBoxView {
+    CGFloat originalHeight;
+}
 @synthesize isOpen = _isOpen;
 @synthesize listTable = _listTable;
 @synthesize titlesList = _titlesList;
@@ -103,7 +105,7 @@
             frame.size.height = 0;
             [_listTable setFrame:frame];
             CGRect fr = _supView.frame;
-            fr.size.height = 35;
+            fr.size.height = originalHeight;
             _supView.frame = fr;
         } completion:^(BOOL finished){
             [_listTable removeFromSuperview];//移除
@@ -114,6 +116,7 @@
     else
     {
         CGRect fr = _supView.frame;
+        originalHeight = fr.size.height;
         fr.size.height = 180;
         _supView.frame = fr;
         [UIView animateWithDuration:0.3 animations:^{
@@ -135,7 +138,7 @@
                 //避免超出屏幕外
                 frame.size.height -= frame.origin.y + frame.size.height - height;
             }
-            frame.size.height = frame.size.height -35;
+            frame.size.height = frame.size.height - originalHeight;
             [_listTable setFrame:frame];
         } completion:^(BOOL finished){
             _isOpen = YES;
