@@ -255,7 +255,7 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="login:password:" destination="FZK-1q-QYC" eventType="touchUpInside" id="vDD-8R-nLG"/>
+                                    <action selector="login:" destination="FZK-1q-QYC" eventType="touchUpInside" id="BPV-gn-rpC"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="DbY-lc-CXq">
@@ -5108,8 +5108,8 @@
     <inferredMetricsTieBreakers>
         <segue reference="kwL-jh-Juo"/>
         <segue reference="vk7-fL-aT2"/>
-        <segue reference="Lzc-cq-hqV"/>
-        <segue reference="gne-12-lal"/>
+        <segue reference="e4p-wT-QTQ"/>
+        <segue reference="CIe-4m-5oX"/>
         <segue reference="ZlB-3N-nCw"/>
     </inferredMetricsTieBreakers>
 </document>
