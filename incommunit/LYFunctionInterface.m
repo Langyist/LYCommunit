@@ -10,6 +10,7 @@
 #import "LYSelectCommunit.h"
 #import "CustomToolbarItem.h"
 #import "LYUserloginView.h"
+#import "StoreOnlineNetworkEngine.h"
 @interface LYFunctionInterface () {
     UIBarButtonItem *mapItem;
     UIBarButtonItem *mineItem;
@@ -19,6 +20,7 @@
 @end
 @implementation LYFunctionInterface
 static NSMutableDictionary *Competence;//模块开通
+static NSDictionary *Communit;
 @synthesize bar,m_imageScrollView,m_page,m_imageView,m_View;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -35,15 +37,8 @@ static NSMutableDictionary *Competence;//模块开通
     self.bar.delegate = self;
     [NSThread detachNewThreadSelector:@selector(Getdata:) toTarget:self withObject:nil];
     [NSTimer scheduledTimerWithTimeInterval:5 target:self selector:@selector(scrollTimer) userInfo:nil repeats:YES];
-    
-    if ([[[LYSelectCommunit GetCommunityInfo] objectForKey:@"name"] isEqual:@""]||[[LYSelectCommunit GetCommunityInfo] objectForKey:@"name"] == nil)
-    {
-        [_titleButton setTitle: [[LYSelectCommunit GetCommunityInfo] objectForKey:@"communitname"] forState: UIControlStateNormal];
-    }else
-    {
-        [_titleButton setTitle: [[LYSelectCommunit GetCommunityInfo] objectForKey:@"name"] forState: UIControlStateNormal];
-    }
-    
+
+    [_titleButton setTitle: [Communit objectForKey:@"name"] forState: UIControlStateNormal];
     mapItem = [self createCustomItem:@"地图模式" imageName:@"4" selector:@selector(jumpToPage:) tag:100];
     mineItem = [self createCustomItem:@"我的主页" imageName:@"2" selector:@selector(jumpToPage:) tag:101];
     toolItem = [self createCustomItem:@"工具" imageName:@"3" selector:@selector(jumpToPage:) tag:102];
@@ -195,31 +190,27 @@ static NSMutableDictionary *Competence;//模块开通
 //获取网络数据
 -(void)Getdata:(NSString *)url
 {
-    NSDictionary *plistDic = [[NSBundle mainBundle] infoDictionary];
-    NSLog(@"plistDic = %@",plistDic);
-    NSString *urlstr = [plistDic objectForKey: @"URL"];
-    NSError *error;
-    NSString *urll = [[NSString alloc] initWithFormat:@"%@/services/community/index?id=%@",urlstr,[[LYSelectCommunit GetCommunityInfo] objectForKey:@"id"]];
-    //    加载一个NSURL对象
-    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:urll]];
-    //    将请求的url数据放到NSData对象中
-    NSData *response = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
-    if(response!=nil)
-    {
-    //    iOS5自带解析类NSJSONSerialization从response中解析出数据放到字典中
-    NSDictionary *weatherDic = [NSJSONSerialization JSONObjectWithData:response options:NSJSONReadingMutableLeaves error:&error];
-    //    weatherDic字典中存放的数据也是字典型，从它里面通过键值取值
-    NSString *status = [weatherDic objectForKey:@"status"];
-    NSLog(@"%@",status);
-    NSDictionary *data = [weatherDic objectForKey:@"data"];
-    NSDictionary *tem = [data objectForKey:@"community"];
-    Competence = [data objectForKey:@"level2"];
-    m_picearry = [tem objectForKey:@"images"];
-    dispatch_async(dispatch_get_main_queue(), ^{
-            [self updata];
-            // 更新UI
-        });
-}
+    
+    NSDictionary *dic = @{@"id" : [Communit objectForKey:@"id"]};
+    [[StoreOnlineNetworkEngine shareInstance] startNetWorkWithPath:@"services/community/index"
+                                                            params:dic
+                                                            repeat:YES
+                                                             isGet:YES
+                                                          activity:YES
+                                                       resultBlock:^(BOOL bValidJSON, NSString *errorMsg, id result) {
+                                                           if(!bValidJSON)
+                                                           {
+                                                               UIAlertView *alview = [[UIAlertView alloc] initWithTitle:@"提示" message:errorMsg delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+                                                               [alview show];
+                                                           }else
+                                                           {
+                                                               NSDictionary *tem = [result objectForKey:@"community"];
+                                                               Competence = [result objectForKey:@"level2"];
+                                                               m_picearry = [tem objectForKey:@"images"];
+                                                               [self updata];
+                                                           }
+                                                       }];
+    
 }
 
 -(void)updata{
@@ -246,4 +237,13 @@ static NSMutableDictionary *Competence;//模块开通
         [m_page addTarget:self action:@selector(pageTurn:) forControlEvents:UIControlEventValueChanged];
         m_timer = 0;
     }
+
++(void)Setcommunitinfo :(NSDictionary *)dic
+{
+    Communit =dic;
+}
++(NSDictionary *)Getcommunitinfo
+{
+    return Communit;
+}
 @end

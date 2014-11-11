@@ -12,6 +12,7 @@
 #import "LYSqllite.h"
 #import "AppDelegate.h"
 #import "StoreOnlineNetworkEngine.h"
+#import "LYFunctionInterface.h"
 @interface LYSelectCommunitCell : UITableViewCell
 {
     NSString *Cityname;
@@ -56,8 +57,10 @@ static NSDictionary *   m_cityinfo;//城市信息
 -(void)viewDidLoad
 {
     NSMutableDictionary *userinfo =  [LYSqllite Ruser];
-    if (userinfo != nil&&m_bl ==FALSE) {
+    if (userinfo != nil&&m_bl ==FALSE)
+    {
         m_cityinfo = userinfo;
+        [LYFunctionInterface Setcommunitinfo:m_cityinfo];
         [self login:[userinfo objectForKey:@"user"] password:[userinfo objectForKey:@"password"] communitID:[userinfo objectForKey:@"id"]];
     }
     [super viewDidLoad];
@@ -257,9 +260,11 @@ static NSDictionary *   m_cityinfo;//城市信息
         if (userinfo.count>0)
         {
             userinfo = [LYSqllite Ruser:[m_cityinfo objectForKey:@"id"]];
+            [LYFunctionInterface Setcommunitinfo:userinfo];
             [self login:[userinfo objectForKey:@"user"] password:[userinfo objectForKey:@"password"] communitID:[userinfo objectForKey:@"id"]];
         }else
         {
+            [LYFunctionInterface Setcommunitinfo:m_cityinfo];
             [self performSegueWithIdentifier:@"GoLYUserloginView" sender:self];
         }
     }else if ([[[NSString alloc]initWithFormat:@"%@",[m_cityinfo objectForKey:@"enable"]]isEqualToString:@"0"])

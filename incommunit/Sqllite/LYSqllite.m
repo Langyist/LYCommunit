@@ -100,6 +100,16 @@
                         NSString *sql = [NSString stringWithFormat:
                                          @"INSERT INTO USERINFO ('city_id', 'community_id', 'communitname','communitaddress','communitdistance','communitmax_level',user,password) VALUES ('%@', '%@', '%@','%@','%@','%@','%@','%@')",[userinfo objectForKey:@"city_id"], [userinfo objectForKey:@"community_id"] ,[userinfo objectForKey:@"communitname"] , [userinfo objectForKey:@"communitaddress"] ,[userinfo objectForKey:@"communitdistance"],[userinfo objectForKey:@"communitmax_level"],[userinfo objectForKey:@"user"],[userinfo objectForKey:@"password"]];
                         bl = [[[LYSqllite alloc] init]execSql:sql database:tempdatabase];
+                    }else
+                    {
+                        NSString *sql = [NSString stringWithFormat:@"delete from USERINFO where ID=1"];
+                        bl = [[[LYSqllite alloc] init]execSql:sql database:tempdatabase];
+                        if(bl)
+                        {
+                            NSString *sql = [NSString stringWithFormat:
+                                             @"INSERT INTO USERINFO ('city_id', 'community_id', 'communitname','communitaddress','communitdistance','communitmax_level',user,password) VALUES ('%@', '%@', '%@','%@','%@','%@','%@','%@')",[userinfo objectForKey:@"city_id"], [userinfo objectForKey:@"community_id"] ,[userinfo objectForKey:@"communitname"] , [userinfo objectForKey:@"communitaddress"] ,[userinfo objectForKey:@"communitdistance"],[userinfo objectForKey:@"communitmax_level"],[userinfo objectForKey:@"user"],[userinfo objectForKey:@"password"]];
+                            bl = [[[LYSqllite alloc] init]execSql:sql database:tempdatabase];
+                        }
                     }
                 }else
                 {
@@ -114,6 +124,14 @@
     }
     }
     return bl;
+}
+
+//删除一条记录
++(void)deleteuserinfo :(NSString *)name
+{
+    sqlite3 *tempdatabase =  [[[LYSqllite alloc] init] openSqlite:@"LY_db.db"];
+    NSString *sql = [NSString stringWithFormat:@"delete from USERINFO where user=%@",name];
+    [[[LYSqllite alloc] init]execSql:sql database:tempdatabase];
 }
 //读取用户信息表
 +(NSMutableDictionary *)Ruser

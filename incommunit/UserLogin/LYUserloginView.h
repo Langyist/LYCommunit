@@ -16,6 +16,7 @@
     @public NSString *community_id;
     @public NSString *community_Name;
     @public BOOL m_bool;
+    @public NSMutableDictionary *USERinfo;
     @private UIView *m_Pview;
     @private UILabel *m_communityName;
     NSMutableDictionary * userinfo;

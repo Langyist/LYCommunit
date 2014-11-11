@@ -10,6 +10,7 @@
 #import "LYSqllite.h"
 #import "AppDelegate.h"
 #import "StoreOnlineNetworkEngine.h"
+#import "LYFunctionInterface.h"
 @interface MyCommunitCell : UITableViewCell
 @end
 
@@ -126,7 +127,6 @@
     [self.selectButton.layer setMasksToBounds:YES];
     [self.selectButton.layer setCornerRadius:3.0];
 }
-
 -(IBAction)GoMycommunit:(id)sender
 {
     [self performSegueWithIdentifier:@"Goselectcommunit" sender:self];
@@ -134,7 +134,7 @@
 //获取网络数据
 -(void)Getdata
 {
-    NSDictionary *dic = @{@"id" : [[LYSelectCommunit GetCommunityInfo] objectForKey:@"id"]};
+     NSDictionary *dic = @{@"id" : [[LYFunctionInterface Getcommunitinfo] objectForKey:@"id"]};
     [[StoreOnlineNetworkEngine shareInstance] startNetWorkWithPath:@"services/community/index"
                                                             params:dic
                                                             repeat:YES
@@ -242,7 +242,32 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    NSMutableDictionary * temp = [HistoricDistrict objectAtIndex:indexPath.row];
+    [LYFunctionInterface Setcommunitinfo:temp];
+    [self login:[temp objectForKey:@"user"] password:[temp objectForKey:@"password"] communitID:[temp objectForKey:@"id"]];
+}
 
+//login 登陆函数
+-(void)login:(NSString*)user password:(NSString *)password communitID:(NSString *)Communitid
+{
+    NSDictionary *dic = @{@"username" : user
+                          ,@"password" : password
+                          ,@"community_id" : Communitid};
+    [[StoreOnlineNetworkEngine shareInstance] startNetWorkWithPath:@"services/login"
+                                                            params:dic
+                                                            repeat:YES
+                                                             isGet:NO
+                                                          activity:YES
+                                                       resultBlock:^(BOOL bValidJSON, NSString *errorMsg, id result) {
+                                                           if(!bValidJSON)
+                                                           {
+                                                               UIAlertView *alview = [[UIAlertView alloc] initWithTitle:@"提示" message:errorMsg delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+                                                               [alview show];
+                                                           }else
+                                                           {
+                                                               [self performSegueWithIdentifier:@"GoMianf" sender:self];
+                                                           }
+                                                       }];
 }
 
 -(void)viewDidAppear:(BOOL)animated
