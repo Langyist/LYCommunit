@@ -223,6 +223,8 @@
 		F18E641B1A10DBD6001BD189 /* 用户@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = F18E64151A10DBD6001BD189 /* 用户@3x.png */; };
 		F18E641E1A121614001BD189 /* 店铺_03.png in Resources */ = {isa = PBXBuildFile; fileRef = F18E641C1A121614001BD189 /* 店铺_03.png */; };
 		F18E641F1A121614001BD189 /* arrows_right.png in Resources */ = {isa = PBXBuildFile; fileRef = F18E641D1A121614001BD189 /* arrows_right.png */; };
+		F18E64231A122C0B001BD189 /* SubmitOrderItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = F18E64211A122C0B001BD189 /* SubmitOrderItemView.m */; };
+		F18E64241A122C0B001BD189 /* SubmitOrderItemView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F18E64221A122C0B001BD189 /* SubmitOrderItemView.xib */; };
 		F1D3726D1A0DF2BF0077BAAA /* StoreSettingAddCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F1D3726B1A0DF2BF0077BAAA /* StoreSettingAddCollectionViewCell.m */; };
 		F1D3726E1A0DF2BF0077BAAA /* StoreSettingAddCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F1D3726C1A0DF2BF0077BAAA /* StoreSettingAddCollectionViewCell.xib */; };
 /* End PBXBuildFile section */
@@ -613,6 +615,9 @@
 		F18E64151A10DBD6001BD189 /* 用户@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "用户@3x.png"; sourceTree = "<group>"; };
 		F18E641C1A121614001BD189 /* 店铺_03.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "店铺_03.png"; sourceTree = "<group>"; };
 		F18E641D1A121614001BD189 /* arrows_right.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = arrows_right.png; sourceTree = "<group>"; };
+		F18E64201A122C0B001BD189 /* SubmitOrderItemView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SubmitOrderItemView.h; sourceTree = "<group>"; };
+		F18E64211A122C0B001BD189 /* SubmitOrderItemView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SubmitOrderItemView.m; sourceTree = "<group>"; };
+		F18E64221A122C0B001BD189 /* SubmitOrderItemView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SubmitOrderItemView.xib; sourceTree = "<group>"; };
 		F1D3726A1A0DF2BF0077BAAA /* StoreSettingAddCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StoreSettingAddCollectionViewCell.h; sourceTree = "<group>"; };
 		F1D3726B1A0DF2BF0077BAAA /* StoreSettingAddCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StoreSettingAddCollectionViewCell.m; sourceTree = "<group>"; };
 		F1D3726C1A0DF2BF0077BAAA /* StoreSettingAddCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StoreSettingAddCollectionViewCell.xib; sourceTree = "<group>"; };
@@ -913,6 +918,9 @@
 				F142314B1A024E3F0088ED59 /* StoreslistTableViewCell.h */,
 				F142314C1A024E3F0088ED59 /* StoreslistTableViewCell.m */,
 				F142314D1A024E3F0088ED59 /* StoreslistTableViewCell.xib */,
+				F18E64201A122C0B001BD189 /* SubmitOrderItemView.h */,
+				F18E64211A122C0B001BD189 /* SubmitOrderItemView.m */,
+				F18E64221A122C0B001BD189 /* SubmitOrderItemView.xib */,
 			);
 			path = XIB;
 			sourceTree = "<group>";
@@ -1319,6 +1327,7 @@
 			files = (
 				AD33ED4119FBCA2D00FE0C11 /* 灰星_06.png in Resources */,
 				F12DAE321A0231E700591CB5 /* send_info.png in Resources */,
+				F18E64241A122C0B001BD189 /* SubmitOrderItemView.xib in Resources */,
 				AD33ED2A19FBCA2D00FE0C11 /* Selected.png in Resources */,
 				AD33ED1B19FBCA2D00FE0C11 /* 7_10.png in Resources */,
 				F12DAE331A0231E700591CB5 /* shop_introduce.png in Resources */,
@@ -1511,6 +1520,7 @@
 				AD7FBAB71A0216FF008CC80A /* LY_MaintenanceCell.m in Sources */,
 				AD3DD3B519FDF36600364854 /* LYaddCommunit.m in Sources */,
 				AD6211A019FD42CE009BECA6 /* LYnetwork.m in Sources */,
+				F18E64231A122C0B001BD189 /* SubmitOrderItemView.m in Sources */,
 				F14F51F41A0382B7006CC884 /* MyStoresTableViewController.m in Sources */,
 				F1392E521A0B909D00329FFF /* LicenseViewController.m in Sources */,
 				F18E640F1A10BD91001BD189 /* CustomColorSearchBar.m in Sources */,
