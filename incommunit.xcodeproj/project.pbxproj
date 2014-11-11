@@ -11,6 +11,7 @@
 		AD09555D1A08C7BF00C53A6F /* LYFeedback.m in Sources */ = {isa = PBXBuildFile; fileRef = AD09555C1A08C7BF00C53A6F /* LYFeedback.m */; };
 		AD197F151A0B660D00E05089 /* LYNumbersense.m in Sources */ = {isa = PBXBuildFile; fileRef = AD197F141A0B660D00E05089 /* LYNumbersense.m */; };
 		AD197F171A0B925C00E05089 /* License.html in Resources */ = {isa = PBXBuildFile; fileRef = AD197F161A0B925C00E05089 /* License.html */; };
+		AD26EB1E1A11EF6A0024403E /* LYHomeMyOrder.m in Sources */ = {isa = PBXBuildFile; fileRef = AD26EB1D1A11EF6A0024403E /* LYHomeMyOrder.m */; };
 		AD30F7D61A00D97A00C8709E /* LYProductinformation.m in Sources */ = {isa = PBXBuildFile; fileRef = AD30F7D51A00D97A00C8709E /* LYProductinformation.m */; };
 		AD33EC9019FBB13F00FE0C11 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = AD33EC8F19FBB13F00FE0C11 /* main.m */; };
 		AD33EC9319FBB13F00FE0C11 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = AD33EC9219FBB13F00FE0C11 /* AppDelegate.m */; };
@@ -244,6 +245,8 @@
 		AD197F131A0B660D00E05089 /* LYNumbersense.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LYNumbersense.h; sourceTree = "<group>"; };
 		AD197F141A0B660D00E05089 /* LYNumbersense.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LYNumbersense.m; sourceTree = "<group>"; };
 		AD197F161A0B925C00E05089 /* License.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = License.html; sourceTree = "<group>"; };
+		AD26EB1C1A11EF6A0024403E /* LYHomeMyOrder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LYHomeMyOrder.h; sourceTree = "<group>"; };
+		AD26EB1D1A11EF6A0024403E /* LYHomeMyOrder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LYHomeMyOrder.m; sourceTree = "<group>"; };
 		AD30F7D41A00D97A00C8709E /* LYProductinformation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LYProductinformation.h; sourceTree = "<group>"; };
 		AD30F7D51A00D97A00C8709E /* LYProductinformation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LYProductinformation.m; sourceTree = "<group>"; };
 		AD33EC8A19FBB13F00FE0C11 /* incommunit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = incommunit.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1023,8 +1026,6 @@
 		AD6211C919FD554E009BECA6 /* Homepage */ = {
 			isa = PBXGroup;
 			children = (
-				AD197F131A0B660D00E05089 /* LYNumbersense.h */,
-				AD197F141A0B660D00E05089 /* LYNumbersense.m */,
 				AD6A9B741A09CA420031B7C2 /* XIB */,
 				AD6A9B711A09C77E0031B7C2 /* LYMycollection.h */,
 				AD6A9B721A09C77E0031B7C2 /* LYMycollection.m */,
@@ -1044,6 +1045,10 @@
 				F14F18FA1A0A15C200731239 /* AddActionViewController.m */,
 				F1392E851A0CC2E600329FFF /* StoreSettingViewController.h */,
 				F1392E861A0CC2E600329FFF /* StoreSettingViewController.m */,
+				AD26EB1C1A11EF6A0024403E /* LYHomeMyOrder.h */,
+				AD26EB1D1A11EF6A0024403E /* LYHomeMyOrder.m */,
+				AD197F131A0B660D00E05089 /* LYNumbersense.h */,
+				AD197F141A0B660D00E05089 /* LYNumbersense.m */,
 			);
 			path = Homepage;
 			sourceTree = "<group>";
@@ -1512,6 +1517,7 @@
 				AD4823061A03224E00A54F45 /* TagsCollectionViewController.m in Sources */,
 				F14F18F11A09FD9A00731239 /* KxMenu.m in Sources */,
 				AD6211D719FD5D5D009BECA6 /* LYCommonSettings.m in Sources */,
+				AD26EB1E1A11EF6A0024403E /* LYHomeMyOrder.m in Sources */,
 				AD7FBAB51A0216FF008CC80A /* LY_AnnouncementNoCell.m in Sources */,
 				AD7FBAB31A0216FF008CC80A /* LY_ACCell1.m in Sources */,
 				AD7FBAB41A0216FF008CC80A /* LY_AnnouncementCell.m in Sources */,
