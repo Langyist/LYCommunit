@@ -8,12 +8,19 @@
 
 #import "LYProductinformation.h"
 #import "CustomToolbarItem.h"
+#import "AppDelegate.h"
+
 @interface LYProductinformation ()
+@property (weak, nonatomic) IBOutlet UIView *desContainerView;
+@property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
+@property (weak, nonatomic) IBOutlet UIPageControl *page;
+@property (weak, nonatomic) IBOutlet UIScrollView *imageViewScroll;
 
 @end
 
 @implementation LYProductinformation
 @synthesize m_iamgeview,m_GoodsName,m_Introduction,m_Price,m_textField,m_ProductDetails;
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     NSThread *myThread01 = [[NSThread alloc] initWithTarget:self
@@ -39,14 +46,26 @@
                       ,nil];
     [self setToolbarItems:array animated:YES];
 
+    UITapGestureRecognizer* singleRecognizer;
+    singleRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(ClickView)];
+    singleRecognizer.numberOfTapsRequired = 1; // 单击
+    [self.view addGestureRecognizer:singleRecognizer];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [self.navigationController setToolbarHidden:NO];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyBoardWillShow:) name:UIKeyboardWillShowNotification object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyBoardWillHide:) name:UIKeyboardWillHideNotification object:nil];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
     [self.navigationController setToolbarHidden:YES];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillShowNotification object:nil];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
 }
 
 - (UIBarButtonItem *)createFixableItem:(NSInteger)width {
@@ -111,6 +130,12 @@
     }
 }
 
+- (IBAction)laud:(id)sender {
+}
+
+- (IBAction)addShopingCart:(id)sender {
+}
+
 -(IBAction)SetChan:(NSString *)URL
 {
 //    if ([[[NSString alloc]initWithFormat:@"%@",[m_ProductDetails objectForKey:@"isLike"]]isEqual:@"1"])
@@ -146,14 +171,48 @@
 {
     if(dic!=nil)
     {
+        // 商品名
         m_GoodsName.text = [dic objectForKey:@"name"];
-        m_Price.text = [[NSString alloc]initWithFormat:@"￥%@.00",[dic objectForKey:@"price"]];
-        m_Introduction.text = [dic objectForKey:@"description"];
-       // m_Introduction.editable =NO;
-        UITapGestureRecognizer* singleRecognizer;
-        singleRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(ClickView)];
-        singleRecognizer.numberOfTapsRequired = 1; // 单击
-        [self.view addGestureRecognizer:singleRecognizer];
+        
+        // 商品价格
+        NSNumber *priceNumber = [dic objectForKey:@"price"];
+        if (!priceNumber) {
+            priceNumber = [NSNumber numberWithFloat:0];
+        }
+        NSString *priceString = [NSString stringWithFormat:@"￥%.2f", [priceNumber floatValue]];
+        NSMutableAttributedString *priceAttiString = [[NSMutableAttributedString alloc] initWithString:priceString];
+        [priceAttiString addAttribute:NSForegroundColorAttributeName value:TOP_BAR_YELLOW range:NSMakeRange(0, priceAttiString.length)];
+        [priceAttiString addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:15] range:NSMakeRange(0, 1)];
+        [priceAttiString addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:27] range:NSMakeRange(1, priceAttiString.length - 1)];
+        [m_Price setAttributedText:priceAttiString];
+        
+        // 商品描述
+        NSString *desString = [dic objectForKey:@"description"];
+        desString = desString ? desString : @"";
+        NSMutableAttributedString *desAttrString = [[NSMutableAttributedString alloc] initWithString:desString];
+        if ([desString length]) {
+            NSMutableParagraphStyle *style = [[NSMutableParagraphStyle defaultParagraphStyle] mutableCopy];
+            style.alignment = NSTextAlignmentLeft;
+            style.firstLineHeadIndent = 26;
+            [desAttrString addAttribute:NSParagraphStyleAttributeName value:style range:NSMakeRange(0, desAttrString.length)];
+            [desAttrString addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:13] range:NSMakeRange(0, desAttrString.length)];
+            [desAttrString addAttribute:NSForegroundColorAttributeName value:[UIColor darkGrayColor] range:NSMakeRange(0, desAttrString.length)];
+        }
+        [m_Introduction setAttributedText:desAttrString];
+        
+        // 变更控件size
+        CGFloat height =[self heightOfLabel:@[desString] size:CGSizeMake(CGRectGetWidth(m_Introduction.frame), CGFLOAT_MAX) font:[UIFont systemFontOfSize:13]];
+        
+        CGRect rect = m_Introduction.frame;
+        rect.size.height = height;
+        m_Introduction.frame = rect;
+        
+        rect = self.desContainerView.frame;
+        rect.size.height = CGRectGetMaxY(m_Introduction.frame) + 50;
+        self.desContainerView.frame = rect;
+        
+        CGSize contentSize = CGSizeMake(0, CGRectGetMaxY(self.desContainerView.frame));
+        [self.scrollView setContentSize:contentSize];
     }
 }
 
@@ -169,4 +228,68 @@
         m_textField.text = [[NSString alloc]initWithFormat:@"%d",[m_textField.text intValue]-1];
     }
 }
+
+#pragma mark -
+#pragma mark TextMethod
+
+- (CGFloat)heightOfLabel:(NSArray *)textList size:(CGSize)size font:(UIFont *)font {
+    int length = 0;
+    CGFloat height = 0;
+    for (NSString *text in textList) {
+        length += (int)[self widthOfString:text withFont:font];
+    }
+    if (length > 0) {
+        int count = (int)(length / size.width);
+        height = (count + 1) * font.lineHeight;
+    }
+    return height;
+}
+
+//根据字号计算字符串的宽度
+- (CGFloat)widthOfString:(NSString *)string withFont:(UIFont *)font {
+    if (string.length == 0) {
+        return 0;
+    }
+    NSDictionary *attributes = [NSDictionary dictionaryWithObjectsAndKeys:font, NSFontAttributeName, nil];
+    return [[[NSAttributedString alloc] initWithString:string attributes:attributes] size].width + 26;
+}
+
+#pragma mark - 键盘处理
+#pragma mark 键盘即将显示
+
+- (void)keyBoardWillShow:(NSNotification *)note{
+    
+    CGRect rect = [note.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
+    if (rect.origin.y >= self.view.frame.origin.y) {
+        CGFloat ty = -rect.size.height;
+        [UIView animateWithDuration:[note.userInfo[UIKeyboardAnimationDurationUserInfoKey] doubleValue]
+                         animations:^{
+                             UIEdgeInsets inset = UIEdgeInsetsMake(0, 0, -ty, 0);
+                             [self.scrollView setContentInset:inset];
+                             
+                             [self.scrollView setContentOffset:CGPointMake(0, CGRectGetMinY(m_textField.frame) - 50)];
+                         }];
+    }
+}
+
+#pragma mark 键盘即将退出
+
+- (void)keyBoardWillHide:(NSNotification *)note{
+    
+    [UIView animateWithDuration:[note.userInfo[UIKeyboardAnimationDurationUserInfoKey] doubleValue]
+                     animations:^{
+                         [self.scrollView setContentInset:UIEdgeInsetsZero];
+                     }];
+}
+
+#pragma mark -
+#pragma mark UIScrollViewDelegate
+
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
+    if (scrollView == self.imageViewScroll) {
+        NSInteger index = lroundf(self.imageViewScroll.contentOffset.x / self.imageViewScroll.frame.size.width);
+        self.page.currentPage = index;
+    }
+}
+
 @end

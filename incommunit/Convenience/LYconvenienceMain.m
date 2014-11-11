@@ -217,7 +217,11 @@
         numberOfRowsInSection = m_Featuredlist.count;
     }
     else if(tableView == m_Deliverytableview) {
+<<<<<<< HEAD
         //numberOfRowsInSection = m_Deliverylist.count;
+=======
+        numberOfRowsInSection = m_Deliverylist.count;
+>>>>>>> AndrewLee
     }
     else if (tableView == m_ShopDaquan) {
         numberOfRowsInSection = m_ShopDaquanlist.count;
