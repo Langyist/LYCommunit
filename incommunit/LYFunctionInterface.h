@@ -20,10 +20,13 @@
     UIView *            m_View;
     @public BOOL        *Tourist ;
     
+    
 }
 @property(nonatomic, retain)IBOutlet UITabBar       *bar;
 @property(nonatomic,retain)IBOutlet UIImageView     *m_imageView;
 @property (strong, nonatomic)IBOutlet UIPageControl *m_page;
 @property (nonatomic,retain)IBOutlet UIScrollView  *m_imageScrollView;
 @property (nonatomic,retain)IBOutlet UIView  *m_View;
++(void)Setcommunitinfo :(NSDictionary *)dic;
++(NSDictionary *)Getcommunitinfo;
 @end

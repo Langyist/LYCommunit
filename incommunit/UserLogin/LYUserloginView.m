@@ -38,7 +38,13 @@ static BOOL YTourist;
     singleRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(ClickView)];
     singleRecognizer.numberOfTapsRequired = 1; // 单击
     [self.view addGestureRecognizer:singleRecognizer];
-    m_communityName.text = [[LYSelectCommunit GetCommunityInfo] objectForKey:@"name"];
+    if(USERinfo==nil)
+    {
+        m_communityName.text = [[LYSelectCommunit GetCommunityInfo] objectForKey:@"name"];
+    }else
+    {
+        m_communityName.text = [USERinfo objectForKey:@"name"];
+    }
     [LYSqllite CreatUserTable];
     }
 
@@ -101,9 +107,11 @@ static BOOL YTourist;
 - (IBAction)login:(UIButton *)button
 {
     [passwordtext resignFirstResponder];
+    userinfo= [[NSMutableDictionary alloc] init];
     Reachability *r = [Reachability reachabilityWithHostname:@"www.baidu.com"];
     myThread = [[NSThread alloc] initWithTarget:self selector:@selector(startlogin:) object:nil];
     [myThread start];
+
     [userinfo setValue:userText.text forKey:@"user"];
     [userinfo setValue:passwordtext.text forKey:@"password"];
     [userinfo setValue:[[LYSelectCommunit GetCommunityInfo] objectForKey:@"id"] forKey:@"community_id"];
@@ -111,7 +119,7 @@ static BOOL YTourist;
     [userinfo setValue:[[LYSelectCommunit GetCommunityInfo] objectForKey:@"address"] forKey:@"communitaddress"];
     [userinfo setValue:[[LYSelectCommunit GetCommunityInfo] objectForKey:@"distance"] forKey:@"communitdistance"];
     [userinfo setValue:[[LYSelectCommunit GetCommunityInfo] objectForKey:@"max_level"] forKey:@"communitmax_level"];
-    
+
     if ([userText.text isEqual:@""]||userText.text==nil) {
         UIAlertView *aler = [[UIAlertView alloc] initWithTitle:@"提示"
                                                        message:@"用户不能为空"

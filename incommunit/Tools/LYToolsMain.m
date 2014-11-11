@@ -10,6 +10,8 @@
 #import "LYUserloginView.h"
 #import "StoreOnlineNetworkEngine.h"
 #import "LYPrivacySettings.h"
+#import "LYFunctionInterface.h"
+#import "LYSqllite.h"
 @interface LYToolsMain ()
 {
     LYPrivacySettings *privacy;
@@ -100,8 +102,6 @@ static NSMutableArray *album;
                                              }}];
 }
 
-
-
 #pragma mark - Navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
@@ -129,6 +129,8 @@ static NSMutableArray *album;
 }
 -(IBAction)Exit:(id)sender
 {
+    
+    [LYSqllite deleteuserinfo:[[LYFunctionInterface Getcommunitinfo] objectForKey:@"user"]];
     [self performSegueWithIdentifier:@"GoLogin" sender:self];
 }
 

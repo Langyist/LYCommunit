@@ -29,7 +29,7 @@
 
 @end
 
-@interface SendNCInfoTableViewController ()
+@interface SendNCInfoTableViewController () <UITextFieldDelegate>
 
 @property (weak, nonatomic) IBOutlet UIView *classBorderView;
 @property (weak, nonatomic) IBOutlet UILabel *sectionTitleLabel;
@@ -237,6 +237,20 @@
         [photoImageDataList removeObjectAtIndex:button.tag];
         [self resetImage];
     }
+}
+#pragma mark UITextField dalegate
+-(BOOL)textFieldShouldReturn:(UITextField *)textField {
+    
+    if (textField == self.classTextField) {
+        [self.classTextField resignFirstResponder];
+    }else if (textField == self.titleTextField) {
+        [self.titleTextField resignFirstResponder];
+    }else if (textField == self.contactTextField) {
+        [self.contactTextField resignFirstResponder];
+    }else if (textField == self.contactStyleTextField) {
+        [self.contactStyleTextField resignFirstResponder];
+    }
+    return YES;
 }
 
 @end

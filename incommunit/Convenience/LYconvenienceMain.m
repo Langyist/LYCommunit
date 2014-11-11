@@ -53,7 +53,8 @@
         // 开启位置更新需要与服务器进行轮询所以会比较耗电，在不需要时用stopUpdatingLocation方法关闭;
         [self->locationManager startUpdatingLocation];
     }
-    else {
+    else
+    {
         NSLog(@"请开启定位功能！");
     }
     
@@ -61,9 +62,7 @@
     orderstr  = @"";
     
     [self.m_segment setMaskForItem:@[@"1", @"2"]];
-    
     [LYSqllite CreatShoppingcart];
-
     [self.m_segment addTarget:self action:@selector(doSomethingInSegment:)forControlEvents:UIControlEventValueChanged];
     self._scrollView.contentSize = CGSizeMake(self._scrollView.frame.size.width * 3, self._scrollView.frame.size.height);
     self._scrollView.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
@@ -217,7 +216,9 @@
         numberOfRowsInSection = m_Featuredlist.count;
     }
     else if(tableView == m_Deliverytableview) {
+
         numberOfRowsInSection = m_Deliverylist.count;
+
     }
     else if (tableView == m_ShopDaquan) {
         numberOfRowsInSection = m_ShopDaquanlist.count;

@@ -57,14 +57,7 @@
 //下一步button
 -(IBAction)Signup:(id)sender
 {
-    if (m_password.text == nil || [m_password.text isEqual:@""]) {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"温馨提示"
-                                                        message:@"请输入密码"
-                                                       delegate:self
-                                              cancelButtonTitle:@"确定"
-                                              otherButtonTitles:@"取消", nil];
-        [alert show];
-    }else if (m_VerificationText.text == nil || [m_VerificationText.text isEqual:@""]){
+    if (m_VerificationText.text == nil || [m_VerificationText.text isEqual:@""]){
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"温馨提示"
                                                         message:@"请输入验证码"
                                                        delegate:self
@@ -87,7 +80,8 @@
                                               cancelButtonTitle:@"确认"
                                               otherButtonTitles:@"取消", nil];
         [alert show];
-    }else {
+    }
+    else {
         [self GetRegistrationCode:@""];
     }
 }

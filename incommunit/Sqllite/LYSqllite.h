@@ -18,4 +18,5 @@
 +(NSMutableArray *)allSuerinfo:(NSString *) name;
 +(void)deletetable;
 +(NSMutableDictionary *)Ruser:(NSString *)communityid;
++(void)deleteuserinfo :(NSString *)name;
 @end

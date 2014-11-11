@@ -6,7 +6,7 @@
 //  Copyright (c) 2014年 LANGYI. All rights reserved.
 //
 
-#import "LYHomeMyOrder.h"
+#import "LYHomeMyOrder.h"	
 #import "AppDelegate.h"
 #import "UIImageView+AsyncDownload.h"
 
@@ -93,7 +93,7 @@
 }
 
 - (void)setNumber:(NSInteger)number {
-    NSString *numberString = [NSString stringWithFormat:@"X%d", number];
+    NSString *numberString = [NSString stringWithFormat:@"X%ld", (long)number];
     [self.numberLabel setText:numberString];
 }
 
@@ -133,7 +133,7 @@
 }
 
 - (void)setNumber:(NSInteger)number {
-    NSString *numberString = [NSString stringWithFormat:@"共%d件商品", number];
+    NSString *numberString = [NSString stringWithFormat:@"共%ld件商品", (long)number];
     [self.numberLabel setText:numberString];
 }
 
@@ -193,7 +193,7 @@
 
 #pragma mark UITableView delegate
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    
+
     return 3;
 }
 
