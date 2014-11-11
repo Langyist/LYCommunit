@@ -11,7 +11,11 @@
 		AD09555D1A08C7BF00C53A6F /* LYFeedback.m in Sources */ = {isa = PBXBuildFile; fileRef = AD09555C1A08C7BF00C53A6F /* LYFeedback.m */; };
 		AD197F151A0B660D00E05089 /* LYNumbersense.m in Sources */ = {isa = PBXBuildFile; fileRef = AD197F141A0B660D00E05089 /* LYNumbersense.m */; };
 		AD197F171A0B925C00E05089 /* License.html in Resources */ = {isa = PBXBuildFile; fileRef = AD197F161A0B925C00E05089 /* License.html */; };
+<<<<<<< HEAD
 		AD26EB1E1A11EF6A0024403E /* LYHomeMyOrder.m in Sources */ = {isa = PBXBuildFile; fileRef = AD26EB1D1A11EF6A0024403E /* LYHomeMyOrder.m */; };
+=======
+		AD26EB211A11F22A0024403E /* LYHomeMyOrder.m in Sources */ = {isa = PBXBuildFile; fileRef = AD26EB201A11F22A0024403E /* LYHomeMyOrder.m */; };
+>>>>>>> AndrewLee
 		AD30F7D61A00D97A00C8709E /* LYProductinformation.m in Sources */ = {isa = PBXBuildFile; fileRef = AD30F7D51A00D97A00C8709E /* LYProductinformation.m */; };
 		AD33EC9019FBB13F00FE0C11 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = AD33EC8F19FBB13F00FE0C11 /* main.m */; };
 		AD33EC9319FBB13F00FE0C11 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = AD33EC9219FBB13F00FE0C11 /* AppDelegate.m */; };
@@ -221,6 +225,8 @@
 		F18E64191A10DBD6001BD189 /* 密码@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = F18E64131A10DBD6001BD189 /* 密码@3x.png */; };
 		F18E641A1A10DBD6001BD189 /* 用户@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F18E64141A10DBD6001BD189 /* 用户@2x.png */; };
 		F18E641B1A10DBD6001BD189 /* 用户@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = F18E64151A10DBD6001BD189 /* 用户@3x.png */; };
+		F18E641E1A121614001BD189 /* 店铺_03.png in Resources */ = {isa = PBXBuildFile; fileRef = F18E641C1A121614001BD189 /* 店铺_03.png */; };
+		F18E641F1A121614001BD189 /* arrows_right.png in Resources */ = {isa = PBXBuildFile; fileRef = F18E641D1A121614001BD189 /* arrows_right.png */; };
 		F1D3726D1A0DF2BF0077BAAA /* StoreSettingAddCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F1D3726B1A0DF2BF0077BAAA /* StoreSettingAddCollectionViewCell.m */; };
 		F1D3726E1A0DF2BF0077BAAA /* StoreSettingAddCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F1D3726C1A0DF2BF0077BAAA /* StoreSettingAddCollectionViewCell.xib */; };
 /* End PBXBuildFile section */
@@ -245,8 +251,13 @@
 		AD197F131A0B660D00E05089 /* LYNumbersense.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LYNumbersense.h; sourceTree = "<group>"; };
 		AD197F141A0B660D00E05089 /* LYNumbersense.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LYNumbersense.m; sourceTree = "<group>"; };
 		AD197F161A0B925C00E05089 /* License.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = License.html; sourceTree = "<group>"; };
+<<<<<<< HEAD
 		AD26EB1C1A11EF6A0024403E /* LYHomeMyOrder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LYHomeMyOrder.h; sourceTree = "<group>"; };
 		AD26EB1D1A11EF6A0024403E /* LYHomeMyOrder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LYHomeMyOrder.m; sourceTree = "<group>"; };
+=======
+		AD26EB1F1A11F22A0024403E /* LYHomeMyOrder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LYHomeMyOrder.h; sourceTree = "<group>"; };
+		AD26EB201A11F22A0024403E /* LYHomeMyOrder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LYHomeMyOrder.m; sourceTree = "<group>"; };
+>>>>>>> AndrewLee
 		AD30F7D41A00D97A00C8709E /* LYProductinformation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LYProductinformation.h; sourceTree = "<group>"; };
 		AD30F7D51A00D97A00C8709E /* LYProductinformation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LYProductinformation.m; sourceTree = "<group>"; };
 		AD33EC8A19FBB13F00FE0C11 /* incommunit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = incommunit.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -609,6 +620,8 @@
 		F18E64131A10DBD6001BD189 /* 密码@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "密码@3x.png"; sourceTree = "<group>"; };
 		F18E64141A10DBD6001BD189 /* 用户@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "用户@2x.png"; sourceTree = "<group>"; };
 		F18E64151A10DBD6001BD189 /* 用户@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "用户@3x.png"; sourceTree = "<group>"; };
+		F18E641C1A121614001BD189 /* 店铺_03.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "店铺_03.png"; sourceTree = "<group>"; };
+		F18E641D1A121614001BD189 /* arrows_right.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = arrows_right.png; sourceTree = "<group>"; };
 		F1D3726A1A0DF2BF0077BAAA /* StoreSettingAddCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StoreSettingAddCollectionViewCell.h; sourceTree = "<group>"; };
 		F1D3726B1A0DF2BF0077BAAA /* StoreSettingAddCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StoreSettingAddCollectionViewCell.m; sourceTree = "<group>"; };
 		F1D3726C1A0DF2BF0077BAAA /* StoreSettingAddCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StoreSettingAddCollectionViewCell.xib; sourceTree = "<group>"; };
@@ -773,6 +786,8 @@
 		AD33ECC119FBCA2D00FE0C11 /* Image */ = {
 			isa = PBXGroup;
 			children = (
+				F18E641C1A121614001BD189 /* 店铺_03.png */,
+				F18E641D1A121614001BD189 /* arrows_right.png */,
 				F18E64101A10DBD6001BD189 /* 返回@2x.png */,
 				F18E64111A10DBD6001BD189 /* 返回@3x.png */,
 				F18E64121A10DBD6001BD189 /* 密码@2x.png */,
@@ -1026,6 +1041,13 @@
 		AD6211C919FD554E009BECA6 /* Homepage */ = {
 			isa = PBXGroup;
 			children = (
+<<<<<<< HEAD
+=======
+				AD26EB1F1A11F22A0024403E /* LYHomeMyOrder.h */,
+				AD26EB201A11F22A0024403E /* LYHomeMyOrder.m */,
+				AD197F131A0B660D00E05089 /* LYNumbersense.h */,
+				AD197F141A0B660D00E05089 /* LYNumbersense.m */,
+>>>>>>> AndrewLee
 				AD6A9B741A09CA420031B7C2 /* XIB */,
 				AD6A9B711A09C77E0031B7C2 /* LYMycollection.h */,
 				AD6A9B721A09C77E0031B7C2 /* LYMycollection.m */,
@@ -1278,11 +1300,11 @@
 				TargetAttributes = {
 					AD33EC8919FBB13F00FE0C11 = {
 						CreatedOnToolsVersion = 6.1;
-						DevelopmentTeam = 95N42RGW4F;
+						DevelopmentTeam = RVMYYQYXU5;
 					};
 					AD33ECA219FBB13F00FE0C11 = {
 						CreatedOnToolsVersion = 6.1;
-						DevelopmentTeam = 95N42RGW4F;
+						DevelopmentTeam = RVMYYQYXU5;
 						TestTargetID = AD33EC8919FBB13F00FE0C11;
 					};
 				};
@@ -1341,6 +1363,7 @@
 				AD33ED4C19FBCA2D00FE0C11 /* 订单.png in Resources */,
 				F18E641B1A10DBD6001BD189 /* 用户@3x.png in Resources */,
 				AD33ED1719FBCA2D00FE0C11 /* 4@2x.png in Resources */,
+				F18E641F1A121614001BD189 /* arrows_right.png in Resources */,
 				AD7FBAB01A0216FF008CC80A /* AnnouncementCellNo.xib in Resources */,
 				F14F190B1A0B6AA300731239 /* NumberSenceHeaderView.xib in Resources */,
 				AD3DD40619FE348600364854 /* mapapi.bundle in Resources */,
@@ -1390,6 +1413,7 @@
 				AD33ED3F19FBCA2D00FE0C11 /* 星2_06.png in Resources */,
 				AD3DD3BD19FE13FE00364854 /* DeliveryCell.xib in Resources */,
 				AD33ED3819FBCA2D00FE0C11 /* 头像_03.png in Resources */,
+				F18E641E1A121614001BD189 /* 店铺_03.png in Resources */,
 				AD33ED1519FBCA2D00FE0C11 /* 3_10.png in Resources */,
 				AD6A9B911A09CC4B0031B7C2 /* BabyCell.xib in Resources */,
 				AD33ED4B19FBCA2D00FE0C11 /* 蓝色_03.png in Resources */,
@@ -1517,7 +1541,11 @@
 				AD4823061A03224E00A54F45 /* TagsCollectionViewController.m in Sources */,
 				F14F18F11A09FD9A00731239 /* KxMenu.m in Sources */,
 				AD6211D719FD5D5D009BECA6 /* LYCommonSettings.m in Sources */,
+<<<<<<< HEAD
 				AD26EB1E1A11EF6A0024403E /* LYHomeMyOrder.m in Sources */,
+=======
+				AD26EB211A11F22A0024403E /* LYHomeMyOrder.m in Sources */,
+>>>>>>> AndrewLee
 				AD7FBAB51A0216FF008CC80A /* LY_AnnouncementNoCell.m in Sources */,
 				AD7FBAB31A0216FF008CC80A /* LY_ACCell1.m in Sources */,
 				AD7FBAB41A0216FF008CC80A /* LY_AnnouncementCell.m in Sources */,

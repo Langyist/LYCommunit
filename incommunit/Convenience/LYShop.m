@@ -413,16 +413,17 @@
 {
     switch (sender.tag) {
         case 100:
-            [self performSegueWithIdentifier:@"BackMian" sender:self];
+            [self.navigationController popToRootViewControllerAnimated:YES];
+            //[self performSegueWithIdentifier:@"BackMian" sender:self];
             break;
         case 101:
-            [self performSegueWithIdentifier:@"GoTools" sender:self];
+            //[self performSegueWithIdentifier:@"GoTools" sender:self];
             break;
         case 102:
             [self performSegueWithIdentifier:@"GoMyCatshop" sender:self];
             break;
         case 103:
-            [self performSegueWithIdentifier:@"GoTools" sender:self];
+            [self performSegueWithIdentifier:@"Orders" sender:self];
             break;
         default:
             break;

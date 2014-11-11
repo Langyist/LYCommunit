@@ -7,8 +7,24 @@
 //
 
 #import "StoreslistTableViewCell.h"
+#import "AppDelegate.h"
 
 @implementation StoreslistTableViewCell
+
+- (void)drawRect:(CGRect)rect {
+    [super drawRect:rect];
+    
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    CGContextSetStrokeColorWithColor(context, SPECIAL_GRAY.CGColor);
+    
+    CGFloat linewidth = 0.2f;
+    CGContextSetLineWidth(context, linewidth);
+    
+    CGContextMoveToPoint(context, 0, CGRectGetHeight(rect) - linewidth);
+    CGContextAddLineToPoint(context, CGRectGetWidth(rect), CGRectGetHeight(rect) - linewidth);
+    
+    CGContextStrokePath(context);
+}
 
 - (void)awakeFromNib {
     // Initialization code

@@ -29,10 +29,10 @@
     [myThread01 start];
 
     
-    UIBarButtonItem *homePage = [self createCustomItem:@"首页" imageName:@"首页" selector:nil tag:100];
-    UIBarButtonItem *persionalPage = [self createCustomItem:@"个人主页" imageName:@"2" selector:nil tag:101];
-    UIBarButtonItem *shoppingCartPage = [self createCustomItem:@"购物车" imageName:@"购物车" selector:nil tag:102];
-    UIBarButtonItem *orderPage = [self createCustomItem:@"我的订单" imageName:@"订单" selector:nil tag:103];
+    UIBarButtonItem *homePage = [self createCustomItem:@"首页" imageName:@"首页" selector:@selector(jumpToPage:) tag:100];
+    UIBarButtonItem *persionalPage = [self createCustomItem:@"个人主页" imageName:@"2" selector:@selector(jumpToPage:) tag:101];
+    UIBarButtonItem *shoppingCartPage = [self createCustomItem:@"购物车" imageName:@"购物车" selector:@selector(jumpToPage:) tag:102];
+    UIBarButtonItem *orderPage = [self createCustomItem:@"我的订单" imageName:@"订单" selector:@selector(jumpToPage:) tag:103];
     NSArray *array = [NSArray arrayWithObjects:
                       [self createFixableItem:17]
                       ,homePage
@@ -289,6 +289,29 @@
     if (scrollView == self.imageViewScroll) {
         NSInteger index = lroundf(self.imageViewScroll.contentOffset.x / self.imageViewScroll.frame.size.width);
         self.page.currentPage = index;
+    }
+}
+
+#pragma mark -
+#pragma mark UItabBar 协议函数
+- (void)jumpToPage:(CustomToolbarItem *)sender
+{
+    switch (sender.tag) {
+        case 100:
+            [self.navigationController popToRootViewControllerAnimated:YES];
+            //[self performSegueWithIdentifier:@"BackMian" sender:self];
+            break;
+        case 101:
+            //[self performSegueWithIdentifier:@"GoTools" sender:self];
+            break;
+        case 102:
+            [self performSegueWithIdentifier:@"GoMyCatshop" sender:self];
+            break;
+        case 103:
+            [self performSegueWithIdentifier:@"Orders" sender:self];
+            break;
+        default:
+            break;
     }
 }
 
