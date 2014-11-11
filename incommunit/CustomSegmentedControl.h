@@ -10,6 +10,6 @@
 
 @interface CustomSegmentedControl : UISegmentedControl
 
-- (void)setMaskForItem:(NSArray *)itemArray;
+@property (strong, nonatomic) NSArray *maskForItem;
 
 @end

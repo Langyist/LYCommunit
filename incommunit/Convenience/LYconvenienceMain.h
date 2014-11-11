@@ -10,21 +10,25 @@
 #import <CoreLocation/CLLocationManagerDelegate.h>
 #import "UIImageView+AsyncDownload.h"
 #import "AWaterfallTableView.h"
-@interface LYconvenienceMain : UIViewController<UITextFieldDelegate,UIGestureRecognizerDelegate,UITableViewDelegate,UITableViewDataSource,CLLocationManagerDelegate,UISearchBarDelegate>
-{
-    UITextField *m_textfiled;
+#import "CustomSegmentedControl.h"
+#import "ColMenu.h"
+
+@interface LYconvenienceMain : UIViewController
+<
+UITextFieldDelegate
+,UIGestureRecognizerDelegate
+,UITableViewDelegate
+,UITableViewDataSource
+,CLLocationManagerDelegate
+,UISearchBarDelegate
+,ColMenuDelegate
+> {
     NSArray *m_listdata;
     NSArray *m_orderlist;
-    UISegmentedControl *m_segment;
-    UIView * m_view;
-    UIView * m_view01;
-    UIView * m_view02;
-    UIView * m_view03;
-    UIView * m_view04;
     AWaterfallTableView * m_Featuredtableview ;
     AWaterfallTableView * m_Deliverytableview;
     AWaterfallTableView * m_ShopDaquan;
-    AWaterfallTableView *m_CellmicroShop;
+    AWaterfallTableView * m_CellmicroShop;
     NSMutableArray *m_Featuredlist;
     NSMutableArray *m_Deliverylist;
     NSMutableArray *m_ShopDaquanlist;
@@ -33,13 +37,6 @@
     NSString *m_Storesid;//商店ID;
     NSString *StoreType;//商品类型
     NSString * orderstr;
-    
-    UITextField * m_StoreType;
-    UITextField * m_order;
-    UITextField *m_temp;
-    
-    UITextField *m_ShopDaquantype_id;
-    UITextField *m_ShopDaquanorder;
     
     UISearchBar *m_tempb;
     
@@ -57,10 +54,9 @@
     
     int m_pagesize;
     int m_pageoffset;
-    
 }
+
 @property (weak, nonatomic) IBOutlet UIScrollView *_scrollView;
-@property(nonatomic,retain)IBOutlet UITextField *m_textfiled;
-@property(nonatomic,retain)IBOutlet UISegmentedControl *m_segment;
-@property(nonatomic,retain)IBOutlet UIView *m_view;
+@property (weak, nonatomic)IBOutlet CustomSegmentedControl *m_segment;
+
 @end

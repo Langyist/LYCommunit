@@ -7,12 +7,33 @@
 //
 
 #import "LY_DeliveryCell.h"
+#import "AppDelegate.h"
 
 @implementation LY_DeliveryCell
 @synthesize m_imageview,m_iamge,m_name,m_call_number,m_send_info,m_distance,m_sendable,m_hui;
 
 - (void)awakeFromNib {
     // Initialization code
+    
+    self.m_imageview.layer.cornerRadius = 3;
+    self.m_imageview.clipsToBounds = YES;
+}
+
+- (void)drawRect:(CGRect)rect {
+    [super drawRect:rect];
+    
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    
+    CGContextSetStrokeColorWithColor(context, SEPLINE_GRAY.CGColor);
+    
+    CGFloat linewidth = 0.2f;
+    CGContextSetLineWidth(context, linewidth);
+    
+    CGContextMoveToPoint(context, 0, CGRectGetHeight(rect) - linewidth); //start at this point
+    CGContextAddLineToPoint(context, CGRectGetWidth(rect), CGRectGetHeight(rect) - linewidth); //
+    
+    // and now draw the Path!
+    CGContextStrokePath(context);
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
