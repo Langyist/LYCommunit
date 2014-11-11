@@ -8,11 +8,26 @@
 
 #import <UIKit/UIKit.h>
 
-@interface LYHomeMyOrder : UIViewController <UITableViewDelegate,UITableViewDataSource> {
-    
-    IBOutlet UITableView *m_tableView;
-    
-}
-@property (strong, nonatomic) IBOutlet UITableView *m_tableView;
+@class OpretionItemCell;
+
+@protocol OpretionCellDelegate <NSObject>
+@required
+
+- (void)deleteOrder:(OpretionItemCell *)cell;
+
+@optional
+
+- (void)cancelOrder:(OpretionItemCell *)cell;
+
+@end
+
+@interface LYHomeMyOrder : UIViewController
+<
+OpretionCellDelegate
+>
+
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
+
++ (CGFloat)widthOfString:(NSString *)string withFont:(UIFont *)font;
 
 @end
