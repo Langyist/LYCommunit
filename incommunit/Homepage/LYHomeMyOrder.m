@@ -6,9 +6,7 @@
 //  Copyright (c) 2014年 LANGYI. All rights reserved.
 //
 
-#import "LYHomeMyOrder.h"
-<<<<<<< HEAD
-=======
+#import "LYHomeMyOrder.h"	
 #import "AppDelegate.h"
 #import "UIImageView+AsyncDownload.h"
 
@@ -180,61 +178,33 @@
 
 @end
 
-<<<<<<< HEAD
-@implementation LYHomeMyOrder
-@synthesize m_tableView;
-=======
 @implementation LYHomeMyOrder {
     NSArray *dataList; // 在dataList使用的地方，请用具体的数据列表代替；
 }
->>>>>>> AndrewLee
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-<<<<<<< HEAD
-    m_tableView.delegate = self;
-    m_tableView.dataSource = self;
-=======
     dataList = @[@"", @""];
     
     [self.tableView setContentInset:UIEdgeInsetsMake(-1, 0, 0, 0)];
     
->>>>>>> AndrewLee
 //    [self getmyorder:@""];
 }
 
 #pragma mark UITableView delegate
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    
-<<<<<<< HEAD
-    return 1;
-}
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    
-    return 2;
-=======
     return 3;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     NSInteger numberOfItem = dataList.count;
     return 3 + numberOfItem;
->>>>>>> AndrewLee
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-<<<<<<< HEAD
-    UITableViewCell *cell;
-    
-    cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"orderCell"];
-    
-    [tableView dequeueReusableCellWithIdentifier:@"orderCell"];
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    return cell;
-=======
     UITableViewCell *retCell = nil;
     
     if (indexPath.row == 0) {
@@ -311,7 +281,6 @@
 
 - (void)cancelOrder:(OpretionItemCell *)cell {
     
->>>>>>> AndrewLee
 }
 
 #pragma mark 网络数据
@@ -332,8 +301,6 @@
     NSLog(@"%@",weatherDic);
 }
 
-<<<<<<< HEAD
-=======
 #pragma mark -
 #pragma mark 据字号计算字符串的宽度
 + (CGFloat)widthOfString:(NSString *)string withFont:(UIFont *)font {
@@ -344,5 +311,4 @@
     return [[[NSAttributedString alloc] initWithString:string attributes:attributes] size].width;
 }
 
->>>>>>> AndrewLee
 @end

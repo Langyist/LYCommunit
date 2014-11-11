@@ -8,14 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-<<<<<<< HEAD
-@interface LYHomeMyOrder : UIViewController <UITableViewDelegate,UITableViewDataSource> {
-    
-    IBOutlet UITableView *m_tableView;
-    
-}
-@property (strong, nonatomic) IBOutlet UITableView *m_tableView;
-=======
 @class OpretionItemCell;
 
 @protocol OpretionCellDelegate <NSObject>
@@ -37,6 +29,5 @@ OpretionCellDelegate
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
 + (CGFloat)widthOfString:(NSString *)string withFont:(UIFont *)font;
->>>>>>> AndrewLee
 
 @end

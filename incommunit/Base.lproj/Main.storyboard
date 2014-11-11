@@ -5193,19 +5193,11 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-<<<<<<< HEAD
-        <segue reference="pnN-Mq-Lrm"/>
-        <segue reference="pAm-k8-o87"/>
-        <segue reference="ZlB-3N-nCw"/>
-        <segue reference="h8b-UJ-TZd"/>
-        <segue reference="qLP-OD-hg1"/>
-=======
         <segue reference="kwL-jh-Juo"/>
         <segue reference="qLP-OD-hg1"/>
         <segue reference="e4p-wT-QTQ"/>
         <segue reference="gne-12-lal"/>
         <segue reference="Bv1-7h-vqH"/>
         <segue reference="Hdu-Tg-GNB"/>
->>>>>>> AndrewLee
     </inferredMetricsTieBreakers>
 </document>
