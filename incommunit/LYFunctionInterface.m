@@ -14,7 +14,6 @@
     UIBarButtonItem *mapItem;
     UIBarButtonItem *mineItem;
     UIBarButtonItem *toolItem;
- 
 }
 @property (weak, nonatomic) IBOutlet UIButton *titleButton;
 @end

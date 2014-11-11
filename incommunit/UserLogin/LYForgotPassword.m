@@ -199,8 +199,6 @@
         [alert show];
     }
     else {
-        
-        NSLog(@"手机号:%@",self.MobilenumberText.text);
         [self Getverificationcode];
     }
 }
@@ -210,7 +208,11 @@
 {
     if([MobilenumberText.text isEqualToString:@""]||[passwordText.text isEqualToString:@""]||[CodeText.text isEqualToString:@""])
     {
-        UIAlertView *alview = [[UIAlertView alloc] initWithTitle:@"提示" message:@"请填写完整的信息" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+        UIAlertView *alview = [[UIAlertView alloc] initWithTitle:@"提示"
+                                                         message:@"请先获取验证码"
+                                                        delegate:self
+                                               cancelButtonTitle:@"确定"
+                                               otherButtonTitles:nil, nil];
         [alview show];
     }else
         
