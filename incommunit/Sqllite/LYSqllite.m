@@ -153,7 +153,46 @@
     return temp;
 }
 
+//按照小区ID查找最后一次登陆的用户
++(NSMutableDictionary *)Ruser:(NSString *)communityid
+{
+    NSMutableDictionary *temp;
+    sqlite3 *tempdatabase =  [[[LYSqllite alloc] init] openSqlite:@"LY_db.db"];
+    sqlite3_stmt *statementst = nil;
+    NSString * sqlst = [[NSString alloc] initWithFormat:@"SELECT * FROM USERINFO WHERE community_id ='%@'",communityid];
+    if (sqlite3_prepare_v2(tempdatabase, [sqlst UTF8String], -1, &statementst, NULL) != SQLITE_OK)
+    {
+        NSLog(@"Error: failed to prepare statement with message:get testValue.");
+        return nil;
+    }
+    else
+    {
+        while (sqlite3_step(statementst)  == SQLITE_ROW)
+        {
+            temp = [[NSMutableDictionary alloc] init];
+            char* strText   = (char*)sqlite3_column_text(statementst, 1);
+            [temp setValue:[NSString stringWithUTF8String:strText] forKey:@"city_id"];
+            char* strText01   = (char*)sqlite3_column_text(statementst, 2);
+            [temp setValue:[NSString stringWithUTF8String:strText01] forKey:@"id"];
+            char* strText02   = (char*)sqlite3_column_text(statementst, 3);
+            [temp setValue:[NSString stringWithUTF8String:strText02] forKey:@"name"];
+            char* strText03   = (char*)sqlite3_column_text(statementst, 4);
+            [temp setValue:[NSString stringWithUTF8String:strText03] forKey:@"communitaddress"];
+            char* strText04   = (char*)sqlite3_column_text(statementst, 5);
+            [temp setValue:[NSString stringWithUTF8String:strText04] forKey:@"communitdistance"];
+            char* strText05   = (char*)sqlite3_column_text(statementst, 6);
+            [temp setValue:[NSString stringWithUTF8String:strText05] forKey:@"communitmax_level"];
+            char* strText06   = (char*)sqlite3_column_text(statementst, 7);
+            [temp setValue:[NSString stringWithUTF8String:strText06] forKey:@"user"];
+            char* strText07   = (char*)sqlite3_column_text(statementst, 8);
+            [temp setValue:[NSString stringWithUTF8String:strText07] forKey:@"password"];
+        }
+    }
+    return temp;
+}
 
+
+//读取所有的用户表信息
 +(NSMutableArray *)allSuerinfo:(NSString *) name
 {
     NSMutableArray *Arraytemp = [[NSMutableArray alloc] init];

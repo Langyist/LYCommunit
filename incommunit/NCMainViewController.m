@@ -11,7 +11,7 @@
 #import "NCTableViewCell.h"
 #import "UIView+Clone.h"
 #import "XHFriendlyLoadingView.h"
-
+#import "StoreOnlineNetworkEngine.h"
 @interface NCMainViewController () {
     UITableView* woodsInfoTableView;
     UITableView* carInfoTableView;
@@ -153,4 +153,37 @@
     
 }
 
+-(void)GetNetdata
+{
+
+//     NSDictionary *  dic = @{@"type_id" : [m_data objectForKey:key]
+//                ,@"pageOffset" : m_CommunityName
+//                ,@"pageSize" : [[NSString alloc] initWithFormat:@"%f",longitude]
+//                };
+//    
+//    [[StoreOnlineNetworkEngine shareInstance] startNetWorkWithPath:@"services/neighbor/list"
+//                                                            params:dic
+//                                                            repeat:YES
+//                                                             isGet:NO
+//                                                       resultBlock:^(BOOL bValidJSON, NSString *errorMsg, id result) {
+//                                                           if(!bValidJSON)
+//                                                           {}}];
+
+}
+-(void)GetType
+{
+    NSDictionary *  dic = @{};
+    [[StoreOnlineNetworkEngine shareInstance] startNetWorkWithPath:@"services/neighbor/getType"
+                                                            params:dic
+                                                            repeat:YES
+                                                             isGet:YES
+                                                       resultBlock:^(BOOL bValidJSON, NSString *errorMsg, id result) {
+                                                           if(!bValidJSON)
+                                                           {
+                                                           
+                                                           }else{
+                                                           
+                                                           }
+                                                       }];
+}
 @end

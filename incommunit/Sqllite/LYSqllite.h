@@ -17,4 +17,5 @@
 +(BOOL)Modifystate:(NSString *)GoodsID;
 +(NSMutableArray *)allSuerinfo:(NSString *) name;
 +(void)deletetable;
++(NSMutableDictionary *)Ruser:(NSString *)communityid;
 @end
