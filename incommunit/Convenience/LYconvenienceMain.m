@@ -217,7 +217,7 @@
         numberOfRowsInSection = m_Featuredlist.count;
     }
     else if(tableView == m_Deliverytableview) {
-        //numberOfRowsInSection = m_Deliverylist.count;
+        numberOfRowsInSection = m_Deliverylist.count;
     }
     else if (tableView == m_ShopDaquan) {
         numberOfRowsInSection = m_ShopDaquanlist.count;
