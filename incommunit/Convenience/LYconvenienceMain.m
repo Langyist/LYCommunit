@@ -23,132 +23,66 @@
     UISearchBar *m_deliverSearch;
     UISearchBar *m_shopSearch;
     UISearchBar *m_microShop;
-    UIView *background;//
-    UIView *grayView;
     
-    UIView *shopdownView;
-    UIView *shopgrayView;
-    
-    UIView *m_backView;
-    UIView *m_shopView;
-    BOOL m_in;
-    UITableView *m_backtable;
-    UITableView *m_backtable1;
-    UITableView *m_shoptable;
-    UITableView *m_shoptable1;
-    UIButton *m_deviButton;
-    UIButton *m_shopButton;
     NSInteger lastIndex;
-    NSInteger selectCount;
-    NSMutableArray *arrow;
     
     UIView *footerView;
 }
 
-@property (nonatomic, strong) XHFriendlyLoadingView *friendlyLoadingView;
 @end
 
 @implementation LYconvenienceMain
-@synthesize m_textfiled,m_segment,m_view;
-
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-    }
-    return self;
-}
-
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-}
-
-- (void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
-}
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
     m_pagesize = 5;
     m_pageoffset= 0;
+    
     self->locationManager = [[CLLocationManager alloc] init];
     self->locationManager.delegate = self;
-    if([[[UIDevice currentDevice] systemVersion] floatValue]>=8.0)
-    {
+    
+    if([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0) {
         //[self->locationManager requestWhenInUseAuthorization];
     }
-    
-    // 设置定位精度
-    // kCLLocationAccuracyNearestTenMeters:精度10米
-    // kCLLocationAccuracyHundredMeters:精度100 米
-    // kCLLocationAccuracyKilometer:精度1000 米
-    // kCLLocationAccuracyThreeKilometers:精度3000米
-    // kCLLocationAccuracyBest:设备使用电池供电时候最高的精度
-    // kCLLocationAccuracyBestForNavigation:导航情况下最高精度，一般要有外接电源时才能使用
     self->locationManager.desiredAccuracy = kCLLocationAccuracyBest;
-    // distanceFilter是距离过滤器，为了减少对定位装置的轮询次数，位置的改变不会每次都去通知委托，而是在移动了足够的距离时才通知委托程序
-    // 它的单位是米，这里设置为至少移动1000再通知委托处理更新;
-    self->locationManager.distanceFilter = 1000.0f; // 如果设为kCLDistanceFilterNone，则每秒更新一次;
-    // Do any additional setup after loading the view, typically from a nib.
-    if ([CLLocationManager locationServicesEnabled])
-    {
+    self->locationManager.distanceFilter = 1000.0f;
+    if ([CLLocationManager locationServicesEnabled]) {
         // 启动位置更新
         // 开启位置更新需要与服务器进行轮询所以会比较耗电，在不需要时用stopUpdatingLocation方法关闭;
         [self->locationManager startUpdatingLocation];
     }
-    else
-    {
+    else {
         NSLog(@"请开启定位功能！");
     }
     
-    arrow = [[NSMutableArray alloc] init];
     StoreType = @"";
     orderstr  = @"";
     
-    self.friendlyLoadingView = [[XHFriendlyLoadingView alloc] initWithFrame:self.view.bounds];
-    [self.friendlyLoadingView showFriendlyLoadingViewWithText:@"正在加载..." loadingAnimated:YES];
-    [self.view addSubview:self.friendlyLoadingView];
-    
-    CGRect rect = CGRectMake(0, 0, 1, 1);
-    UIGraphicsBeginImageContext(rect.size);
-    CGContextRef context = UIGraphicsGetCurrentContext();
-    CGContextSetFillColorWithColor(context, [[UIColor clearColor] CGColor]);
-    CGContextFillRect(context, rect);
-    UIImage *transparentImage = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    
-    [self.m_segment setBackgroundImage:transparentImage forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
-    [self.m_segment setTitleTextAttributes:@{
-                                             NSForegroundColorAttributeName : [UIColor colorWithRed:63/255.0f green:62/255.0f blue:62/255.0f alpha:1]
-                                             }
-                                  forState:UIControlStateNormal];
-    [self.m_segment setTitleTextAttributes:@{
-                                             NSForegroundColorAttributeName : [UIColor colorWithRed:230/255.0f green:163/255.0f blue:44/255.0f alpha:1]
-                                             }
-                                  forState:UIControlStateSelected];
+    [self.m_segment setMaskForItem:@[@"1", @"2"]];
     
     [LYSqllite CreatShoppingcart];
-    m_textfiled.delegate=self;
-    [m_segment addTarget:self action:@selector(doSomethingInSegment:)forControlEvents:UIControlEventValueChanged];
+
+    [self.m_segment addTarget:self action:@selector(doSomethingInSegment:)forControlEvents:UIControlEventValueChanged];
     self._scrollView.contentSize = CGSizeMake(self._scrollView.frame.size.width * 3, self._scrollView.frame.size.height);
-    [__scrollView setScrollEnabled:NO];
+    self._scrollView.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
+    self._scrollView.pagingEnabled = YES;
+    self._scrollView.delegate = self;
+    
     //精选
-    m_view01 = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self._scrollView.frame.size.height)];
     m_Featuredtableview = [[AWaterfallTableView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self._scrollView.frame.size.height)];
+    m_Featuredtableview.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
     m_Featuredtableview.dataSource = self;
     m_Featuredtableview.delegate = self;
     m_Featuredtableview.separatorStyle = UITableViewCellSeparatorStyleNone;
     m_Featuredtableview.canRefresh = NO;
     m_Featuredtableview.canMore = NO;
-    [m_view01 addSubview:m_Featuredtableview];
-    [self._scrollView addSubview:m_view01];
+    [m_Featuredtableview setContentInset:UIEdgeInsetsMake(7, 0, 0, 0)];
+    [self._scrollView addSubview:m_Featuredtableview];
     
-    UIImageView *buttonimageView = [[UIImageView alloc] initWithFrame:CGRectMake(148, 14, 10, 10)];
-    buttonimageView.image = [UIImage imageNamed:@"小三角_11"];
-    [m_segment addSubview:buttonimageView];
-    buttonimageView.tag = @"1";
-    [arrow addObject:buttonimageView];
+    UINib *nib = [UINib nibWithNibName:@"FeaturedCell" bundle:nil];
+    [m_Featuredtableview registerNib:nib forCellReuseIdentifier:@"FeaturedCellidentifier"];
     
     footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(m_Featuredtableview.frame), 1)];
     [footerView setBackgroundColor:[UIColor clearColor]];
@@ -171,202 +105,37 @@
     
     [m_Featuredtableview setBackgroundColor:BK_GRAY];
     m_Featuredtableview.tableFooterView = footerView;
+    
     /*
     送餐送货
      */
-    m_view02 = [[UIView alloc] initWithFrame:CGRectMake(self.view.frame.size.width, 0, self.view.frame.size.width, self._scrollView.frame.size.height)];
-    m_Deliverytableview =[[AWaterfallTableView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
-    m_Deliverytableview.dataSource = self;
-    m_Deliverytableview.delegate = self;
-    [m_view02 addSubview:m_Deliverytableview];
-    [self._scrollView addSubview:m_view02];
-    
-  
-    m_deliverSearch = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, m_view02.frame.size.width, 40)];
+    m_deliverSearch = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, self._scrollView.frame.size.width, 40)];
     m_deliverSearch.delegate = self;
     m_deliverSearch.placeholder = @"搜索店铺";
-    m_Deliverytableview.tableHeaderView = m_deliverSearch;
     
-    //送餐送货下拉菜单View
-    background = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, m_view02.frame.size.height)];
-    background.backgroundColor = [UIColor clearColor];
-    [m_view02 addSubview:background];
-    
-    m_backView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, m_view02.frame.size.width, self.view.frame.size.height-250)];
-    m_backView.backgroundColor = [UIColor whiteColor];
-    [background addSubview:m_backView];
-    
-    grayView = [[UIView alloc] initWithFrame:CGRectMake(0, m_backView.frame.size.height, self.view.frame.size.width, m_view02.frame.size.height - m_backView.frame.size.height)];
-    grayView.backgroundColor = [UIColor grayColor];
-    grayView.alpha = 0.5;
-    [background addSubview:grayView];
-    //添加阴影手势
-    UITapGestureRecognizer *gestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clackgrayView)];
-    [grayView addGestureRecognizer:gestureRecognizer];
-    //中间分割线
-    UIImageView *centerImage = [[UIImageView alloc] initWithFrame:CGRectMake(m_backView.frame.size.width /2 - 1, 5, 1, m_backView.frame.size.height - 10)];
-    centerImage.image = [UIImage imageNamed:@"上面分割线_03"];
-    [m_backView addSubview:centerImage];
-    //信息查询tableView
-    m_backtable = [[UITableView alloc] initWithFrame:CGRectMake(0, 30, m_backView.frame.size.width / 2 - 1, m_backView.frame.size.height - 55)];
-    m_backtable.delegate = self;
-    m_backtable.dataSource = self;
-    m_backtable.backgroundColor = [UIColor whiteColor];
-    m_backtable.separatorStyle = UITableViewCellSeparatorStyleNone;
-    [m_backView addSubview:m_backtable];
-    
-    m_backtable1 = [[UITableView alloc] initWithFrame:CGRectMake(m_backView.frame.size.width / 2, 30, m_backView.frame.size.width / 2, m_backView.frame.size.height - 65)];
-    m_backtable1.delegate = self;
-    m_backtable1.dataSource = self;
-    m_backtable1.backgroundColor = [UIColor whiteColor];
-    m_backtable1.separatorStyle = UITableViewCellSeparatorStyleNone;
-    [m_backView addSubview:m_backtable1];
-    
-    UIButton *m_backButton = [[UIButton alloc] initWithFrame:CGRectMake(m_backView.frame.size.width - 40, m_backView.frame.size.height - 40, 30, 30)];
-    [m_backButton setImage:[UIImage imageNamed:@"ic_dismiss"] forState:UIControlStateNormal];
-    [m_backButton addTarget:self action:@selector(downBackViewButton:) forControlEvents:UIControlEventTouchUpInside];
-    [m_backView addSubview:m_backButton];
-    
-    for (int i = 0; i < 2; i ++) {
-        NSArray *labelarray = [NSArray arrayWithObjects:@"信息查询",@"排列顺序", nil];
-        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(5 + m_backView.frame.size.width / 2 * i, 5, m_backView.frame.size.width / 2 - 5, 25)];
-        label.text = labelarray[i];
-        label.font = [UIFont systemFontOfSize:16];
-        [m_backView addSubview:label];
-    }
-//    m_Deliverytableview.tableFooterView = footerView;
     /*
-     店铺大全
+     搜索
      */
-    m_view03 = [[UIView alloc] initWithFrame:CGRectMake(self.view.frame.size.width * 2, 0, self._scrollView.frame.size.width, self._scrollView.frame.size.height)];
-    m_ShopDaquan = [[AWaterfallTableView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self._scrollView.frame.size.height)];
-    m_ShopDaquan.dataSource = self;
-    m_ShopDaquan.delegate = self;
-    UIImageView *imageview = [[UIImageView alloc] initWithFrame:CGRectMake(m_view03.frame.size.width/3+10, m_view03.frame.size.height/3, 80, 80)];
-    [imageview setImage:[UIImage imageNamed:@"ic_default_no_data.png"]];
-    [m_view03 addSubview:imageview];
-    
-    UILabel *lable = [[UILabel alloc] initWithFrame:CGRectMake(m_view03.frame.size.width/3, m_view03.frame.size.height/3+imageview.frame.size.height, 200, 30)];
-    lable.text = @"没有加载到数据";
-    lable.textColor = [UIColor orangeColor];
-    [lable setFont:[UIFont systemFontOfSize:15]];
-    [m_view03 addSubview:lable];
-    [m_view03 addSubview:m_ShopDaquan];
-    [self._scrollView addSubview:m_view03];
-    
-    UIImageView *shopimageView = [[UIImageView alloc] initWithFrame:CGRectMake(228, 14, 10, 10)];
-    shopimageView.image = [UIImage imageNamed:@"小三角_11"];
-    shopimageView.tag = @"2";
-    [arrow addObject:shopimageView];
-    [m_segment addSubview:shopimageView];
-    //搜索
-    m_shopSearch = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, m_view03.frame.size.width, 40)];
+    m_shopSearch = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, self._scrollView.frame.size.width, 40)];
     m_shopSearch.delegate = self;
     m_shopSearch.placeholder = @"搜索店铺";
-    m_ShopDaquan.tableHeaderView = m_shopSearch;
-    
-    //店铺大全下拉菜单
-    
-    shopdownView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, m_view03.frame.size.width, m_view03.frame.size.height)];
-    shopdownView.backgroundColor = [UIColor clearColor];
-    [m_view03 addSubview:shopdownView];
-    
-    m_shopView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, m_view03.frame.size.width, m_view03.frame.size.height / 5 *3)];
-    m_shopView.backgroundColor = [UIColor whiteColor];
-    [shopdownView addSubview:m_shopView];
-    
-    shopgrayView = [[UIView alloc] initWithFrame:CGRectMake(0, m_shopView.frame.size.height, shopdownView.frame.size.width, shopdownView.frame.size.height - m_shopView.frame.size.height)];
-    shopgrayView.backgroundColor = [UIColor grayColor];
-    shopgrayView.alpha = 0.5;
-    [shopdownView addSubview:shopgrayView];
-    
-    //添加阴影手势
-    UITapGestureRecognizer *shopgestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(shopclackgrayView)];
-    [shopgrayView addGestureRecognizer:shopgestureRecognizer];
-    
-    //中间分割线
-    UIImageView *shopcenterImage = [[UIImageView alloc] initWithFrame:CGRectMake(m_shopView.frame.size.width /2 - 1, 5, 1, m_shopView.frame.size.height - 30)];
-    shopcenterImage.image = [UIImage imageNamed:@"上面分割线_03"];
-    [m_shopView addSubview:shopcenterImage];
-    //下拉tableView
-    m_shoptable = [[UITableView alloc] initWithFrame:CGRectMake(0, 30, m_shopView.frame.size.width / 2 - 1, m_shopView.frame.size.height -55)];
-    m_shoptable.delegate = self;
-    m_shoptable.dataSource = self;
-    m_shoptable.backgroundColor = [UIColor whiteColor];
-    m_shoptable.separatorStyle = UITableViewCellSeparatorStyleNone;
-    [m_shopView addSubview:m_shoptable];
-    
-    m_shoptable1 = [[UITableView alloc] initWithFrame:CGRectMake(m_shopView.frame.size.width / 2, 30, m_shopView.frame.size.width / 2, m_shopView.frame.size.height -55)];
-    m_shoptable1.delegate = self;
-    m_shoptable1.dataSource = self;
-    m_shoptable1.backgroundColor = [UIColor whiteColor];
-    m_shoptable1.separatorStyle = UITableViewCellSeparatorStyleNone;
-    [m_shopView addSubview:m_shoptable1];
-    //关闭弹出框
-    UIButton *m_shopdownButton = [[UIButton alloc] initWithFrame:CGRectMake(m_shopView.frame.size.width- 40, m_shopView.frame.size.height - 40, 30, 30)];
-    [m_shopdownButton setImage:[UIImage imageNamed:@"ic_dismiss"] forState:UIControlStateNormal];
-    [m_shopdownButton addTarget:self action:@selector(shopdownBackViewButton:) forControlEvents:UIControlEventTouchUpInside];
-    [m_shopView addSubview:m_shopdownButton];
-    
-    for (int i = 0; i < 2; i ++)
-    {
-        NSArray *labelarray = [NSArray arrayWithObjects:@"信息查询",@"排列顺序", nil];
-        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(5 + m_shopView.frame.size.width / 2 * i, 5, m_shopView.frame.size.width / 2 - 5, 25)];
-        label.text = labelarray[i];
-        label.font = [UIFont systemFontOfSize:16];
-        [m_shopView addSubview:label];
-    }
     
     /*
      小区微店
      */
-    m_view04 = [[UIView alloc] initWithFrame:CGRectMake(self.view.frame.size.width * 3, 0, self._scrollView.frame.size.width, self._scrollView.frame.size.height)];
-    m_CellmicroShop = [[AWaterfallTableView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self._scrollView.frame.size.height)];
-    m_CellmicroShop.dataSource = self;
-    m_CellmicroShop.delegate = self;
-    [m_view04 addSubview:m_CellmicroShop];
-    [self._scrollView addSubview:m_view04];
-    //搜索
-    m_microShop = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, m_view04.frame.size.width, 40)];
+    m_microShop = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, self._scrollView.frame.size.width, 40)];
     m_microShop.delegate = self;
     m_microShop.placeholder = @"搜索店铺";
-    m_CellmicroShop.tableHeaderView = m_microShop;
     
     m_Deliverytableview = [self addTableViewWithIndex:1 searchBar:m_deliverSearch];
     m_ShopDaquan = [self addTableViewWithIndex:2 searchBar:m_shopSearch];
     m_CellmicroShop = [self addTableViewWithIndex:3 searchBar:m_microShop];
     CGSize size = CGSizeMake(CGRectGetMaxX(m_CellmicroShop.frame), 0);
     [self._scrollView setContentSize:size];
-    
-    //切换页面手势
-    UISwipeGestureRecognizer *recognizer;
-    recognizer = [[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(m_view01leftSwipe:)];
-    [recognizer setDirection:(UISwipeGestureRecognizerDirectionLeft)];
-    [m_view01 addGestureRecognizer:recognizer];
-    
-    recognizer = [[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(m_view02leftSwipe:)];
-    [recognizer setDirection:(UISwipeGestureRecognizerDirectionLeft)];
-    [m_view02 addGestureRecognizer:recognizer];
-    
-    recognizer = [[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(m_view02rightSwipe:)];
-    [recognizer setDirection:(UISwipeGestureRecognizerDirectionRight)];
-    [m_view02 addGestureRecognizer:recognizer];
-    
-    recognizer = [[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(m_view03leftSwipe:)];
-    [recognizer setDirection:(UISwipeGestureRecognizerDirectionLeft)];
-    [m_view03 addGestureRecognizer:recognizer];
-    
-    recognizer = [[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(m_view03rightSwipe:)];
-    [recognizer setDirection:(UISwipeGestureRecognizerDirectionRight)];
-    [m_view03 addGestureRecognizer:recognizer];
-    
-    recognizer = [[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(m_view04rightSwipe:)];
-    [recognizer setDirection:(UISwipeGestureRecognizerDirectionRight)];
-    [m_view04 addGestureRecognizer:recognizer];
-
 }
 
 - (AWaterfallTableView *)addTableViewWithIndex:(NSInteger)index searchBar:(UISearchBar *)searchBar {
+    
     AWaterfallTableView *tableView = [m_Featuredtableview clone];
     tableView.delegate = self;
     tableView.dataSource = self;
@@ -380,20 +149,12 @@
     frame.origin.x = frame.size.width * index;
     tableView.frame = frame;
     
+    UINib *nib = [UINib nibWithNibName:@"DeliveryCell" bundle:nil];
+    [tableView registerNib:nib forCellReuseIdentifier:@"DeliveryCellidentifiter"];
+    
     [self._scrollView addSubview:tableView];
     
     return tableView;
-}
-//点击阴影关闭弹出框
-- (void)clackgrayView {
-    
-    background.hidden = YES;
-}
-
-//点击阴影关闭弹出框
-- (void)shopclackgrayView {
-    
-    shopdownView.hidden = YES;
 }
 
 #pragma mark - CLLocationManagerDelegate
@@ -411,89 +172,11 @@
     [self GetShoptype];
     [locationManager stopUpdatingLocation];
 }
+
 // 定位失误时触发
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
 {
     NSLog(@"error:%@",error);
-}
-#pragma mark -- 界面切换
--(void)m_view01leftSwipe:(UISwipeGestureRecognizer *)recognizer
-{
-    if(recognizer.direction==UISwipeGestureRecognizerDirectionLeft)
-    {
-        { [UIView animateWithDuration:0.3 animations:^{
-            
-            [self._scrollView setContentOffset:CGPointMake(1* self.view.frame.size.width,0) animated:YES];
-            
-            background.hidden = YES;
-            m_segment.selectedSegmentIndex = 1;
-            if (m_Deliverylist.count<1) {
-                
-            }
-        }];}
-    }
-}
-
--(void)m_view02leftSwipe:(UISwipeGestureRecognizer *)recognizer{
-    
-    if(recognizer.direction==UISwipeGestureRecognizerDirectionLeft) {
-        { [UIView animateWithDuration:0.3 animations:^{
-            
-            [self._scrollView setContentOffset:CGPointMake(2* self.view.frame.size.width,0) animated:YES];
-            shopdownView.hidden = YES;
-            m_segment.selectedSegmentIndex = 2;
-            if (m_ShopDaquanlist.count<1) {
-            }
-        }];}
-    }
-}
-
--(void)m_view02rightSwipe:(UISwipeGestureRecognizer *)recognizer{
-    
-    if(recognizer.direction==UISwipeGestureRecognizerDirectionRight) {
-        { [UIView animateWithDuration:0.3 animations:^{
-            
-            [self._scrollView setContentOffset:CGPointMake(0* self.view.frame.size.width,0) animated:YES];
-            m_segment.selectedSegmentIndex = 0;
-        }];}
-    }
-}
-
--(void)m_view03leftSwipe:(UISwipeGestureRecognizer *)recognizer{
-    
-    if(recognizer.direction==UISwipeGestureRecognizerDirectionLeft) {
-        { [UIView animateWithDuration:0.3 animations:^{
-            
-            [self._scrollView setContentOffset:CGPointMake(3* self.view.frame.size.width,0) animated:YES];
-            m_segment.selectedSegmentIndex = 3;
-            if (m_CellmicroShoplist.count<1) {
-                
-            }
-        }];}
-    }
-}
-
--(void)m_view03rightSwipe:(UISwipeGestureRecognizer *)recognizer{
-    
-    if(recognizer.direction==UISwipeGestureRecognizerDirectionRight) {
-        { [UIView animateWithDuration:0.3 animations:^{
-            
-            [self._scrollView setContentOffset:CGPointMake(1* self.view.frame.size.width,0) animated:YES];
-            
-            background.hidden = YES;
-            m_segment.selectedSegmentIndex = 1;
-        }];}
-    }
-}
-
--(void)m_view04rightSwipe:(UISwipeGestureRecognizer *)recognizer{
-    
-    if(recognizer.direction==UISwipeGestureRecognizerDirectionRight) {
-        { [UIView animateWithDuration:0.3 animations:^{
-            [self._scrollView setContentOffset:CGPointMake(2* self.view.frame.size.width,0) animated:YES];
-            m_segment.selectedSegmentIndex = 2;
-        }];}
-    }
 }
 
 - (void)didReceiveMemoryWarning
@@ -502,526 +185,168 @@
     // Dispose of any resources that can be recreated.
 }
 
-#pragma mark - UITextFieldDelegate
-- (BOOL)textFieldShouldReturn:(UITextField *)textField
-{
-    [textField resignFirstResponder];
-    return YES;
-}
-
 #pragma mark - Plain Segmented Control 协议函数
--(void)doSomethingInSegment:(UISegmentedControl *)Seg
+-(void)doSomethingInSegment:(CustomSegmentedControl *)Seg
 {
-    for (UIImageView *imageView in arrow) {
-        if ([imageView.tag integerValue] == Seg.selectedSegmentIndex) {
-            [imageView setImage:[UIImage imageNamed:@"黄色小三角_03"]];
-        }
-        else {
-            [imageView setImage:[UIImage imageNamed:@"小三角_11"]];
-        }
-    }
-    
-    background.hidden = YES;
-    shopdownView.hidden = YES;
-    [m_deviButton removeFromSuperview];
-    [m_shopButton removeFromSuperview];
-    
-    switch (Seg.selectedSegmentIndex)
-    {
-        case 0:
-        {
-            [self._scrollView setContentOffset:CGPointMake(0* self.view.frame.size.width,0) animated:YES];
-        }
-            break;
-        case 1:
-        {
-            [self._scrollView setContentOffset:CGPointMake(1* self.view.frame.size.width,0) animated:YES];
-            background.hidden = YES;
-            
-            m_deviButton = [[UIButton alloc] initWithFrame:CGRectMake(80, 67, 80, 29)];
-            m_deviButton.backgroundColor = [UIColor clearColor];
-            [m_deviButton addTarget:self action:@selector(m_deviButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
-            m_in = YES;
-            [self.view addSubview:m_deviButton];
-            
-            if(m_Deliverylist.count<1)
-            {
-                    [self GetdataDelivery];
+    if (lastIndex == Seg.selectedSegmentIndex) {
+        for (NSString *maskIndex in Seg.maskForItem) {
+            if ([maskIndex integerValue] == Seg.selectedSegmentIndex) {
+                [ColMenu showMenuInView:self.view fromRect:Seg.superview.frame delegate:self];
+                break;
             }
-            
         }
-            break;
-        case 2:
-        {
-            [self._scrollView setContentOffset:CGPointMake(2* self.view.frame.size.width,0) animated:YES];
-            shopdownView.hidden = YES;
-            m_shopButton = [[UIButton alloc] initWithFrame:CGRectMake(160, 67, 80, 29)];
-            m_shopButton.backgroundColor = [UIColor clearColor];
-            [m_shopButton addTarget:self action:@selector(m_shopButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
-            m_in = YES;
-            [self.view addSubview:m_shopButton];
-            
-        }
-            break;
-        case 3:
-        {
-            [self._scrollView setContentOffset:CGPointMake(3* self.view.frame.size.width,0) animated:YES];
-        }
-            break;
-            
-        default:
-            break;
     }
+    
+    CGFloat offsetX = Seg.selectedSegmentIndex * self.view.frame.size.width;
+    [self._scrollView setContentOffset:CGPointMake(offsetX, 0) animated:YES];
     
     lastIndex = Seg.selectedSegmentIndex;
 }
 
-- (void)m_deviButtonPressed:(id *)sender {
-    if (m_segment.selectedSegmentIndex == 1) {
-        
-        if (m_in) {
-            
-            background.hidden = NO;
-            m_in = NO;
-            
-        }else {
-            
-            background.hidden = YES;
-            m_in = YES;
-        }
-    }else if (m_segment.selectedSegmentIndex == 0) {
-        
-        m_deviButton.hidden = YES;
-        m_in = YES;
-    }else if (m_segment.selectedSegmentIndex == 2) {
-        m_deviButton.hidden = YES;
-        m_in = YES;
-    }else if (m_segment.selectedSegmentIndex == 3) {
-        m_deviButton.hidden = YES;
-        m_in = YES;
-    }
-    
-}
-
-- (void)m_shopButtonPressed:(id *)sender {
-    if (m_segment.selectedSegmentIndex == 2) {
-        
-        if (m_in) {
-            
-            shopdownView.hidden = NO;
-            m_in = NO;
-            
-        }else {
-            
-            shopdownView.hidden = YES;
-            m_in = YES;
-        }
-    }else if (m_segment.selectedSegmentIndex == 0) {
-        
-        m_shopButton.hidden = YES;
-        m_in = YES;
-    }else if (m_segment.selectedSegmentIndex == 1) {
-        m_shopButton.hidden = YES;
-        m_in = YES;
-    }else if (m_segment.selectedSegmentIndex == 3) {
-        m_shopButton.hidden = YES;
-        m_in = YES;
-    }
-    
-}
-
-- (void)downBackViewButton:(UIButton *)sender {
-    
-    if (sender.tag == 1)
-    {
-        dispatch_queue_t groupBack=dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
-        dispatch_async(groupBack, ^{
-            [self GetdataDelivery];
-        });
-    }
-    background.hidden = YES;
-}
-
-- (void)shopdownBackViewButton:(UIButton *)sender
-{
-    shopdownView.hidden = YES;
-}
 #pragma mark - tableview 协议函数
 // Customize the number of sections in the table view.
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 1;
 }
+
 // Customize the number of rows in the table view.
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
-    if (tableView == m_Featuredtableview )
-    {
-        NSInteger numberOfRowsInSection = m_Featuredlist.count;
-        if (numberOfRowsInSection == 0) {
-            m_Featuredtableview.tableFooterView.hidden = NO;
-        }
-        else {
-            m_Featuredtableview.tableFooterView.hidden = YES;
-        }
-        return numberOfRowsInSection;
-        
-    }else if(tableView == m_Deliverytableview)
-    {
-        NSInteger numberOfRowsInSection = m_Deliverylist.count;
-        if (numberOfRowsInSection == 0) {
-            m_Deliverytableview.tableFooterView.hidden = NO;
-        }
-        else {
-            m_Deliverytableview.tableFooterView.hidden = YES;
-        }
-        return numberOfRowsInSection;
-        
-    }if (tableView == m_ShopDaquan) {
-        
-        NSInteger numberOfRowsInSection = m_ShopDaquanlist.count;
-        if (numberOfRowsInSection == 0) {
-            m_ShopDaquan.tableFooterView.hidden = NO;
-        }
-        else {
-            m_ShopDaquan.tableFooterView.hidden = YES;
-        }
-        return numberOfRowsInSection;
-    }if (tableView == m_CellmicroShop) {
-        
-        NSInteger numberOfRowsInSection = m_CellmicroShoplist.count;
-        if (numberOfRowsInSection == 0) {
-            m_CellmicroShop.tableFooterView.hidden = NO;
-        }
-        else {
-            m_CellmicroShop.tableFooterView.hidden = YES;
-        }
-        return numberOfRowsInSection;
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    NSInteger numberOfRowsInSection = 0;
+    
+    if (tableView == m_Featuredtableview) {
+        numberOfRowsInSection = m_Featuredlist.count;
     }
-    else if (tableView == m_backtable) {
-        
-        return 3;
-    }else if (tableView == m_backtable1)
-    {
-        return 3;
-    }else if (tableView == m_shoptable) {
-        
-        return m_shoptypelist.count + 1;
-    }else if (tableView == m_shoptable1) {
-        
-        return 3;
+    else if(tableView == m_Deliverytableview) {
+        //numberOfRowsInSection = m_Deliverylist.count;
     }
-    else
-    {
-        return 0;
+    else if (tableView == m_ShopDaquan) {
+        numberOfRowsInSection = m_ShopDaquanlist.count;
+    }
+    else if (tableView == m_CellmicroShop) {
+        numberOfRowsInSection = m_CellmicroShoplist.count;
     }
     
+    tableView.tableFooterView.hidden = !(numberOfRowsInSection == 0);
+    
+    return numberOfRowsInSection;
 }
+
 // Customize the appearance of table view cells.
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (tableView == m_Featuredtableview)
-    {
-        BOOL nibsRegistered = NO;
-        if (!nibsRegistered) {
-            UINib *nib = [UINib nibWithNibName:@"FeaturedCell" bundle:nil];
-            [tableView registerNib:nib forCellReuseIdentifier:@"FeaturedCellidentifier"];
-            nibsRegistered = YES;
-        }
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    UITableViewCell *retCell = nil;
+    NSArray *dataList = nil;
+    if (tableView == m_Featuredtableview) {
+        
         NSDictionary *Featinfo = [m_Featuredlist objectAtIndex:indexPath.row];
-        LY_FeaturedCell *cell = [tableView dequeueReusableCellWithIdentifier:@"FeaturedCellidentifier"];
+        LY_FeaturedCell *cell = [tableView dequeueReusableCellWithIdentifier:@"FeaturedCellidentifier" forIndexPath:indexPath];
         NSString *imageUrl = [Featinfo objectForKey:@"cool_path"];
-        if (imageUrl!=nil && ![imageUrl isEqualToString:@""]) {
+        if ([imageUrl length]) {
             NSURL *url = [NSURL URLWithString:imageUrl];
             [cell.m_imageview setImageWithURL:url placeholderImage:nil];
         }
-        return cell;
-    }else if (tableView == m_Deliverytableview)
-    {
-        BOOL nibsRegistered = NO;
-        if (!nibsRegistered) {
-            UINib *nib = [UINib nibWithNibName:@"DeliveryCell" bundle:nil];
-            [tableView registerNib:nib forCellReuseIdentifier:@"DeliveryCellidentifiter"];
-            nibsRegistered = YES;
-        }
-        NSDictionary *Featinfo = [m_Deliverylist objectAtIndex:indexPath.row];
-        LY_DeliveryCell *cell = [tableView dequeueReusableCellWithIdentifier:@"DeliveryCellidentifiter"];
-        cell.m_imageview.layer.cornerRadius = 3;
-        cell.m_imageview.clipsToBounds = YES;
-        NSString *imageUrl = [Featinfo objectForKey:@"logo"];
-        if (imageUrl!=nil && ![imageUrl isEqualToString:@""])
-        {
-            NSURL *url = [NSURL URLWithString:imageUrl];
-            [cell.m_imageview setImageWithURL:url placeholderImage:nil];
-        }
-        [cell setStoreName:[Featinfo objectForKey:@"name"]];
-        [cell setCallNumber:[[Featinfo objectForKey:@"call_number"] integerValue]];
-        [cell setDistance:[[Featinfo objectForKey:@"distance"] integerValue]];
-        if ([[[NSString alloc] initWithFormat:@"%@",[Featinfo objectForKey:@"sendable"]]isEqualToString:@"1"]) {
-            cell.m_sendable.text = [NSString stringWithFormat:@"支持配送/%@", [Featinfo objectForKey:@"send_info"]];
-        }else
-        {
-            cell.m_sendable.text = [NSString stringWithFormat:@"不支持配送/%@", [Featinfo objectForKey:@"send_info"]];
-        }
-        if ([[[NSString alloc] initWithFormat:@"%@",[Featinfo objectForKey:@"hui"]] isEqualToString:@"1"]) {
-            cell.m_hui.hidden = NO;
-        }else
-        {
-            cell.m_hui.hidden = YES;
-        }
-        return cell;
-    }else if (tableView == m_ShopDaquan)
-    {
-        BOOL nibsRegistered = NO;
-        if (!nibsRegistered) {
-            UINib *nib = [UINib nibWithNibName:@"DeliveryCell" bundle:nil];
-            [tableView registerNib:nib forCellReuseIdentifier:@"DeliveryCellidentifiter"];
-            nibsRegistered = YES;
-        }
-        NSDictionary *Featinfo = [m_ShopDaquanlist objectAtIndex:indexPath.row];
-        LY_DeliveryCell *cell = [tableView dequeueReusableCellWithIdentifier:@"DeliveryCellidentifiter"];
-        cell.m_imageview.layer.cornerRadius = 3;
-        cell.m_imageview.clipsToBounds = YES;
-        NSString *imageUrl = [Featinfo objectForKey:@"logo"];
-        if (imageUrl!=nil && ![imageUrl isEqualToString:@""])
-        {
-            NSURL *url = [NSURL URLWithString:imageUrl];
-            [cell.m_imageview setImageWithURL:url placeholderImage:nil];
-        }
-        [cell setStoreName:[Featinfo objectForKey:@"name"]];
-        [cell setCallNumber:[[Featinfo objectForKey:@"call_number"] integerValue]];
-        [cell setDistance:[[Featinfo objectForKey:@"distance"] integerValue]];
-        if ([[[NSString alloc] initWithFormat:@"%@",[Featinfo objectForKey:@"sendable"]]isEqualToString:@"1"]) {
-            cell.m_sendable.text = [NSString stringWithFormat:@"支持配送/%@", [Featinfo objectForKey:@"send_info"]];
-        }else
-        {
-            cell.m_sendable.text = [NSString stringWithFormat:@"不支持配送/%@", [Featinfo objectForKey:@"send_info"]];
-        }
-        if ([[[NSString alloc] initWithFormat:@"%@",[Featinfo objectForKey:@"hui"]] isEqualToString:@"1"]) {
-            cell.m_hui.hidden = NO;
-        }else
-        {
-            cell.m_hui.hidden = YES;
-        }
-        return cell;
-    }else if (tableView == m_CellmicroShop)
-    {
-        BOOL nibsRegistered = NO;
-        if (!nibsRegistered) {
-            UINib *nib = [UINib nibWithNibName:@"DeliveryCell" bundle:nil];
-            [tableView registerNib:nib forCellReuseIdentifier:@"DeliveryCellidentifiter"];
-            nibsRegistered = YES;
-        }
-        NSDictionary *Featinfo = [m_CellmicroShoplist objectAtIndex:indexPath.row];
-        LY_DeliveryCell *cell = [tableView dequeueReusableCellWithIdentifier:@"DeliveryCellidentifiter"];
-        cell.m_imageview.layer.cornerRadius = 3;
-        cell.m_imageview.clipsToBounds = YES;
-        NSString *imageUrl = [Featinfo objectForKey:@"logo"];
-        if (imageUrl!=nil && ![imageUrl isEqualToString:@""])
-        {
-            NSURL *url = [NSURL URLWithString:imageUrl];
-            [cell.m_imageview setImageWithURL:url placeholderImage:nil];
-        }
-        [cell setStoreName:[Featinfo objectForKey:@"name"]];
-        [cell setCallNumber:[[Featinfo objectForKey:@"call_number"] integerValue]];
-        [cell setDistance:[[Featinfo objectForKey:@"distance"] integerValue]];
-        if ([[[NSString alloc] initWithFormat:@"%@",[Featinfo objectForKey:@"sendable"]]isEqualToString:@"1"]) {
-            cell.m_sendable.text = [NSString stringWithFormat:@"支持配送/%@", [Featinfo objectForKey:@"send_info"]];
-        }else
-        {
-            cell.m_sendable.text = [NSString stringWithFormat:@"不支持配送/%@", [Featinfo objectForKey:@"send_info"]];
-        }
-        if ([[[NSString alloc] initWithFormat:@"%@",[Featinfo objectForKey:@"hui"]] isEqualToString:@"1"]) {
-            cell.m_hui.hidden = YES;
-        }else
-        {
-            cell.m_hui.hidden = NO;
-        }
-        return cell;
-    }
-    else if (tableView ==  m_backtable ) {
-        UITableViewCell *cell;
-        cell = [tableView dequeueReusableCellWithIdentifier:@"m_backtablecell"];
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"m_backtablecell"];
-        switch (indexPath.row) {
-            case 0:
-                cell.textLabel.text = @"全部";
-                break;
-            case 1:
-                cell.textLabel.text = @"餐饮及水果";
-                break;
-            case 2:
-                cell.textLabel.text = @"超市及百货";
-                break;
-            default:
-                break;
-        }
-        cell.contentView.backgroundColor = [UIColor whiteColor];
-        UIView *m_cellbackView = [[UIView alloc] initWithFrame:cell.contentView.frame];
-        m_cellbackView.backgroundColor = [UIColor REDCOLOR];
-        cell.selectedBackgroundView = m_cellbackView;
-        return cell;
-    }
-    else if (tableView ==  m_backtable1 ) {
-        UITableViewCell *cell;
-        cell = [tableView dequeueReusableCellWithIdentifier:@"m_backtablecell1"];
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"m_backtablecell1"];
-        switch (indexPath.row) {
-            case 0:
-                cell.textLabel.text = @"智能排序";
-                break;
-            case 1:
-                cell.textLabel.text = @"拨打次数排序";
-                break;
-            case 2:
-                cell.textLabel.text = @"距离排序";
-                break;
-            default:
-                break;
-        }
-        cell.contentView.backgroundColor = [UIColor whiteColor];
-        UIView *m_cellbackView = [[UIView alloc] initWithFrame:cell.contentView.frame];
-        m_cellbackView.backgroundColor = [UIColor REDCOLOR];
-        cell.selectedBackgroundView = m_cellbackView;
-        return cell;
-    }
-    else if (tableView ==  m_shoptable ) {
-        UITableViewCell *cell;
-        cell = [tableView dequeueReusableCellWithIdentifier:@"m_shoptablecell"];
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"m_shoptablecell"];
-        if (indexPath.row == 0)
-        {
-            cell.textLabel.text = @"所有";
-        }
-        else
-        {
-            NSDictionary * temp = [m_shoptypelist objectAtIndex:indexPath.row-1];
-            cell.textLabel.text = [temp objectForKey:@"name"];
-        }
-        cell.contentView.backgroundColor = [UIColor whiteColor];
-        UIView *m_cellbackView = [[UIView alloc] initWithFrame:cell.contentView.frame];
-        m_cellbackView.backgroundColor = [UIColor REDCOLOR];
-        cell.selectedBackgroundView = m_cellbackView;
-        return cell;
-    }
-    else if (tableView == m_shoptable1) {
         
-        UITableViewCell *cell;
-        cell = [tableView dequeueReusableCellWithIdentifier:@"m_shoptablecell1"];
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"m_shoptablecell1"];
-        switch (indexPath.row) {
-            case 0:
-                cell.textLabel.text = @"智能排序";
-                break;
-            case 1:
-                cell.textLabel.text = @"拨打次数排序";
-                break;
-            case 2:
-                cell.textLabel.text = @"距离排序";
-                break;
-            default:
-                break;
-        }
-        cell.contentView.backgroundColor = [UIColor whiteColor];
-        UIView *m_cellbackView = [[UIView alloc] initWithFrame:cell.contentView.frame];
-        m_cellbackView.backgroundColor = [UIColor REDCOLOR];
-        cell.selectedBackgroundView = m_cellbackView;
-        //默认选中第一行
-//        [m_shoptable1 selectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] animated:YES scrollPosition:UITableViewScrollPositionTop];
+        retCell = cell;
+    }
+    else if (tableView == m_Deliverytableview) {
         
-        return cell;
+        dataList = m_Deliverylist;
     }
-    else
-    {
-        return nil;
+    else if (tableView == m_ShopDaquan) {
+        
+        dataList = m_ShopDaquanlist;
     }
+    else if (tableView == m_CellmicroShop) {
+        
+        dataList = m_CellmicroShoplist;
+    }
+    
+    if (nil == retCell) {
+        
+        LY_DeliveryCell *cell = [tableView dequeueReusableCellWithIdentifier:@"DeliveryCellidentifiter"];
+        retCell = cell;
+        
+        if (indexPath.row < [dataList count]) {
+            
+            NSDictionary *Featinfo = [dataList objectAtIndex:indexPath.row];
+            
+            NSString *imageUrl = [Featinfo objectForKey:@"logo"];
+            if ([imageUrl length]) {
+                NSURL *url = [NSURL URLWithString:imageUrl];
+                [cell.m_imageview setImageWithURL:url placeholderImage:nil];
+            }
+            [cell setStoreName:[Featinfo objectForKey:@"name"]];
+            [cell setCallNumber:[[Featinfo objectForKey:@"call_number"] integerValue]];
+            [cell setDistance:[[Featinfo objectForKey:@"distance"] integerValue]];
+            
+            if ([[Featinfo objectForKey:@"sendable"] boolValue]) {
+                cell.m_sendable.text = [NSString stringWithFormat:@"支持配送/%@", [Featinfo objectForKey:@"send_info"]];
+            }
+            else {
+                cell.m_sendable.text = [NSString stringWithFormat:@"不支持配送/%@", [Featinfo objectForKey:@"send_info"]];
+            }
+            
+            cell.m_hui.hidden = ![[Featinfo objectForKey:@"hui"] boolValue];
+        }
+    }
+    
+    return retCell;
 }
 //点击事件
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    NSString *keyForID = @"";
+    NSArray *dataList = nil;
     if (tableView == m_Featuredtableview) {
-        NSDictionary *Featinfo = [m_Featuredlist objectAtIndex:indexPath.row];
-        m_Storesid = [[NSString alloc]initWithFormat:@"%@",[Featinfo objectForKey:@"shop_id"]];
-        [self performSegueWithIdentifier:@"Gostoresinfo" sender:self];
-        [tableView deselectRowAtIndexPath:indexPath animated:NO];
-    }else if(tableView ==m_Deliverytableview)
-    {
-        NSDictionary *Featinfo = [m_Deliverylist objectAtIndex:indexPath.row];
-        m_Storesid = [[NSString alloc]initWithFormat:@"%@",[Featinfo objectForKey:@"id"]];
-        [self performSegueWithIdentifier:@"Gostoresinfo" sender:self];
-        [tableView deselectRowAtIndexPath:indexPath animated:NO];
-    }else if (tableView == m_ShopDaquan)
-    {
-        NSDictionary *Featinfo = [m_ShopDaquanlist objectAtIndex:indexPath.row];
-        m_Storesid = [[NSString alloc]initWithFormat:@"%@",[Featinfo objectForKey:@"id"]];
-        [self performSegueWithIdentifier:@"Gostoresinfo" sender:self];
-        [tableView deselectRowAtIndexPath:indexPath animated:NO];
-    }else if (tableView == m_CellmicroShop)
-    {
         
-        NSDictionary *Featinfo = [m_CellmicroShoplist objectAtIndex:indexPath.row];
-        m_Storesid = [[NSString alloc]initWithFormat:@"%@",[Featinfo objectForKey:@"id"]];
+        dataList = m_Featuredlist;
+        keyForID = @"shop_id";
+    }
+    else if (tableView == m_Deliverytableview) {
+        
+        dataList = m_Deliverylist;
+        keyForID = @"id";
+    }
+    else if (tableView == m_ShopDaquan) {
+        
+        dataList = m_ShopDaquanlist;
+        keyForID = @"id";
+    }
+    else if (tableView == m_CellmicroShop) {
+        
+        dataList = m_CellmicroShoplist;
+        keyForID = @"id";
+    }
+    
+    if (indexPath.row < [dataList count]) {
+        NSDictionary *dataInfo = [dataList objectAtIndex:indexPath.row];
+        m_Storesid = [[NSString alloc]initWithFormat:@"%@", [dataInfo objectForKey:keyForID]];
         [self performSegueWithIdentifier:@"Gostoresinfo" sender:self];
-        [tableView deselectRowAtIndexPath:indexPath animated:NO];
-    }else if(tableView == m_backtable||tableView ==  m_shoptable)
-    {
-        if (indexPath.row == 0) {
-            StoreType = @"";
-        }else
-        {
-            NSDictionary * temp  = [m_shoptypelist objectAtIndex:indexPath.row-1];
-            StoreType = [temp objectForKey:@"id"];
-        }
-    }else if(tableView == m_backtable1||tableView == m_shoptable1)
-    {
-        switch (indexPath.row) {
-            case 0:
-                orderstr = @"1";
-                break;
-            case 1:
-                orderstr = @"2";
-                break;
-            case 2:
-                orderstr = @"3";
-            default:
-                break;
-        }
     }
     
-    
-    NSUInteger row = [indexPath row];
-    NSLog(@"%lu",(unsigned long)row);
-}
--(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (tableView == m_Featuredtableview)
-    {
-        return 138;
-    }else if (tableView == m_Deliverytableview)
-    {
-        return 79;
-    } if (tableView == m_ShopDaquan)
-    {
-        return 79;
-    }if (tableView == m_CellmicroShop)
-    {
-        return 79;
-    }
-    else
-    {
-        return 40;
-    }
+    [tableView deselectRowAtIndexPath:indexPath animated:NO];
 }
 
-//tableView滚动事件
--(void)scrollViewDidScroll:(UIScrollView *)scrollView
-{
-    if (scrollView == m_Deliverytableview) {
-        [m_deliverSearch resignFirstResponder];
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    CGFloat heightForRowAtIndexPath = 0;
+    if (tableView == m_Featuredtableview) {
+        heightForRowAtIndexPath = 138;
     }
-    else if (scrollView == m_ShopDaquan) {
-        
-        [m_shopSearch resignFirstResponder];
+    else if (tableView == m_Deliverytableview) {
+        heightForRowAtIndexPath = 86;
+    }
+    else if (tableView == m_ShopDaquan) {
+        heightForRowAtIndexPath = 86;
+    }
+    else if (tableView == m_CellmicroShop) {
+        heightForRowAtIndexPath = 86;
+    }
+    return heightForRowAtIndexPath;
+}
+
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
+    if (scrollView == self._scrollView) {
+        NSInteger index = lroundf(self._scrollView.contentOffset.x / self._scrollView.frame.size.width);
+        self.m_segment.selectedSegmentIndex = index;
     }
 }
 
@@ -1135,17 +460,16 @@
                                                             params:dic
                                                             repeat:YES
                                                              isGet:YES
+                                                          activity:YES
                                                        resultBlock:^(BOOL bValidJSON, NSString *errorMsg, id result) {
                                                            if(!bValidJSON)
                                                            {
                                                                NSLog(@"error %@",errorMsg);
                                                            }else
                                                            {
-                                                               m_shoptypelist =result;
-                                                               [m_backtable reloadData];
+                                                               m_shoptypelist = result;
                                                            }
                                                        }];
-   [self.friendlyLoadingView hideLoadingView];
 }
 
 #pragma UIStoryboardSegue 协议函数
@@ -1161,6 +485,57 @@
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
 {
     m_tempb =searchBar;
+}
+
+#pragma mark -
+#pragma mark ColMenuDelegate
+
+- (NSInteger)sectionOfColMenu:(ColMenu *)colMenu {
+    NSInteger sectionOfColMenu = 0;
+    switch (self.m_segment.selectedSegmentIndex) {
+        case 1:
+            sectionOfColMenu = 2;
+            break;
+        case 2:
+            sectionOfColMenu = 2;
+            break;
+        default:
+            break;
+    }
+    return sectionOfColMenu;
+}
+
+- (NSInteger)colMune:(ColMenu *)colMenu numberOfRowsInSection:(NSInteger)section {
+    NSInteger numberOfRowsInSection = 0;
+    switch (self.m_segment.selectedSegmentIndex) {
+        case 1: {
+            switch (section) {
+                case 1:
+                    numberOfRowsInSection = 4;
+                    break;
+                case 2:
+                    numberOfRowsInSection = 4;
+                    break;
+                default:
+                    break;
+            }
+        }
+            break;
+        case 2:
+            numberOfRowsInSection = 2;
+            break;
+        default:
+            break;
+    }
+    return numberOfRowsInSection;
+}
+
+- (NSString *)colMune:(ColMenu *)colMenu titleForItemOfSection:(NSInteger)section row:(NSInteger)row {
+    return @"text";
+}
+
+- (void)colMune:(ColMenu *)colMenu didSelectItemOfSection:(NSInteger)section row:(NSInteger)row {
+    
 }
 
 @end

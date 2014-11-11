@@ -108,4 +108,8 @@
     }
 }
 
+- (NSArray *)maskForItem {
+    return tagItemIndex;
+}
+
 @end
