@@ -5136,17 +5136,10 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-<<<<<<< HEAD
-        <segue reference="pnN-Mq-Lrm"/>
-        <segue reference="gne-12-lal"/>
-        <segue reference="e4p-wT-QTQ"/>
-        <segue reference="vk7-fL-aT2"/>
-=======
         <segue reference="kwL-jh-Juo"/>
         <segue reference="qLP-OD-hg1"/>
         <segue reference="e4p-wT-QTQ"/>
-        <segue reference="pAm-k8-o87"/>
->>>>>>> AndrewLee
+        <segue reference="gne-12-lal"/>
         <segue reference="ZlB-3N-nCw"/>
     </inferredMetricsTieBreakers>
 </document>
