@@ -31,7 +31,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
     [m_segment addTarget:self action:@selector(doSomethingInSegment:)forControlEvents:UIControlEventValueChanged];
     
     self.m_babytableView.tableFooterView = self.footerView;
@@ -165,12 +164,11 @@
             
         }];
         return cell;
-    }else if (tableView == m_neighborhoodtableView) {
-        
+    }else if (tableView == m_neighborhoodtableView)
+    {
         UINib *nib = [UINib nibWithNibName:@"LYNeighborhoodCell" bundle:nil];
         [tableView registerNib:nib forCellReuseIdentifier:@"neighborhoodCellidentifier"];
         cell = [tableView dequeueReusableCellWithIdentifier:@"neighborhoodCellidentifier"];
-        
         return cell;
     }
     return cell;

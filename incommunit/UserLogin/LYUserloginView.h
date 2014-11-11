@@ -28,7 +28,7 @@
 @property(nonatomic, retain)IBOutlet UIImageView * m_iamgeview;
 @property(nonatomic, retain)IBOutlet UILabel * m_communityName;
 @property(nonatomic, retain)IBOutlet UIButton * m_loginbutton;
--(IBAction)login:(NSString*)user password:(NSString *)password;
+
 -(IBAction)returnPage:(id)sender;
 +(BOOL )Getourist;
 @end

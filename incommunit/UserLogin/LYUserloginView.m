@@ -40,21 +40,7 @@ static BOOL YTourist;
     [self.view addGestureRecognizer:singleRecognizer];
     m_communityName.text = [[LYSelectCommunit GetCommunityInfo] objectForKey:@"name"];
     [LYSqllite CreatUserTable];
-    if (!m_bool)
-    {
-        NSMutableDictionary* temp = [[NSMutableDictionary alloc] init];
-        temp = [LYSqllite Ruser];
-        if (temp!=nil)
-        {
-            if ([[[NSString alloc] initWithFormat:@"%@",[temp objectForKey:@"id"]] isEqual:[[NSString alloc] initWithFormat:@"%@",[[LYSelectCommunit GetCommunityInfo] objectForKey:@"id"]]] )
-            {
-                userText.text =[temp objectForKey:@"user"];
-                passwordtext.text =[temp objectForKey:@"password"];
-                [self login:[temp objectForKey:@"user"] password:[temp objectForKey:@"password"]];
-            }
-        }
     }
-}
 
 - (void)viewWillAppear:(BOOL)animated
 {
@@ -112,17 +98,20 @@ static BOOL YTourist;
         detailViewController->m_bl = TRUE;
     }
 }
-
 - (IBAction)login:(UIButton *)button
-{
-    [self login:userText.text password:passwordtext.text communitID:[[LYSelectCommunit GetCommunityInfo] objectForKey:@"id"]];
-}
-
-//login 登陆函数
--(void)login:(NSString*)user password:(NSString *)password communitID:(NSString *)Communitid
 {
     [passwordtext resignFirstResponder];
     Reachability *r = [Reachability reachabilityWithHostname:@"www.baidu.com"];
+    myThread = [[NSThread alloc] initWithTarget:self selector:@selector(startlogin:) object:nil];
+    [myThread start];
+    [userinfo setValue:userText.text forKey:@"user"];
+    [userinfo setValue:passwordtext.text forKey:@"password"];
+    [userinfo setValue:[[LYSelectCommunit GetCommunityInfo] objectForKey:@"id"] forKey:@"community_id"];
+    [userinfo setValue:[[LYSelectCommunit GetCommunityInfo] objectForKey:@"name"] forKey:@"communitname"];
+    [userinfo setValue:[[LYSelectCommunit GetCommunityInfo] objectForKey:@"address"] forKey:@"communitaddress"];
+    [userinfo setValue:[[LYSelectCommunit GetCommunityInfo] objectForKey:@"distance"] forKey:@"communitdistance"];
+    [userinfo setValue:[[LYSelectCommunit GetCommunityInfo] objectForKey:@"max_level"] forKey:@"communitmax_level"];
+    
     if ([userText.text isEqual:@""]||userText.text==nil) {
         UIAlertView *aler = [[UIAlertView alloc] initWithTitle:@"提示"
                                                        message:@"用户不能为空"
@@ -139,48 +128,10 @@ static BOOL YTourist;
                                              cancelButtonTitle:@"确定"
                                              otherButtonTitles:nil, nil];
         [aler show];
-    }
-    else
+    }else
     {
-        myThread = [[NSThread alloc] initWithTarget:self selector:@selector(startlogin:) object:nil];
-        [myThread start];
-        userinfo = [[NSMutableDictionary alloc] init];
-        if ([[LYSelectCommunit GetCommunityInfo] objectForKey:@"name"] ==nil||[[[LYSelectCommunit GetCommunityInfo] objectForKey:@"name"]isEqual:@"null"])
-        {
-            userinfo = [LYSqllite Ruser];
-            [userinfo setValue:userText.text forKey:@"user"];
-            [userinfo setValue:passwordtext.text forKey:@"password"];
-        }else
-        {
-            [userinfo setValue:userText.text forKey:@"user"];
-            [userinfo setValue:passwordtext.text forKey:@"password"];
-            [userinfo setValue:[[LYSelectCommunit GetCommunityInfo] objectForKey:@"id"] forKey:@"community_id"];
-            [userinfo setValue:[[LYSelectCommunit GetCommunityInfo] objectForKey:@"name"] forKey:@"communitname"];
-            [userinfo setValue:[[LYSelectCommunit GetCommunityInfo] objectForKey:@"address"] forKey:@"communitaddress"];
-            [userinfo setValue:[[LYSelectCommunit GetCommunityInfo] objectForKey:@"distance"] forKey:@"communitdistance"];
-            [userinfo setValue:[[LYSelectCommunit GetCommunityInfo] objectForKey:@"max_level"] forKey:@"communitmax_level"];
-        }
-        NSDictionary *dic = @{@"username" : user
-                              ,@"password" : password
-                              ,@"community_id" : Communitid};
-        [[StoreOnlineNetworkEngine shareInstance] startNetWorkWithPath:@"services/login"
-                                                                params:dic
-                                                                repeat:YES
-                                                                 isGet:NO
-                                                              activity:YES
-                                                           resultBlock:^(BOOL bValidJSON, NSString *errorMsg, id result) {
-                                                               if(!bValidJSON)
-                                                               {
-                                                                   UIAlertView *alview = [[UIAlertView alloc] initWithTitle:@"提示" message:errorMsg delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
-                                                                   [alview show];
-                                                               }else
-                                                               {
-                                                                   [LYSqllite  wuser:userinfo];
-                                                                   [self performSegueWithIdentifier:@"GoLYFunctionInterface" sender:self];
-                                                               }
-                                                           }];
+        [self login:userText.text password:passwordtext.text communitID:[[LYSelectCommunit GetCommunityInfo] objectForKey:@"id"]];
     }
-    
     switch ([r currentReachabilityStatus])
     {
         case NotReachable:
@@ -212,10 +163,33 @@ static BOOL YTourist;
             // 使用WiFi网络
             break;
     }
-    
     [myThread cancel];
     [login stopAnimating];
     [login setHidesWhenStopped:YES];
+}
+
+//login 登陆函数
+-(void)login:(NSString*)user password:(NSString *)password communitID:(NSString *)Communitid
+{
+        NSDictionary *dic = @{@"username" : user
+                              ,@"password" : password
+                              ,@"community_id" : Communitid};
+        [[StoreOnlineNetworkEngine shareInstance] startNetWorkWithPath:@"services/login"
+                                                                params:dic
+                                                                repeat:YES
+                                                                 isGet:NO
+                                                              activity:YES
+                                                           resultBlock:^(BOOL bValidJSON, NSString *errorMsg, id result) {
+                                                               if(!bValidJSON)
+                                                               {
+                                                                   UIAlertView *alview = [[UIAlertView alloc] initWithTitle:@"提示" message:errorMsg delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+                                                                   [alview show];
+                                                               }else
+                                                               {
+                                                                   [LYSqllite  wuser:userinfo];
+                                                                   [self performSegueWithIdentifier:@"GoLYFunctionInterface" sender:self];
+                                                               }
+                                                           }];
 }
 
 + (BOOL)isMobileNumber:(NSString *)mobileNum {
@@ -286,7 +260,7 @@ static BOOL YTourist;
     }else if(textField==passwordtext)
     {
         [textField resignFirstResponder];
-        [self login:userText.text password:passwordtext.text];
+//         [self login:userText.text password:passwordtext.text];
     }
     return YES;
 }

@@ -55,6 +55,11 @@ static NSDictionary *   m_cityinfo;//城市信息
 #pragma mark - 初始化
 -(void)viewDidLoad
 {
+    NSMutableDictionary *userinfo =  [LYSqllite Ruser];
+    if (userinfo != nil&&m_bl ==FALSE) {
+        m_cityinfo = userinfo;
+        [self login:[userinfo objectForKey:@"user"] password:[userinfo objectForKey:@"password"] communitID:[userinfo objectForKey:@"id"]];
+    }
     [super viewDidLoad];
     firstloc = TRUE;
     m_Refresh = FALSE;
@@ -85,12 +90,6 @@ static NSDictionary *   m_cityinfo;//城市信息
     [self.m_tab setBackgroundColor:BK_GRAY];
     [self.view addSubview:footerView];
     footerView.hidden = YES;
-    
-    NSMutableDictionary *userinfo =  [LYSqllite Ruser];
-    if (userinfo != nil&&m_bl ==FALSE) {
-        [self performSegueWithIdentifier:@"Gomain4" sender:self];
-        m_cityinfo = userinfo;
-    }
     m_pageSize = 10;
     m_pageOffset = 0;
     self->Serch.delegate=self;
@@ -253,8 +252,16 @@ static NSDictionary *   m_cityinfo;//城市信息
     m_cityinfo = [m_CommunitylistON objectAtIndex:indexPath.row];
     if ([[[NSString alloc]initWithFormat:@"%@",[m_cityinfo objectForKey:@"enable"]]isEqualToString:@"1"])
     {
-        [self performSegueWithIdentifier:@"GoLYUserloginView" sender:self];
-        
+        NSMutableDictionary * userinfo = [[NSMutableDictionary alloc] init];
+        userinfo = [LYSqllite Ruser:[m_cityinfo objectForKey:@"id"]];
+        if (userinfo.count>0)
+        {
+            userinfo = [LYSqllite Ruser:[m_cityinfo objectForKey:@"id"]];
+            [self login:[userinfo objectForKey:@"user"] password:[userinfo objectForKey:@"password"] communitID:[userinfo objectForKey:@"id"]];
+        }else
+        {
+            [self performSegueWithIdentifier:@"GoLYUserloginView" sender:self];
+        }
     }else if ([[[NSString alloc]initWithFormat:@"%@",[m_cityinfo objectForKey:@"enable"]]isEqualToString:@"0"])
     {
         UIAlertView *al = [[UIAlertView alloc] initWithTitle:@"提示" message:@"小区暂未开通" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
@@ -415,6 +422,29 @@ static NSDictionary *   m_cityinfo;//城市信息
         m_pageOffset = m_pageSize*m_pagenumber;
         [self GetCommunity:FALSE];
     }
+}
+
+//login 登陆函数
+-(void)login:(NSString*)user password:(NSString *)password communitID:(NSString *)Communitid
+{
+    NSDictionary *dic = @{@"username" : user
+                          ,@"password" : password
+                          ,@"community_id" : Communitid};
+    [[StoreOnlineNetworkEngine shareInstance] startNetWorkWithPath:@"services/login"
+                                                            params:dic
+                                                            repeat:YES
+                                                             isGet:NO
+                                                          activity:YES
+                                                       resultBlock:^(BOOL bValidJSON, NSString *errorMsg, id result) {
+                                                           if(!bValidJSON)
+                                                           {
+                                                               UIAlertView *alview = [[UIAlertView alloc] initWithTitle:@"提示" message:errorMsg delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+                                                               [alview show];
+                                                           }else
+                                                           {
+                                                               [self performSegueWithIdentifier:@"Gomain4" sender:self];
+                                                           }
+                                                       }];
 }
 
 #pragma  mark -获取小区ID
