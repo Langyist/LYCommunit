@@ -364,6 +364,14 @@ static BOOL YTourist;
 //游客登陆
 -(IBAction)touristsButton:(id)sender
 {
+    userinfo= [[NSMutableDictionary alloc] init];
+    [userinfo setValue:userText.text forKey:@"user"];
+    [userinfo setValue:passwordtext.text forKey:@"password"];
+    [userinfo setValue:[[LYSelectCommunit GetCommunityInfo] objectForKey:@"id"] forKey:@"community_id"];
+    [userinfo setValue:[[LYSelectCommunit GetCommunityInfo] objectForKey:@"name"] forKey:@"communitname"];
+    [userinfo setValue:[[LYSelectCommunit GetCommunityInfo] objectForKey:@"address"] forKey:@"communitaddress"];
+    [userinfo setValue:[[LYSelectCommunit GetCommunityInfo] objectForKey:@"distance"] forKey:@"communitdistance"];
+    [userinfo setValue:[[LYSelectCommunit GetCommunityInfo] objectForKey:@"max_level"] forKey:@"communitmax_level"];
     [userinfo setValue:@"-2" forKey:@"auth_stauts"];
     [LYSqllite wuser:userinfo];
     YTourist = TRUE;
