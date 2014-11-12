@@ -257,7 +257,7 @@ static NSDictionary *   m_cityinfo;//城市信息
         NSMutableDictionary * userinfo = [[NSMutableDictionary alloc] init];
         userinfo = [LYSqllite Ruser:[m_cityinfo objectForKey:@"id"]];
         // TUDO: 检查是否登录
-        if (nil == userinfo) {
+        if (nil == userinfo || [[userinfo objectForKey:@"auth_status"] isEqualToString:@"-2"]) {
             [self performSegueWithIdentifier:@"GoLYUserloginView" sender:nil];
         }
         else {
