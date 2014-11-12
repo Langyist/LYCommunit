@@ -200,6 +200,7 @@ static BOOL YTourist;
                                                                    if ([[userinfo objectForKey:@"auth_stauts"] isEqualToString:@"-1"]) {
                                                                        isMember = NO;
                                                                    }
+                                                                   [LYFunctionInterface Setcommunitinfo:[LYSelectCommunit GetCommunityInfo]];
                                                                    if (isMember) {
                                                                        [self performSegueWithIdentifier:@"GoLYFunctionInterface" sender:self];
                                                                    }
@@ -365,6 +366,7 @@ static BOOL YTourist;
 -(IBAction)touristsButton:(id)sender
 {
     userinfo= [[NSMutableDictionary alloc] init];
+
     [userinfo setValue:userText.text forKey:@"user"];
     [userinfo setValue:passwordtext.text forKey:@"password"];
     [userinfo setValue:[[LYSelectCommunit GetCommunityInfo] objectForKey:@"id"] forKey:@"community_id"];
@@ -376,6 +378,7 @@ static BOOL YTourist;
     [LYSqllite wuser:userinfo];
     YTourist = TRUE;
     [LYSqllite  wuser:userinfo];
+    [LYFunctionInterface Setcommunitinfo:[LYSelectCommunit GetCommunityInfo]];
     [self performSegueWithIdentifier:@"GoLYFunctionInterface" sender:self];
 }
 

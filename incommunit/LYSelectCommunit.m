@@ -57,7 +57,7 @@ static NSDictionary *   m_cityinfo;//城市信息
 -(void)viewDidLoad
 {
     NSMutableDictionary *userinfo =  [LYSqllite Ruser];
-    if (userinfo != nil&&m_bl ==FALSE)
+    if (userinfo != nil&&m_bl ==FALSE && ![[userinfo objectForKey:@"auth_status"] isEqualToString:@"-2"])
     {
         m_cityinfo = userinfo;
         [LYFunctionInterface Setcommunitinfo:m_cityinfo];
@@ -261,8 +261,8 @@ static NSDictionary *   m_cityinfo;//城市信息
             [self performSegueWithIdentifier:@"GoLYUserloginView" sender:nil];
         }
         else {
+            [self login:[userinfo objectForKey:@"user"] password:[userinfo objectForKey:@"password"] communitID:[[m_cityinfo objectForKey:@"id"] stringValue]];
 
-            [self login:[userinfo objectForKey:@"user"] password:[userinfo objectForKey:@"password"] communitID:[m_cityinfo objectForKey:@"id"]];
         }
     }
     else if ([[[NSString alloc]initWithFormat:@"%@", [m_cityinfo objectForKey:@"enable"]] isEqualToString:@"0"]) {
@@ -463,11 +463,14 @@ static NSDictionary *   m_cityinfo;//城市信息
                 isMember = NO;
             }
             if (isMember) {
+                [LYFunctionInterface Setcommunitinfo:m_cityinfo];
                 [self performSegueWithIdentifier:@"Gomain4" sender:self];
             }
             else {
                 [self performSegueWithIdentifier:@"GoLYaddCommunit" sender:self];
             }
+            
+            
         }
     };
     

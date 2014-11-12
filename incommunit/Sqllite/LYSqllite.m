@@ -98,7 +98,7 @@
                     if (nRow<4)
                     {
                         NSString *sql = [NSString stringWithFormat:
-                                         @"INSERT INTO USERINFO ('city_id', 'community_id', 'communitname','communitaddress','communitdistance','communitmax_level','auth_status',user,password) VALUES ('%@', '%@', '%@','%@','%@','%@','%@','%@','%@')",[userinfo objectForKey:@"city_id"], [userinfo objectForKey:@"community_id"] ,[userinfo objectForKey:@"communitname"] , [userinfo objectForKey:@"communitaddress"] ,[userinfo objectForKey:@"communitdistance"],[userinfo objectForKey:@"communitmax_level"],[userinfo objectForKey:@"auth_status"],[userinfo objectForKey:@"user"],[userinfo objectForKey:@"password"]];
+                                         @"INSERT INTO USERINFO ('city_id', 'community_id', 'communitname','communitaddress','communitdistance','communitmax_level','auth_status',user,password) VALUES ('%@', '%@', '%@','%@','%@','%@','%@','%@','%@')",[userinfo objectForKey:@"city_id"], [userinfo objectForKey:@"community_id"] ,[userinfo objectForKey:@"communitname"] , [userinfo objectForKey:@"communitaddress"] ,[userinfo objectForKey:@"communitdistance"],[userinfo objectForKey:@"communitmax_level"],[userinfo objectForKey:@"auth_stauts"],[userinfo objectForKey:@"user"],[userinfo objectForKey:@"password"]];
                         bl = [[[LYSqllite alloc] init]execSql:sql database:tempdatabase];
                     }else
                     {
