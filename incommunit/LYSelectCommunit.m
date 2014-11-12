@@ -261,7 +261,7 @@ static NSDictionary *   m_cityinfo;//城市信息
             [self performSegueWithIdentifier:@"GoLYUserloginView" sender:nil];
         }
         else {
-            [self login:[userinfo objectForKey:@"user"] password:[userinfo objectForKey:@"password"] communitID:[userinfo objectForKey:@"community_id"]];
+            [self login:[userinfo objectForKey:@"user"] password:[userinfo objectForKey:@"password"] communitID:[m_cityinfo objectForKey:@"id"]];
         }
     }
     else if ([[[NSString alloc]initWithFormat:@"%@", [m_cityinfo objectForKey:@"enable"]] isEqualToString:@"0"]) {
@@ -436,6 +436,15 @@ static NSDictionary *   m_cityinfo;//城市信息
     
     NSMutableDictionary * userinfo = [[NSMutableDictionary alloc] init];
     userinfo = [LYSqllite Ruser:[m_cityinfo objectForKey:@"id"]];
+    userinfo = [[NSMutableDictionary alloc] init];
+    
+    [userinfo setValue:user forKey:@"user"];
+    [userinfo setValue:password forKey:@"password"];
+    [userinfo setValue:[[LYSelectCommunit GetCommunityInfo] objectForKey:@"id"] forKey:@"community_id"];
+    [userinfo setValue:[[LYSelectCommunit GetCommunityInfo] objectForKey:@"name"] forKey:@"communitname"];
+    [userinfo setValue:[[LYSelectCommunit GetCommunityInfo] objectForKey:@"address"] forKey:@"communitaddress"];
+    [userinfo setValue:[[LYSelectCommunit GetCommunityInfo] objectForKey:@"distance"] forKey:@"communitdistance"];
+    [userinfo setValue:[[LYSelectCommunit GetCommunityInfo] objectForKey:@"max_level"] forKey:@"communitmax_level"];
     
     // 登录结果处理
     AnalyzeResponseResult result = ^(BOOL bValidJSON, NSString *errorMsg, id result) {
@@ -467,7 +476,7 @@ static NSDictionary *   m_cityinfo;//城市信息
                                 };
     [[StoreOnlineNetworkEngine shareInstance] startNetWorkWithPath:@"services/login"
                                                             params:loginInfo
-                                                            repeat:NO
+                                                            repeat:YES
                                                              isGet:NO
                                                           activity:YES
                                                        resultBlock:result];

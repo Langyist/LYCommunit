@@ -289,7 +289,7 @@
                                 };
     [[StoreOnlineNetworkEngine shareInstance] startNetWorkWithPath:@"services/login"
                                                             params:loginInfo
-                                                            repeat:NO
+                                                            repeat:YES
                                                              isGet:NO
                                                           activity:YES
                                                        resultBlock:result];

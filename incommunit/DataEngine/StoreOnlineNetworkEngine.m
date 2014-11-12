@@ -109,14 +109,14 @@
     [operation cancel];
     
     NSArray *allOperation = [self.operationNetworkArray allKeys];
-    NSMutableDictionary *tempDic = [self.operationNetworkArray copy];
+    //NSMutableDictionary *tempDic = [self.operationNetworkArray copy];
     for (NSString *uniqueIdentifier in allOperation) {
         if ([uniqueIdentifier isEqualToString:[operation uniqueIdentifier]]) {
             [self.operationNetworkArray removeObjectForKey:uniqueIdentifier];
             break;
         }
     }
-    self.operationNetworkArray = [[NSMutableDictionary alloc] initWithDictionary:tempDic copyItems:YES];
+    //self.operationNetworkArray = [[NSMutableDictionary alloc] initWithDictionary:tempDic copyItems:YES];
 }
 
 - (void)addNetworkOperation:(MKNetworkOperation *)operation canRepeat:(BOOL)canRepeat activity:(BOOL)activity resultBlock:(AnalyzeResponseResult)result {
