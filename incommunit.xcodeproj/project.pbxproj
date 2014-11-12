@@ -1034,8 +1034,6 @@
 			children = (
 				AD26EB1F1A11F22A0024403E /* LYHomeMyOrder.h */,
 				AD26EB201A11F22A0024403E /* LYHomeMyOrder.m */,
-				AD197F131A0B660D00E05089 /* LYNumbersense.h */,
-				AD197F141A0B660D00E05089 /* LYNumbersense.m */,
 				AD6A9B741A09CA420031B7C2 /* XIB */,
 				AD6A9B711A09C77E0031B7C2 /* LYMycollection.h */,
 				AD6A9B721A09C77E0031B7C2 /* LYMycollection.m */,
@@ -1055,8 +1053,6 @@
 				F14F18FA1A0A15C200731239 /* AddActionViewController.m */,
 				F1392E851A0CC2E600329FFF /* StoreSettingViewController.h */,
 				F1392E861A0CC2E600329FFF /* StoreSettingViewController.m */,
-				AD26EB1C1A11EF6A0024403E /* LYHomeMyOrder.h */,
-				AD26EB1D1A11EF6A0024403E /* LYHomeMyOrder.m */,
 				AD197F131A0B660D00E05089 /* LYNumbersense.h */,
 				AD197F141A0B660D00E05089 /* LYNumbersense.m */,
 			);
@@ -1288,11 +1284,11 @@
 				TargetAttributes = {
 					AD33EC8919FBB13F00FE0C11 = {
 						CreatedOnToolsVersion = 6.1;
-						DevelopmentTeam = RVMYYQYXU5;
+						DevelopmentTeam = 95N42RGW4F;
 					};
 					AD33ECA219FBB13F00FE0C11 = {
 						CreatedOnToolsVersion = 6.1;
-						DevelopmentTeam = RVMYYQYXU5;
+						DevelopmentTeam = 95N42RGW4F;
 						TestTargetID = AD33EC8919FBB13F00FE0C11;
 					};
 				};

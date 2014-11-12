@@ -277,7 +277,7 @@
             }
             [cell setStoreName:[Featinfo objectForKey:@"name"]];
             [cell setCallNumber:[[Featinfo objectForKey:@"call_number"] integerValue]];
-            [cell setDistance:[[Featinfo objectForKey:@"distance"] integerValue]];
+            [cell setDistance:[[Featinfo objectForKey:@"distance"] floatValue]];
             
             if ([[Featinfo objectForKey:@"sendable"] boolValue]) {
                 cell.m_sendable.text = [NSString stringWithFormat:@"支持配送/%@", [Featinfo objectForKey:@"send_info"]];
@@ -344,7 +344,8 @@
     return heightForRowAtIndexPath;
 }
 
-- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
+{
     if (scrollView == self._scrollView) {
         NSInteger index = lroundf(self._scrollView.contentOffset.x / self._scrollView.frame.size.width);
         self.m_segment.selectedSegmentIndex = index;
@@ -374,7 +375,7 @@
 }
 
 //获取送餐送货数据
--(IBAction)GetdataDelivery
+-(void)GetdataDelivery
 {
     
     NSDictionary *dic = @{@"sendable" : @"1"
@@ -383,7 +384,8 @@
                           ,@"latitude" : [[NSString alloc] initWithFormat:@"%f",latitude]
                           ,@"pagesize" : [[NSString alloc] initWithFormat:@"%d",m_pagesize]
                           ,@"pageoffset" : [[NSString alloc] initWithFormat:@"%d",m_pageoffset]
-                          ,@"type_id" :StoreType };
+                          ,@"type_id" :StoreType
+                          ,@"search_kw" : m_deliverSearch.text};
     [[StoreOnlineNetworkEngine shareInstance] startNetWorkWithPath:@"services/shop/list"
                                                             params:dic
                                                             repeat:YES
@@ -402,7 +404,7 @@
 }
 
 //获取店铺大全数据
--(IBAction)GetShopDaquandata
+-(void)GetShopDaquandata
 {
     NSDictionary *dic = @{@"category" : @"1"
                           ,@"order" : orderstr
@@ -410,7 +412,8 @@
                           ,@"latitude" : [[NSString alloc] initWithFormat:@"%f",latitude]
                           ,@"pagesize" : [[NSString alloc] initWithFormat:@"%d",m_pagesize]
                           ,@"pageoffset" : [[NSString alloc] initWithFormat:@"%d",m_pageoffset]
-                          ,@"type_id" :StoreType };
+                          ,@"type_id" :StoreType
+                          ,@"search_kw" : m_shopSearch.text};
     [[StoreOnlineNetworkEngine shareInstance] startNetWorkWithPath:@"services/shop/list"
                                                             params:dic
                                                             repeat:YES
@@ -427,7 +430,7 @@
                                                        }];
 }
 
--(IBAction)GetCellmicroShopdata
+-(void)GetCellmicroShopdata
 {
 
     NSDictionary *dic = @{@"category" : @"2"
@@ -436,7 +439,8 @@
                           ,@"latitude" : [[NSString alloc] initWithFormat:@"%f",latitude]
                           ,@"pagesize" : [[NSString alloc] initWithFormat:@"%d",m_pagesize]
                           ,@"pageoffset" : [[NSString alloc] initWithFormat:@"%d",m_pageoffset]
-                          ,@"type_id" :StoreType };
+                          ,@"type_id" :StoreType
+                          ,@"search_kw" : m_microShop.text};
     [[StoreOnlineNetworkEngine shareInstance] startNetWorkWithPath:@"services/shop/list"
                                                             params:dic
                                                             repeat:YES
@@ -454,7 +458,7 @@
 }
 
 //获取店铺类型接口
--(IBAction)GetShoptype
+-(void)GetShoptype
 {
     NSDictionary *dic = @{};
     [[StoreOnlineNetworkEngine shareInstance] startNetWorkWithPath:@"services/shop/type"
@@ -485,12 +489,42 @@
 
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
 {
+    if(searchBar == m_deliverSearch)
+    {
+        [self GetdataDelivery];
+    }
+    if(searchBar == m_shopSearch)
+    {
+        [self GetShopDaquandata];
+    }
+    if (searchBar == m_microShop) {
+        [self GetCellmicroShopdata];
+    }
     m_tempb =searchBar;
 }
 
+-(void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar{
+    //[searchBar setShowsCancelButton:YES animated:YES];
+}
+
+- (void)searchBarTextDidEndEditing:(UISearchBar *)searchBar{
+    if(searchBar == m_deliverSearch)
+    {
+        [self GetdataDelivery];
+    }
+    if(searchBar == m_shopSearch)
+    {
+        [self GetShopDaquandata];
+    }
+    if (searchBar == m_microShop) {
+        [self GetCellmicroShopdata];
+    }
+
+}
+
+
 #pragma mark -
 #pragma mark ColMenuDelegate
-
 - (NSInteger)sectionOfColMenu:(ColMenu *)colMenu {
     NSInteger sectionOfColMenu = 0;
     switch (self.m_segment.selectedSegmentIndex) {
@@ -531,7 +565,8 @@
     return numberOfRowsInSection;
 }
 
-- (NSString *)colMune:(ColMenu *)colMenu titleForItemOfSection:(NSInteger)section row:(NSInteger)row {
+- (NSString *)colMune:(ColMenu *)colMenu titleForItemOfSection:(NSInteger)section row:(NSInteger)row
+{
     return @"text";
 }
 

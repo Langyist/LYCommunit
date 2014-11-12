@@ -62,7 +62,7 @@
 }
 
 - (void)setCallNumber:(NSInteger)callNumber {
-    NSMutableAttributedString *attriString = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%d", callNumber]];
+    NSMutableAttributedString *attriString = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%ld", (long)callNumber]];
     NSInteger numberLenth = attriString.length;
     NSAttributedString *text = [[NSAttributedString alloc] initWithString:@"次拨打"];
     [attriString appendAttributedString:text];
@@ -80,8 +80,16 @@
     [self.m_call_number setAttributedText:attriString];
 }
 
-- (void)setDistance:(NSInteger)meter {
-    [self.m_distance setText:[NSString stringWithFormat:@"%dm", meter]];
+- (void)setDistance:(float)meter {
+    if(meter>1)
+    {
+        [self.m_distance setText:[NSString stringWithFormat:@"%2fkm",meter]];
+    }else
+    {
+        [self.m_distance setText:[NSString stringWithFormat:@"%0lfm", meter*1000]];
+    }
+
+    [self.m_distance setText:[NSString stringWithFormat:@"%ldm", (long)meter]];
     CGFloat textWidth = [self labelWidth:self.m_distance];
     CGFloat maxX = CGRectGetMaxX(self.m_distance.frame) - textWidth - CGRectGetWidth(self.distanceImage.frame) - 5;
     CGRect newFrame = self.distanceImage.frame;
