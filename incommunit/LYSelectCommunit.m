@@ -256,17 +256,12 @@ static NSDictionary *   m_cityinfo;//城市信息
         
         NSMutableDictionary * userinfo = [[NSMutableDictionary alloc] init];
         userinfo = [LYSqllite Ruser:[m_cityinfo objectForKey:@"id"]];
-        // TUDO: 检查是否为游客，游客直接跳到主页面
-        
-        // TUDO: 检查是否为当前小区居民，是跳转主页面，否跳转成为小区居民页面
-        if (userinfo.count > 0) {
-            userinfo = [LYSqllite Ruser:[m_cityinfo objectForKey:@"id"]];
-            [LYFunctionInterface Setcommunitinfo:userinfo];
-            [self login:[userinfo objectForKey:@"user"] password:[userinfo objectForKey:@"password"] communitID:[userinfo objectForKey:@"id"]];
+        // TUDO: 检查是否登录
+        if (nil == userinfo) {
+            [self performSegueWithIdentifier:@"GoLYUserloginView" sender:nil];
         }
         else {
-            [LYFunctionInterface Setcommunitinfo:m_cityinfo];
-            [self performSegueWithIdentifier:@"GoLYUserloginView" sender:self];
+            [self login:[userinfo objectForKey:@"user"] password:[userinfo objectForKey:@"password"] communitID:[userinfo objectForKey:@"community_id"]];
         }
     }
     else if ([[[NSString alloc]initWithFormat:@"%@", [m_cityinfo objectForKey:@"enable"]] isEqualToString:@"0"]) {
@@ -435,24 +430,47 @@ static NSDictionary *   m_cityinfo;//城市信息
 //login 登陆函数
 -(void)login:(NSString*)user password:(NSString *)password communitID:(NSString *)Communitid
 {
-    NSDictionary *dic = @{@"username" : user
-                          ,@"password" : password
-                          ,@"community_id" : Communitid};
+    user = [user length] ? user : @"";
+    password = [password length] ? password : @"";
+    Communitid = [Communitid length] ? Communitid : @"";
+    
+    NSMutableDictionary * userinfo = [[NSMutableDictionary alloc] init];
+    userinfo = [LYSqllite Ruser:[m_cityinfo objectForKey:@"id"]];
+    
+    // 登录结果处理
+    AnalyzeResponseResult result = ^(BOOL bValidJSON, NSString *errorMsg, id result) {
+        if(!bValidJSON) {
+            UIAlertView *alview = [[UIAlertView alloc] initWithTitle:@"提示" message:errorMsg delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+            [alview show];
+        }
+        else {
+            [userinfo setValue:[result objectForKey:@"auth_status"] forKey:@"auth_status"];
+            [LYSqllite  wuser:userinfo];
+            BOOL isMember = YES;
+            if ([[userinfo objectForKey:@"auth_stauts"] isEqualToString:@"-1"]) {
+                isMember = NO;
+            }
+            if (isMember) {
+                [self performSegueWithIdentifier:@"Gomain4" sender:self];
+            }
+            else {
+                [self performSegueWithIdentifier:@"GoLYaddCommunit" sender:self];
+            }
+        }
+    };
+    
+    // 登录请求
+    NSDictionary *loginInfo = @{
+                                @"username" : user
+                                ,@"password" : password
+                                ,@"community_id" : Communitid
+                                };
     [[StoreOnlineNetworkEngine shareInstance] startNetWorkWithPath:@"services/login"
-                                                            params:dic
-                                                            repeat:YES
+                                                            params:loginInfo
+                                                            repeat:NO
                                                              isGet:NO
                                                           activity:YES
-                                                       resultBlock:^(BOOL bValidJSON, NSString *errorMsg, id result) {
-                                                           if(!bValidJSON)
-                                                           {
-                                                               UIAlertView *alview = [[UIAlertView alloc] initWithTitle:@"提示" message:errorMsg delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
-                                                               [alview show];
-                                                           }else
-                                                           {
-                                                               [self performSegueWithIdentifier:@"Gomain4" sender:self];
-                                                           }
-                                                       }];
+                                                       resultBlock:result];
 }
 
 #pragma  mark -获取小区ID

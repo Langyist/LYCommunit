@@ -194,10 +194,12 @@ static BOOL YTourist;
                                                                    [alview show];
                                                                }else
                                                                {
-                                                                   [userinfo setValue:@"userinfo" forKey:[result objectForKey:@"auth_status"]];
+                                                                   [userinfo setValue:[result objectForKey:@"auth_status"] forKey:@"auth_status"];
                                                                    [LYSqllite  wuser:userinfo];
-                                                                   BOOL isMember = NO;
-                                                                   // TUDO: 检查是否是当前小区的成员，是跳转主页面，否跳转成为小区居民页面
+                                                                   BOOL isMember = YES;
+                                                                   if ([[userinfo objectForKey:@"auth_stauts"] isEqualToString:@"-1"]) {
+                                                                       isMember = NO;
+                                                                   }
                                                                    if (isMember) {
                                                                        [self performSegueWithIdentifier:@"GoLYFunctionInterface" sender:self];
                                                                    }
