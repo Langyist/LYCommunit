@@ -8,6 +8,9 @@
 
 #import "LYForgotPassword.h"
 #import "StoreOnlineNetworkEngine.h"
+#import "LYSqllite.h"
+#import "LYSelectCommunit.h"
+
 @interface LYForgotPassword ()
 
 @end
@@ -229,13 +232,64 @@
                                                                {
                                                                    UIAlertView *alview = [[UIAlertView alloc] initWithTitle:@"提示" message:errorMsg delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
                                                                    [alview show];
-                                                               }else
+                                                               }
+                                                               else
                                                                {
-                                                                   m_timer =  [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(Countdown) userInfo:nil repeats:YES];
-                                                                   [self performSegueWithIdentifier:@"Gologin" sender:self];
+                                                                   [self login];
                                                                }
                                                            }];
         }
+}
+
+- (void)login {
+    
+    // 获取小区信息
+    NSDictionary *communitInfo = [LYSelectCommunit GetCommunityInfo];
+    
+    // 初始化用户信息
+    NSString *username = [MobilenumberText.text length] ? MobilenumberText.text : @"";
+    NSString *password = [passwordText.text length] ? passwordText.text : @"";
+    NSMutableDictionary *userinfo= [[NSMutableDictionary alloc] init];
+    [userinfo setValue:username forKey:@"user"];
+    [userinfo setValue:password forKey:@"password"];
+    [userinfo setValue:[communitInfo objectForKey:@"id"] forKey:@"community_id"];
+    [userinfo setValue:[communitInfo objectForKey:@"name"] forKey:@"communitname"];
+    [userinfo setValue:[communitInfo objectForKey:@"address"] forKey:@"communitaddress"];
+    [userinfo setValue:[communitInfo objectForKey:@"distance"] forKey:@"communitdistance"];
+    [userinfo setValue:[communitInfo objectForKey:@"max_level"] forKey:@"communitmax_level"];
+    
+    // 登录结果处理
+    AnalyzeResponseResult result = ^(BOOL bValidJSON, NSString *errorMsg, id result) {
+        if(!bValidJSON) {
+            UIAlertView *alview = [[UIAlertView alloc] initWithTitle:@"提示" message:errorMsg delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+            [alview show];
+        }
+        else {
+            [LYSqllite  wuser:userinfo];
+            BOOL isMember = NO;
+            // TUDO: 检查是否是当前小区的成员，是跳转主页面，否跳转成为小区居民页面
+            if (isMember) {
+                [self performSegueWithIdentifier:@"GoLYFunctionInterface" sender:self];
+            }
+            else {
+                [self performSegueWithIdentifier:@"GoLYaddCommunit" sender:self];
+            }
+        }
+    };
+    
+    // 登录请求
+    NSString *communityID = [[communitInfo objectForKey:@"id"] length] ? [communitInfo objectForKey:@"id"] : @"";
+    NSDictionary *loginInfo = @{
+                                @"username" : username
+                                ,@"password" : password
+                                ,@"community_id" : communityID
+                                };
+    [[StoreOnlineNetworkEngine shareInstance] startNetWorkWithPath:@"services/login"
+                                                            params:loginInfo
+                                                            repeat:NO
+                                                             isGet:NO
+                                                          activity:YES
+                                                       resultBlock:result];
 }
 
 @end

@@ -195,7 +195,14 @@ static BOOL YTourist;
                                                                }else
                                                                {
                                                                    [LYSqllite  wuser:userinfo];
-                                                                   [self performSegueWithIdentifier:@"GoLYFunctionInterface" sender:self];
+                                                                   BOOL isMember = NO;
+                                                                   // TUDO: 检查是否是当前小区的成员，是跳转主页面，否跳转成为小区居民页面
+                                                                   if (isMember) {
+                                                                       [self performSegueWithIdentifier:@"GoLYFunctionInterface" sender:self];
+                                                                   }
+                                                                   else {
+                                                                       [self performSegueWithIdentifier:@"GoLYaddCommunit" sender:self];
+                                                                   }
                                                                }
                                                            }];
 }
