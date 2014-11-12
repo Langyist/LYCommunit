@@ -139,7 +139,6 @@
                             [tempimv setImageWithURL:url placeholderImage:nil];
                         }
                     }
-                    
                 }
                     break;
                 case 1:

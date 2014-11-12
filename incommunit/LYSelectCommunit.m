@@ -436,6 +436,7 @@ static NSDictionary *   m_cityinfo;//城市信息
     
     NSMutableDictionary * userinfo = [[NSMutableDictionary alloc] init];
     userinfo = [LYSqllite Ruser:[m_cityinfo objectForKey:@"id"]];
+
     userinfo = [[NSMutableDictionary alloc] init];
     
     [userinfo setValue:user forKey:@"user"];
@@ -445,6 +446,7 @@ static NSDictionary *   m_cityinfo;//城市信息
     [userinfo setValue:[[LYSelectCommunit GetCommunityInfo] objectForKey:@"address"] forKey:@"communitaddress"];
     [userinfo setValue:[[LYSelectCommunit GetCommunityInfo] objectForKey:@"distance"] forKey:@"communitdistance"];
     [userinfo setValue:[[LYSelectCommunit GetCommunityInfo] objectForKey:@"max_level"] forKey:@"communitmax_level"];
+
     
     // 登录结果处理
     AnalyzeResponseResult result = ^(BOOL bValidJSON, NSString *errorMsg, id result) {
