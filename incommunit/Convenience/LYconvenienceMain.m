@@ -16,6 +16,7 @@
 #import "StoreOnlineNetworkEngine.h"
 #import "AppDelegate.h"
 #import "UIView+Clone.h"
+#import "LYFunctionInterface.h"
 #define REDCOLOR colorWithRed:255.0/255.0 green:230.0/255.0 blue:201.0/255.0 alpha:1
 
 @interface LYconvenienceMain ()
@@ -23,9 +24,7 @@
     UISearchBar *m_deliverSearch;
     UISearchBar *m_shopSearch;
     UISearchBar *m_microShop;
-    
     NSInteger lastIndex;
-    
     UIView *footerView;
 }
 
@@ -545,11 +544,11 @@
     switch (self.m_segment.selectedSegmentIndex) {
         case 1: {
             switch (section) {
-                case 1:
-                    numberOfRowsInSection = 4;
+                case 0:
+                    numberOfRowsInSection = m_shoptypelist.count+1;
                     break;
-                case 2:
-                    numberOfRowsInSection = 4;
+                case 1:
+                    numberOfRowsInSection = [LYFunctionInterface Getorder].count+1;
                     break;
                 default:
                     break;
@@ -567,11 +566,72 @@
 
 - (NSString *)colMune:(ColMenu *)colMenu titleForItemOfSection:(NSInteger)section row:(NSInteger)row
 {
-    return @"text";
+
+    NSDictionary *dictemp;
+    NSString *str;
+    switch (self.m_segment.selectedSegmentIndex) {
+        case 1: {
+            switch (section) {
+                case 0:
+                    if (row == 0) {
+                        str = @"全部";
+                    }else
+                    {
+                        dictemp = [m_shoptypelist objectAtIndex:row-1];
+                        str =  [dictemp objectForKey:@"name"];
+                    }
+                    break;
+                case 1:
+                    if (row == 0) {
+                        str = @"默认排序";
+                    }else
+                    {
+                        str = [[[LYFunctionInterface Getorder] objectAtIndex:row - 1] objectForKey:@"order_name"];
+                    }
+                    break;
+                default:
+                    break;
+            }
+        }
+            break;
+        case 2:
+           str =  @"test";
+            break;
+        default:
+            break;
+    }
+    return str;
+
 }
 
 - (void)colMune:(ColMenu *)colMenu didSelectItemOfSection:(NSInteger)section row:(NSInteger)row {
-    
+    switch (self.m_segment.selectedSegmentIndex) {
+        case 1: {
+            switch (section) {
+                case 0:
+                    if (row == 0) {
+                        StoreType = @"";
+                    }else
+                    {
+                        StoreType = [[m_shoptypelist objectAtIndex:row-1] objectForKey:@"id"];
+                    }
+                    [self GetdataDelivery];
+                    break;
+                case 1:
+                    //str =  @"test";
+                    break;
+                default:
+                    break;
+            }
+        }
+            break;
+        case 2:
+            //str =  @"test";
+            break;
+        default:
+            break;
+    }
+
 }
 
 @end

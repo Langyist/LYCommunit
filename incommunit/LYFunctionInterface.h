@@ -29,4 +29,6 @@
 @property (nonatomic,retain)IBOutlet UIView  *m_View;
 +(void)Setcommunitinfo :(NSDictionary *)dic;
 +(NSDictionary *)Getcommunitinfo;
+
++(NSMutableArray *)Getorder;
 @end

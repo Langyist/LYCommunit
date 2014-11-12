@@ -58,7 +58,7 @@
 +(void)CreatUserTable
 {
     sqlite3 *tempdatabase =  [[[LYSqllite alloc] init] openSqlite:@"LY_db.db"];
-    NSString *sqlCreateTable = @"CREATE TABLE IF NOT EXISTS USERINFO (ID INTEGER PRIMARY KEY AUTOINCREMENT, city_id TEXT, community_id INTEGER, communitname TEXT,communitaddress TEXT, communitdistance TEXT, communitmax_level TEXT,user TEXT,password TEXT)";
+    NSString *sqlCreateTable = @"CREATE TABLE IF NOT EXISTS USERINFO (ID INTEGER PRIMARY KEY AUTOINCREMENT, city_id TEXT, community_id INTEGER, communitname TEXT,communitaddress TEXT, communitdistance TEXT, communitmax_level TEXT,auth_status TEXT,user TEXT,password TEXT)";
     [[[LYSqllite alloc] init] execSql:sqlCreateTable database:tempdatabase];
     sqlite3_close(tempdatabase);
 }
@@ -98,7 +98,7 @@
                     if (nRow<4)
                     {
                         NSString *sql = [NSString stringWithFormat:
-                                         @"INSERT INTO USERINFO ('city_id', 'community_id', 'communitname','communitaddress','communitdistance','communitmax_level',user,password) VALUES ('%@', '%@', '%@','%@','%@','%@','%@','%@')",[userinfo objectForKey:@"city_id"], [userinfo objectForKey:@"community_id"] ,[userinfo objectForKey:@"communitname"] , [userinfo objectForKey:@"communitaddress"] ,[userinfo objectForKey:@"communitdistance"],[userinfo objectForKey:@"communitmax_level"],[userinfo objectForKey:@"user"],[userinfo objectForKey:@"password"]];
+                                         @"INSERT INTO USERINFO ('city_id', 'community_id', 'communitname','communitaddress','communitdistance','communitmax_level','auth_status',user,password) VALUES ('%@', '%@', '%@','%@','%@','%@','%@','%@','%@')",[userinfo objectForKey:@"city_id"], [userinfo objectForKey:@"community_id"] ,[userinfo objectForKey:@"communitname"] , [userinfo objectForKey:@"communitaddress"] ,[userinfo objectForKey:@"communitdistance"],[userinfo objectForKey:@"communitmax_level"],[userinfo objectForKey:@"auth_status"],[userinfo objectForKey:@"user"],[userinfo objectForKey:@"password"]];
                         bl = [[[LYSqllite alloc] init]execSql:sql database:tempdatabase];
                     }else
                     {
@@ -107,7 +107,7 @@
                         if(bl)
                         {
                             NSString *sql = [NSString stringWithFormat:
-                                             @"INSERT INTO USERINFO ('city_id', 'community_id', 'communitname','communitaddress','communitdistance','communitmax_level',user,password) VALUES ('%@', '%@', '%@','%@','%@','%@','%@','%@')",[userinfo objectForKey:@"city_id"], [userinfo objectForKey:@"community_id"] ,[userinfo objectForKey:@"communitname"] , [userinfo objectForKey:@"communitaddress"] ,[userinfo objectForKey:@"communitdistance"],[userinfo objectForKey:@"communitmax_level"],[userinfo objectForKey:@"user"],[userinfo objectForKey:@"password"]];
+                                             @"INSERT INTO USERINFO ('city_id', 'community_id', 'communitname','communitaddress','communitdistance','communitmax_level','auth_status',user,password) VALUES ('%@', '%@', '%@','%@','%@','%@','%@','%@','%@')",[userinfo objectForKey:@"city_id"], [userinfo objectForKey:@"community_id"] ,[userinfo objectForKey:@"communitname"] , [userinfo objectForKey:@"communitaddress"] ,[userinfo objectForKey:@"communitdistance"],[userinfo objectForKey:@"communitmax_level"],[userinfo objectForKey:@"auth_status"],[userinfo objectForKey:@"user"],[userinfo objectForKey:@"password"]];
                             bl = [[[LYSqllite alloc] init]execSql:sql database:tempdatabase];
                         }
                     }
@@ -163,9 +163,12 @@
             char* strText05   = (char*)sqlite3_column_text(statementst, 6);
             [temp setValue:[NSString stringWithUTF8String:strText05] forKey:@"communitmax_level"];
             char* strText06   = (char*)sqlite3_column_text(statementst, 7);
-            [temp setValue:[NSString stringWithUTF8String:strText06] forKey:@"user"];
+            [temp setValue:[NSString stringWithUTF8String:strText06] forKey:@"auth_status"];
             char* strText07   = (char*)sqlite3_column_text(statementst, 8);
-            [temp setValue:[NSString stringWithUTF8String:strText07] forKey:@"password"];
+            [temp setValue:[NSString stringWithUTF8String:strText07] forKey:@"user"];
+            char* strText08   = (char*)sqlite3_column_text(statementst, 9);
+            [temp setValue:[NSString stringWithUTF8String:strText08] forKey:@"password"];
+          
         }
     }
     return temp;
@@ -211,7 +214,7 @@
 
 
 //读取所有的用户表信息
-+(NSMutableArray *)allSuerinfo:(NSString *) name
++(NSMutableArray *)allSuerinfo:(NSString *)name
 {
     NSMutableArray *Arraytemp = [[NSMutableArray alloc] init];
     sqlite3 *tempdatabase =  [[[LYSqllite alloc] init] openSqlite:@"LY_db.db"];
