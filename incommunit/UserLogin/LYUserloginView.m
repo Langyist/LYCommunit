@@ -109,16 +109,6 @@ static BOOL YTourist;
     [passwordtext resignFirstResponder];
     userinfo= [[NSMutableDictionary alloc] init];
     Reachability *r = [Reachability reachabilityWithHostname:@"www.baidu.com"];
-    myThread = [[NSThread alloc] initWithTarget:self selector:@selector(startlogin:) object:nil];
-    [myThread start];
-
-    [userinfo setValue:userText.text forKey:@"user"];
-    [userinfo setValue:passwordtext.text forKey:@"password"];
-    [userinfo setValue:[[LYSelectCommunit GetCommunityInfo] objectForKey:@"id"] forKey:@"community_id"];
-    [userinfo setValue:[[LYSelectCommunit GetCommunityInfo] objectForKey:@"name"] forKey:@"communitname"];
-    [userinfo setValue:[[LYSelectCommunit GetCommunityInfo] objectForKey:@"address"] forKey:@"communitaddress"];
-    [userinfo setValue:[[LYSelectCommunit GetCommunityInfo] objectForKey:@"distance"] forKey:@"communitdistance"];
-    [userinfo setValue:[[LYSelectCommunit GetCommunityInfo] objectForKey:@"max_level"] forKey:@"communitmax_level"];
 
     if ([userText.text isEqual:@""]||userText.text==nil) {
         UIAlertView *aler = [[UIAlertView alloc] initWithTitle:@"提示"
@@ -171,6 +161,18 @@ static BOOL YTourist;
             // 使用WiFi网络
             break;
     }
+    
+    myThread = [[NSThread alloc] initWithTarget:self selector:@selector(startlogin:) object:nil];
+    [myThread start];
+    
+    [userinfo setValue:userText.text forKey:@"user"];
+    [userinfo setValue:passwordtext.text forKey:@"password"];
+    [userinfo setValue:[[LYSelectCommunit GetCommunityInfo] objectForKey:@"id"] forKey:@"community_id"];
+    [userinfo setValue:[[LYSelectCommunit GetCommunityInfo] objectForKey:@"name"] forKey:@"communitname"];
+    [userinfo setValue:[[LYSelectCommunit GetCommunityInfo] objectForKey:@"address"] forKey:@"communitaddress"];
+    [userinfo setValue:[[LYSelectCommunit GetCommunityInfo] objectForKey:@"distance"] forKey:@"communitdistance"];
+    [userinfo setValue:[[LYSelectCommunit GetCommunityInfo] objectForKey:@"max_level"] forKey:@"communitmax_level"];
+    
     [myThread cancel];
     [login stopAnimating];
     [login setHidesWhenStopped:YES];
