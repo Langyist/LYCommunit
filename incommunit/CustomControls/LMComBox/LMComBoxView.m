@@ -8,6 +8,7 @@
 #import "LMComBoxView.h"
 @implementation LMComBoxView {
     CGFloat originalHeight;
+    UIView *supView;
 }
 @synthesize isOpen = _isOpen;
 @synthesize listTable = _listTable;
@@ -18,6 +19,16 @@
 @synthesize arrowImgName = _arrowImgName;
 @synthesize delegate = _delegate;
 @synthesize supView = _supView;
+
+- (void)setSupView:(UIView *)asupView {
+    supView = asupView;
+    
+    originalHeight = asupView.frame.size.height;
+}
+
+- (UIView *)supView {
+    return supView;
+}
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -57,7 +68,7 @@
     _listTable.layer.borderWidth = 0.5;
     _listTable.layer.borderColor = kBorderColor.CGColor;
     _listTable.backgroundColor = [UIColor whiteColor];
-    [_supView addSubview:_listTable];
+    [self.supView addSubview:_listTable];
     titleLabel.text = [_titlesList objectAtIndex:_defaultIndex];
 }
 
@@ -71,7 +82,7 @@
 //关闭父视图上面的其他combox
 -(void)closeOtherCombox
 {
-    for(UIView *subView in _supView.subviews)
+    for(UIView *subView in self.supView.subviews)
     {
         if([subView isKindOfClass:[LMComBoxView class]]&&subView!=self)
         {
@@ -104,9 +115,9 @@
             CGRect frame = _listTable.frame;
             frame.size.height = 0;
             [_listTable setFrame:frame];
-            CGRect fr = _supView.frame;
+            CGRect fr = self.supView.frame;
             fr.size.height = originalHeight;
-            _supView.frame = fr;
+            self.supView.frame = fr;
         } completion:^(BOOL finished){
             [_listTable removeFromSuperview];//移除
             _isOpen = NO;
@@ -115,10 +126,9 @@
     }
     else
     {
-        CGRect fr = _supView.frame;
-        originalHeight = fr.size.height;
+        CGRect fr = self.supView.frame;
         fr.size.height = 180;
-        _supView.frame = fr;
+        self.supView.frame = fr;
         [UIView animateWithDuration:0.3 animations:^{
             if(_titlesList.count>0)
             {
@@ -128,8 +138,8 @@
                  */
                 [_listTable scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:YES];
             }
-            [_supView addSubview:_listTable];
-            [_supView bringSubviewToFront:_listTable];//避免被其他子视图遮盖住
+            [self.supView addSubview:_listTable];
+            [self.supView bringSubviewToFront:_listTable];//避免被其他子视图遮盖住
             CGRect frame = _listTable.frame;
             frame.size.height = _tableHeight>0?_tableHeight:tableH;
             float height = [UIScreen mainScreen].bounds.size.height;
