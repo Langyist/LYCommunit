@@ -344,7 +344,10 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
     CGFloat heightForHeaderInSection = 0;
     if ([_colMenuDelegate respondsToSelector:@selector(colMune:titleForHeaderOfSection:)]) {
-        heightForHeaderInSection = 44;
+        NSString *titleForHeaderInSection = [_colMenuDelegate colMune:[ColMenu sharedMenu] titleForHeaderOfSection:tableView.tag];
+        if ([titleForHeaderInSection length]) {
+            heightForHeaderInSection = 44;
+        }
     }
     return heightForHeaderInSection;
 }
