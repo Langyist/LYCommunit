@@ -27,7 +27,7 @@
 }
 
 - (void)setNumber:(NSInteger)number {
-    NSString *numberString = [NSString stringWithFormat:@"x%d", number];
+    NSString *numberString = [NSString stringWithFormat:@"x%ld", (long)number];
     [self.numberLabel setText:numberString];
 }
 
