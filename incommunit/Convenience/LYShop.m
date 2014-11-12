@@ -71,7 +71,7 @@
                       ,[self createFixableItem:10]
                       ,nil];
     [self setToolbarItems:array animated:YES];
-    [NSThread detachNewThreadSelector:@selector(Getstoresdata:) toTarget:self withObject:nil];
+    [self Getstoresdata];
     
 }
 
@@ -200,34 +200,7 @@
         bgScrollView.backgroundColor = [UIColor clearColor];
         bgScrollView.showsVerticalScrollIndicator = NO;
         bgScrollView.showsHorizontalScrollIndicator = NO;
-        
         [self setUpBgScrollView];
-        
-//        comboxView = [[LMComBoxView alloc] initWithFrame:
-//                      CGRectMake(CGRectGetWidth(self.view.frame) / 2 * 0,
-//                                 0,
-//                                 CGRectGetWidth(self.view.frame) / 2,
-//                                 44)];
-//        
-//        comboxView.backgroundColor = [UIColor clearColor];
-//        comboxView.titlesList = itemsArray;
-//        comboxView.delegate = self;
-//        comboxView.supView = bgScrollView;
-//        [comboxView defaultSettings];
-//        [bgScrollView addSubview:comboxView];
-//        
-//        comboxView1 = [[LMComBoxView alloc] initWithFrame:
-//                       CGRectMake(CGRectGetWidth(self.view.frame) / 2 * 1,
-//                                  0,
-//                                  CGRectGetWidth(self.view.frame) / 2,
-//                                  44)];
-//        
-//        comboxView1.backgroundColor = [UIColor clearColor];
-//        comboxView1.titlesList = itemsArray1;
-//        comboxView1.delegate = self;
-//        comboxView1.supView = bgScrollView;
-//        [comboxView1 defaultSettings];
-//        [bgScrollView addSubview:comboxView1];
     }
     return bgScrollView;
 }
@@ -288,14 +261,12 @@
     {
         LYProductinformation *detailViewController = (LYProductinformation*) segue.destinationViewController;
         detailViewController->m_GoodsID = self->m_Goodsid;
-       // detailViewController->m_storesinfo = self->m_stores;
     }
 }
 
 #pragma mark - 获取数据
--(IBAction)Getstoresdata:(NSString *)URL
+-(void)Getstoresdata
 {
-    
     NSDictionary *dic = @{@"id" : m_StoresID};
     [[StoreOnlineNetworkEngine shareInstance] startNetWorkWithPath:@"services/shop/detail"
                                                             params:dic
@@ -318,15 +289,13 @@
                                                                [m_stores setValue:[m_storesinfo objectForKey:@"name"] forKey:@"name"];
                                                                self.title = [m_storesinfo objectForKey:@"name"];
                                                                [self.tableView reloadData];
-                                                               [self serachGoods:@""];
+                                                               [self serachGoods];
                                                            }
                                                        }];
-    
 }
 
--(void)serachGoods:(NSString *)URL
+-(void)serachGoods
 {
-
     NSDictionary *dic = @{@"shop_id" : m_StoresID
                           ,@"category_id" : categoryid
                           ,@"order" :order
@@ -442,7 +411,7 @@
             {
                 categoryid = @"";
             }
-            [NSThread detachNewThreadSelector:@selector(serachGoods:) toTarget:self withObject:nil];
+            [self serachGoods];
             break;
         case 1001:
             categoryid = [[NSString alloc] initWithFormat:@"%d",index+1];

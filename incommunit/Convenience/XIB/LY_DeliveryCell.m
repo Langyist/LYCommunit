@@ -80,8 +80,15 @@
     [self.m_call_number setAttributedText:attriString];
 }
 
-- (void)setDistance:(NSInteger)meter {
-    [self.m_distance setText:[NSString stringWithFormat:@"%ldm", (long)meter]];
+- (void)setDistance:(float)meter {
+    if(meter>1)
+    {
+        [self.m_distance setText:[NSString stringWithFormat:@"%.2fkm",meter]];
+    }else
+    {
+        [self.m_distance setText:[NSString stringWithFormat:@"%0lfm", meter*1000]];
+    }
+
     CGFloat textWidth = [self labelWidth:self.m_distance];
     CGFloat maxX = CGRectGetMaxX(self.m_distance.frame) - textWidth - CGRectGetWidth(self.distanceImage.frame) - 5;
     CGRect newFrame = self.distanceImage.frame;

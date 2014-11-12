@@ -34,5 +34,5 @@
 // 设置拨打次数
 - (void)setCallNumber:(NSInteger)callNumber;
 // 设置距离
-- (void)setDistance:(NSInteger)meter;
+- (void)setDistance:(float)meter;
 @end
