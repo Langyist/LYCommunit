@@ -48,12 +48,12 @@
 //点击事件
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSUInteger row = [indexPath row];
+    NSInteger row = [indexPath row];
     if (indexPath.section == 0) {
         [self performSegueWithIdentifier:@"GoPersonaldata" sender:self];
     }
     else if (indexPath.section == 1) {
-        switch (row) {
+        switch (indexPath.row) {
             case 0:
                 [self performSegueWithIdentifier:@"Gocertification" sender:self];
                 break;
@@ -65,7 +65,7 @@
                 break;
         }
     }else if (indexPath.section == 2) {
-        switch (row) {
+        switch (indexPath.row) {
             case 0:
                 NSLog(@"我的相册");
                 break;
@@ -81,7 +81,7 @@
     }
     else if (indexPath.section == 3) {
         
-        switch (row) {
+        switch (indexPath.row) {
             case 0:
                 NSLog(@"我的发布");
                 break;
