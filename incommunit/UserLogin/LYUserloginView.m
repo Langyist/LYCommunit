@@ -194,9 +194,18 @@ static BOOL YTourist;
                                                                    [alview show];
                                                                }else
                                                                {
-                                                                   [userinfo setValue:@"userinfo" forKey:[result objectForKey:@"auth_status"]];
+                                                                   [userinfo setValue:[result objectForKey:@"auth_status"] forKey:@"auth_status"];
                                                                    [LYSqllite  wuser:userinfo];
-                                                                   [self performSegueWithIdentifier:@"GoLYFunctionInterface" sender:self];
+                                                                   BOOL isMember = YES;
+                                                                   if ([[userinfo objectForKey:@"auth_stauts"] isEqualToString:@"-1"]) {
+                                                                       isMember = NO;
+                                                                   }
+                                                                   if (isMember) {
+                                                                       [self performSegueWithIdentifier:@"GoLYFunctionInterface" sender:self];
+                                                                   }
+                                                                   else {
+                                                                       [self performSegueWithIdentifier:@"GoLYaddCommunit" sender:self];
+                                                                   }
                                                                }
                                                            }];
 }

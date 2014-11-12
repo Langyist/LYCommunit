@@ -247,33 +247,31 @@ static NSDictionary *   m_cityinfo;//城市信息
     }
     return cell;
 }
+
 //点击事件
--(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    NSUInteger row = [indexPath row];
-    NSLog(@"%lu",(unsigned long)row);
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
     m_cityinfo = [m_CommunitylistON objectAtIndex:indexPath.row];
-    if ([[[NSString alloc]initWithFormat:@"%@",[m_cityinfo objectForKey:@"enable"]]isEqualToString:@"1"])
-    {
+    if ([[[NSString alloc]initWithFormat:@"%@", [m_cityinfo objectForKey:@"enable"]] isEqualToString:@"1"]) {
+        
         NSMutableDictionary * userinfo = [[NSMutableDictionary alloc] init];
         userinfo = [LYSqllite Ruser:[m_cityinfo objectForKey:@"id"]];
-        if (userinfo.count>0)
-        {
-            userinfo = [LYSqllite Ruser:[m_cityinfo objectForKey:@"id"]];
-            [LYFunctionInterface Setcommunitinfo:userinfo];
-            [self login:[userinfo objectForKey:@"user"] password:[userinfo objectForKey:@"password"] communitID:[userinfo objectForKey:@"id"]];
-        }else
-        {
-            [LYFunctionInterface Setcommunitinfo:m_cityinfo];
-            [self performSegueWithIdentifier:@"GoLYUserloginView" sender:self];
+        // TUDO: 检查是否登录
+        if (nil == userinfo) {
+            [self performSegueWithIdentifier:@"GoLYUserloginView" sender:nil];
         }
-    }else if ([[[NSString alloc]initWithFormat:@"%@",[m_cityinfo objectForKey:@"enable"]]isEqualToString:@"0"])
-    {
+        else {
+            [self login:[userinfo objectForKey:@"user"] password:[userinfo objectForKey:@"password"] communitID:[userinfo objectForKey:@"community_id"]];
+        }
+    }
+    else if ([[[NSString alloc]initWithFormat:@"%@", [m_cityinfo objectForKey:@"enable"]] isEqualToString:@"0"]) {
+        
         UIAlertView *al = [[UIAlertView alloc] initWithTitle:@"提示" message:@"小区暂未开通" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
         [al show];
     }
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
+
 //tableView滚动事件
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
@@ -432,24 +430,47 @@ static NSDictionary *   m_cityinfo;//城市信息
 //login 登陆函数
 -(void)login:(NSString*)user password:(NSString *)password communitID:(NSString *)Communitid
 {
-    NSDictionary *dic = @{@"username" : user
-                          ,@"password" : password
-                          ,@"community_id" : Communitid};
+    user = [user length] ? user : @"";
+    password = [password length] ? password : @"";
+    Communitid = [Communitid length] ? Communitid : @"";
+    
+    NSMutableDictionary * userinfo = [[NSMutableDictionary alloc] init];
+    userinfo = [LYSqllite Ruser:[m_cityinfo objectForKey:@"id"]];
+    
+    // 登录结果处理
+    AnalyzeResponseResult result = ^(BOOL bValidJSON, NSString *errorMsg, id result) {
+        if(!bValidJSON) {
+            UIAlertView *alview = [[UIAlertView alloc] initWithTitle:@"提示" message:errorMsg delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+            [alview show];
+        }
+        else {
+            [userinfo setValue:[result objectForKey:@"auth_status"] forKey:@"auth_status"];
+            [LYSqllite  wuser:userinfo];
+            BOOL isMember = YES;
+            if ([[userinfo objectForKey:@"auth_stauts"] isEqualToString:@"-1"]) {
+                isMember = NO;
+            }
+            if (isMember) {
+                [self performSegueWithIdentifier:@"Gomain4" sender:self];
+            }
+            else {
+                [self performSegueWithIdentifier:@"GoLYaddCommunit" sender:self];
+            }
+        }
+    };
+    
+    // 登录请求
+    NSDictionary *loginInfo = @{
+                                @"username" : user
+                                ,@"password" : password
+                                ,@"community_id" : Communitid
+                                };
     [[StoreOnlineNetworkEngine shareInstance] startNetWorkWithPath:@"services/login"
-                                                            params:dic
-                                                            repeat:YES
+                                                            params:loginInfo
+                                                            repeat:NO
                                                              isGet:NO
                                                           activity:YES
-                                                       resultBlock:^(BOOL bValidJSON, NSString *errorMsg, id result) {
-                                                           if(!bValidJSON)
-                                                           {
-                                                               UIAlertView *alview = [[UIAlertView alloc] initWithTitle:@"提示" message:errorMsg delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
-                                                               [alview show];
-                                                           }else
-                                                           {
-                                                               [self performSegueWithIdentifier:@"Gomain4" sender:self];
-                                                           }
-                                                       }];
+                                                       resultBlock:result];
 }
 
 #pragma  mark -获取小区ID

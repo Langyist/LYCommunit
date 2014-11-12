@@ -31,5 +31,4 @@
 +(NSDictionary *)Getcommunitinfo;
 
 +(NSMutableArray *)Getorder;
-
 @end

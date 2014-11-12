@@ -85,7 +85,7 @@
     {
 
         [self.m_distance setText:[NSString stringWithFormat:@"%.2fkm",meter]];
-
+        
     }else
     {
         [self.m_distance setText:[NSString stringWithFormat:@"%0lfm", meter*1000]];
