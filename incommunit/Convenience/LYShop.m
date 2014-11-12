@@ -224,9 +224,9 @@
             break;
         case 3:
         {
-            UIAlertView *alview = [[UIAlertView alloc] initWithTitle:@"提示" message:[[NSString alloc] initWithFormat:@"地址：%@",[m_storesinfo objectForKey:@"address"]] delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
-            [alview show];
+            NSLog(@"跳转到地图页面");
         }
+            break;
         default:
             break;
     }

@@ -183,15 +183,6 @@
         ft.text = [[NSString alloc]initWithFormat:@"%d",[ft.text intValue]-1];
     }
 }
-//获取网络图片
--(UIImage *) getImageFromURL:(NSString *)fileURL
-{
-    NSLog(@"执行图片下载函数");
-    UIImage * result;
-    NSData * data = [NSData dataWithContentsOfURL:[NSURL URLWithString:fileURL]];
-    result = [UIImage imageWithData:data];
-    return result;
-}
 
 -(IBAction)Settlement:(id)sender
 {
