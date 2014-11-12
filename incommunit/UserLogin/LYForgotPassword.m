@@ -265,7 +265,7 @@
             [alview show];
         }
         else {
-            [userinfo setValue:[result objectForKey:@"auth_status"] forKey:@"auth_status"];
+            [userinfo setValue:[[result objectForKey:@"auth_status"] stringValue] forKey:@"auth_stauts"];
             [LYSqllite  wuser:userinfo];
             BOOL isMember = YES;
             if ([[userinfo objectForKey:@"auth_stauts"] isEqualToString:@"-1"]) {

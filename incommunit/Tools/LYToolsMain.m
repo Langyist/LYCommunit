@@ -130,7 +130,7 @@ static NSMutableArray *album;
 -(IBAction)Exit:(id)sender
 {
     
-    [LYSqllite deleteuserinfo:[[LYFunctionInterface Getcommunitinfo] objectForKey:@"user"]];
+    [LYSqllite deletetable];
     [self performSegueWithIdentifier:@"GoLogin" sender:self];
 }
 

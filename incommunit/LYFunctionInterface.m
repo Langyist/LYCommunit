@@ -193,7 +193,6 @@ static NSMutableArray    * m_order;
 //获取网络数据
 -(void)Getdata:(NSString *)url
 {
-    
     NSDictionary *dic = @{@"id" : [Communit objectForKey:@"id"]};
     [[StoreOnlineNetworkEngine shareInstance] startNetWorkWithPath:@"services/community/index"
                                                             params:dic

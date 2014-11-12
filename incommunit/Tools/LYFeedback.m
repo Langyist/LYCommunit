@@ -29,8 +29,6 @@
 {
     [super viewDidLoad];
     mothedText.delegate = self;
-    mothedText.keyboardType = UIKeyboardTypeNamePhonePad;
-    
     m_textView.delegate = self;
     
     UITapGestureRecognizer *gesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(downKeyboard)];
@@ -137,7 +135,7 @@
     NSString *urlstr = [plistDic objectForKey: @"URL"];
     NSError *error;
     //    加载一个NSURL对象
-    NSString    *URLString = [NSString stringWithFormat:@"%@/services/feedback/add?",urlstr];
+    NSString *URLString = [NSString stringWithFormat:@"%@/services/feedback/add?",urlstr];
     NSURL *URL = [NSURL URLWithString:URLString];
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc]initWithURL:URL cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:10];
     [request setHTTPMethod:@"POST"];//设置请求方式为POST，默认为GET

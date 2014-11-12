@@ -95,7 +95,7 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    [self performSegueWithIdentifier:@"StoreSetting" sender:nil];
+//    [self performSegueWithIdentifier:@"StoreSetting" sender:nil];
 }
 
 - (IBAction)showMenu:(UIButton *)sender {
@@ -131,7 +131,7 @@
 }
 
 - (void)storesSetting:(id)sender {
-    
+    [self performSegueWithIdentifier:@"StoreSetting" sender:self];
 }
 
 - (void)orderManager:(id)sender {

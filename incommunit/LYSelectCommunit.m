@@ -57,7 +57,7 @@ static NSDictionary *   m_cityinfo;//城市信息
 -(void)viewDidLoad
 {
     NSMutableDictionary *userinfo =  [LYSqllite Ruser];
-    if (userinfo != nil&&m_bl ==FALSE && ![[userinfo objectForKey:@"auth_status"] isEqualToString:@"-2"])
+    if (userinfo != nil&&m_bl ==FALSE && ![[userinfo objectForKey:@"auth_stauts"] isEqualToString:@"-2"])
     {
         m_cityinfo = userinfo;
         [LYFunctionInterface Setcommunitinfo:m_cityinfo];
@@ -257,11 +257,12 @@ static NSDictionary *   m_cityinfo;//城市信息
         NSMutableDictionary * userinfo = [[NSMutableDictionary alloc] init];
         userinfo = [LYSqllite Ruser:[m_cityinfo objectForKey:@"id"]];
         // TUDO: 检查是否登录
-        if (nil == userinfo || [[userinfo objectForKey:@"auth_status"] isEqualToString:@"-2"]) {
+        if (nil == userinfo || [[userinfo objectForKey:@"auth_stauts"] isEqualToString:@"-2"]) {
             [self performSegueWithIdentifier:@"GoLYUserloginView" sender:nil];
         }
         else {
             [self login:[userinfo objectForKey:@"user"] password:[userinfo objectForKey:@"password"] communitID:[[m_cityinfo objectForKey:@"id"] stringValue]];
+
         }
     }
     else if ([[[NSString alloc]initWithFormat:@"%@", [m_cityinfo objectForKey:@"enable"]] isEqualToString:@"0"]) {
@@ -451,11 +452,10 @@ static NSDictionary *   m_cityinfo;//城市信息
     // 登录结果处理
     AnalyzeResponseResult result = ^(BOOL bValidJSON, NSString *errorMsg, id result) {
         if(!bValidJSON) {
-            UIAlertView *alview = [[UIAlertView alloc] initWithTitle:@"提示" message:errorMsg delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
-            [alview show];
+            [self performSegueWithIdentifier:@"GoLYUserloginView" sender:nil];
         }
         else {
-            [userinfo setValue:[result objectForKey:@"auth_status"] forKey:@"auth_status"];
+            [userinfo setValue:[[result objectForKey:@"auth_status"] stringValue] forKey:@"auth_stauts"];
             [LYSqllite  wuser:userinfo];
             BOOL isMember = YES;
             if ([[userinfo objectForKey:@"auth_stauts"] isEqualToString:@"-1"]) {

@@ -211,9 +211,22 @@
     NSLog(@"%lu",(unsigned long)row);
     switch (indexPath.row) {
         case 1:
-          
+        {
+            UIAlertView *alview = [[UIAlertView alloc] initWithTitle:@"提示" message:[m_storesinfo objectForKey:@"description"] delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+            [alview show];
+        }
             break;
-            
+        case 2:
+        {
+            UIAlertView *alview = [[UIAlertView alloc] initWithTitle:@"提示" message:[m_storesinfo objectForKey:@"send_info"] delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+            [alview show];
+        }
+            break;
+        case 3:
+        {
+            NSLog(@"跳转到地图页面");
+        }
+            break;
         default:
             break;
     }
