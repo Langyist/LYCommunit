@@ -211,9 +211,22 @@
     NSLog(@"%lu",(unsigned long)row);
     switch (indexPath.row) {
         case 1:
-          
+        {
+            UIAlertView *alview = [[UIAlertView alloc] initWithTitle:@"提示" message:[m_storesinfo objectForKey:@"description"] delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+            [alview show];
+        }
             break;
-            
+        case 2:
+        {
+            UIAlertView *alview = [[UIAlertView alloc] initWithTitle:@"提示" message:[m_storesinfo objectForKey:@"send_info"] delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+            [alview show];
+        }
+            break;
+        case 3:
+        {
+            UIAlertView *alview = [[UIAlertView alloc] initWithTitle:@"提示" message:[[NSString alloc] initWithFormat:@"地址：%@",[m_storesinfo objectForKey:@"address"]] delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+            [alview show];
+        }
         default:
             break;
     }
