@@ -363,6 +363,8 @@ static BOOL YTourist;
 //游客登陆
 -(IBAction)touristsButton:(id)sender
 {
+    [userinfo setValue:@"-2" forKey:@"auth_stauts"];
+    [LYSqllite wuser:userinfo];
     YTourist = TRUE;
     [LYSqllite  wuser:userinfo];
     [self performSegueWithIdentifier:@"GoLYFunctionInterface" sender:self];

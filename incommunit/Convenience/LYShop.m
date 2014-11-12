@@ -210,6 +210,14 @@
 {
     NSUInteger row = [indexPath row];
     NSLog(@"%lu",(unsigned long)row);
+    switch (indexPath.row) {
+        case 1:
+          
+            break;
+            
+        default:
+            break;
+    }
     if (indexPath.row > 5) {
         NSMutableDictionary *Goodsinfo =[m_Goodslist objectAtIndex:indexPath.row-6];
         m_Goodsid =  m_Goodsid = [[NSString alloc] initWithFormat:@"%@",[Goodsinfo objectForKey:@"id"]];
@@ -229,7 +237,6 @@
 }
 
 #pragma mark - overwrite
-
 -(BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
 {
     return NO;
