@@ -356,7 +356,8 @@ static BOOL YTourist;
 }
 
 //忘记密码
-- (IBAction)forgetPsdButton:(id)sender {
+- (IBAction)forgetPsdButton:(id)sender
+{
     [self performSegueWithIdentifier:@"GoLYForgotPassword" sender:self];
 }
 
