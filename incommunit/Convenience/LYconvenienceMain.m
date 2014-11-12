@@ -316,13 +316,12 @@
         dataList = m_CellmicroShoplist;
         keyForID = @"id";
     }
-    
-    if (indexPath.row < [dataList count]) {
+    if (indexPath.row < [dataList count])
+    {
         NSDictionary *dataInfo = [dataList objectAtIndex:indexPath.row];
         m_Storesid = [[NSString alloc]initWithFormat:@"%@", [dataInfo objectForKey:keyForID]];
         [self performSegueWithIdentifier:@"Gostoresinfo" sender:self];
     }
-    
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
 }
 
@@ -541,8 +540,6 @@
 
 - (NSInteger)colMune:(ColMenu *)colMenu numberOfRowsInSection:(NSInteger)section {
     NSInteger numberOfRowsInSection = 0;
-    switch (self.m_segment.selectedSegmentIndex) {
-        case 1: {
             switch (section) {
                 case 0:
                     numberOfRowsInSection = m_shoptypelist.count+1;
@@ -553,14 +550,6 @@
                 default:
                     break;
             }
-        }
-            break;
-        case 2:
-            numberOfRowsInSection = 2;
-            break;
-        default:
-            break;
-    }
     return numberOfRowsInSection;
 }
 
@@ -569,8 +558,6 @@
 
     NSDictionary *dictemp;
     NSString *str;
-    switch (self.m_segment.selectedSegmentIndex) {
-        case 1: {
             switch (section) {
                 case 0:
                     if (row == 0) {
@@ -592,15 +579,7 @@
                 default:
                     break;
             }
-        }
-            break;
-        case 2:
-           str =  @"test";
-            break;
-        default:
-            break;
-    }
-    return str;
+           return str;
 
 }
 
@@ -618,7 +597,14 @@
                     [self GetdataDelivery];
                     break;
                 case 1:
-                    //str =  @"test";
+                    if(row == 0)
+                    {
+                        orderstr = @"";
+                    }else
+                    {
+                        orderstr = [[[LYFunctionInterface Getorder] objectAtIndex:row-1] objectForKey:@"order_id"];
+                    }
+                    [self GetdataDelivery];
                     break;
                 default:
                     break;
@@ -626,10 +612,29 @@
         }
             break;
         case 2:
-            //str =  @"test";
-            break;
-        default:
-            break;
+            switch (section) {
+                case 0:
+                    if (row == 0) {
+                        StoreType = @"";
+                    }else
+                    {
+                        StoreType = [[m_shoptypelist objectAtIndex:row-1] objectForKey:@"id"];
+                    }
+                    [self GetShopDaquandata];
+                    break;
+                case 1:
+                    if(row == 0)
+                    {
+                        orderstr = @"";
+                    }else
+                    {
+                        orderstr = [[[LYFunctionInterface Getorder] objectAtIndex:row-1] objectForKey:@"order_id"];
+                    }
+                    [self GetShopDaquandata];
+                    break;
+                default:
+                    break;
+            }
     }
 
 }
