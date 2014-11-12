@@ -225,6 +225,12 @@
 		F18E641F1A121614001BD189 /* arrows_right.png in Resources */ = {isa = PBXBuildFile; fileRef = F18E641D1A121614001BD189 /* arrows_right.png */; };
 		F18E64231A122C0B001BD189 /* SubmitOrderItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = F18E64211A122C0B001BD189 /* SubmitOrderItemView.m */; };
 		F18E64241A122C0B001BD189 /* SubmitOrderItemView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F18E64221A122C0B001BD189 /* SubmitOrderItemView.xib */; };
+		F18E64271A12EDE2001BD189 /* WelcomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F18E64261A12EDE2001BD189 /* WelcomeViewController.m */; };
+		F18E642D1A12EF3A001BD189 /* 邻里互助_guide.png in Resources */ = {isa = PBXBuildFile; fileRef = F18E64281A12EF3A001BD189 /* 邻里互助_guide.png */; };
+		F18E642E1A12EF3A001BD189 /* 物业管理_guide.png in Resources */ = {isa = PBXBuildFile; fileRef = F18E64291A12EF3A001BD189 /* 物业管理_guide.png */; };
+		F18E642F1A12EF3A001BD189 /* 小区交流_guide.png in Resources */ = {isa = PBXBuildFile; fileRef = F18E642A1A12EF3A001BD189 /* 小区交流_guide.png */; };
+		F18E64301A12EF3A001BD189 /* 小区开店_guide.png in Resources */ = {isa = PBXBuildFile; fileRef = F18E642B1A12EF3A001BD189 /* 小区开店_guide.png */; };
+		F18E64311A12EF3A001BD189 /* 小区周边_guide.png in Resources */ = {isa = PBXBuildFile; fileRef = F18E642C1A12EF3A001BD189 /* 小区周边_guide.png */; };
 		F1D3726D1A0DF2BF0077BAAA /* StoreSettingAddCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F1D3726B1A0DF2BF0077BAAA /* StoreSettingAddCollectionViewCell.m */; };
 		F1D3726E1A0DF2BF0077BAAA /* StoreSettingAddCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F1D3726C1A0DF2BF0077BAAA /* StoreSettingAddCollectionViewCell.xib */; };
 /* End PBXBuildFile section */
@@ -618,6 +624,13 @@
 		F18E64201A122C0B001BD189 /* SubmitOrderItemView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SubmitOrderItemView.h; sourceTree = "<group>"; };
 		F18E64211A122C0B001BD189 /* SubmitOrderItemView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SubmitOrderItemView.m; sourceTree = "<group>"; };
 		F18E64221A122C0B001BD189 /* SubmitOrderItemView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SubmitOrderItemView.xib; sourceTree = "<group>"; };
+		F18E64251A12EDE2001BD189 /* WelcomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WelcomeViewController.h; sourceTree = "<group>"; };
+		F18E64261A12EDE2001BD189 /* WelcomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WelcomeViewController.m; sourceTree = "<group>"; };
+		F18E64281A12EF3A001BD189 /* 邻里互助_guide.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "邻里互助_guide.png"; sourceTree = "<group>"; };
+		F18E64291A12EF3A001BD189 /* 物业管理_guide.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "物业管理_guide.png"; sourceTree = "<group>"; };
+		F18E642A1A12EF3A001BD189 /* 小区交流_guide.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "小区交流_guide.png"; sourceTree = "<group>"; };
+		F18E642B1A12EF3A001BD189 /* 小区开店_guide.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "小区开店_guide.png"; sourceTree = "<group>"; };
+		F18E642C1A12EF3A001BD189 /* 小区周边_guide.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "小区周边_guide.png"; sourceTree = "<group>"; };
 		F1D3726A1A0DF2BF0077BAAA /* StoreSettingAddCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StoreSettingAddCollectionViewCell.h; sourceTree = "<group>"; };
 		F1D3726B1A0DF2BF0077BAAA /* StoreSettingAddCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StoreSettingAddCollectionViewCell.m; sourceTree = "<group>"; };
 		F1D3726C1A0DF2BF0077BAAA /* StoreSettingAddCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StoreSettingAddCollectionViewCell.xib; sourceTree = "<group>"; };
@@ -782,6 +795,11 @@
 		AD33ECC119FBCA2D00FE0C11 /* Image */ = {
 			isa = PBXGroup;
 			children = (
+				F18E64281A12EF3A001BD189 /* 邻里互助_guide.png */,
+				F18E64291A12EF3A001BD189 /* 物业管理_guide.png */,
+				F18E642A1A12EF3A001BD189 /* 小区交流_guide.png */,
+				F18E642B1A12EF3A001BD189 /* 小区开店_guide.png */,
+				F18E642C1A12EF3A001BD189 /* 小区周边_guide.png */,
 				F18E641C1A121614001BD189 /* 店铺_03.png */,
 				F18E641D1A121614001BD189 /* arrows_right.png */,
 				F18E64101A10DBD6001BD189 /* 返回@2x.png */,
@@ -1042,8 +1060,6 @@
 			children = (
 				AD26EB1F1A11F22A0024403E /* LYHomeMyOrder.h */,
 				AD26EB201A11F22A0024403E /* LYHomeMyOrder.m */,
-				AD197F131A0B660D00E05089 /* LYNumbersense.h */,
-				AD197F141A0B660D00E05089 /* LYNumbersense.m */,
 				AD6A9B741A09CA420031B7C2 /* XIB */,
 				AD6A9B711A09C77E0031B7C2 /* LYMycollection.h */,
 				AD6A9B721A09C77E0031B7C2 /* LYMycollection.m */,
@@ -1063,8 +1079,6 @@
 				F14F18FA1A0A15C200731239 /* AddActionViewController.m */,
 				F1392E851A0CC2E600329FFF /* StoreSettingViewController.h */,
 				F1392E861A0CC2E600329FFF /* StoreSettingViewController.m */,
-				AD26EB1C1A11EF6A0024403E /* LYHomeMyOrder.h */,
-				AD26EB1D1A11EF6A0024403E /* LYHomeMyOrder.m */,
 				AD197F131A0B660D00E05089 /* LYNumbersense.h */,
 				AD197F141A0B660D00E05089 /* LYNumbersense.m */,
 			);
@@ -1090,6 +1104,8 @@
 				AD6211E219FD88DE009BECA6 /* LYAnnouncementDetails.m */,
 				F1392E501A0B909D00329FFF /* LicenseViewController.h */,
 				F1392E511A0B909D00329FFF /* LicenseViewController.m */,
+				F18E64251A12EDE2001BD189 /* WelcomeViewController.h */,
+				F18E64261A12EDE2001BD189 /* WelcomeViewController.m */,
 			);
 			path = Tools;
 			sourceTree = "<group>";
@@ -1363,6 +1379,7 @@
 				F18E641F1A121614001BD189 /* arrows_right.png in Resources */,
 				AD7FBAB01A0216FF008CC80A /* AnnouncementCellNo.xib in Resources */,
 				F14F190B1A0B6AA300731239 /* NumberSenceHeaderView.xib in Resources */,
+				F18E64311A12EF3A001BD189 /* 小区周边_guide.png in Resources */,
 				AD3DD40619FE348600364854 /* mapapi.bundle in Resources */,
 				AD33ED0F19FBCA2D00FE0C11 /* 2.png in Resources */,
 				AD33ED1F19FBCA2D00FE0C11 /* goods.jpg in Resources */,
@@ -1371,6 +1388,7 @@
 				F14F19061A0B65C400731239 /* call_btr.png in Resources */,
 				AD6A9B801A09CA420031B7C2 /* DownCell.xib in Resources */,
 				AD7FBAB21A0216FF008CC80A /* InfoCell1.xib in Resources */,
+				F18E642D1A12EF3A001BD189 /* 邻里互助_guide.png in Resources */,
 				AD33ED1E19FBCA2D00FE0C11 /* down_dark0.png in Resources */,
 				AD33ED4219FBCA2D00FE0C11 /* 点赞_03.png in Resources */,
 				AD33ED1A19FBCA2D00FE0C11 /* 6_10.png in Resources */,
@@ -1423,6 +1441,7 @@
 				AD33ED3C19FBCA2D00FE0C11 /* 我的订单_13.png in Resources */,
 				AD33ED4019FBCA2D00FE0C11 /* 星_06.png in Resources */,
 				AD7FBAAF1A0216FF008CC80A /* AnnouncementCell.xib in Resources */,
+				F18E642E1A12EF3A001BD189 /* 物业管理_guide.png in Resources */,
 				AD33ED6419FBCD3F00FE0C11 /* LaunchScreen.xib in Resources */,
 				F18E641A1A10DBD6001BD189 /* 用户@2x.png in Resources */,
 				AD6A9B861A09CA420031B7C2 /* RejectedCell.xib in Resources */,
@@ -1431,6 +1450,7 @@
 				AD197F171A0B925C00E05089 /* License.html in Resources */,
 				AD7FBAAE1A0216FF008CC80A /* ACCell1.xib in Resources */,
 				AD33ED2419FBCA2D00FE0C11 /* ic_default_shop_image.png in Resources */,
+				F18E642F1A12EF3A001BD189 /* 小区交流_guide.png in Resources */,
 				F18E64181A10DBD6001BD189 /* 密码@2x.png in Resources */,
 				AD33ED4719FBCA2D00FE0C11 /* 男_06.png in Resources */,
 				AD33ED2319FBCA2D00FE0C11 /* ic_default_shop.png in Resources */,
@@ -1447,6 +1467,7 @@
 				AD33ED4319FBCA2D00FE0C11 /* 物业管理--物业公告_02.png in Resources */,
 				F13D4C3A1A079C7100E23FDB /* 周边便民--未开店--帮帮娃_03.png in Resources */,
 				AD6A9B951A09CC4B0031B7C2 /* LYShopCell.xib in Resources */,
+				F18E64301A12EF3A001BD189 /* 小区开店_guide.png in Resources */,
 				F10340C619FF4FCF00C5CB4E /* ic_password.png in Resources */,
 				AD33ED2219FBCA2D00FE0C11 /* ic_default_no_data.png in Resources */,
 				AD33ED0E19FBCA2D00FE0C11 /* 1_10.png in Resources */,
@@ -1531,6 +1552,7 @@
 				F13D4C311A07688600E23FDB /* NCTableViewCell.m in Sources */,
 				AD3DD3C019FE13FE00364854 /* LY_FeaturedCell.m in Sources */,
 				F1392E8B1A0CD4C500329FFF /* StoreSettingCollectionViewCell.m in Sources */,
+				F18E64271A12EDE2001BD189 /* WelcomeViewController.m in Sources */,
 				AD6A9B811A09CA420031B7C2 /* LYAcceptedCell.m in Sources */,
 				AD6211E919FD9F1C009BECA6 /* LYForgotPassword.m in Sources */,
 				AD09555A1A08C71200C53A6F /* LYAbout.m in Sources */,
