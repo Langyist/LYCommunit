@@ -12,7 +12,6 @@
 #import "LY_MaintenanceCell.h"
 #import "LYAnnouncementDetails.h"
 #import "LYPostcomment.h"
-//#import "LYReplyMessage.h"
 #import "LYSelectCommunit.h"
 #import "LY_AnnouncementNoCell.h"
 #import "MessageContentTableViewCell.h"
@@ -21,9 +20,7 @@
 #import "XHFriendlyLoadingView.h"
 @interface LYProManagementMain () {
     UIView *m_liuView;
-    
     UIButton *repairButton;//我要报修button
-    
 }
 
 @property (nonatomic, strong) XHFriendlyLoadingView *friendlyLoadingView;

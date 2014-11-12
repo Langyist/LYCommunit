@@ -211,7 +211,7 @@
 
 
 //读取所有的用户表信息
-+(NSMutableArray *)allSuerinfo:(NSString *) name
++(NSMutableArray *)allSuerinfo:(NSString *)name
 {
     NSMutableArray *Arraytemp = [[NSMutableArray alloc] init];
     sqlite3 *tempdatabase =  [[[LYSqllite alloc] init] openSqlite:@"LY_db.db"];

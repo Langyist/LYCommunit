@@ -14,6 +14,7 @@
 #import <MobileCoreServices/UTCoreTypes.h>
 #import "LYUserloginView.h"
 #import "StoreOnlineNetworkEngine.h"
+#import "LYSqllite.h"
 #define CAMERA @"相机"
 #define PHOTOES @"相册"
 #define kDropDownListTag 1000
@@ -413,6 +414,32 @@
                                                            }
                                                        }];
 }
+
+
+//login 登陆函数
+-(void)login:(NSString*)user password:(NSString *)password communitID:(NSString *)Communitid
+{
+    NSDictionary *dic = @{@"username" : user
+                          ,@"password" : password
+                          ,@"community_id" : Communitid};
+    [[StoreOnlineNetworkEngine shareInstance] startNetWorkWithPath:@"services/login"
+                                                            params:dic
+                                                            repeat:YES
+                                                             isGet:NO
+                                                          activity:YES
+                                                       resultBlock:^(BOOL bValidJSON, NSString *errorMsg, id result) {
+                                                           if(!bValidJSON)
+                                                           {
+                                                               UIAlertView *alview = [[UIAlertView alloc] initWithTitle:@"提示" message:errorMsg delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+                                                               [alview show];
+                                                           }else
+                                                           {
+                                                               //[LYSqllite  wuser:userinfo];
+                                                               [self performSegueWithIdentifier:@"GoLYFunctionInterface" sender:self];
+                                                           }
+                                                       }];
+}
+
 
 -(IBAction)Carryout:(id)sender
 {
