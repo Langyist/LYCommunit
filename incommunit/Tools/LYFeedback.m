@@ -39,6 +39,12 @@
     self.submitButton.layer.cornerRadius = 3.0f;
     
     [mothedText setTextInset:UIEdgeInsetsMake(0, 5, 0, 5)];
+    
+    if (CGRectGetHeight(self.view.frame) < CGRectGetMaxY(self.submitButton.frame)) {
+        CGRect rect = self.submitButton.frame;
+        rect.origin.y = CGRectGetMaxY(self.m_textView.frame) + 35;
+        self.submitButton.frame = rect;
+    }
 }
 
 - (void)downKeyboard {
