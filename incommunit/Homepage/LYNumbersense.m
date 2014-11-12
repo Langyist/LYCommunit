@@ -23,7 +23,7 @@
 }
 
 - (void)setCallNumber:(NSInteger)number {
-    NSString *numberString = [NSString stringWithFormat:@"%d次拨打", number];
+    NSString *numberString = [NSString stringWithFormat:@"%ld次拨打", (long)number];
     [self.callNumberLabel setText:numberString];
 }
 

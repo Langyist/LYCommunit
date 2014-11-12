@@ -20,6 +20,7 @@
     UIView *            m_View;
     @public BOOL        *Tourist ;
     
+    
 }
 @property(nonatomic, retain)IBOutlet UITabBar       *bar;
 @property(nonatomic,retain)IBOutlet UIImageView     *m_imageView;
@@ -28,5 +29,7 @@
 @property (nonatomic,retain)IBOutlet UIView  *m_View;
 +(void)Setcommunitinfo :(NSDictionary *)dic;
 +(NSDictionary *)Getcommunitinfo;
+
 +(NSMutableArray *)Getorder;
+
 @end

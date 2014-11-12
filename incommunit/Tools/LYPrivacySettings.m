@@ -105,6 +105,10 @@
     m_tableView.dataSource = self;
     address = [NSMutableArray arrayWithCapacity:4];
     album = [NSMutableArray arrayWithCapacity:4];
+    
+    m_address = [NSMutableArray arrayWithArray:@[@"0", @"0", @"0", @"0"]];
+    m_album = [NSMutableArray arrayWithArray:@[@"0", @"0", @"0", @"0"]];
+    m_addfriend = @"0";
 }
 
 #pragma mark UITableView delegate

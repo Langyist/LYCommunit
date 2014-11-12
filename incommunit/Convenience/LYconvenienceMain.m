@@ -566,6 +566,7 @@
 
 - (NSString *)colMune:(ColMenu *)colMenu titleForItemOfSection:(NSInteger)section row:(NSInteger)row
 {
+
     NSDictionary *dictemp;
     NSString *str;
     switch (self.m_segment.selectedSegmentIndex) {
@@ -595,6 +596,7 @@
             break;
     }
     return str;
+
 }
 
 - (void)colMune:(ColMenu *)colMenu didSelectItemOfSection:(NSInteger)section row:(NSInteger)row {

@@ -21,7 +21,9 @@
 @implementation LYFunctionInterface
 static NSMutableDictionary *Competence;//模块开通
 static NSDictionary *Communit;
+
 static NSMutableArray    * m_order;
+
 @synthesize bar,m_imageScrollView,m_page,m_imageView,m_View;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -208,8 +210,10 @@ static NSMutableArray    * m_order;
                                                                NSDictionary *tem = [result objectForKey:@"community"];
                                                                Competence = [result objectForKey:@"level2"];
                                                                m_picearry = [tem objectForKey:@"images"];
+
                                                                NSDictionary *sdic = [Competence objectForKey:@"moda" ];
                                                                m_order = [sdic objectForKey:@"sort"];
+
                                                                [self updata];
                                                            }
                                                        }];
@@ -250,8 +254,10 @@ static NSMutableArray    * m_order;
     return Communit;
 }
 
+
 +(NSMutableArray *)Getorder
 {
     return m_order;
 }
+
 @end

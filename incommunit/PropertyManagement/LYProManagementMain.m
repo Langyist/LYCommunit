@@ -564,11 +564,6 @@
         InfoHeader *headerView = [nibViews objectAtIndex:0];
         headerView.titleLabel = titleArray[section];
         return headerView;//将视图（v_headerView）返回
-        if(propertyExpenseArray.count>0)
-        {
-            headerView.addressLabel.text = [[propertyExpenseArray objectAtIndex:0] objectForKey:@"address"];//地址
-        }
-        return nil;//将视图（v_headerView）返回
     }
     else if (tableView == m_ACtableView) {
         return nil;

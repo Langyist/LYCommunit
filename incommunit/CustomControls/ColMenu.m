@@ -162,7 +162,6 @@
     [self setupFrameInView:view fromRect:rect];
     
     overlay = [[ColMenuOverlay alloc] initWithFrame:view.bounds];
-    //[overlay setBackgroundColor:[UIColor colorWithRed:0 green:0 blue:0 alpha:0.5]];
     [overlay addSubview:self];
     [view addSubview:overlay];
     
@@ -252,6 +251,9 @@
             contentViewHeight = MAX(contentViewHeight, [_colMenuDelegate colMune:[ColMenu sharedMenu] numberOfRowsInSection:secton] * [self tableView:nil heightForRowAtIndexPath:nil]);
         }
     }
+    if ([_colMenuDelegate respondsToSelector:@selector(colMune:titleForHeaderOfSection:)]) {
+        contentViewHeight += 44;
+    }
     contentViewHeight = MIN(contentViewHeight, (CGRectGetHeight(overlay.frame) - CGRectGetMaxY(_contentView.frame)) * 0.6);
     
     if (resizeContent) {
@@ -337,6 +339,37 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return 44;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    CGFloat heightForHeaderInSection = 0;
+    if ([_colMenuDelegate respondsToSelector:@selector(colMune:titleForHeaderOfSection:)]) {
+        heightForHeaderInSection = 44;
+    }
+    return heightForHeaderInSection;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    UIView *viewForHeaderInSection = nil;
+    if ([_colMenuDelegate respondsToSelector:@selector(colMune:titleForHeaderOfSection:)]) {
+        NSString *titleForHeaderInSection = [_colMenuDelegate colMune:[ColMenu sharedMenu] titleForHeaderOfSection:tableView.tag];
+        titleForHeaderInSection = [NSString stringWithFormat:@" %@", titleForHeaderInSection ];
+        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(tableView.frame) - 1, 42)];
+        [label setText:titleForHeaderInSection];
+        [label setBackgroundColor:[UIColor whiteColor]];
+        
+        UIBezierPath *shadowPath = [UIBezierPath bezierPathWithRect:label.bounds];
+        label.layer.masksToBounds = NO;
+        label.layer.shadowColor = [UIColor blackColor].CGColor;
+        label.layer.shadowOffset = CGSizeMake(0.0f, 2.0f);
+        label.layer.shadowOpacity = 0.2f;
+        label.layer.shadowPath = shadowPath.CGPath;
+        
+        viewForHeaderInSection = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(tableView.frame), 44)];
+        [viewForHeaderInSection addSubview:label];
+        [viewForHeaderInSection setBackgroundColor:[UIColor clearColor]];
+    }
+    return viewForHeaderInSection;
 }
 
 @end

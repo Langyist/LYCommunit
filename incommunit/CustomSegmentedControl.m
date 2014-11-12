@@ -63,7 +63,7 @@
         
         NSInteger itemIndex = CGRectGetMinX(segmentRect) / CGRectGetWidth(segmentRect);
         
-        if (![tagItemIndex containsObject:[NSNumber numberWithInt:itemIndex]]) {
+        if (![tagItemIndex containsObject:[NSNumber numberWithInteger:itemIndex]]) {
             continue;
         }
         
@@ -102,7 +102,7 @@
     tagItemIndex = [[NSMutableArray alloc] init];
     for (NSString *itemString in itemArray) {
         NSInteger index = [itemString integerValue];
-        if (index < self.numberOfSegments && ![tagItemIndex containsObject:[NSNumber numberWithInt:index]]) {
+        if (index < self.numberOfSegments && ![tagItemIndex containsObject:[NSNumber numberWithInteger:index]]) {
             [tagItemIndex addObject:[NSNumber numberWithInteger:index]];
         }
     }
