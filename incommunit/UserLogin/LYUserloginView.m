@@ -194,6 +194,7 @@ static BOOL YTourist;
                                                                    [alview show];
                                                                }else
                                                                {
+                                                                   [userinfo setValue:@"userinfo" forKey:[result objectForKey:@"auth_status"]];
                                                                    [LYSqllite  wuser:userinfo];
                                                                    [self performSegueWithIdentifier:@"GoLYFunctionInterface" sender:self];
                                                                }

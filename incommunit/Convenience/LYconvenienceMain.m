@@ -582,7 +582,12 @@
                     }
                     break;
                 case 1:
-                    str = [[[LYFunctionInterface Getorder] objectAtIndex:row - 1] objectForKey:@"order_name"];
+                    if (row == 0) {
+                        str = @"默认排序";
+                    }else
+                    {
+                        str = [[[LYFunctionInterface Getorder] objectAtIndex:row - 1] objectForKey:@"order_name"];
+                    }
                     break;
                 default:
                     break;

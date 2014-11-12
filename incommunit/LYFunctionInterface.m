@@ -211,7 +211,7 @@ static NSMutableArray    * m_order;
                                                                Competence = [result objectForKey:@"level2"];
                                                                m_picearry = [tem objectForKey:@"images"];
 
-                                                               NSDictionary *sdic = [Competence objectForKey:@"moda" ];
+                                                               NSDictionary *sdic = [[[Competence objectForKey:@"moda" ] objectForKey:@"sub"] objectAtIndex:1];
                                                                m_order = [sdic objectForKey:@"sort"];
 
                                                                [self updata];
