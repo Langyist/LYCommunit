@@ -99,6 +99,28 @@ static NSDictionary *   m_cityinfo;//城市信息
     self->Serch.delegate=self;
     [selectCityButton addTarget:self action:@selector(GoselectCity) forControlEvents:UIControlEventTouchUpInside];
     [selectCityButton setTitle: @"成都" forState: UIControlStateNormal];
+    self->locationManager = [[CLLocationManager alloc] init];
+    self->locationManager.delegate = self;
+    if([[[UIDevice currentDevice] systemVersion] floatValue]>=8.0)
+    {
+        [self->locationManager requestWhenInUseAuthorization];
+    }
+    locService = [[BMKLocationService alloc]init];
+    locService.delegate = self;
+    //启动LocationService
+    [locService startUserLocationService];
+    self->locationManager.desiredAccuracy = kCLLocationAccuracyBest;
+    self->locationManager.distanceFilter = 1000.0f; // 如果设为kCLDistanceFilterNone，则每秒更新一次;
+    if ([CLLocationManager locationServicesEnabled])
+    {
+        [self->locationManager startUpdatingLocation];
+        self.view.userInteractionEnabled = YES;
+        [m_View removeFromSuperview];
+    }
+    else
+    {
+        NSLog(@"请开启定位功能！");
+    }
 }
 - (void)didReceiveMemoryWarning
 {
@@ -360,29 +382,7 @@ static NSDictionary *   m_cityinfo;//城市信息
 #pragma mark - 切换界面进入协议函数
 -(void)viewDidAppear:(BOOL)animated
 {
-    self->locationManager = [[CLLocationManager alloc] init];
-    self->locationManager.delegate = self;
-    if([[[UIDevice currentDevice] systemVersion] floatValue]>=8.0)
-    {
-        [self->locationManager requestWhenInUseAuthorization];
-    }
-    locService = [[BMKLocationService alloc]init];
-    locService.delegate = self;
-    //启动LocationService
     [locService startUserLocationService];
-    self->locationManager.desiredAccuracy = kCLLocationAccuracyBest;
-    self->locationManager.distanceFilter = 1000.0f; // 如果设为kCLDistanceFilterNone，则每秒更新一次;
-    if ([CLLocationManager locationServicesEnabled])
-    {
-        [self->locationManager startUpdatingLocation];
-        self.view.userInteractionEnabled = YES;
-        [m_View removeFromSuperview];
-    }
-    else
-    {
-        NSLog(@"请开启定位功能！");
-    }
-    
     m_CommunitylistOF = [[NSMutableArray alloc] init];
     m_CommunitylistON = [[NSMutableArray alloc] init];
     footerView.hidden = YES;
