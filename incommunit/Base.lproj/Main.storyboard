@@ -2457,7 +2457,7 @@
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 </imageView>
                                                 <view contentMode="scaleToFill" id="npK-ck-2Lb">
-                                                    <rect key="frame" x="0.0" y="43" width="4625" height="1"/>
+                                                    <rect key="frame" x="0.0" y="43" width="4912" height="1"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                                     <color key="backgroundColor" red="0.83137254901960778" green="0.83137254901960778" blue="0.83137254901960778" alpha="1" colorSpace="calibratedRGB"/>
                                                 </view>
@@ -2481,7 +2481,7 @@
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 </imageView>
                                                 <view contentMode="scaleToFill" id="KUP-wc-fje">
-                                                    <rect key="frame" x="0.0" y="43" width="4625" height="1"/>
+                                                    <rect key="frame" x="0.0" y="43" width="4912" height="1"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                                     <color key="backgroundColor" red="0.83137254900000002" green="0.83137254900000002" blue="0.83137254900000002" alpha="1" colorSpace="calibratedRGB"/>
                                                 </view>
@@ -2505,7 +2505,7 @@
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 </imageView>
                                                 <view contentMode="scaleToFill" id="djU-2B-qD7">
-                                                    <rect key="frame" x="0.0" y="43" width="4625" height="1"/>
+                                                    <rect key="frame" x="0.0" y="43" width="4912" height="1"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                                     <color key="backgroundColor" red="0.83137254900000002" green="0.83137254900000002" blue="0.83137254900000002" alpha="1" colorSpace="calibratedRGB"/>
                                                 </view>
@@ -2595,11 +2595,26 @@
                         </connections>
                     </tableView>
                     <extendedEdge key="edgesForExtendedLayout"/>
-                    <navigationItem key="navigationItem" id="Gpb-6q-dlA"/>
+                    <navigationItem key="navigationItem" id="Gpb-6q-dlA">
+                        <barButtonItem key="rightBarButtonItem" style="plain" id="Nhs-er-sDW">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="ecT-FN-Zbz">
+                                <rect key="frame" x="269" y="5" width="35" height="34"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <inset key="contentEdgeInsets" minX="20" minY="10" maxX="0.0" maxY="10"/>
+                                <state key="normal" image="收藏_03.png">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="foviratePress:" destination="SNk-fG-km1" eventType="touchUpInside" id="KHr-5p-Yks"/>
+                                </connections>
+                            </button>
+                        </barButtonItem>
+                    </navigationItem>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <connections>
                         <outlet property="Item" destination="Gpb-6q-dlA" id="kDN-zf-cD3"/>
                         <outlet property="address" destination="7PI-7G-mMN" id="ljG-PR-djp"/>
+                        <outlet property="fovirateButton" destination="ecT-FN-Zbz" id="WJH-Oe-LCg"/>
                         <outlet property="m_imageScrollView" destination="Kg3-1H-GGX" id="13T-SN-xGa"/>
                         <outlet property="m_imageView" destination="Vm6-uj-b0A" id="OAy-lH-WX7"/>
                         <outlet property="phoneNumber" destination="DTB-WG-dxK" id="pdc-8y-jBX"/>
@@ -5257,6 +5272,7 @@
         <image name="小三角_11.png" width="12" height="13"/>
         <image name="小区交流.png" width="128" height="124"/>
         <image name="店铺_03.png" width="30" height="29"/>
+        <image name="收藏_03.png" width="35" height="34"/>
         <image name="星_06.png" width="22" height="21"/>
         <image name="灰星_06.png" width="22" height="21"/>
         <image name="点赞_03.png" width="83" height="87"/>
@@ -5276,12 +5292,12 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="kwL-jh-Juo"/>
-        <segue reference="shx-Oe-7jn"/>
         <segue reference="vk7-fL-aT2"/>
         <segue reference="e4p-wT-QTQ"/>
-        <segue reference="CIe-4m-5oX"/>
-        <segue reference="Bv1-7h-vqH"/>
+        <segue reference="shx-Oe-7jn"/>
+        <segue reference="kwL-jh-Juo"/>
         <segue reference="Hdu-Tg-GNB"/>
+        <segue reference="ZlB-3N-nCw"/>
+        <segue reference="pAm-k8-o87"/>
     </inferredMetricsTieBreakers>
 </document>
