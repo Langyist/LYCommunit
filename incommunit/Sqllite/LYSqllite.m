@@ -119,13 +119,13 @@ return bl;
                      [Comunitinfo objectForKey:@"communitmax_level"],
                      [[Comunitinfo objectForKey:@"CurrentFlag"] boolValue]];
     [[[LYSqllite alloc] init]execSql:sql  database:tempdatabase];
-
     int nRow, nColumn;
     sqlite3_get_table( tempdatabase, "select * from USERINFO", nil, &nRow, &nColumn, nil );
     if (nRow>5)
     {
-//        NSString *sql = [NSString stringWithFormat:@"delete from Communitinfo where ID=%@",[Comunitinfo objectForKey:@"community_id"]];
-//        [[[LYSqllite alloc] init]execSql:sql database:tempdatabase];
+        NSDictionary * temp = [self currentCommnit];
+        NSString *sql = [NSString stringWithFormat:@"delete from Communitinfo where ID=%@",[temp objectForKey:@"community_id"]];
+        [[[LYSqllite alloc] init]execSql:sql database:tempdatabase];
     }
 }
 
@@ -170,13 +170,10 @@ return bl;
 
 +(NSMutableDictionary *)currentCommnit
 {
-    [self CreatCommunit];
-    return [self AllCommunit].lastObject;
-    
     NSMutableDictionary *temp;
     sqlite3 *tempdatabase =  [[[LYSqllite alloc] init] openSqlite:@"LY_db.db"];
     sqlite3_stmt *statementst = nil;
-    char *sqlst = "SELECT * FROM Communitinfo";
+    char *sqlst = "SELECT * FROM Communitinfo LIMIT 1 OFFSET (SELECT COUNT(*) - 1  FROM Communitinfo)" ;
     if (sqlite3_prepare_v2(tempdatabase, sqlst, -1, &statementst, NULL) != SQLITE_OK)
     {
         NSLog(@"Error: failed to prepare statement with message:get testValue.");
