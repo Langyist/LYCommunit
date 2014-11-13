@@ -121,7 +121,7 @@ return bl;
     [[[LYSqllite alloc] init]execSql:sql  database:tempdatabase];
 
     int nRow, nColumn;
-    sqlite3_get_table( tempdatabase, "select * from USERINFO", nil, &nRow, &nColumn, nil );
+    //sqlite3_get_table( tempdatabase, "select * from USERINFO", nil, &nRow, &nColumn, nil );
     if (nRow>5)
     {
 //        NSString *sql = [NSString stringWithFormat:@"delete from Communitinfo where ID=%@",[Comunitinfo objectForKey:@"community_id"]];
@@ -231,23 +231,13 @@ return bl;
         {
             temp = [[NSMutableDictionary alloc] init];
             char* strText   = (char*)sqlite3_column_text(statementst, 1);
-            [temp setValue:[NSString stringWithUTF8String:strText] forKey:@"city_id"];
-            char* strText01   = (char*)sqlite3_column_text(statementst, 2);
-            [temp setValue:[NSString stringWithUTF8String:strText01] forKey:@"id"];
-            char* strText02   = (char*)sqlite3_column_text(statementst, 3);
-            [temp setValue:[NSString stringWithUTF8String:strText02] forKey:@"name"];
-            char* strText03   = (char*)sqlite3_column_text(statementst, 4);
-            [temp setValue:[NSString stringWithUTF8String:strText03] forKey:@"communitaddress"];
-            char* strText04   = (char*)sqlite3_column_text(statementst, 5);
-            [temp setValue:[NSString stringWithUTF8String:strText04] forKey:@"communitdistance"];
-            char* strText05   = (char*)sqlite3_column_text(statementst, 6);
-            [temp setValue:[NSString stringWithUTF8String:strText05] forKey:@"communitmax_level"];
-            char* strText06   = (char*)sqlite3_column_text(statementst, 7);
-            [temp setValue:[NSString stringWithUTF8String:strText06] forKey:@"auth_status"];
-            char* strText07   = (char*)sqlite3_column_text(statementst, 8);
+            [temp setValue:[NSString stringWithUTF8String:strText] forKey:@"auth_status"];
+            char* strText07   = (char*)sqlite3_column_text(statementst, 2);
             [temp setValue:[NSString stringWithUTF8String:strText07] forKey:@"user"];
-            char* strText08   = (char*)sqlite3_column_text(statementst, 9);
+            char* strText08   = (char*)sqlite3_column_text(statementst, 3);
             [temp setValue:[NSString stringWithUTF8String:strText08] forKey:@"password"];
+            char* strText09   = (char*)sqlite3_column_text(statementst, 4);
+            [temp setValue:[NSString stringWithUTF8String:strText09] forKey:@"UserFlag"];
             
         }
     }

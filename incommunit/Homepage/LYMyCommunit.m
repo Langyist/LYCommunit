@@ -109,7 +109,9 @@
 }
 @end
 
-@implementation LYMyCommunit
+@implementation LYMyCommunit {
+    NSMutableDictionary *temp;
+}
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -134,7 +136,7 @@
 //获取网络数据
 -(void)Getdata
 {
-     NSDictionary *dic = @{@"id" : [[LYFunctionInterface Getcommunitinfo] objectForKey:@"id"]};
+     NSDictionary *dic = @{@"id" : [[LYFunctionInterface Getcommunitinfo] objectForKey:@"community_id"]};
     [[StoreOnlineNetworkEngine shareInstance] startNetWorkWithPath:@"services/community/index"
                                                             params:dic
                                                             repeat:YES
@@ -149,7 +151,7 @@
                                                            {
                                                                dataDic = [result objectForKey:@"community"];
                                                                imageDic = [dataDic objectForKey:@"images"];
-                                                               HistoricDistrict =[LYSqllite allSuerinfo:[dataDic objectForKey:@"name"]];
+                                                               HistoricDistrict =[LYSqllite AllCommunit];
                                                                [self updata];
                                                                [self.tableView reloadData];
                                                            }
@@ -235,16 +237,16 @@
 {
     MyCommunitCell *cell = (MyCommunitCell *)[tableView dequeueReusableCellWithIdentifier:@"communitycell" forIndexPath:indexPath];
     UILabel *name = (UILabel *)[cell viewWithTag:101];
-    NSMutableDictionary * temp = [HistoricDistrict objectAtIndex:indexPath.row];
-    [name setText:[temp objectForKey:@"name"]];
+    NSMutableDictionary * tempa = [HistoricDistrict objectAtIndex:indexPath.row];
+    [name setText:[tempa objectForKey:@"communitname"]];
     return cell;
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSMutableDictionary * temp = [HistoricDistrict objectAtIndex:indexPath.row];
+    temp = [HistoricDistrict objectAtIndex:indexPath.row];
     [LYFunctionInterface Setcommunitinfo:temp];
-    [self login:[temp objectForKey:@"user"] password:[temp objectForKey:@"password"] communitID:[temp objectForKey:@"id"]];
+    [self login:[temp objectForKey:@"user"] password:[temp objectForKey:@"password"] communitID:[temp objectForKey:@"community_id"]];
 }
 
 //login 登陆函数
@@ -253,6 +255,11 @@
     NSDictionary *dic = @{@"username" : user
                           ,@"password" : password
                           ,@"community_id" : Communitid};
+    
+    NSMutableDictionary *userinfo= [[NSMutableDictionary alloc] init];
+    [userinfo setValue:user forKey:@"user"];
+    [userinfo setValue:password forKey:@"password"];
+    
     [[StoreOnlineNetworkEngine shareInstance] startNetWorkWithPath:@"services/login"
                                                             params:dic
                                                             repeat:YES
@@ -265,7 +272,20 @@
                                                                [alview show];
                                                            }else
                                                            {
-                                                               [self performSegueWithIdentifier:@"GoMianf" sender:self];
+                                                               [LYSqllite WriteComunitInfo:temp];
+                                                               
+                                                               [userinfo setValue:[[result objectForKey:@"auth_status"] stringValue] forKey:@"auth_status"];
+                                                               [LYSqllite  wuser:userinfo];
+                                                               BOOL isMember = YES;
+                                                               if ([[userinfo objectForKey:@"auth_status"] isEqualToString:@"-1"]) {
+                                                                   isMember = NO;
+                                                               }
+                                                               if (isMember) {
+                                                                   [self performSegueWithIdentifier:@"GoMianf" sender:self];
+                                                               }
+                                                               else {
+                                                                   [self performSegueWithIdentifier:@"GoLYaddCommunit" sender:self];
+                                                               }
                                                            }
                                                        }];
 }

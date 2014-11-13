@@ -252,11 +252,6 @@
     NSMutableDictionary *userinfo= [[NSMutableDictionary alloc] init];
     [userinfo setValue:username forKey:@"user"];
     [userinfo setValue:password forKey:@"password"];
-    [userinfo setValue:[communitInfo objectForKey:@"id"] forKey:@"community_id"];
-    [userinfo setValue:[communitInfo objectForKey:@"name"] forKey:@"communitname"];
-    [userinfo setValue:[communitInfo objectForKey:@"address"] forKey:@"communitaddress"];
-    [userinfo setValue:[communitInfo objectForKey:@"distance"] forKey:@"communitdistance"];
-    [userinfo setValue:[communitInfo objectForKey:@"max_level"] forKey:@"communitmax_level"];
     
     // 登录结果处理
     AnalyzeResponseResult result = ^(BOOL bValidJSON, NSString *errorMsg, id result) {
@@ -265,10 +260,22 @@
             [alview show];
         }
         else {
-            [userinfo setValue:[[result objectForKey:@"auth_status"] stringValue] forKey:@"auth_stauts"];
+            
+            NSDictionary *communitInfo = @{
+                                           @"city_id" : @""
+                                           ,@"community_id" : [[LYSelectCommunit GetCommunityInfo] objectForKey:@"id"]
+                                           ,@"communitname" : [[LYSelectCommunit GetCommunityInfo] objectForKey:@"name"]
+                                           ,@"communitaddress" : [[LYSelectCommunit GetCommunityInfo] objectForKey:@"address"]
+                                           ,@"communitdistance" : [[LYSelectCommunit GetCommunityInfo] objectForKey:@"distance"]
+                                           ,@"communitmax_level" : [[LYSelectCommunit GetCommunityInfo] objectForKey:@"max_level"]
+                                           };
+            [LYSqllite WriteComunitInfo:communitInfo];
+            
+            [userinfo setValue:[[result objectForKey:@"auth_status"] stringValue] forKey:@"auth_status"];
             [LYSqllite  wuser:userinfo];
+            
             BOOL isMember = YES;
-            if ([[userinfo objectForKey:@"auth_stauts"] isEqualToString:@"-1"]) {
+            if ([[userinfo objectForKey:@"auth_status"] isEqualToString:@"-1"]) {
                 isMember = NO;
             }
             if (isMember) {
