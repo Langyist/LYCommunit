@@ -460,6 +460,7 @@ static NSDictionary *   m_cityinfo;//城市信息
             
             [LYSqllite WriteComunitInfo:m_cityinfo];
             
+            [userinfo setValue:[[result objectForKey:@"user_id"] stringValue] forKey:@"user_id"];
             [userinfo setValue:[[result objectForKey:@"auth_status"] stringValue] forKey:@"auth_status"];
 
             [LYSqllite  wuser:userinfo];

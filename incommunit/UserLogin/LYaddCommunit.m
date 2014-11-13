@@ -384,8 +384,11 @@
 //完成
 -(void)Submitinfo
 {
-    
-    NSDictionary *dic = @{ @"user_id" : [[LYSqllite Ruser] objectForKey:@"user_id"]
+    NSString *userIDString = [[LYSqllite Ruser] objectForKey:@"user_id"];
+    if (!userIDString) {
+        userIDString = userID;
+    }
+    NSDictionary *dic = @{ @"user_id" : userIDString
                           ,@"community_id" : m_communitid
                           ,@"nick_name" : m_Nickname.text
                           ,@"head" : [self CovertImage:headimage]
@@ -442,6 +445,7 @@
                                                            {
                                                                [LYSqllite WriteComunitInfo:[LYSelectCommunit GetCommunityInfo]];
                                                                
+                                                               [userinfo setValue:[[result objectForKey:@"user_id"] stringValue] forKey:@"user_id"];
                                                                [userinfo setValue:[[result objectForKey:@"auth_status"] stringValue] forKey:@"auth_status"];
                                                                [LYSqllite  wuser:userinfo];
                                                                
