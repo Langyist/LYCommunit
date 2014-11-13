@@ -8,7 +8,7 @@
 
 #import "LYFeedback.h"
 #import "LYSelectCommunit.h"
-
+#import "LYSqllite.h"
 @interface LYFeedback () <UIScrollViewDelegate>
 
 @end
@@ -140,7 +140,7 @@
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc]initWithURL:URL cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:10];
     [request setHTTPMethod:@"POST"];//设置请求方式为POST，默认为GET
     NSString *str = @"contact_info=";//设置参数
-    str = [str stringByAppendingFormat:@"%@&content=%@&community_id=%@",mothedText.text,m_textView.text,[[LYSelectCommunit GetCommunityInfo] objectForKey:@"id"]];
+    str = [str stringByAppendingFormat:@"%@&content=%@&community_id=%@",mothedText.text,m_textView.text,[[LYSqllite currentCommnit] objectForKey:@"community_id"]];
     NSData *data = [str dataUsingEncoding:NSUTF8StringEncoding];
     [request setHTTPBody:data];
     //第三步，连接服务器

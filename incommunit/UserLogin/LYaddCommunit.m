@@ -54,7 +54,7 @@
     [m_Nickname setTextInset:UIEdgeInsetsMake(0, 15, 0, 15)];
     [m_button.layer setMasksToBounds:YES];
     [m_button.layer setCornerRadius:3.0];
-    m_communitid = [[LYSelectCommunit GetCommunityInfo] objectForKey:@"community_id"];
+    m_communitid = [[LYSqllite currentCommnit] objectForKey:@"community_id"];
     m_Nickname.delegate = self;
     CALayer *lay  = m_iamgeview.layer;//获取ImageView的层
     [lay setMasksToBounds:YES];
@@ -459,7 +459,7 @@
                                                                [alview show];
                                                            }else
                                                            {
-                                                               [LYSqllite WriteComunitInfo:[LYSelectCommunit GetCommunityInfo]];
+                                                               [LYSqllite WriteComunitInfo:[LYSqllite currentCommnit]];
                                                                
                                                                [userinfo setValue:[[result objectForKey:@"user_id"] stringValue] forKey:@"user_id"];
                                                                [userinfo setValue:[[result objectForKey:@"auth_status"] stringValue] forKey:@"auth_status"];

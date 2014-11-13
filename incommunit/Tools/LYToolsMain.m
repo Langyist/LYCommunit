@@ -129,7 +129,7 @@ static NSMutableArray *album;
 }
 -(IBAction)Exit:(id)sender
 {
-    
+    [LYSqllite setSelectedCommunit:[LYSqllite currentCommnit]];
     [LYSqllite deletetable];
     [self performSegueWithIdentifier:@"GoLogin" sender:self];
 }

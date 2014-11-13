@@ -244,7 +244,7 @@
 - (void)login {
     
     // 获取小区信息
-    NSDictionary *communitInfo = [LYSelectCommunit GetCommunityInfo];
+    NSDictionary *communitInfo = [LYSqllite selectedCommunit];
     
     // 初始化用户信息
     NSString *username = [MobilenumberText.text length] ? MobilenumberText.text : @"";
@@ -260,7 +260,7 @@
             [alview show];
         }
         else {
-            [LYSqllite WriteComunitInfo:[LYSelectCommunit GetCommunityInfo]];
+            [LYSqllite WriteComunitInfo:[LYSqllite selectedCommunit]];
             
             [userinfo setValue:[[result objectForKey:@"user_id"] stringValue] forKey:@"user_id"];
             [userinfo setValue:[[result objectForKey:@"auth_status"] stringValue] forKey:@"auth_status"];

@@ -8,7 +8,7 @@
 
 #import "AppDelegate.h"
 #import "UIImage+Scale.h"
-
+#import "Sqllite/LYSqllite.h"
 @interface AppDelegate ()
 {
     BMKMapManager* _mapManager;
@@ -48,6 +48,15 @@
     [[UINavigationBar appearance] setTintColor:SPECIAL_BLACK];
     
     [self.window setBackgroundColor:TOP_BAR_YELLOW];
+    
+//    NSMutableDictionary *userinfo =  [LYSqllite Ruser];
+//    NSMutableDictionary *communitInfo = [LYSqllite currentCommnit];
+//    if (userinfo != nil && ![[userinfo objectForKey:@"auth_status"] isEqualToString:@"-2"] && [[communitInfo objectForKey:@"community_id"] length])
+//    {
+//        UIStoryboard *storyboard = self.window.rootViewController.storyboard;
+//        UIViewController *rootViewController = [storyboard instantiateViewControllerWithIdentifier:@"MainPage"];
+//        self.window.rootViewController = rootViewController;
+//    }
     
     return YES;
 }

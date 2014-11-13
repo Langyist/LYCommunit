@@ -7,6 +7,9 @@
 //
 #import "LYSqllite.h"
 #import "sqlite3.h"
+
+static NSDictionary *selectedCommunitInfo;
+
 @implementation LYSqllite
 #pragma mark - 打开数据库
 -(sqlite3 *)openSqlite:(NSString *)database_name
@@ -433,4 +436,13 @@ return bl;
     BOOL bl = [[[LYSqllite alloc]init]execSql:sqlstr database:tempdatabase];
     return bl;
 }
+
++ (NSDictionary *)selectedCommunit {
+    return selectedCommunitInfo;
+}
+
++ (void)setSelectedCommunit:(NSDictionary *)communitInfo {
+    selectedCommunitInfo = communitInfo;
+}
+
 @end

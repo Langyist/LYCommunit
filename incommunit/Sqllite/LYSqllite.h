@@ -22,4 +22,8 @@
 +(NSMutableArray *)AllCommunit:(NSString *)communitName;
 +(void)WriteComunitInfo:(NSDictionary *)Comunitinfo;
 +(void)deletecommnuittable;
+
++ (NSDictionary *)selectedCommunit;
++ (void)setSelectedCommunit:(NSDictionary *)communitInfo;
+
 @end
