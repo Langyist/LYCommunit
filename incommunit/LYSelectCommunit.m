@@ -449,10 +449,6 @@ static NSDictionary *   m_cityinfo;//城市信息
     Communitid = [Communitid length] ? Communitid : @"";
     
     NSMutableDictionary * userinfo = [[NSMutableDictionary alloc] init];
-    //userinfo = [LYSqllite Ruser:[m_cityinfo objectForKey:@"id"]];
-
-    userinfo = [[NSMutableDictionary alloc] init];
-
     
     [userinfo setValue:user forKey:@"user"];
     [userinfo setValue:password forKey:@"password"];
@@ -463,10 +459,10 @@ static NSDictionary *   m_cityinfo;//城市信息
             [self performSegueWithIdentifier:@"GoLYUserloginView" sender:nil];
         }
         else {
-
-            
             [LYSqllite WriteComunitInfo:m_cityinfo];
             
+            [userinfo setValue:[[result objectForKey:@"user_id"] stringValue] forKey:@"user_id"];
+
             [userinfo setValue:[[result objectForKey:@"auth_status"] stringValue] forKey:@"auth_status"];
 
             [LYSqllite  wuser:userinfo];

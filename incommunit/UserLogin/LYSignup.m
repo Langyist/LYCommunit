@@ -152,7 +152,7 @@
                                                                [alview show];
                                                            }else
                                                            {
-                                                               UserID =result;
+                                                               UserID = result;
                                                                [self performSegueWithIdentifier:@"GoLYaddCommunit" sender:self];
                                                            }
                                                        }];

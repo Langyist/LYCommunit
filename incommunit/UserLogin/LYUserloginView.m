@@ -189,6 +189,7 @@ static BOOL YTourist;
                                                            {
                                                                [LYSqllite WriteComunitInfo:[LYSelectCommunit GetCommunityInfo]];
                                                                
+                                                               [userinfo setValue:[[result objectForKey:@"user_id"] stringValue] forKey:@"user_id"];
                                                                [userinfo setValue:[[result objectForKey:@"auth_status"] stringValue] forKey:@"auth_status"];
                                                                [LYSqllite  wuser:userinfo];
                                                                BOOL isMember = YES;
@@ -296,53 +297,30 @@ static BOOL YTourist;
 //开始编辑输入框
 - (void)textFieldDidBeginEditing:(UITextField *)textField
 {
-    if (textField==userText) {
-        NSTimeInterval animationDuration = 0.30f;
-        CGRect frame = self.view.frame;
-        frame.origin.y -=60;
-        //frame.size.height +=60;
-        self.view.frame = frame;
-        [UIView beginAnimations:@"ResizeView" context:nil];
-        [UIView setAnimationDuration:animationDuration];
-        [UIView commitAnimations];
-    }else if (textField==passwordtext)
-    {
-        NSTimeInterval animationDuration = 0.30f;
-        CGRect frame = self.view.frame;
-        frame.origin.y -=100;
-        //frame.size.height +=100;
-        self.view.frame = frame;
-        [UIView beginAnimations:@"ResizeView" context:nil];
-        [UIView setAnimationDuration:animationDuration];
-        [UIView commitAnimations];
-    }
+    CGFloat viewHeight = CGRectGetHeight(self.view.frame);
+    CGFloat maxy = CGRectGetMaxY(self.inputContainerView.frame);
+    CGFloat bottom = viewHeight - maxy;
+    CGFloat keyboardHeight = 280;
+    CGFloat newViewY = MIN((bottom - keyboardHeight), 0);
+    
+    NSTimeInterval animationDuration = 0.30f;
+    CGRect frame = self.view.frame;
+    frame.origin.y = newViewY;
+    [UIView setAnimationDuration:animationDuration];
+    [UIView beginAnimations:@"ResizeView" context:nil];
+    self.view.frame = frame;
+    [UIView commitAnimations];
 }
 //结束编辑输入框
 - (void)textFieldDidEndEditing:(UITextField *)textField
 {
-    if (textField==userText)
-    {
-        NSTimeInterval animationDuration = 0.30f;
-        CGRect frame = self.view.frame;
-        frame.origin.y +=60;
-        //frame.size.height -=60;
-        self.view.frame = frame;
-        [UIView beginAnimations:@"ResizeView" context:nil];
-        [UIView setAnimationDuration:animationDuration];
-        self.view.frame = frame;
-        [UIView commitAnimations];
-    }else if (textField == passwordtext)
-    {
-        NSTimeInterval animationDuration = 0.30f;
-        CGRect frame = self.view.frame;
-        frame.origin.y +=100;
-        //frame.size.height -=100;
-        self.view.frame = frame;
-        [UIView beginAnimations:@"ResizeView" context:nil];
-        [UIView setAnimationDuration:animationDuration];
-        self.view.frame = frame;
-        [UIView commitAnimations];
-    }
+    NSTimeInterval animationDuration = 0.30f;
+    CGRect frame = self.view.frame;
+    frame.origin.y = 0;
+    [UIView setAnimationDuration:animationDuration];
+    [UIView beginAnimations:@"ResizeView" context:nil];
+    self.view.frame = frame;
+    [UIView commitAnimations];
 }
 
 //返回上一个界面不刷新数据
@@ -354,6 +332,7 @@ static BOOL YTourist;
 //忘记密码
 - (IBAction)forgetPsdButton:(id)sender
 {
+    [self.view endEditing:YES];
     [self performSegueWithIdentifier:@"GoLYForgotPassword" sender:self];
 }
 
@@ -373,6 +352,7 @@ static BOOL YTourist;
 
 - (IBAction)clickName:(id)sender
 {
+    [self.view endEditing:YES];
     [self performSegueWithIdentifier:@"GoSelectConmunit" sender:nil];
 }
 

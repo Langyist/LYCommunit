@@ -274,6 +274,9 @@
                                                            {
                                                                [LYSqllite WriteComunitInfo:temp];
                                                                
+
+                                                               [userinfo setValue:[[result objectForKey:@"user_id"] stringValue] forKey:@"user_id"];
+
                                                                [userinfo setValue:[[result objectForKey:@"auth_status"] stringValue] forKey:@"auth_status"];
                                                                [LYSqllite  wuser:userinfo];
                                                                BOOL isMember = YES;

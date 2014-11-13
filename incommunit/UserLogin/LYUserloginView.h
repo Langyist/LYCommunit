@@ -29,6 +29,7 @@
 @property(nonatomic, retain)IBOutlet UIImageView * m_iamgeview;
 @property(nonatomic, retain)IBOutlet UILabel * m_communityName;
 @property(nonatomic, retain)IBOutlet UIButton * m_loginbutton;
+@property (weak, nonatomic) IBOutlet UIView *inputContainerView;
 
 -(IBAction)returnPage:(id)sender;
 +(BOOL )Getourist;

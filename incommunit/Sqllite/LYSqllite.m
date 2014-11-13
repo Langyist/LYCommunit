@@ -77,7 +77,6 @@
                                          [userinfo objectForKey:@"password"],
                                         [[userinfo objectForKey:@"UserFlag"] boolValue],
                                         [userinfo objectForKey:@"user_id"]];
-        
        bl = [[[LYSqllite alloc] init]execSql:sql database:tempdatabase];
     }
 return bl;
@@ -177,6 +176,9 @@ return bl;
 
 +(NSMutableDictionary *)currentCommnit
 {
+    [self CreatCommunit];
+    return [self AllCommunit].lastObject;
+    
     NSMutableDictionary *temp;
     sqlite3 *tempdatabase =  [[[LYSqllite alloc] init] openSqlite:@"LY_db.db"];
     sqlite3_stmt *statementst = nil;
@@ -212,6 +214,7 @@ return bl;
 }
 //删除一条记录
 +(void)deleteuserinfo :(NSString *)name
+
 {
     sqlite3 *tempdatabase =  [[[LYSqllite alloc] init] openSqlite:@"LY_db.db"];
     NSString *sql = [NSString stringWithFormat:@"delete from USERINFO where user=%@",name];
@@ -220,6 +223,7 @@ return bl;
 //读取用户信息表
 +(NSMutableDictionary *)Ruser
 {
+
     [self CreatUserTable];
     NSMutableDictionary *temp;
     sqlite3 *tempdatabase =  [[[LYSqllite alloc] init] openSqlite:@"LY_db.db"];
@@ -244,8 +248,7 @@ return bl;
             char* strText03   = (char*)sqlite3_column_text(statementst, 4);
             [temp setValue:[NSString stringWithUTF8String:strText03] forKey:@"UserFlag"];
             char* strText04   = (char*)sqlite3_column_text(statementst, 5);
-            [temp setValue:[NSString stringWithUTF8String:strText04] forKey:@" user_id"];
-
+            [temp setValue:[NSString stringWithUTF8String:strText04] forKey:@"user_id"];
             
         }
     }
@@ -261,6 +264,7 @@ return bl;
     sqlite3_close(tempdatabase);
     [self CreatCommunit];
 }
+
 
 
 //删除用户表中数据

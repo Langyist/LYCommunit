@@ -279,6 +279,7 @@
                         <barButtonItem key="backBarButtonItem" title="   " id="mQv-Wx-Afk"/>
                     </navigationItem>
                     <connections>
+                        <outlet property="inputContainerView" destination="iOZ-w0-yKy" id="Mf1-rD-g2k"/>
                         <outlet property="login" destination="5Qo-ZS-e1f" id="3NM-Eb-NQx"/>
                         <outlet property="m_communityName" destination="gb8-pX-eq8" id="9xl-dd-pof"/>
                         <outlet property="m_iamgeview" destination="rAm-bu-frL" id="88Z-lB-zTp"/>
@@ -5272,11 +5273,11 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="Due-Az-e2m"/>
-        <segue reference="gne-12-lal"/>
-        <segue reference="vk7-fL-aT2"/>
-        <segue reference="v87-Tb-C70"/>
         <segue reference="kwL-jh-Juo"/>
+        <segue reference="shx-Oe-7jn"/>
+        <segue reference="vk7-fL-aT2"/>
+        <segue reference="e4p-wT-QTQ"/>
+        <segue reference="CIe-4m-5oX"/>
         <segue reference="Bv1-7h-vqH"/>
         <segue reference="Hdu-Tg-GNB"/>
     </inferredMetricsTieBreakers>
