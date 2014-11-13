@@ -1,7 +1,7 @@
 //
 //  LYUserloginView.h
 //  incommunit
-//  用户登陆界面
+//  用户登录界面
 //  Created by LANGYI on 14/10/26.
 //  Copyright (c) 2014年 LANGYI. All rights reserved.
 //

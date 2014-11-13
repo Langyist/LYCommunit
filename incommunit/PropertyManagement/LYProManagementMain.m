@@ -19,6 +19,8 @@
 #import "InfoHeader.h"
 #import "XHFriendlyLoadingView.h"
 #import "StoreOnlineNetworkEngine.h"
+#import "AppDelegate.h"
+#import "LYSqllite.h"
 @interface LYProManagementMain () {
     UIView *m_liuView;
     UIButton *repairButton;//我要报修button
@@ -83,6 +85,30 @@
     m_InfotableView.dataSource = self;
     [m_view02 addSubview:m_InfotableView];
     [self.m_scrollView addSubview:m_view02];
+    
+    
+    UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(m_InfotableView.frame), 1)];
+    [footerView setBackgroundColor:[UIColor clearColor]];
+    footerView.clipsToBounds = NO;
+    
+    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(40, 101, 83, 95)];
+    imageView.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
+    [imageView setImage:[UIImage imageNamed:@"周边便民--未开店--帮帮娃_03"]];
+    
+    UILabel *label1 = [[UILabel alloc] initWithFrame:CGRectMake(139, 107, 160, 89)];
+    label1.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleRightMargin;
+    label1.lineBreakMode = NSLineBreakByCharWrapping;
+    label1.numberOfLines = 0;
+    [label1 setText:@"亲，只有本小区实名认证用户才能查看哦～～"];
+    label1.font = [UIFont boldSystemFontOfSize:15.0f];
+    label1.textColor = SPECIAL_GRAY;
+    
+    [footerView addSubview:imageView];
+    [footerView addSubview:label1];
+    
+    [m_InfotableView setBackgroundColor:BK_GRAY];
+    m_InfotableView.tableFooterView = footerView;
+    
     //物业交流
     m_view03 = [[UIView alloc] initWithFrame:CGRectMake(self.view.frame.size.width * 2, 0, self.m_scrollView.frame.size.width, self.view.frame.size.height)];
     [m_view03 setBackgroundColor:[UIColor colorWithRed:233/255.0f green:233/255.0f blue:233/255.0f alpha:1]];
@@ -345,7 +371,16 @@
         return 1;
     }else if (tableView == m_InfotableView) {
         
-        return 2;
+        NSDictionary *userInfo = [LYSqllite Ruser];
+        tableView.tableFooterView.hidden = YES;
+        if (userInfo && ![[userInfo objectForKey:@"auth_status"] isEqualToString:@"2"]) {
+            tableView.tableFooterView.hidden = NO;
+            return 0;
+        }
+        else {
+            return 2;
+        }
+        
     }else if (tableView == m_ACtableView) {
         
         return messageBoardListArray.count;
@@ -363,6 +398,12 @@
         return notification.count;
     }
     else if (tableView == m_InfotableView) {
+        
+        NSDictionary *userInfo = [LYSqllite Ruser];
+        if (!userInfo || [[userInfo objectForKey:@"auth_status"] isEqualToString:@"-2"]) {
+            
+        }
+            
         switch (section) {
             case 0:
                 return propertyExpenseArray.count;

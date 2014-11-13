@@ -61,6 +61,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *youhui;
 @property (weak, nonatomic) IBOutlet UILabel *address;
 @property (weak, nonatomic) IBOutlet UILabel *phoneNumber;
+@property (weak, nonatomic) IBOutlet UIButton *fovirateButton;
+- (IBAction)foviratePress:(id)sender;
 - (IBAction)all:(id)sender;
 - (IBAction)autoSort:(id)sender;
 

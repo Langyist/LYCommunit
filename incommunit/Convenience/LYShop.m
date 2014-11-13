@@ -339,6 +339,14 @@
 #pragma mark 添加购物车
 -(IBAction)addShoppingCart:(id)sender
 {
+    NSDictionary *userInfo = [LYSqllite Ruser];
+    if (!userInfo || [[userInfo objectForKey:@"auth_status"] isEqualToString:@"-2"]) {
+        UIAlertView *alview = [[UIAlertView alloc] initWithTitle:@"提示" message:@"你当前是游客，不能使用该功能？" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil];
+        [alview show];
+        
+        return;
+    }
+    
     UIButton *btn = (UIButton *)sender;
     NSMutableDictionary *stored =[m_Goodslist objectAtIndex:btn.tag];
     [LYSqllite addShoppingcart:stored number:@"1" StoresID:m_StoresID Storesname:[m_storesinfo objectForKey:@"name"] selectState:@"1"];
@@ -399,6 +407,15 @@
 #pragma mark UItabBar 协议函数
 - (void)jumpToPage:(CustomToolbarItem *)sender
 {
+    if (sender.tag != 100) {
+        NSDictionary *userInfo = [LYSqllite Ruser];
+        if (!userInfo || [[userInfo objectForKey:@"auth_status"] isEqualToString:@"-2"]) {
+            UIAlertView *alview = [[UIAlertView alloc] initWithTitle:@"提示" message:@"你当前是游客，不能使用该功能？" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil];
+            [alview show];
+            
+            return;
+        }
+    }
     switch (sender.tag) {
         case 100:
             [self.navigationController popToRootViewControllerAnimated:YES];
@@ -450,4 +467,15 @@
     
     
 }
+
+- (IBAction)foviratePress:(id)sender {
+    NSDictionary *userInfo = [LYSqllite Ruser];
+    if (!userInfo || [[userInfo objectForKey:@"auth_status"] isEqualToString:@"-2"]) {
+        UIAlertView *alview = [[UIAlertView alloc] initWithTitle:@"提示" message:@"你当前是游客，不能使用该功能？" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil];
+        [alview show];
+        
+        return;
+    }
+}
+
 @end

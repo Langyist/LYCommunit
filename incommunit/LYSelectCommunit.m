@@ -59,7 +59,6 @@ static NSDictionary *   m_cityinfo;//城市信息
     NSMutableDictionary *userinfo =  [LYSqllite Ruser];
     NSMutableDictionary *communitInfo = [LYSqllite currentCommnit];
     if (userinfo != nil && m_bl ==FALSE && ![[userinfo objectForKey:@"auth_status"] isEqualToString:@"-2"] && [[communitInfo objectForKey:@"community_id"] length])
-
     {
         m_cityinfo = communitInfo;
         [LYFunctionInterface Setcommunitinfo:m_cityinfo];
@@ -265,17 +264,13 @@ static NSDictionary *   m_cityinfo;//城市信息
     if ([[[NSString alloc]initWithFormat:@"%@", [communitInfo objectForKey:@"enable"]] isEqualToString:@"1"]) {
         
         NSMutableDictionary * userinfo = [[NSMutableDictionary alloc] init];
-
         userinfo = [LYSqllite Ruser];
-
         // TUDO: 检查是否登录
         if (nil == userinfo || [[userinfo objectForKey:@"auth_stauts"] isEqualToString:@"-2"]) {
             [self performSegueWithIdentifier:@"GoLYUserloginView" sender:nil];
         }
         else {
-
             [self login:[userinfo objectForKey:@"user"] password:[userinfo objectForKey:@"password"] communitID:[[m_cityinfo objectForKey:@"community_id"] stringValue]];
-
         }
     }
     else if ([[[NSString alloc]initWithFormat:@"%@", [communitInfo objectForKey:@"enable"]] isEqualToString:@"0"]) {
@@ -441,7 +436,7 @@ static NSDictionary *   m_cityinfo;//城市信息
     }
 }
 
-//login 登陆函数
+//login 登录函数
 -(void)login:(NSString*)user password:(NSString *)password communitID:(NSString *)Communitid
 {
     user = [user length] ? user : @"";
@@ -462,7 +457,6 @@ static NSDictionary *   m_cityinfo;//城市信息
             [LYSqllite WriteComunitInfo:m_cityinfo];
             
             [userinfo setValue:[[result objectForKey:@"user_id"] stringValue] forKey:@"user_id"];
-
             [userinfo setValue:[[result objectForKey:@"auth_status"] stringValue] forKey:@"auth_status"];
 
             [LYSqllite  wuser:userinfo];

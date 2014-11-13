@@ -1,7 +1,7 @@
 //
 //  LYUserloginView.m
 //  incommunit
-//  用户登陆界面
+//  用户登录界面
 //  Created by LANGYI on 14/10/26.
 //  Copyright (c) 2014年 LANGYI. All rights reserved.
 //
@@ -165,7 +165,7 @@ static BOOL YTourist;
     [login setHidesWhenStopped:YES];
 }
 
-//login 登陆函数
+//login 登录函数
 -(void)login:(NSString*)user password:(NSString *)password communitID:(NSString *)Communitid
 {
 
@@ -336,7 +336,7 @@ static BOOL YTourist;
     [self performSegueWithIdentifier:@"GoLYForgotPassword" sender:self];
 }
 
-//游客登陆
+//游客登录
 -(IBAction)touristsButton:(id)sender
 {
     userinfo= [[NSMutableDictionary alloc] init];

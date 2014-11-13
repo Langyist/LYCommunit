@@ -53,7 +53,7 @@
     }
 }
 #pragma mark 用户信息表
-//创建用户登陆信息表信息表
+//创建用户登录信息表信息表
 +(void)CreatUserTable
 {
 
