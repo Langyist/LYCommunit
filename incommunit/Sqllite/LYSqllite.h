@@ -17,6 +17,10 @@
 +(BOOL)Modifystate:(NSString *)GoodsID;
 +(NSMutableArray *)allSuerinfo:(NSString *) name;
 +(void)deletetable;
-+(NSMutableDictionary *)Ruser:(NSString *)communityid;
 +(void)deleteuserinfo :(NSString *)name;
+
++(NSMutableDictionary *)currentCommnit;
++(NSMutableArray *)AllCommunit;
++(void)WriteComunitInfo:(NSDictionary *)Comunitinfo;
++(void)deletecommnuittable;
 @end
