@@ -117,6 +117,10 @@
 		AD4823091A03238600A54F45 /* UserInfoTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD4823081A03238600A54F45 /* UserInfoTableViewController.m */; };
 		AD48230C1A03525F00A54F45 /* LYSettlement.m in Sources */ = {isa = PBXBuildFile; fileRef = AD48230B1A03525F00A54F45 /* LYSettlement.m */; };
 		AD5CD0061A149F170016E2C0 /* UIImageView+MKNetworkKitAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = AD5CD0051A149F170016E2C0 /* UIImageView+MKNetworkKitAdditions.m */; };
+		AD5CD00B1A14D55E0016E2C0 /* 58.png in Resources */ = {isa = PBXBuildFile; fileRef = AD5CD0071A14D55E0016E2C0 /* 58.png */; };
+		AD5CD00C1A14D55E0016E2C0 /* 80.png in Resources */ = {isa = PBXBuildFile; fileRef = AD5CD0081A14D55E0016E2C0 /* 80.png */; };
+		AD5CD00D1A14D55E0016E2C0 /* 87.png in Resources */ = {isa = PBXBuildFile; fileRef = AD5CD0091A14D55E0016E2C0 /* 87.png */; };
+		AD5CD00E1A14D55E0016E2C0 /* 120.png in Resources */ = {isa = PBXBuildFile; fileRef = AD5CD00A1A14D55E0016E2C0 /* 120.png */; };
 		AD62118219FD2FBC009BECA6 /* LYFunctionInterface.m in Sources */ = {isa = PBXBuildFile; fileRef = AD62118119FD2FBC009BECA6 /* LYFunctionInterface.m */; };
 		AD62118619FD3148009BECA6 /* LYUserloginView.m in Sources */ = {isa = PBXBuildFile; fileRef = AD62118519FD3148009BECA6 /* LYUserloginView.m */; };
 		AD6211A019FD42CE009BECA6 /* LYnetwork.m in Sources */ = {isa = PBXBuildFile; fileRef = AD62119919FD42CE009BECA6 /* LYnetwork.m */; };
@@ -449,6 +453,10 @@
 		AD48230B1A03525F00A54F45 /* LYSettlement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LYSettlement.m; sourceTree = "<group>"; };
 		AD5CD0041A149F170016E2C0 /* UIImageView+MKNetworkKitAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+MKNetworkKitAdditions.h"; sourceTree = "<group>"; };
 		AD5CD0051A149F170016E2C0 /* UIImageView+MKNetworkKitAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+MKNetworkKitAdditions.m"; sourceTree = "<group>"; };
+		AD5CD0071A14D55E0016E2C0 /* 58.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 58.png; sourceTree = "<group>"; };
+		AD5CD0081A14D55E0016E2C0 /* 80.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 80.png; sourceTree = "<group>"; };
+		AD5CD0091A14D55E0016E2C0 /* 87.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 87.png; sourceTree = "<group>"; };
+		AD5CD00A1A14D55E0016E2C0 /* 120.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 120.png; sourceTree = "<group>"; };
 		AD62118019FD2FBC009BECA6 /* LYFunctionInterface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LYFunctionInterface.h; sourceTree = "<group>"; };
 		AD62118119FD2FBC009BECA6 /* LYFunctionInterface.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LYFunctionInterface.m; sourceTree = "<group>"; };
 		AD62118419FD3148009BECA6 /* LYUserloginView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LYUserloginView.h; sourceTree = "<group>"; };
@@ -800,6 +808,10 @@
 		AD33ECC119FBCA2D00FE0C11 /* Image */ = {
 			isa = PBXGroup;
 			children = (
+				AD5CD0071A14D55E0016E2C0 /* 58.png */,
+				AD5CD0081A14D55E0016E2C0 /* 80.png */,
+				AD5CD0091A14D55E0016E2C0 /* 87.png */,
+				AD5CD00A1A14D55E0016E2C0 /* 120.png */,
 				F18E64281A12EF3A001BD189 /* 邻里互助_guide.png */,
 				F18E64291A12EF3A001BD189 /* 物业管理_guide.png */,
 				F18E642A1A12EF3A001BD189 /* 小区交流_guide.png */,
@@ -1447,6 +1459,7 @@
 				AD33ED4019FBCA2D00FE0C11 /* 星_06.png in Resources */,
 				AD7FBAAF1A0216FF008CC80A /* AnnouncementCell.xib in Resources */,
 				F18E642E1A12EF3A001BD189 /* 物业管理_guide.png in Resources */,
+				AD5CD00C1A14D55E0016E2C0 /* 80.png in Resources */,
 				AD33ED6419FBCD3F00FE0C11 /* LaunchScreen.xib in Resources */,
 				F18E641A1A10DBD6001BD189 /* 用户@2x.png in Resources */,
 				AD6A9B861A09CA420031B7C2 /* RejectedCell.xib in Resources */,
@@ -1454,6 +1467,7 @@
 				AD33ED3519FBCA2D00FE0C11 /* 图片_02.png in Resources */,
 				AD197F171A0B925C00E05089 /* License.html in Resources */,
 				AD7FBAAE1A0216FF008CC80A /* ACCell1.xib in Resources */,
+				AD5CD00E1A14D55E0016E2C0 /* 120.png in Resources */,
 				AD33ED2419FBCA2D00FE0C11 /* ic_default_shop_image.png in Resources */,
 				F18E642F1A12EF3A001BD189 /* 小区交流_guide.png in Resources */,
 				F18E64181A10DBD6001BD189 /* 密码@2x.png in Resources */,
@@ -1465,6 +1479,7 @@
 				EF486B031A075BA2003B5B54 /* 进行中_03.png in Resources */,
 				F14F51F11A0378CF006CC884 /* InfoHeader.xib in Resources */,
 				AD6A9B851A09CA420031B7C2 /* NewCell.xib in Resources */,
+				AD5CD00D1A14D55E0016E2C0 /* 87.png in Resources */,
 				AD33ED4819FBCA2D00FE0C11 /* 箭头_03.png in Resources */,
 				AD33ED5319FBCA2D00FE0C11 /* 邻里互助.png in Resources */,
 				AD33ED4F19FBCA2D00FE0C11 /* 购物车.png in Resources */,
@@ -1480,6 +1495,7 @@
 				F1392E8C1A0CD4C500329FFF /* StoreSettingCollectionViewCell.xib in Resources */,
 				AD33ED1819FBCA2D00FE0C11 /* 4_10.png in Resources */,
 				F10340C719FF4FCF00C5CB4E /* ic_username.png in Resources */,
+				AD5CD00B1A14D55E0016E2C0 /* 58.png in Resources */,
 				AD33ED2E19FBCA2D00FE0C11 /* 主页_07.png in Resources */,
 				AD33EC9B19FBB13F00FE0C11 /* Images.xcassets in Resources */,
 				F15AE49A1A0208180084009C /* 黄色小三角_03.png in Resources */,
