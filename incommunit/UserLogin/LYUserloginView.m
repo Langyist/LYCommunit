@@ -32,13 +32,18 @@ static BOOL YTourist;
     passwordtext.delegate=self;
     passwordtext.secureTextEntry = YES;
     [login setHidesWhenStopped:YES];
+    community_Name = [[LYSqllite selectedCommunit] objectForKey:@"communitname"];
+    if (![community_Name length]) {
+        community_Name = @"未知小区";
+    }
     m_communityName.text = community_Name;
     self.navigationController.navigationBar.hidden = YES;
     UITapGestureRecognizer* singleRecognizer;
     singleRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(ClickView)];
     singleRecognizer.numberOfTapsRequired = 1; // 单击
     [self.view addGestureRecognizer:singleRecognizer];
-    m_communityName.text = [[LYSelectCommunit GetCommunityInfo] objectForKey:@"communitname"];
+
+    m_communityName.text = [[LYSqllite selectedCommunit] objectForKey:@"communitname"];
     
     [LYSqllite CreatUserTable];
 }
@@ -123,7 +128,7 @@ static BOOL YTourist;
         [aler show];
     }else
     {
-        [self login:userText.text password:passwordtext.text communitID:[[LYSelectCommunit GetCommunityInfo] objectForKey:@"community_id"]];
+        [self login:userText.text password:passwordtext.text communitID:[[LYSqllite selectedCommunit] objectForKey:@"community_id"]];
     }
     switch ([r currentReachabilityStatus])
     {
@@ -168,7 +173,12 @@ static BOOL YTourist;
 //login 登录函数
 -(void)login:(NSString*)user password:(NSString *)password communitID:(NSString *)Communitid
 {
-
+    if (!Communitid) {
+        UIAlertView *alview = [[UIAlertView alloc] initWithTitle:@"提示" message:@"还未选择小区" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+        [alview show];
+        
+        return;
+    }
     NSDictionary *dic = @{@"username" : user
                           ,@"password" : password
                           ,@"community_id" : Communitid
@@ -187,7 +197,7 @@ static BOOL YTourist;
                                                                [alview show];
                                                            }else
                                                            {
-                                                               [LYSqllite WriteComunitInfo:[LYSelectCommunit GetCommunityInfo]];
+                                                               [LYSqllite WriteComunitInfo:[LYSqllite selectedCommunit]];
                                                                
                                                                [userinfo setValue:[[result objectForKey:@"user_id"] stringValue] forKey:@"user_id"];
                                                                [userinfo setValue:[[result objectForKey:@"auth_status"] stringValue] forKey:@"auth_status"];
@@ -196,7 +206,7 @@ static BOOL YTourist;
                                                                if ([[userinfo objectForKey:@"auth_status"] isEqualToString:@"-1"]) {
                                                                    isMember = NO;
                                                                }
-                                                               [LYFunctionInterface Setcommunitinfo:[LYSelectCommunit GetCommunityInfo]];
+                                                               [LYFunctionInterface Setcommunitinfo:[LYSqllite selectedCommunit]];
                                                                if (isMember) {
                                                                    [self performSegueWithIdentifier:@"GoLYFunctionInterface" sender:self];
                                                                }
@@ -346,7 +356,9 @@ static BOOL YTourist;
     [userinfo setValue:@"-2" forKey:@"auth_status"];
     [LYSqllite wuser:userinfo];
     YTourist = TRUE;
-    [LYFunctionInterface Setcommunitinfo:[LYSelectCommunit GetCommunityInfo]];
+
+    [LYFunctionInterface Setcommunitinfo:[LYSqllite selectedCommunit]];
+    
     [self performSegueWithIdentifier:@"GoLYFunctionInterface" sender:self];
 }
 

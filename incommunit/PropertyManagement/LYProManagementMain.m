@@ -393,6 +393,7 @@
         return notification.count;
     }
     else if (tableView == m_InfotableView) {
+        
         switch (section) {
             case 0:
                 return propertyExpenseArray.count;

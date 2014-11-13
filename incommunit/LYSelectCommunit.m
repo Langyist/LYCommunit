@@ -60,7 +60,7 @@ static NSDictionary *   m_cityinfo;//城市信息
     NSMutableDictionary *communitInfo = [LYSqllite currentCommnit];
     if (userinfo != nil && m_bl ==FALSE && ![[userinfo objectForKey:@"auth_status"] isEqualToString:@"-2"] && [[communitInfo objectForKey:@"community_id"] length])
     {
-        m_cityinfo = communitInfo;
+        [LYSqllite setSelectedCommunit:communitInfo];
         [LYFunctionInterface Setcommunitinfo:m_cityinfo];
         [self login:[userinfo objectForKey:@"user"] password:[userinfo objectForKey:@"password"] communitID:[communitInfo objectForKey:@"community_id"]];
     }
@@ -261,6 +261,7 @@ static NSDictionary *   m_cityinfo;//城市信息
                    ,@"communitdistance" : [communitInfo objectForKey:@"distance"]
                    ,@"communitmax_level" : [communitInfo objectForKey:@"max_level"]
                    };
+    [LYSqllite setSelectedCommunit:m_cityinfo];
     if ([[[NSString alloc]initWithFormat:@"%@", [communitInfo objectForKey:@"enable"]] isEqualToString:@"1"]) {
         
         NSMutableDictionary * userinfo = [[NSMutableDictionary alloc] init];
@@ -455,7 +456,7 @@ static NSDictionary *   m_cityinfo;//城市信息
             [self performSegueWithIdentifier:@"GoLYUserloginView" sender:nil];
         }
         else {
-            [LYSqllite WriteComunitInfo:m_cityinfo];
+            [LYSqllite WriteComunitInfo:[LYSqllite selectedCommunit]];
             
             [userinfo setValue:[[result objectForKey:@"user_id"] stringValue] forKey:@"user_id"];
             [userinfo setValue:[[result objectForKey:@"auth_status"] stringValue] forKey:@"auth_status"];
@@ -466,7 +467,7 @@ static NSDictionary *   m_cityinfo;//城市信息
                 isMember = NO;
             }
             if (isMember) {
-                [LYFunctionInterface Setcommunitinfo:m_cityinfo];
+                [LYFunctionInterface Setcommunitinfo:[LYSqllite selectedCommunit]];
                 [self performSegueWithIdentifier:@"Gomain4" sender:self];
             }
             else {

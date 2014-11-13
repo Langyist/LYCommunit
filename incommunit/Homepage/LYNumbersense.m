@@ -9,7 +9,7 @@
 #import "LYNumbersense.h"
 #import "LYSelectCommunit.h"
 #import "NumberSenceHeaderView.h"
-
+#import "LYSqllite.h"
 @interface LYNumbersenseCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *callNumberLabel;
@@ -96,7 +96,7 @@
 - (void)getNumbersense:(NSString *)url {
     
     NSError *error;
-    NSString *urlstr = [[NSString alloc] initWithFormat:@"http://115.29.244.142/inCommunity/services/community/contact_list/community_id=%@",[[LYSelectCommunit GetCommunityInfo] objectForKey:@"id"]];
+    NSString *urlstr = [[NSString alloc] initWithFormat:@"http://115.29.244.142/inCommunity/services/community/contact_list/community_id=%@",[[LYSqllite currentCommnit] objectForKey:@"id"]];
     //    加载一个NSURL对象
     NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:urlstr]];
     //    将请求的url数据放到NSData对象中

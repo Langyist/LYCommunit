@@ -136,7 +136,7 @@
 //获取网络数据
 -(void)Getdata
 {
-     NSDictionary *dic = @{@"id" : [[LYFunctionInterface Getcommunitinfo] objectForKey:@"community_id"]};
+     NSDictionary *dic = @{@"id" : [[LYSqllite currentCommnit] objectForKey:@"community_id"]};
     [[StoreOnlineNetworkEngine shareInstance] startNetWorkWithPath:@"services/community/index"
                                                             params:dic
                                                             repeat:YES
