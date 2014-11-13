@@ -51,7 +51,7 @@
     [m_Nickname setTextInset:UIEdgeInsetsMake(0, 15, 0, 15)];
     [m_button.layer setMasksToBounds:YES];
     [m_button.layer setCornerRadius:3.0];
-    m_communitid = [[LYSelectCommunit GetCommunityInfo] objectForKey:@"id"];
+    m_communitid = [[LYSelectCommunit GetCommunityInfo] objectForKey:@"community_id"];
     m_Nickname.delegate = self;
     CALayer *lay  = m_iamgeview.layer;//获取ImageView的层
     [lay setMasksToBounds:YES];
@@ -385,7 +385,7 @@
 -(void)Submitinfo
 {
     
-    NSDictionary *dic = @{ @"user_id" : userID
+    NSDictionary *dic = @{ @"user_id" : [[LYSqllite Ruser] objectForKey:@"user_id"]
                           ,@"community_id" : m_communitid
                           ,@"nick_name" : m_Nickname.text
                           ,@"head" : [self CovertImage:headimage]
@@ -422,6 +422,12 @@
     NSDictionary *dic = @{@"username" : user
                           ,@"password" : password
                           ,@"community_id" : Communitid};
+    
+    NSMutableDictionary * userinfo = [[NSMutableDictionary alloc] init];
+    
+    [userinfo setValue:user forKey:@"user"];
+    [userinfo setValue:password forKey:@"password"];
+    
     [[StoreOnlineNetworkEngine shareInstance] startNetWorkWithPath:@"services/login"
                                                             params:dic
                                                             repeat:YES
@@ -434,7 +440,11 @@
                                                                [alview show];
                                                            }else
                                                            {
-                                                               //[LYSqllite  wuser:userinfo];
+                                                               [LYSqllite WriteComunitInfo:[LYSelectCommunit GetCommunityInfo]];
+                                                               
+                                                               [userinfo setValue:[[result objectForKey:@"auth_status"] stringValue] forKey:@"auth_status"];
+                                                               [LYSqllite  wuser:userinfo];
+                                                               
                                                                [self performSegueWithIdentifier:@"GoLYFunctionInterface" sender:self];
                                                            }
                                                        }];

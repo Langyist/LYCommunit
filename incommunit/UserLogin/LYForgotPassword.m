@@ -252,11 +252,6 @@
     NSMutableDictionary *userinfo= [[NSMutableDictionary alloc] init];
     [userinfo setValue:username forKey:@"user"];
     [userinfo setValue:password forKey:@"password"];
-    [userinfo setValue:[communitInfo objectForKey:@"id"] forKey:@"community_id"];
-    [userinfo setValue:[communitInfo objectForKey:@"name"] forKey:@"communitname"];
-    [userinfo setValue:[communitInfo objectForKey:@"address"] forKey:@"communitaddress"];
-    [userinfo setValue:[communitInfo objectForKey:@"distance"] forKey:@"communitdistance"];
-    [userinfo setValue:[communitInfo objectForKey:@"max_level"] forKey:@"communitmax_level"];
     
     // 登录结果处理
     AnalyzeResponseResult result = ^(BOOL bValidJSON, NSString *errorMsg, id result) {
@@ -265,10 +260,15 @@
             [alview show];
         }
         else {
-            [userinfo setValue:[[result objectForKey:@"auth_status"] stringValue] forKey:@"auth_stauts"];
+
+            [LYSqllite WriteComunitInfo:[LYSelectCommunit GetCommunityInfo]];
+            
+            [userinfo setValue:[[result objectForKey:@"auth_status"] stringValue] forKey:@"auth_status"];
+            
             [LYSqllite  wuser:userinfo];
+            
             BOOL isMember = YES;
-            if ([[userinfo objectForKey:@"auth_stauts"] isEqualToString:@"-1"]) {
+            if ([[userinfo objectForKey:@"auth_status"] isEqualToString:@"-1"]) {
                 isMember = NO;
             }
             if (isMember) {

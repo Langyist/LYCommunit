@@ -57,11 +57,13 @@ static NSDictionary *   m_cityinfo;//城市信息
 -(void)viewDidLoad
 {
     NSMutableDictionary *userinfo =  [LYSqllite Ruser];
-    if (userinfo != nil&&m_bl ==FALSE && ![[userinfo objectForKey:@"auth_stauts"] isEqualToString:@"-2"])
+    NSMutableDictionary *communitInfo = [LYSqllite currentCommnit];
+    if (userinfo != nil && m_bl ==FALSE && ![[userinfo objectForKey:@"auth_status"] isEqualToString:@"-2"] && [[communitInfo objectForKey:@"community_id"] length])
+
     {
-        m_cityinfo = userinfo;
+        m_cityinfo = communitInfo;
         [LYFunctionInterface Setcommunitinfo:m_cityinfo];
-        [self login:[userinfo objectForKey:@"user"] password:[userinfo objectForKey:@"password"] communitID:[userinfo objectForKey:@"id"]];
+        [self login:[userinfo objectForKey:@"user"] password:[userinfo objectForKey:@"password"] communitID:[communitInfo objectForKey:@"community_id"]];
     }
     [super viewDidLoad];
     firstloc = TRUE;
@@ -170,15 +172,15 @@ static NSDictionary *   m_cityinfo;//城市信息
 
 - (void)onGetReverseGeoCodeResult:(BMKGeoCodeSearch *)searcher result:(BMKReverseGeoCodeResult *)result errorCode:(BMKSearchErrorCode)error
 {
-   // NSString *cityname = result.addressDetail.city;
+    // NSString *cityname = result.addressDetail.city;
     NSString *CityName = [result.addressDetail.city stringByReplacingOccurrencesOfString:@"市" withString:@""];
     if (m_data.count>0)
     {
         [selectCityButton setTitle: [m_data objectForKey:@"name"] forState: UIControlStateNormal];
-     }else{
+    }else{
         [selectCityButton setTitle: CityName forState: UIControlStateNormal];
-         [m_data setValue:CityName forKey:@"name"];
-         m_city_name  =CityName;
+        [m_data setValue:CityName forKey:@"name"];
+        m_city_name  =CityName;
     }
     [m_tab refreshStart];
     self.view.userInteractionEnabled = YES;
@@ -243,7 +245,7 @@ static NSDictionary *   m_cityinfo;//城市信息
         m_lable_distance.text =[NSString stringWithFormat:@"%.2lf  km", distance];
     }else
     {
-         m_lable_distance.text =[NSString stringWithFormat:@"%.0lf m", distance*1000];
+        m_lable_distance.text =[NSString stringWithFormat:@"%.0lf m", distance*1000];
     }
     return cell;
 }
@@ -251,21 +253,32 @@ static NSDictionary *   m_cityinfo;//城市信息
 //点击事件
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    m_cityinfo = [m_CommunitylistON objectAtIndex:indexPath.row];
-    if ([[[NSString alloc]initWithFormat:@"%@", [m_cityinfo objectForKey:@"enable"]] isEqualToString:@"1"]) {
+    NSDictionary *communitInfo = [m_CommunitylistON objectAtIndex:indexPath.row];
+    m_cityinfo = @{
+                   @"city_id" : @""
+                   ,@"community_id" : [communitInfo objectForKey:@"id"]
+                   ,@"communitname" : [communitInfo objectForKey:@"name"]
+                   ,@"communitaddress" : [communitInfo objectForKey:@"address"]
+                   ,@"communitdistance" : [communitInfo objectForKey:@"distance"]
+                   ,@"communitmax_level" : [communitInfo objectForKey:@"max_level"]
+                   };
+    if ([[[NSString alloc]initWithFormat:@"%@", [communitInfo objectForKey:@"enable"]] isEqualToString:@"1"]) {
         
         NSMutableDictionary * userinfo = [[NSMutableDictionary alloc] init];
-        //userinfo = [LYSqllite Ruser:[m_cityinfo objectForKey:@"id"]];
+
+        userinfo = [LYSqllite Ruser];
+
         // TUDO: 检查是否登录
         if (nil == userinfo || [[userinfo objectForKey:@"auth_stauts"] isEqualToString:@"-2"]) {
             [self performSegueWithIdentifier:@"GoLYUserloginView" sender:nil];
         }
         else {
-            [self login:[userinfo objectForKey:@"user"] password:[userinfo objectForKey:@"password"] communitID:[[m_cityinfo objectForKey:@"id"] stringValue]];
+
+            [self login:[userinfo objectForKey:@"user"] password:[userinfo objectForKey:@"password"] communitID:[[m_cityinfo objectForKey:@"community_id"] stringValue]];
 
         }
     }
-    else if ([[[NSString alloc]initWithFormat:@"%@", [m_cityinfo objectForKey:@"enable"]] isEqualToString:@"0"]) {
+    else if ([[[NSString alloc]initWithFormat:@"%@", [communitInfo objectForKey:@"enable"]] isEqualToString:@"0"]) {
         
         UIAlertView *al = [[UIAlertView alloc] initWithTitle:@"提示" message:@"小区暂未开通" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
         [al show];
@@ -308,12 +321,12 @@ static NSDictionary *   m_cityinfo;//城市信息
     if(m_data.count>0)
     {
         dic = @{Key : [m_data objectForKey:key]
-                              ,@"name" : m_CommunityName
-                              ,@"longitude" : [[NSString alloc] initWithFormat:@"%f",longitude]
-                              ,@"latitude" : [[NSString alloc] initWithFormat:@"%f",latitude]
-                              ,@"pageSize" : [[NSString alloc] initWithFormat:@"%d",m_pageSize]
-                              ,@"pageOffset" : [[NSString alloc] initWithFormat:@"%d",m_pageOffset]
-                              };
+                ,@"name" : m_CommunityName
+                ,@"longitude" : [[NSString alloc] initWithFormat:@"%f",longitude]
+                ,@"latitude" : [[NSString alloc] initWithFormat:@"%f",latitude]
+                ,@"pageSize" : [[NSString alloc] initWithFormat:@"%d",m_pageSize]
+                ,@"pageOffset" : [[NSString alloc] initWithFormat:@"%d",m_pageOffset]
+                };
     }
     [[StoreOnlineNetworkEngine shareInstance] startNetWorkWithPath:@"services/community/search"
                                                             params:dic
@@ -361,14 +374,14 @@ static NSDictionary *   m_cityinfo;//城市信息
                                                                    m_tab.hidden = YES;
                                                                    footerView.hidden = NO;
                                                                }
-                                                            }
-                                                           }];
-    }
+                                                           }
+                                                       }];
+}
 
 - (void)userLocation:(Location *)userLocation
              locInfo:(NSDictionary *)locInfo
 {
-
+    
 }
 
 #pragma mark - 切换界面进入协议函数
@@ -439,15 +452,10 @@ static NSDictionary *   m_cityinfo;//城市信息
     //userinfo = [LYSqllite Ruser:[m_cityinfo objectForKey:@"id"]];
 
     userinfo = [[NSMutableDictionary alloc] init];
+
     
     [userinfo setValue:user forKey:@"user"];
     [userinfo setValue:password forKey:@"password"];
-    [userinfo setValue:[[LYSelectCommunit GetCommunityInfo] objectForKey:@"id"] forKey:@"community_id"];
-    [userinfo setValue:[[LYSelectCommunit GetCommunityInfo] objectForKey:@"name"] forKey:@"communitname"];
-    [userinfo setValue:[[LYSelectCommunit GetCommunityInfo] objectForKey:@"address"] forKey:@"communitaddress"];
-    [userinfo setValue:[[LYSelectCommunit GetCommunityInfo] objectForKey:@"distance"] forKey:@"communitdistance"];
-    [userinfo setValue:[[LYSelectCommunit GetCommunityInfo] objectForKey:@"max_level"] forKey:@"communitmax_level"];
-
     
     // 登录结果处理
     AnalyzeResponseResult result = ^(BOOL bValidJSON, NSString *errorMsg, id result) {
@@ -455,10 +463,15 @@ static NSDictionary *   m_cityinfo;//城市信息
             [self performSegueWithIdentifier:@"GoLYUserloginView" sender:nil];
         }
         else {
-            [userinfo setValue:[[result objectForKey:@"auth_status"] stringValue] forKey:@"auth_stauts"];
+
+            
+            [LYSqllite WriteComunitInfo:m_cityinfo];
+            
+            [userinfo setValue:[[result objectForKey:@"auth_status"] stringValue] forKey:@"auth_status"];
+
             [LYSqllite  wuser:userinfo];
             BOOL isMember = YES;
-            if ([[userinfo objectForKey:@"auth_stauts"] isEqualToString:@"-1"]) {
+            if ([[userinfo objectForKey:@"auth_status"] isEqualToString:@"-1"]) {
                 isMember = NO;
             }
             if (isMember) {
