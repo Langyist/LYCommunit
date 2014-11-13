@@ -41,7 +41,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    selectType = @"";
+    selectType = @"1";
     m_pagesize = 10;
     m_pageOffset = 0 ;
     [self GetType];
@@ -170,7 +170,7 @@
     [[StoreOnlineNetworkEngine shareInstance] startNetWorkWithPath:@"services/neighbor/list"
                                                             params:dic
                                                             repeat:YES
-                                                             isGet:NO
+                                                             isGet:YES
                                                        resultBlock:^(BOOL bValidJSON, NSString *errorMsg, id result) {
                                                            if(!bValidJSON)
                                                            {
