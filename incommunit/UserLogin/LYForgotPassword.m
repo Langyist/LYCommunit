@@ -260,7 +260,6 @@
             [alview show];
         }
         else {
-            
             [LYSqllite WriteComunitInfo:[LYSelectCommunit GetCommunityInfo]];
             
             [userinfo setValue:[[result objectForKey:@"user_id"] stringValue] forKey:@"user_id"];
