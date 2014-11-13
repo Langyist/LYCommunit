@@ -69,14 +69,22 @@
     _listTable.layer.borderColor = kBorderColor.CGColor;
     _listTable.backgroundColor = [UIColor whiteColor];
     [self.supView addSubview:_listTable];
-    titleLabel.text = [_titlesList objectAtIndex:_defaultIndex];
+    NSString *title = @"";
+    if (_defaultIndex < [_titlesList count] && _defaultIndex >= 0) {
+        title = [_titlesList objectAtIndex:_defaultIndex];
+    }
+    titleLabel.text = title;
 }
 
 //刷新视图
 -(void)reloadData
 {
     [_listTable reloadData];
-    titleLabel.text = [_titlesList objectAtIndex:_defaultIndex];
+    NSString *title = @"";
+    if (_defaultIndex < [_titlesList count] && _defaultIndex >= 0) {
+        title = [_titlesList objectAtIndex:_defaultIndex];
+    }
+    titleLabel.text = title;
 }
 
 //关闭父视图上面的其他combox
