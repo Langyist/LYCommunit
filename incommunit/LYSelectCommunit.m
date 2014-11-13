@@ -255,7 +255,7 @@ static NSDictionary *   m_cityinfo;//城市信息
     if ([[[NSString alloc]initWithFormat:@"%@", [m_cityinfo objectForKey:@"enable"]] isEqualToString:@"1"]) {
         
         NSMutableDictionary * userinfo = [[NSMutableDictionary alloc] init];
-        userinfo = [LYSqllite Ruser:[m_cityinfo objectForKey:@"id"]];
+        //userinfo = [LYSqllite Ruser:[m_cityinfo objectForKey:@"id"]];
         // TUDO: 检查是否登录
         if (nil == userinfo || [[userinfo objectForKey:@"auth_stauts"] isEqualToString:@"-2"]) {
             [self performSegueWithIdentifier:@"GoLYUserloginView" sender:nil];
@@ -436,7 +436,7 @@ static NSDictionary *   m_cityinfo;//城市信息
     Communitid = [Communitid length] ? Communitid : @"";
     
     NSMutableDictionary * userinfo = [[NSMutableDictionary alloc] init];
-    userinfo = [LYSqllite Ruser:[m_cityinfo objectForKey:@"id"]];
+    //userinfo = [LYSqllite Ruser:[m_cityinfo objectForKey:@"id"]];
 
     userinfo = [[NSMutableDictionary alloc] init];
     

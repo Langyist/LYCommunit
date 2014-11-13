@@ -18,6 +18,7 @@
     UITableView* roomInfoTableView;
     
     NSInteger lastSelect;
+    NSString * selectType;
 }
 
 @property (weak, nonatomic) IBOutlet CustomSegmentedControl *segmentedControl;
@@ -40,6 +41,11 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    selectType = @"";
+    m_pagesize = 10;
+    m_pageOffset = 0 ;
+    [self GetType];
+    [self GetNetdata];
     // Do any additional setup after loading the view.
     
 //    self.friendlyLoadingView = [[XHFriendlyLoadingView alloc] initWithFrame:self.view.bounds];
@@ -142,32 +148,39 @@
 }
 
 - (NSInteger)colMune:(ColMenu *)colMenu numberOfRowsInSection:(NSInteger)section {
-    return 45;
+    return m_type.count;
 }
 
 - (NSString *)colMune:(ColMenu *)colMenu titleForItemOfSection:(NSInteger)section row:(NSInteger)row {
-    return @"text";
+   return [[m_type objectAtIndex:row] objectForKey:@"name"];
 }
 
 - (void)colMune:(ColMenu *)colMenu didSelectItemOfSection:(NSInteger)section row:(NSInteger)row {
-    
+    selectType = [[m_type objectAtIndex:row] objectForKey:@"id"];
 }
 
 -(void)GetNetdata
 {
 
-//     NSDictionary *  dic = @{@"type_id" : [m_data objectForKey:key]
-//                ,@"pageOffset" : m_CommunityName
-//                ,@"pageSize" : [[NSString alloc] initWithFormat:@"%f",longitude]
-//                };
-//    
-//    [[StoreOnlineNetworkEngine shareInstance] startNetWorkWithPath:@"services/neighbor/list"
-//                                                            params:dic
-//                                                            repeat:YES
-//                                                             isGet:NO
-//                                                       resultBlock:^(BOOL bValidJSON, NSString *errorMsg, id result) {
-//                                                           if(!bValidJSON)
-//                                                           {}}];
+     NSDictionary *  dic = @{@"type_id" : selectType
+                             ,@"pageOffset" : [[NSString alloc] initWithFormat:@"%d",m_pageOffset]
+                             ,@"pageSize" : [[NSString alloc] initWithFormat:@"%d",m_pagesize]
+                };
+    
+    [[StoreOnlineNetworkEngine shareInstance] startNetWorkWithPath:@"services/neighbor/list"
+                                                            params:dic
+                                                            repeat:YES
+                                                             isGet:NO
+                                                       resultBlock:^(BOOL bValidJSON, NSString *errorMsg, id result) {
+                                                           if(!bValidJSON)
+                                                           {
+                                                               UIAlertView * alview = [[UIAlertView alloc] initWithTitle:@"提示" message:errorMsg delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+                                                               [alview show];
+                                                           }else
+                                                           {
+                                                               m_infodata =result;
+                                                           }
+                                                       }];
 
 }
 -(void)GetType
@@ -180,9 +193,10 @@
                                                        resultBlock:^(BOOL bValidJSON, NSString *errorMsg, id result) {
                                                            if(!bValidJSON)
                                                            {
-                                                           
+                                                               NSLog(@"%@",errorMsg);
                                                            }else{
-                                                           
+                                                               m_type =result;
+                                                               
                                                            }
                                                        }];
 }

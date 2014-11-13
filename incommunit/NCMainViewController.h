@@ -15,5 +15,11 @@
     UITableViewDelegate,
     ColMenuDelegate
 >
+{
+    NSMutableArray * m_type;
+    NSMutableArray * m_infodata;
+    int m_pagesize ;
+    int m_pageOffset ;
+}
 
 @end
