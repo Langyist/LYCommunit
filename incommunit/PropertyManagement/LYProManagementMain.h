@@ -44,5 +44,4 @@
 }
 @property (retain, nonatomic) IBOutlet UISegmentedControl *m_segment;
 @property (weak, nonatomic) IBOutlet UIScrollView *m_scrollView;
--(void)Getnotification:(NSString *)URL;
 @end

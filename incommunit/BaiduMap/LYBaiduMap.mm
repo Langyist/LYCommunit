@@ -22,17 +22,6 @@
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
-    _mapManager = [[BMKMapManager alloc]init];
-    BOOL ret = [_mapManager start:BaidKey  generalDelegate:nil];
-    if (!ret) {
-        NSLog(@"manager start failed!");
-    }
-    //适配ios7
-    if( ([[[UIDevice currentDevice] systemVersion] doubleValue]>=7.0))
-    {
-        //        self.edgesForExtendedLayout=UIRectEdgeNone;
-        self.navigationController.navigationBar.translucent = NO;
-    }
 }
 -(void)viewWillAppear:(BOOL)animated
 {

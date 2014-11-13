@@ -26,8 +26,6 @@
     UIButton *repairButton;//我要报修button
 }
 
-@property (nonatomic, strong) XHFriendlyLoadingView *friendlyLoadingView;
-
 @end
 @implementation LYProManagementMain
 @synthesize m_segment;
@@ -41,9 +39,6 @@
     [super viewDidLoad];
     m_pageOffset = 0;
     m_pageSize = 10;
-    _friendlyLoadingView = [[XHFriendlyLoadingView alloc] initWithFrame:self.view.bounds];
-    [self.friendlyLoadingView showFriendlyLoadingViewWithText:@"正在加载..." loadingAnimated:YES];
-    [self.view addSubview:self.friendlyLoadingView];
 
     [m_segment addTarget:self action:@selector(doSomethingInSegment:)forControlEvents:UIControlEventValueChanged];
     CGRect rect = CGRectMake(0, 0, 1, 1);
@@ -224,10 +219,8 @@
     [recognizer setDirection:(UISwipeGestureRecognizerDirectionRight)];
     [m_view04 addGestureRecognizer:recognizer];
     
-    [NSThread detachNewThreadSelector:@selector(GetInfomationInquiryData:) toTarget:self withObject:nil];
-    [NSThread detachNewThreadSelector:@selector(GetPropertyExchangeData:) toTarget:self withObject:nil];
-    [NSThread detachNewThreadSelector:@selector(GetPropertyServiceData:) toTarget:self withObject:nil];
-    [NSThread detachNewThreadSelector:@selector(Getnotification:) toTarget:self withObject:nil];
+    [self Getnotification];
+    
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -262,6 +255,7 @@
             
             [self.m_scrollView setContentOffset:CGPointMake(1* self.view.frame.size.width,0) animated:YES];
             m_segment.selectedSegmentIndex = 1;
+            [self GetInfomationInquiryData];
         }];}
     }
 }
@@ -273,6 +267,7 @@
             
             [self.m_scrollView setContentOffset:CGPointMake(2* self.view.frame.size.width,0) animated:YES];
             m_segment.selectedSegmentIndex = 2;
+            
         }];}
     }
 }
@@ -676,14 +671,14 @@
 
 #pragma mark 获取网络数据
 //获取物业公告信息
--(void)Getnotification:(NSString *)URL
+-(void)Getnotification
 {
     NSDictionary* dic = @{@"pageSize" : [[NSString alloc] initWithFormat:@"%d",m_pageSize]
                           ,@"pageOffset" : [[NSString alloc] initWithFormat:@"%d",m_pageOffset]
                           };
     [[StoreOnlineNetworkEngine shareInstance] startNetWorkWithPath:@"services/wuye/notice/list"
                                                         params:dic
-                                                        repeat:YES
+                                                        repeat:NO
                                                          isGet:YES
                                                    resultBlock:^(BOOL bValidJSON, NSString *errorMsg, id result) {
                                                        if(!bValidJSON)
@@ -695,12 +690,13 @@
                                                        }else
                                                        {
                                                            notification =result;
+                                                           [m_AnntableVeiw reloadData];
                                                        }
                                                    }];
 }
 
 //获取"信息查询"的相关数据
--(void)GetInfomationInquiryData:(NSString *)URL
+-(void)GetInfomationInquiryData
 {
 
     NSDictionary* dic = @{@"pageSize" : [[NSString alloc] initWithFormat:@"%d",m_pageSize]
