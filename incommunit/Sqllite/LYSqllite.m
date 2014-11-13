@@ -5,7 +5,6 @@
 //  Created by wangliang on 14-9-15.
 //  Copyright (c) 2014年 wangliang. All rights reserved.
 //
-
 #import "LYSqllite.h"
 #import "sqlite3.h"
 @implementation LYSqllite
@@ -122,14 +121,19 @@ return bl;
                      [[Comunitinfo objectForKey:@"CurrentFlag"] boolValue]];
     [[[LYSqllite alloc] init]execSql:sql  database:tempdatabase];
 
-//    int nRow, nColumn;
-//    sqlite3_get_table( tempdatabase, "select * from USERINFO", nil, &nRow, &nColumn, nil );
-//    if (nRow>5)
-//    {
-//        NSDictionary * temp = [self currentCommnit];
-//        NSString *sql = [NSString stringWithFormat:@"delete from Communitinfo where ID=%@",[temp objectForKey:@"community_id"]];
-//        [[[LYSqllite alloc] init]execSql:sql database:tempdatabase];
-//    }
+    char * errmsg = NULL;
+    char **dbResult;
+    int nRow, nColumn;
+    int result = sqlite3_get_table( tempdatabase, "select * from Communitinfo", &dbResult, &nRow, &nColumn, &errmsg );
+    if(SQLITE_OK == result)
+    {
+        if (nRow>5)
+        {
+            NSDictionary * temp = [self currentCommnit];
+            NSString *sql = [NSString stringWithFormat:@"delete from Communitinfo where ID=%@",[temp objectForKey:@"community_id"]];
+            [[[LYSqllite alloc] init]execSql:sql database:tempdatabase];
+        }
+    }
 }
 
 +(NSMutableArray *)AllCommunit
@@ -259,6 +263,8 @@ return bl;
     sqlite3_close(tempdatabase);
     [self CreatCommunit];
 }
+
+
 
 //删除用户表中数据
 +(void)deletetable
