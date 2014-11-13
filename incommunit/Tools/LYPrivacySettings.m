@@ -170,7 +170,8 @@
             break;
     }
     
-    if (indexPath.row == 0) {
+    if (indexPath.row == 0)
+    {
         TitleCell * cell = [tableView dequeueReusableCellWithIdentifier:@"TitleCell" forIndexPath:indexPath];
         [cell.name setText:title];
         cell.switchUI.hidden = hideSwitch;
@@ -184,18 +185,14 @@
     else {
         ContentCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ContentCell" forIndexPath:indexPath];
         [cell.name setText:[contentTitle objectAtIndex:indexPath.row - 1]];
-        
         NSString *value = [data objectAtIndex:indexPath.row - 1];
         NSString *imageName = @"Unselected";
         if([value intValue] == 1) {
             imageName = @"Selected";
         }
-        
         [cell.checkImageView setImage:[UIImage imageNamed:imageName]];
-        
         retcell = cell;
     }
-    
     retcell.selectionStyle = UITableViewCellSelectionStyleNone;
     return retcell;
 }
@@ -339,33 +336,34 @@
 
 -(void)Submit
 {
-    NSDictionary *dic =@{@"address" :address1
-                        ,@"address" :address2
-                        ,@"address" :address3
-                        ,@"address" :address4
-                        ,@"album" : album1
-                        ,@"album" : album2
-                        ,@"album" : album3
-                        ,@"album" : album4};
-    [[StoreOnlineNetworkEngine shareInstance] startNetWorkWithPath:@"services/visible_setting/set"
-                                                            params:dic
-                                                            repeat:YES
-                                                             isGet:NO
-                                                       resultBlock:^(BOOL bValidJSON, NSString *errorMsg, id result) {
-                                                           if(!bValidJSON)
-                                                           {
-                                                               UIAlertView *al = [[UIAlertView alloc] initWithTitle:@"提示" message:@"对不起，你现在是游客登陆状态，无法使用此功能。是否登陆/注册" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
-                                                               [al show];
-                                                           }else
-                                                           {
-                                                               [self performSegueWithIdentifier:@"GoLYPrivacySettings" sender:self];
-                                                               addfriend = [result objectForKey:@"add_friend"];
-                                                               address = [result objectForKey:@"address"];
-                                                               album = [result objectForKey:@"album"];
-                                                           }}];
-    
-    
-}
+    NSDictionary *plistDic = [[NSBundle mainBundle] infoDictionary];
+    NSLog(@"plistDic = %@",plistDic);
+    NSString *urlstr = [plistDic objectForKey: @"URL"];
+    NSError *error;
+    //    加载一个NSURL对象
+    NSString    *URLString = [NSString stringWithFormat:@"%@/services/visible_setting/set",urlstr];
+    NSURL *url = [NSURL URLWithString:URLString];
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc]initWithURL:url cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:10];
+    if (request!=nil)
+    {
+        [request setHTTPMethod:@"POST"];//设置请求方式为POST，默认为GET
+        NSString *str = @"address=";//设置参数
+        str = [str stringByAppendingFormat:@"%@&address=%@&address=%@&address=%@&album=%@&album=%@&album=%@&album=%@&add_friend=%@",address1,address2,address3,address4,album1,album2,album3,album4 ,@"1"];
+        NSData *data = [str dataUsingEncoding:NSUTF8StringEncoding];
+        [request setHTTPBody:data];
+        //第三步，连接服务器
+        NSData *received = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
+        NSDictionary *weatherDic = [NSJSONSerialization JSONObjectWithData:received options:NSJSONReadingMutableLeaves error:&error];
+        if ([[weatherDic objectForKey:@"status"] isEqualToString:@"200"])
+        {
+            NSLog(@"提交成功");
+        }else
+        {
+             NSLog(@"提交失败");
+        }
+
+    }
+    }
 
 
 #pragma mark getdata
