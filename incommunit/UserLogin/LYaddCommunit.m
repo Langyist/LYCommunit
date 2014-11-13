@@ -41,6 +41,9 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    comboxlist = [[NSMutableArray alloc] init];
+    
     l1str=@"";
     l2str=@"";
     l3str=@"";
@@ -142,7 +145,7 @@
         NSMutableArray  *itemsArray = [[NSMutableArray alloc]initWithCapacity:1];
         switch (i) {
             case 0:
-                [self done:m_communitid pid:@"0" ComBoxView:comBox];
+                [self done:m_communitid pid:@"0" ComBoxView:comBox index:@"0"];
                 break;
             case 1:
                 if(BuildingData.count>0)
@@ -183,6 +186,16 @@
 
 -(void)selectAtIndex:(int)index inCombox:(LMComBoxView *)_combox
 {
+    BOOL startReset = NO;
+    for (LMComBoxView *combox in comboxlist) {
+        if (startReset) {
+            combox.titlesList = nil;
+            [combox reloadData];
+        }
+        if (combox == _combox) {
+            startReset = YES;
+        }
+    }
     NSInteger tag = _combox.tag - kDropDownListTag;
     switch (tag) {
         case 0:
@@ -192,7 +205,7 @@
                 l1str = [[tempdata1 objectAtIndex:index] objectForKey:@"id"];
                 BuildingData = [[NSMutableArray alloc] init];
                 LMComBoxView *cityCombox = (LMComBoxView *)[bgScrollView viewWithTag:tag + 1 + kDropDownListTag];
-                [self done:m_communitid pid:@"1" ComBoxView:cityCombox];
+                [self done:m_communitid pid:l1str ComBoxView:cityCombox index:[NSString stringWithFormat:@"%d", tag + 1]];
             }
         }
             break;
@@ -203,7 +216,7 @@
                 UnitData = [[NSMutableArray alloc] init];
                 l2str = [[tempdata2 objectAtIndex:index] objectForKey:@"id"];
                 LMComBoxView *cityCombox = (LMComBoxView *)[bgScrollView viewWithTag:tag + 1 + kDropDownListTag];
-                [self done:m_communitid pid:@"2"ComBoxView:cityCombox];
+                [self done:m_communitid pid:l2str ComBoxView:cityCombox index:[NSString stringWithFormat:@"%d", tag + 1]];
             }
         }
             break;
@@ -214,7 +227,7 @@
                 HouseholdsData = [[NSMutableArray alloc] init];
                 l3str = [[tempdata3 objectAtIndex:index] objectForKey:@"id"];
                 LMComBoxView *cityCombox = (LMComBoxView *)[bgScrollView viewWithTag:tag + 1 + kDropDownListTag];
-                [self done:m_communitid pid:@"3" ComBoxView:cityCombox];
+                [self done:m_communitid pid:l2str ComBoxView:cityCombox index:[NSString stringWithFormat:@"%d", tag + 1]];
             }
         }
             break;
@@ -225,7 +238,7 @@
                 HomeNumber = [[NSMutableArray alloc] init];
                 l4str = [[tempdata4 objectAtIndex:index] objectForKey:@"id"];
                 LMComBoxView *cityCombox = (LMComBoxView *)[bgScrollView viewWithTag:tag + 1 + kDropDownListTag];
-                [self done:m_communitid pid:@"4" ComBoxView:cityCombox];
+                [self done:m_communitid pid:l4str ComBoxView:cityCombox index:[NSString stringWithFormat:@"%d", tag + 1]];
             }
         }
             break;
@@ -300,7 +313,7 @@
     return ret;
 }
 
-- (void)done:(NSString *)COMMUNITY_ID pid:(NSString *)PID ComBoxView:(LMComBoxView *)BoxView
+- (void)done:(NSString *)COMMUNITY_ID pid:(NSString *)PID ComBoxView:(LMComBoxView *)BoxView index:(NSString *)index
 {
     NSDictionary *dic = @{ @"community_id" : COMMUNITY_ID
                            ,@"pid" : PID
@@ -309,6 +322,7 @@
                                                             params:dic
                                                             repeat:YES
                                                              isGet:YES
+                                                          activity:YES
                                                        resultBlock:^(BOOL bValidJSON, NSString *errorMsg, id result) {
                                                            if(!bValidJSON)
                                                            {
@@ -317,7 +331,7 @@
                                                                
                                                            }else
                                                            {
-                                                               if ([PID isEqual:@"0"]) {
+                                                               if ([index isEqual:@"0"]) {
                                                                    tempdata1 = result;
                                                                    if (tempdata1.count>0) {
                                                                        for (int i = 0; i<tempdata1.count; i++)
@@ -328,7 +342,7 @@
                                                                        BoxView.titlesList = PeriodData;
                                                                        [BoxView reloadData];
                                                                    }
-                                                               }else if ([PID isEqual:@"1"])
+                                                               }else if ([index isEqual:@"1"])
                                                                {
                                                                    tempdata2 = result;
                                                                    for (int i = 0; i<tempdata2.count; i++) {
@@ -336,7 +350,7 @@
                                                                    }
                                                                    BoxView.titlesList = BuildingData;
                                                                    [BoxView reloadData];
-                                                               }else if([PID isEqual:@"2"])
+                                                               }else if([index isEqual:@"2"])
                                                                {
                                                                     tempdata3 = result;
                                                                    for (int i = 0; i<tempdata3.count; i++)
@@ -346,7 +360,7 @@
                                                                    }
                                                                    BoxView.titlesList = UnitData;
                                                                    [BoxView reloadData];
-                                                               }else if([PID isEqual:@"3"])
+                                                               }else if([index isEqual:@"3"])
                                                                {
 
                                                                    tempdata4 = result;
@@ -356,7 +370,7 @@
                                                                     }
                                                                    BoxView.titlesList = HouseholdsData;
                                                                    [BoxView reloadData];
-                                                               }else if([PID isEqual:@"4"])
+                                                               }else if([index isEqual:@"4"])
                                                                {
                                                                    tempdata5 = result;
                                                                    for (int i = 0; i<tempdata5.count; i++)

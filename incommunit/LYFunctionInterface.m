@@ -42,7 +42,7 @@ static NSMutableArray    * m_order;
     [NSThread detachNewThreadSelector:@selector(Getdata:) toTarget:self withObject:nil];
     [NSTimer scheduledTimerWithTimeInterval:5 target:self selector:@selector(scrollTimer) userInfo:nil repeats:YES];
     
-    [_titleButton setTitle: [Communit objectForKey:@"communitname"] forState: UIControlStateNormal];
+    [_titleButton setTitle: [[LYSqllite currentCommnit] objectForKey:@"communitname"] forState: UIControlStateNormal];
     mapItem = [self createCustomItem:@"地图模式" imageName:@"4" selector:@selector(jumpToPage:) tag:100];
     mineItem = [self createCustomItem:@"我的主页" imageName:@"2" selector:@selector(jumpToPage:) tag:101];
     toolItem = [self createCustomItem:@"工具" imageName:@"3" selector:@selector(jumpToPage:) tag:102];
