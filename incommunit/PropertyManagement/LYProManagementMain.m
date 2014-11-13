@@ -18,6 +18,7 @@
 #import "CommentTableViewCell.h"
 #import "InfoHeader.h"
 #import "XHFriendlyLoadingView.h"
+#import "StoreOnlineNetworkEngine.h"
 @interface LYProManagementMain () {
     UIView *m_liuView;
     UIButton *repairButton;//我要报修button
@@ -36,7 +37,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
+    m_pageOffset = 0;
+    m_pageSize = 10;
     _friendlyLoadingView = [[XHFriendlyLoadingView alloc] initWithFrame:self.view.bounds];
     [self.friendlyLoadingView showFriendlyLoadingViewWithText:@"正在加载..." loadingAnimated:YES];
     [self.view addSubview:self.friendlyLoadingView];
@@ -639,87 +641,53 @@
 
 #pragma mark 获取网络数据
 //获取物业公告信息
--(BOOL)Getnotification:(NSString *)URL
+-(void)Getnotification:(NSString *)URL
 {
-    NSDictionary *plistDic = [[NSBundle mainBundle] infoDictionary];
-    NSLog(@"plistDic = %@",plistDic);
-    NSString *url = [plistDic objectForKey: @"URL"];
-    NSError *error;
-    NSString *urlstr =[[NSString alloc] initWithFormat:@"%@/services/wuye/notice/list",url] ;
-    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:urlstr]];
-    NSData *response = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
-    NSDictionary *weatherDic = [NSJSONSerialization JSONObjectWithData:response options:NSJSONReadingMutableLeaves error:&error];
-    NSString *status = [weatherDic objectForKey:@"status"];
-    if (![status isEqual:@"200"])
-    {
-        NSLog(@"%@",[weatherDic objectForKey:@"status"]);
-        return false;
-    }
-    NSLog(@"%@",status);
-    notification = [weatherDic objectForKey:@"data"];
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [m_AnntableVeiw reloadData];
-        // 更新UI
-    });
-    [self.friendlyLoadingView hideLoadingView];
-    return true;
-    
+    NSDictionary* dic = @{@"pageSize" : [[NSString alloc] initWithFormat:@"%d",m_pageSize]
+                          ,@"pageOffset" : [[NSString alloc] initWithFormat:@"%d",m_pageOffset]
+                          };
+    [[StoreOnlineNetworkEngine shareInstance] startNetWorkWithPath:@"services/wuye/notice/list"
+                                                        params:dic
+                                                        repeat:YES
+                                                         isGet:YES
+                                                   resultBlock:^(BOOL bValidJSON, NSString *errorMsg, id result) {
+                                                       if(!bValidJSON)
+                                                       {
+                                                           UIAlertView *alview = [[UIAlertView alloc] initWithTitle:@"提示" message:errorMsg delegate:self
+                                                                                                  cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+                                                           [alview show];
+                                                           
+                                                       }else
+                                                       {
+                                                           notification =result;
+                                                       }
+                                                   }];
 }
 
 //获取"信息查询"的相关数据
--(BOOL)GetInfomationInquiryData:(NSString *)URL
+-(void)GetInfomationInquiryData:(NSString *)URL
 {
-    NSDictionary *plistDic = [[NSBundle mainBundle] infoDictionary];
-    NSLog(@"plistDic = %@",plistDic);
-    NSString *url = [plistDic objectForKey: @"URL"];
-    NSError *error;
-    //物业费用
-    NSString *urlString = [NSString stringWithFormat:@"%@/services/wuye/base_infor",url];
-    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:urlString]];
-    NSData *responseData = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:&error];
-    if (nil != error)
-    {
-        return NO;
-    }
-    NSDictionary *parseData = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingMutableLeaves error:&error];
-    if (nil != error)
-    {
-        return NO;
-    }
-    if (![[parseData objectForKey:@"status"] isEqualToString:@"200"])
-    {
-        NSLog(@"%@",[parseData objectForKey:@"status"]);
-        return NO;
-    }
-    propertyExpenseArray = [parseData objectForKey:@"data"];
-    urlString = nil;
-    request = nil;
-    responseData = nil;
-    parseData = nil;
-    
-    urlString = [NSString stringWithFormat:@"%@/services/wuye/express_infor",url];
-    request = [NSURLRequest requestWithURL:[NSURL URLWithString:urlString]];
-    responseData = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:&error];
-    if (nil != error)
-    {
-        return NO;
-    }
-    parseData = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingMutableLeaves error:&error];
-    if (nil != error)
-    {
-        return NO;
-    }
-    if (![[parseData objectForKey:@"status"] isEqualToString:@"200"])
-    {
-        NSLog(@"%@",[parseData objectForKey:@"status"]);
-        return NO;
-    }
-    expressInfomationArray = [parseData objectForKey:@"data"];
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [m_InfotableView reloadData];
-        // 更新UI
-    });
-    return YES;
+
+    NSDictionary* dic = @{@"pageSize" : [[NSString alloc] initWithFormat:@"%d",m_pageSize]
+                          ,@"pageOffset" : [[NSString alloc] initWithFormat:@"%d",m_pageOffset]
+                          };
+    [[StoreOnlineNetworkEngine shareInstance] startNetWorkWithPath:@"services/wuye/express_infor"
+                                                            params:dic
+                                                            repeat:YES
+                                                             isGet:YES
+                                                       resultBlock:^(BOOL bValidJSON, NSString *errorMsg, id result) {
+                                                           if(!bValidJSON)
+                                                           {
+                                                               UIAlertView *alview = [[UIAlertView alloc] initWithTitle:@"提示" message:errorMsg delegate:self
+                                                                                                      cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+                                                               [alview show];
+                                                               
+                                                           }else
+                                                           {
+                                                               expressInfomationArray =result;
+                                                               [m_InfotableView reloadData];
+                                                           }
+                                                       }];
 }
 //获取"物业交流"的相关数据
 -(BOOL)GetPropertyExchangeData:(NSString*)URL

@@ -116,6 +116,7 @@
 		AD4823061A03224E00A54F45 /* TagsCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD4823051A03224E00A54F45 /* TagsCollectionViewController.m */; };
 		AD4823091A03238600A54F45 /* UserInfoTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD4823081A03238600A54F45 /* UserInfoTableViewController.m */; };
 		AD48230C1A03525F00A54F45 /* LYSettlement.m in Sources */ = {isa = PBXBuildFile; fileRef = AD48230B1A03525F00A54F45 /* LYSettlement.m */; };
+		AD5CD0061A149F170016E2C0 /* UIImageView+MKNetworkKitAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = AD5CD0051A149F170016E2C0 /* UIImageView+MKNetworkKitAdditions.m */; };
 		AD62118219FD2FBC009BECA6 /* LYFunctionInterface.m in Sources */ = {isa = PBXBuildFile; fileRef = AD62118119FD2FBC009BECA6 /* LYFunctionInterface.m */; };
 		AD62118619FD3148009BECA6 /* LYUserloginView.m in Sources */ = {isa = PBXBuildFile; fileRef = AD62118519FD3148009BECA6 /* LYUserloginView.m */; };
 		AD6211A019FD42CE009BECA6 /* LYnetwork.m in Sources */ = {isa = PBXBuildFile; fileRef = AD62119919FD42CE009BECA6 /* LYnetwork.m */; };
@@ -446,6 +447,8 @@
 		AD4823081A03238600A54F45 /* UserInfoTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserInfoTableViewController.m; sourceTree = "<group>"; };
 		AD48230A1A03525F00A54F45 /* LYSettlement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LYSettlement.h; sourceTree = "<group>"; };
 		AD48230B1A03525F00A54F45 /* LYSettlement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LYSettlement.m; sourceTree = "<group>"; };
+		AD5CD0041A149F170016E2C0 /* UIImageView+MKNetworkKitAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+MKNetworkKitAdditions.h"; sourceTree = "<group>"; };
+		AD5CD0051A149F170016E2C0 /* UIImageView+MKNetworkKitAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+MKNetworkKitAdditions.m"; sourceTree = "<group>"; };
 		AD62118019FD2FBC009BECA6 /* LYFunctionInterface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LYFunctionInterface.h; sourceTree = "<group>"; };
 		AD62118119FD2FBC009BECA6 /* LYFunctionInterface.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LYFunctionInterface.m; sourceTree = "<group>"; };
 		AD62118419FD3148009BECA6 /* LYUserloginView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LYUserloginView.h; sourceTree = "<group>"; };
@@ -788,6 +791,8 @@
 				F14F19031A0B583900731239 /* ArrowButton.m */,
 				F18E640D1A10BD91001BD189 /* CustomColorSearchBar.h */,
 				F18E640E1A10BD91001BD189 /* CustomColorSearchBar.m */,
+				AD5CD0041A149F170016E2C0 /* UIImageView+MKNetworkKitAdditions.h */,
+				AD5CD0051A149F170016E2C0 /* UIImageView+MKNetworkKitAdditions.m */,
 			);
 			path = CustomControls;
 			sourceTree = "<group>";
@@ -1535,6 +1540,7 @@
 				AD6A9B731A09C77E0031B7C2 /* LYMycollection.m in Sources */,
 				AD6211AC19FD46BD009BECA6 /* LeslieAsyncImageDownloader.m in Sources */,
 				AD3DD3C319FE2E4A00364854 /* UIActionSheet+Blocks.m in Sources */,
+				AD5CD0061A149F170016E2C0 /* UIImageView+MKNetworkKitAdditions.m in Sources */,
 				AD3DD3B119FDEE5B00364854 /* LMComBoxView.m in Sources */,
 				F14F190A1A0B6AA300731239 /* NumberSenceHeaderView.m in Sources */,
 				AD6211CC19FD5583009BECA6 /* LYMyCommunit.m in Sources */,

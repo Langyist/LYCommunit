@@ -56,8 +56,17 @@ static NSMutableArray *album;
         case 1:
             [self performSegueWithIdentifier:@"GoUniversal" sender:self];
             break;
-        case 2:
-            [self getprivacysetting];
+        case 2: {
+            NSDictionary *userInfo = [LYSqllite Ruser];
+            if (!userInfo || [[userInfo objectForKey:@"auth_status"] isEqualToString:@"-2"]) {
+                
+                UIAlertView *al = [[UIAlertView alloc] initWithTitle:@"提示" message:@"对不起，你现在是游客登陆状态，无法使用此功能。是否登陆/注册" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+                [al show];
+            }
+            else {
+                [self performSegueWithIdentifier:@"GoLYPrivacySettings" sender:self];
+            }
+        }
             break;
         case 4:
             [self performSegueWithIdentifier:@"GoAnnouncement" sender:self];
@@ -79,28 +88,6 @@ static NSMutableArray *album;
     }
 }
 
-
-#pragma mark getdata
-- (void)getprivacysetting
-{
-    NSDictionary *dic =@{};
-    [[StoreOnlineNetworkEngine shareInstance] startNetWorkWithPath:@"services/visible_setting/get"
-                                                            params:dic
-                                                            repeat:YES
-                                                             isGet:YES
-                                                       resultBlock:^(BOOL bValidJSON, NSString *errorMsg, id result) {
-                                                           if(!bValidJSON)
-                                                           {
-                                                               UIAlertView *al = [[UIAlertView alloc] initWithTitle:@"提示" message:@"对不起，你现在是游客登陆状态，无法使用此功能。是否登陆/注册" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
-                                                               [al show];
-                                                           }else
-                                                           {
-                                                               [self performSegueWithIdentifier:@"GoLYPrivacySettings" sender:self];
-                                                               addfriend = [result objectForKey:@"add_friend"];
-                                                               address = [result objectForKey:@"address"];
-                                                               album = [result objectForKey:@"album"];
-                                             }}];
-}
 
 #pragma mark - Navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender

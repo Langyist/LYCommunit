@@ -8,6 +8,7 @@
 
 #import "LYPrivacySettings.h"
 #import "AppDelegate.h"
+#import "StoreOnlineNetworkEngine.h"
 
 @interface TitleCell : UITableViewCell
 
@@ -90,7 +91,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
+    [self getprivacysetting ];
     contentTitle = @[@"朋友可见"
                      ,@"实名用户可见"
                      ,@"注册用户可见"
@@ -215,6 +216,115 @@
             break;
     }
     if (data && indexPath.row != 0) {
+        switch (indexPath.section) {
+            case 0:
+                switch (indexPath.row) {
+                    case 1:
+                    {
+                        NSString *value = [data objectAtIndex:indexPath.row - 1];
+                        if ([value boolValue]) {
+                            address1 = @"0";
+                        }
+                        else {
+                            address1 = @"1";
+                        }
+                    }
+                        
+                        break;
+                    case 2:
+                    {
+                        NSString *value = [data objectAtIndex:indexPath.row - 1];
+                        if ([value boolValue]) {
+                            address2 = @"0";
+                        }
+                        else {
+                            address2 = @"1";
+                        }
+                    }
+                        break;
+                    case 3:
+                    {
+                        NSString *value = [data objectAtIndex:indexPath.row - 1];
+                        if ([value boolValue]) {
+                            address3 = @"0";
+                        }
+                        else {
+                            address3 = @"1";
+                        }
+                    }
+                        break;
+                    case 4:
+                    {
+                        NSString *value = [data objectAtIndex:indexPath.row - 1];
+                        if ([value boolValue]) {
+                            address4 = @"0";
+                        }
+                        else {
+                            address4 = @"1";
+                        }
+                    }
+                        break;
+                    default:
+                        break;
+                }
+                break;
+            case 1:
+            {
+            
+                switch (indexPath.row) {
+                    case 1:
+                    {
+                        NSString *value = [data objectAtIndex:indexPath.row - 1];
+                        if ([value boolValue]) {
+                            album1 = @"0";
+                        }
+                        else {
+                            album1 = @"1";
+                        }
+                    }
+                        
+                        break;
+                    case 2:
+                    {
+                        NSString *value = [data objectAtIndex:indexPath.row - 1];
+                        if ([value boolValue]) {
+                            album2 = @"0";
+                        }
+                        else {
+                            album2 = @"1";
+                        }
+                    }
+                        break;
+                    case 3:
+                    {
+                        NSString *value = [data objectAtIndex:indexPath.row - 1];
+                        if ([value boolValue]) {
+                            album3 = @"0";
+                        }
+                        else {
+                            album3 = @"1";
+                        }
+                    }
+                        break;
+                    case 4:
+                    {
+                        NSString *value = [data objectAtIndex:indexPath.row - 1];
+                        if ([value boolValue]) {
+                            album4 = @"0";
+                        }
+                        else {
+                            album4 = @"1";
+                        }
+                    }
+                        break;
+                    default:
+                        break;
+                }
+
+            }
+            default:
+                break;
+        }
         NSString *value = [data objectAtIndex:indexPath.row - 1];
         if ([value boolValue]) {
             value = @"0";
@@ -227,32 +337,58 @@
     }
 }
 
--(BOOL)Submit
+-(void)Submit
 {
-    NSDictionary *plistDic = [[NSBundle mainBundle] infoDictionary];
-    NSLog(@"plistDic = %@",plistDic);
-    NSString *urlstr = [plistDic objectForKey: @"URL"];
-    NSError *error;
-    //    加载一个NSURL对象
-    NSString    *URLString = [NSString stringWithFormat:@"%@/services/visible_setting/set",urlstr];
-    NSURL *url = [NSURL URLWithString:URLString];
-    NSMutableURLRequest *request = [[NSMutableURLRequest alloc]initWithURL:url cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:10];
-    [request setHTTPMethod:@"POST"];//设置请求方式为POST，默认为GET
-    NSString *str = @"address=";//设置参数
-    str = [str stringByAppendingFormat:@"%@&address=%@&address=%@&address=%@&album=%@&album=%@&album=%@&album=%@&add_friend=%@",address1,address2,address3,address4,album1,album2,album3,album4 ,@"1"];
-    NSData *data = [str dataUsingEncoding:NSUTF8StringEncoding];
-    [request setHTTPBody:data];
-    //第三步，连接服务器
-    NSData *received = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
-    NSDictionary *weatherDic = [NSJSONSerialization JSONObjectWithData:received options:NSJSONReadingMutableLeaves error:&error];
-    if ([[weatherDic objectForKey:@"status"] isEqualToString:@"200"])
-    {
-        return YES;
-    }else
-    {
-        return NO;
-    }
+    NSDictionary *dic =@{@"address" :address1
+                        ,@"address" :address2
+                        ,@"address" :address3
+                        ,@"address" :address4
+                        ,@"album" : album1
+                        ,@"album" : album2
+                        ,@"album" : album3
+                        ,@"album" : album4};
+    [[StoreOnlineNetworkEngine shareInstance] startNetWorkWithPath:@"services/visible_setting/set"
+                                                            params:dic
+                                                            repeat:YES
+                                                             isGet:NO
+                                                       resultBlock:^(BOOL bValidJSON, NSString *errorMsg, id result) {
+                                                           if(!bValidJSON)
+                                                           {
+                                                               UIAlertView *al = [[UIAlertView alloc] initWithTitle:@"提示" message:@"对不起，你现在是游客登陆状态，无法使用此功能。是否登陆/注册" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+                                                               [al show];
+                                                           }else
+                                                           {
+                                                               [self performSegueWithIdentifier:@"GoLYPrivacySettings" sender:self];
+                                                               addfriend = [result objectForKey:@"add_friend"];
+                                                               address = [result objectForKey:@"address"];
+                                                               album = [result objectForKey:@"album"];
+                                                           }}];
+    
+    
 }
+
+
+#pragma mark getdata
+- (void)getprivacysetting
+{
+    NSDictionary *dic =@{};
+    [[StoreOnlineNetworkEngine shareInstance] startNetWorkWithPath:@"services/visible_setting/get"
+                                                            params:dic
+                                                            repeat:YES
+                                                             isGet:YES
+                                                       resultBlock:^(BOOL bValidJSON, NSString *errorMsg, id result) {
+                                                           if(!bValidJSON)
+                                                           {
+                                                               NSLog(@"%@",errorMsg);
+                                                           }else
+                                                           {
+                                                               addfriend = [result objectForKey:@"add_friend"];
+                                                               address = [result objectForKey:@"address"];
+                                                               album = [result objectForKey:@"album"];
+                                                               [m_tableView reloadData];
+                                                           }}];
+}
+
 -(void)viewWillDisappear:(BOOL)animated
 {
     [self Submit];

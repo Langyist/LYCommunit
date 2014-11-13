@@ -8,6 +8,8 @@
 
 #import "LYShoppingcart.h"
 #import "LYSqllite.h"
+#import "UIImageView+MKNetworkKitAdditions.h"
+
 @interface LYShoppingcart ()
 
 @end
@@ -98,7 +100,7 @@
         NSDictionary * temp = [tempinfo objectAtIndex:indexPath.row - 1];
         cell = (UITableViewCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
         UIImageView *imageView  = (UIImageView *)[cell viewWithTag:100];
-        UIImageView *pimageview =(UIImageView *)[cell viewWithTag:101];
+        //UIImageView *pimageview =;
         UILabel     *name       = (UILabel *)[cell viewWithTag:102];
         UITextField *quantityfl = (UITextField *)[cell viewWithTag:105];
         UILabel     *pricelb    = (UILabel *)[cell viewWithTag:103];
@@ -111,11 +113,8 @@
         NSString *imageUrl = [temp objectForKey:@"logo"];
         if (imageUrl!=nil && ![imageUrl isEqualToString:@"(null)"])
         {
-            if (indexPath.row == 1) {
-                NSLog(@"%@", imageUrl);
-            }
             NSURL *url = [NSURL URLWithString:imageUrl];
-            [pimageview setImageWithURL:url placeholderImage:nil];
+            [(UIImageView *)[cell viewWithTag:101] setImageFromURL:url placeHolderImage:[UIImage imageNamed:@""] usingEngine:nil animation:NO];
         }
         [name       setText:[temp objectForKey:@"name"]]; // 商品名字
         [quantityfl setText:[temp objectForKey:@"quantity"]]; // 选择数量
@@ -213,7 +212,7 @@
     }
     
     [Goodslist setObject:newGoodsList atIndexedSubscript:indexPath.section];
-    [m_tableView reloadSections:[NSIndexSet indexSetWithIndex:indexPath.section] withRowAnimation:UITableViewRowAnimationNone];
+    [m_tableView reloadSections:[NSIndexSet indexSetWithIndex:indexPath.section] withRowAnimation:UITableViewRowAnimationFade];
     
     number = 0;
     for (NSArray *listOne in Goodslist) {

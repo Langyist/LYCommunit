@@ -18,6 +18,7 @@
     @public NSMutableArray *  m_album;//相册隐私设置
     NSMutableArray *address;//地址隐私设置
     NSMutableArray *album;//相册隐私设置
+    NSString *addfriend;
 }
 @property (strong, nonatomic) IBOutlet UITableView *m_tableView;
 @end
