@@ -77,7 +77,6 @@
                                          [userinfo objectForKey:@"password"],
                                         [[userinfo objectForKey:@"UserFlag"] boolValue],
                                         [userinfo objectForKey:@"user_id"]];
-
        bl = [[[LYSqllite alloc] init]execSql:sql database:tempdatabase];
     }
 return bl;
@@ -136,7 +135,6 @@ return bl;
     }
 }
 
-
 +(NSMutableArray *)AllCommunit:(NSString *)communitName
 {
     [self CreatCommunit];
@@ -144,7 +142,6 @@ return bl;
     NSMutableDictionary *temp;
     sqlite3 *tempdatabase =  [[[LYSqllite alloc] init] openSqlite:@"LY_db.db"];
     sqlite3_stmt *statementst = nil;
-    
      NSString *sqlst = [[NSString alloc] initWithFormat:@"SSELECT * FROM Communitinfo WHERE communitname!='%@'",communitName];
     if (sqlite3_prepare_v2(tempdatabase, [sqlst UTF8String], -1, &statementst, NULL) != SQLITE_OK)
     {
@@ -180,7 +177,6 @@ return bl;
 +(NSMutableDictionary *)currentCommnit
 {
     [self CreatCommunit];
-    
     NSMutableDictionary *temp;
     sqlite3 *tempdatabase =  [[[LYSqllite alloc] init] openSqlite:@"LY_db.db"];
     sqlite3_stmt *statementst = nil;
