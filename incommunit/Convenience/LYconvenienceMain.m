@@ -354,7 +354,7 @@
 //获取精选数据
 -(void)GetData
 {
-    NSDictionary *dic = @{@"community_id" : [[LYSelectCommunit GetCommunityInfo] objectForKey:@"id"]};
+    NSDictionary *dic = @{@"community_id" : [[LYSelectCommunit GetCommunityInfo] objectForKey:@"community_id"]};
     [[StoreOnlineNetworkEngine shareInstance] startNetWorkWithPath:@"services/shop/cool"
                                                             params:dic
                                                             repeat:YES

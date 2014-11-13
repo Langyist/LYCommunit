@@ -249,7 +249,7 @@
     [self login:[temp objectForKey:@"user"] password:[temp objectForKey:@"password"] communitID:[temp objectForKey:@"community_id"]];
 }
 
-//login 登陆函数
+//login 登录函数
 -(void)login:(NSString*)user password:(NSString *)password communitID:(NSString *)Communitid
 {
     NSDictionary *dic = @{@"username" : user

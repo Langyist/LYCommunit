@@ -436,7 +436,7 @@ static NSDictionary *   m_cityinfo;//城市信息
     }
 }
 
-//login 登陆函数
+//login 登录函数
 -(void)login:(NSString*)user password:(NSString *)password communitID:(NSString *)Communitid
 {
     user = [user length] ? user : @"";

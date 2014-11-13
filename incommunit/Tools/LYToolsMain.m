@@ -91,7 +91,7 @@ static NSMutableArray *album;
                                                        resultBlock:^(BOOL bValidJSON, NSString *errorMsg, id result) {
                                                            if(!bValidJSON)
                                                            {
-                                                               UIAlertView *al = [[UIAlertView alloc] initWithTitle:@"提示" message:@"对不起，你现在是游客登陆状态，无法使用此功能。是否登陆/注册" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+                                                               UIAlertView *al = [[UIAlertView alloc] initWithTitle:@"提示" message:@"对不起，你现在是游客登录状态，无法使用此功能。是否登录/注册" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
                                                                [al show];
                                                            }else
                                                            {

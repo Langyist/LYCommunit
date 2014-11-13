@@ -399,6 +399,15 @@
 #pragma mark UItabBar 协议函数
 - (void)jumpToPage:(CustomToolbarItem *)sender
 {
+    if (sender.tag != 100) {
+        NSDictionary *userInfo = [LYSqllite Ruser];
+        if (!userInfo || [[userInfo objectForKey:@"auth_status"] isEqualToString:@"-2"]) {
+            UIAlertView *alview = [[UIAlertView alloc] initWithTitle:@"提示" message:@"你当前是游客，不能使用该功能？" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil];
+            [alview show];
+            
+            return;
+        }
+    }
     switch (sender.tag) {
         case 100:
             [self.navigationController popToRootViewControllerAnimated:YES];

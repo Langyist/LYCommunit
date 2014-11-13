@@ -11,6 +11,7 @@
 #import "CustomToolbarItem.h"
 #import "LYUserloginView.h"
 #import "StoreOnlineNetworkEngine.h"
+#import "Sqllite/LYSqllite.h"
 @interface LYFunctionInterface () {
     UIBarButtonItem *mapItem;
     UIBarButtonItem *mineItem;
@@ -40,7 +41,7 @@ static NSMutableArray    * m_order;
     self.bar.delegate = self;
     [NSThread detachNewThreadSelector:@selector(Getdata:) toTarget:self withObject:nil];
     [NSTimer scheduledTimerWithTimeInterval:5 target:self selector:@selector(scrollTimer) userInfo:nil repeats:YES];
-
+    
     [_titleButton setTitle: [Communit objectForKey:@"communitname"] forState: UIControlStateNormal];
     mapItem = [self createCustomItem:@"地图模式" imageName:@"4" selector:@selector(jumpToPage:) tag:100];
     mineItem = [self createCustomItem:@"我的主页" imageName:@"2" selector:@selector(jumpToPage:) tag:101];
@@ -103,7 +104,7 @@ static NSMutableArray    * m_order;
         [alview show];
     }else if ([LYUserloginView Getourist])
     {
-        UIAlertView *alview = [[UIAlertView alloc] initWithTitle:@"提示" message:@"你当前是游客登陆是否登陆？" delegate:self cancelButtonTitle:@"是" otherButtonTitles:@"取消", nil];
+        UIAlertView *alview = [[UIAlertView alloc] initWithTitle:@"提示" message:@"你当前是游客登录是否登录？" delegate:self cancelButtonTitle:@"是" otherButtonTitles:@"取消", nil];
         [alview show];
     }else
     {
@@ -119,21 +120,40 @@ static NSMutableArray    * m_order;
         [alview show];
     }else
     {
-       [self performSegueWithIdentifier:@"GoLYconvenienceMain" sender:self];
+        [self performSegueWithIdentifier:@"GoLYconvenienceMain" sender:self];
     }
 }
 // 邻里互助
 - (IBAction)NCMain:(id)sender {
-     if(![[[NSString alloc]initWithFormat:@"%@",[[Competence objectForKey:@"modc"] objectForKey:@"checked"]]isEqualToString:@"1"])
-     {
+    if(![[[NSString alloc]initWithFormat:@"%@",[[Competence objectForKey:@"modc"] objectForKey:@"checked"]]isEqualToString:@"1"])
+    {
         UIAlertView *alview = [[UIAlertView alloc] initWithTitle:@"提示" message:@"功能暂未开通敬请期待" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
         [alview show];
     }else if ([LYUserloginView Getourist])
     {
-        UIAlertView *alview = [[UIAlertView alloc] initWithTitle:@"提示" message:@"你当前是游客登陆是否登陆？" delegate:self cancelButtonTitle:@"是" otherButtonTitles:@"取消", nil];
+        UIAlertView *alview = [[UIAlertView alloc] initWithTitle:@"提示" message:@"你当前是游客登录是否登录？" delegate:self cancelButtonTitle:@"是" otherButtonTitles:@"取消", nil];
         [alview show];
     }else
     {
+        [self performSegueWithIdentifier:@"JumpToNC" sender:self];
+    }
+}
+
+// 小区交流
+- (IBAction)CommunitChat:(id)sender {
+    
+    NSDictionary *userInfo = [LYSqllite Ruser];
+    NSString *isOpenString = [[NSString alloc] initWithFormat:@"%@", [[Competence objectForKey:@"modd"] objectForKey:@"checked"]];
+    
+    if (![isOpenString isEqualToString:@"1"]) {
+        UIAlertView *alview = [[UIAlertView alloc] initWithTitle:@"提示" message:@"功能暂未开通敬请期待" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+        [alview show];
+    }
+    else if (!userInfo || [[userInfo objectForKey:@"auth_status"] isEqualToString:@"-2"]) {
+        UIAlertView *alview = [[UIAlertView alloc] initWithTitle:@"提示" message:@"你当前是游客登录是否登录？" delegate:self cancelButtonTitle:@"是" otherButtonTitles:@"取消", nil];
+        [alview show];
+    }
+    else {
         [self performSegueWithIdentifier:@"JumpToNC" sender:self];
     }
 }
@@ -177,8 +197,16 @@ static NSMutableArray    * m_order;
 -(void)jumpToPage:(CustomToolbarItem *)sender
 {
     switch (sender.tag) {
-        case 101:
-            [self performSegueWithIdentifier:@"GoHomepageMain" sender:self];
+        case 101: {
+            NSDictionary *userInfo = [LYSqllite Ruser];
+            if (userInfo && ![[userInfo objectForKey:@"auth_status"] isEqualToString:@"-2"]) {
+                [self performSegueWithIdentifier:@"GoHomepageMain" sender:self];
+            }
+            else {
+                UIAlertView *alview = [[UIAlertView alloc] initWithTitle:@"提示" message:@"你当前是游客登录是否登录？" delegate:self cancelButtonTitle:@"是" otherButtonTitles:@"取消", nil];
+                [alview show];
+            }
+        }
             break;
         case 102:
             [self performSegueWithIdentifier:@"GoTools" sender:self];
@@ -194,7 +222,7 @@ static NSMutableArray    * m_order;
 -(void)Getdata:(NSString *)url
 {
     NSDictionary *dic = @{@"id" : [Communit objectForKey:@"community_id"]};
-
+    
     [[StoreOnlineNetworkEngine shareInstance] startNetWorkWithPath:@"services/community/index"
                                                             params:dic
                                                             repeat:YES
@@ -210,7 +238,7 @@ static NSMutableArray    * m_order;
                                                                NSDictionary *tem = [result objectForKey:@"community"];
                                                                Competence = [result objectForKey:@"level2"];
                                                                m_picearry = [tem objectForKey:@"images"];
-
+                                                               
                                                                NSDictionary *sdic = [[[Competence objectForKey:@"moda" ] objectForKey:@"sub"] objectAtIndex:1];
                                                                m_order = [sdic objectForKey:@"sort"];
                                                                
@@ -221,29 +249,29 @@ static NSMutableArray    * m_order;
 }
 
 -(void)updata{
-        m_imageScrollView.contentSize = CGSizeMake(m_picearry.count * self.m_imageScrollView.frame.size.width,0);
-        m_imageScrollView.pagingEnabled = YES;
-        m_imageScrollView.showsHorizontalScrollIndicator = NO;
-        for (int i = 0; i < m_picearry.count; i++)
+    m_imageScrollView.contentSize = CGSizeMake(m_picearry.count * self.m_imageScrollView.frame.size.width,0);
+    m_imageScrollView.pagingEnabled = YES;
+    m_imageScrollView.showsHorizontalScrollIndicator = NO;
+    for (int i = 0; i < m_picearry.count; i++)
+    {
+        m_imageView = [[UIImageView alloc] initWithFrame:CGRectMake(i * self.view.frame.size.width, 0, self.m_imageView.frame.size.width, m_imageView.frame.size.height)];
+        NSString *imageUrl = [[m_picearry objectAtIndex:i] objectForKey:@"path"];
+        if (imageUrl!=nil && ![imageUrl isEqualToString:@""])
         {
-            m_imageView = [[UIImageView alloc] initWithFrame:CGRectMake(i * self.view.frame.size.width, 0, self.m_imageView.frame.size.width, m_imageView.frame.size.height)];
-            NSString *imageUrl = [[m_picearry objectAtIndex:i] objectForKey:@"path"];
-            if (imageUrl!=nil && ![imageUrl isEqualToString:@""])
-            {
-                NSURL *url = [NSURL URLWithString:imageUrl];
-                [m_imageView setImageWithURL:url placeholderImage:nil];
-            }
-            [m_imageScrollView addSubview:m_imageView];
+            NSURL *url = [NSURL URLWithString:imageUrl];
+            [m_imageView setImageWithURL:url placeholderImage:nil];
         }
-        m_page = [[UIPageControl alloc] initWithFrame:CGRectMake(m_imageScrollView.frame.size.width-80, m_imageScrollView.frame.size.height-30, 60, 30)];
-        m_page.tintColor = [UIColor grayColor];
-        m_page.currentPageIndicatorTintColor = [UIColor colorWithRed:(238.0/255) green:(183.0/255) blue:(88.0/255) alpha:1.0];
-        [m_View addSubview:m_page];
-        m_page.numberOfPages = m_picearry.count;
-        m_page.currentPage = 0;
-        [m_page addTarget:self action:@selector(pageTurn:) forControlEvents:UIControlEventValueChanged];
-        m_timer = 0;
+        [m_imageScrollView addSubview:m_imageView];
     }
+    m_page = [[UIPageControl alloc] initWithFrame:CGRectMake(m_imageScrollView.frame.size.width-80, m_imageScrollView.frame.size.height-30, 60, 30)];
+    m_page.tintColor = [UIColor grayColor];
+    m_page.currentPageIndicatorTintColor = [UIColor colorWithRed:(238.0/255) green:(183.0/255) blue:(88.0/255) alpha:1.0];
+    [m_View addSubview:m_page];
+    m_page.numberOfPages = m_picearry.count;
+    m_page.currentPage = 0;
+    [m_page addTarget:self action:@selector(pageTurn:) forControlEvents:UIControlEventValueChanged];
+    m_timer = 0;
+}
 
 +(void)Setcommunitinfo :(NSDictionary *)dic
 {
