@@ -119,7 +119,7 @@ return bl;
                      [Comunitinfo objectForKey:@"communitmax_level"],
                      [[Comunitinfo objectForKey:@"CurrentFlag"] boolValue]];
     [[[LYSqllite alloc] init]execSql:sql  database:tempdatabase];
-    
+
     int nRow, nColumn;
     sqlite3_get_table( tempdatabase, "select * from USERINFO", nil, &nRow, &nColumn, nil );
     if (nRow>5)
@@ -127,7 +127,6 @@ return bl;
         NSDictionary * temp = [self currentCommnit];
         NSString *sql = [NSString stringWithFormat:@"delete from Communitinfo where ID=%@",[temp objectForKey:@"community_id"]];
         [[[LYSqllite alloc] init]execSql:sql database:tempdatabase];
-
     }
 }
 

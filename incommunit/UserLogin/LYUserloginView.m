@@ -104,7 +104,7 @@ static BOOL YTourist;
     [passwordtext resignFirstResponder];
     userinfo= [[NSMutableDictionary alloc] init];
     Reachability *r = [Reachability reachabilityWithHostname:@"www.baidu.com"];
-    
+
     if ([userText.text isEqual:@""]||userText.text==nil) {
         UIAlertView *aler = [[UIAlertView alloc] initWithTitle:@"提示"
                                                        message:@"用户不能为空"
@@ -159,7 +159,6 @@ static BOOL YTourist;
     
     myThread = [[NSThread alloc] initWithTarget:self selector:@selector(startlogin:) object:nil];
     [myThread start];
-    
     
     [myThread cancel];
     [login stopAnimating];
