@@ -151,7 +151,7 @@
                                                            {
                                                                dataDic = [result objectForKey:@"community"];
                                                                imageDic = [dataDic objectForKey:@"images"];
-                                                               HistoricDistrict =[LYSqllite AllCommunit];
+                                                               HistoricDistrict =[LYSqllite AllCommunit:[dataDic objectForKey:@"name"]];
                                                                [self updata];
                                                                [self.tableView reloadData];
                                                            }

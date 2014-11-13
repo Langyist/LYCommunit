@@ -168,6 +168,7 @@ static BOOL YTourist;
 //login 登录函数
 -(void)login:(NSString*)user password:(NSString *)password communitID:(NSString *)Communitid
 {
+
     NSDictionary *dic = @{@"username" : user
                           ,@"password" : password
                           ,@"community_id" : Communitid

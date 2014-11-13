@@ -19,7 +19,7 @@
 +(void)deleteuserinfo :(NSString *)name;
 
 +(NSMutableDictionary *)currentCommnit;
-+(NSMutableArray *)AllCommunit;
++(NSMutableArray *)AllCommunit:(NSString *)communitName;
 +(void)WriteComunitInfo:(NSDictionary *)Comunitinfo;
 +(void)deletecommnuittable;
 @end

@@ -110,7 +110,7 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     NSInteger numberOfRowsInSection = 0;
     if (tableView == _allInfoTableView) {
-        numberOfRowsInSection = 2;
+        numberOfRowsInSection = m_infodata.count;
     }
     
     if (numberOfRowsInSection == 0) {
