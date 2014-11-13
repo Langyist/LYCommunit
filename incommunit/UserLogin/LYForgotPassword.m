@@ -260,18 +260,10 @@
             [alview show];
         }
         else {
-            
-            NSDictionary *communitInfo = @{
-                                           @"city_id" : @""
-                                           ,@"community_id" : [[LYSelectCommunit GetCommunityInfo] objectForKey:@"id"]
-                                           ,@"communitname" : [[LYSelectCommunit GetCommunityInfo] objectForKey:@"name"]
-                                           ,@"communitaddress" : [[LYSelectCommunit GetCommunityInfo] objectForKey:@"address"]
-                                           ,@"communitdistance" : [[LYSelectCommunit GetCommunityInfo] objectForKey:@"distance"]
-                                           ,@"communitmax_level" : [[LYSelectCommunit GetCommunityInfo] objectForKey:@"max_level"]
-                                           };
-            [LYSqllite WriteComunitInfo:communitInfo];
+            [LYSqllite WriteComunitInfo:[LYSelectCommunit GetCommunityInfo]];
             
             [userinfo setValue:[[result objectForKey:@"auth_status"] stringValue] forKey:@"auth_status"];
+            
             [LYSqllite  wuser:userinfo];
             
             BOOL isMember = YES;

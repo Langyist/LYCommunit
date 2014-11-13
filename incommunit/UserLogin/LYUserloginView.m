@@ -160,6 +160,7 @@ static BOOL YTourist;
     myThread = [[NSThread alloc] initWithTarget:self selector:@selector(startlogin:) object:nil];
     [myThread start];
     
+    
     [myThread cancel];
     [login stopAnimating];
     [login setHidesWhenStopped:YES];
@@ -360,7 +361,7 @@ static BOOL YTourist;
 -(IBAction)touristsButton:(id)sender
 {
     userinfo= [[NSMutableDictionary alloc] init];
-    
+
     [userinfo setValue:userText.text forKey:@"user"];
     [userinfo setValue:passwordtext.text forKey:@"password"];
     [userinfo setValue:@"-2" forKey:@"auth_status"];
