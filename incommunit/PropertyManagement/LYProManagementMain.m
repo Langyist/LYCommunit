@@ -397,11 +397,6 @@
     }
     else if (tableView == m_InfotableView) {
         
-        NSDictionary *userInfo = [LYSqllite Ruser];
-        if (!userInfo || [[userInfo objectForKey:@"auth_status"] isEqualToString:@"-2"]) {
-            
-        }
-            
         switch (section) {
             case 0:
                 return propertyExpenseArray.count;

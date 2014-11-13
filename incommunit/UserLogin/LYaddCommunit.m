@@ -421,13 +421,15 @@
                                                            {
                                                                UIAlertView *al =[[UIAlertView alloc]initWithTitle:@"提示" message:errorMsg delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
                                                                [al show];
-                                                               [self performSegueWithIdentifier:@"GoFunction" sender:self];
+                                                               //[self performSegueWithIdentifier:@"GoFunction" sender:self];
                                                                
                                                            }else
                                                            {
                                                                UIAlertView *al =[[UIAlertView alloc]initWithTitle:@"提示" message:@"成功加入该小区" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
                                                                [al show];
-                                                               [self performSegueWithIdentifier:@"GoFunction" sender:self];
+                                                               
+                                                               NSDictionary *userinfo = [LYSqllite Ruser];
+                                                               [self login:[userinfo objectForKey:@"user"] password:[userinfo objectForKey:@"password"] communitID:m_communitid];
                                                            }
                                                        }];
 }
@@ -461,9 +463,9 @@
                                                                
                                                                [userinfo setValue:[[result objectForKey:@"user_id"] stringValue] forKey:@"user_id"];
                                                                [userinfo setValue:[[result objectForKey:@"auth_status"] stringValue] forKey:@"auth_status"];
-                                                               [LYSqllite  wuser:userinfo];
+                                                               [LYSqllite wuser:userinfo];
                                                                
-                                                               [self performSegueWithIdentifier:@"GoLYFunctionInterface" sender:self];
+                                                               [self performSegueWithIdentifier:@"GoFunction" sender:self];
                                                            }
                                                        }];
 }
