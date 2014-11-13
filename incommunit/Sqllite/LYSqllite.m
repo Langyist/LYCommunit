@@ -72,12 +72,13 @@
         [self deletetable];
         sqlite3 *tempdatabase =  [[[LYSqllite alloc] init] openSqlite:@"LY_db.db"];
         NSString *sql = [NSString stringWithFormat:
-                                         @"INSERT INTO USERINFO ('auth_status',user,password,UserFlag) VALUES ('%@', '%@', '%@','%d','%@')",
+                                         @"INSERT INTO USERINFO ('auth_status',user,password,UserFlag,user_id) VALUES ('%@', '%@', '%@','%d','%@')",
                                          [userinfo objectForKey:@"auth_status"],
                                          [userinfo objectForKey:@"user"],
                                          [userinfo objectForKey:@"password"],
-                                        [[userinfo objectForKey:@"UserFlag"] boolValue]] ,
-                                        [userinfo objectForKey:@"user_id"];
+                                        [[userinfo objectForKey:@"UserFlag"] boolValue],
+                                        [userinfo objectForKey:@"user_id"]];
+        
        bl = [[[LYSqllite alloc] init]execSql:sql database:tempdatabase];
     }
 return bl;
@@ -174,9 +175,6 @@ return bl;
 
 +(NSMutableDictionary *)currentCommnit
 {
-    [self CreatCommunit];
-    return [self AllCommunit].lastObject;
-    
     NSMutableDictionary *temp;
     sqlite3 *tempdatabase =  [[[LYSqllite alloc] init] openSqlite:@"LY_db.db"];
     sqlite3_stmt *statementst = nil;
