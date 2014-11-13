@@ -135,15 +135,15 @@ return bl;
     }
 }
 
-+(NSMutableArray *)AllCommunit
++(NSMutableArray *)AllCommunit:(NSString *)communitName
 {
     [self CreatCommunit];
     NSMutableArray * communitlist = [[NSMutableArray alloc] init];
     NSMutableDictionary *temp;
     sqlite3 *tempdatabase =  [[[LYSqllite alloc] init] openSqlite:@"LY_db.db"];
     sqlite3_stmt *statementst = nil;
-    char *sqlst = "SELECT * FROM Communitinfo";
-    if (sqlite3_prepare_v2(tempdatabase, sqlst, -1, &statementst, NULL) != SQLITE_OK)
+     NSString *sqlst = [[NSString alloc] initWithFormat:@"SSELECT * FROM Communitinfo WHERE communitname!='%@'",communitName];
+    if (sqlite3_prepare_v2(tempdatabase, [sqlst UTF8String], -1, &statementst, NULL) != SQLITE_OK)
     {
         NSLog(@"Error: failed to prepare statement with message:get testValue.");
         return nil;
@@ -177,8 +177,6 @@ return bl;
 +(NSMutableDictionary *)currentCommnit
 {
     [self CreatCommunit];
-    return [self AllCommunit].lastObject;
-    
     NSMutableDictionary *temp;
     sqlite3 *tempdatabase =  [[[LYSqllite alloc] init] openSqlite:@"LY_db.db"];
     sqlite3_stmt *statementst = nil;

@@ -477,8 +477,6 @@ static NSDictionary *   m_cityinfo;//城市信息
             else {
                 [self performSegueWithIdentifier:@"GoLYaddCommunit" sender:self];
             }
-            
-            
         }
     };
     
