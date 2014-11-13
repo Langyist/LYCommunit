@@ -9,6 +9,8 @@
 #import "AppDelegate.h"
 #import "UIImage+Scale.h"
 #import "Sqllite/LYSqllite.h"
+#import <MKNetworkKit.h>
+#import "UIImageView+MKNetworkKitAdditions.h"
 @interface AppDelegate ()
 {
     BMKMapManager* _mapManager;
@@ -22,6 +24,11 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    
+    MKNetworkEngine *imageEngine = [[MKNetworkEngine alloc] initWithHostName:@"www.baidu.com"];
+    [imageEngine useCache];
+    [UIImageView setDefaultEngine:imageEngine];
+    
     // Override point for customization after application launch.
     
         _mapManager = [[BMKMapManager alloc]init];

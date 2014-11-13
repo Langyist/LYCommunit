@@ -39,8 +39,10 @@
     NSDictionary *selectedDictionary;
     NSInteger IDNumber ;
     UIView *m_messageView;
+    int m_pageSize;
+    int  m_pageOffset;
 }
 @property (retain, nonatomic) IBOutlet UISegmentedControl *m_segment;
 @property (weak, nonatomic) IBOutlet UIScrollView *m_scrollView;
--(BOOL)Getnotification:(NSString *)URL;
+-(void)Getnotification:(NSString *)URL;
 @end

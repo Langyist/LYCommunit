@@ -383,6 +383,7 @@ static NSDictionary *   m_cityinfo;//城市信息
 #pragma mark - 切换界面进入协议函数
 -(void)viewDidAppear:(BOOL)animated
 {
+    [locService startUserLocationService];
     m_CommunitylistOF = [[NSMutableArray alloc] init];
     m_CommunitylistON = [[NSMutableArray alloc] init];
     footerView.hidden = YES;
@@ -472,8 +473,6 @@ static NSDictionary *   m_cityinfo;//城市信息
             else {
                 [self performSegueWithIdentifier:@"GoLYaddCommunit" sender:self];
             }
-            
-            
         }
     };
     

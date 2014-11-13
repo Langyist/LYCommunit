@@ -32,7 +32,7 @@ static BOOL YTourist;
     passwordtext.delegate=self;
     passwordtext.secureTextEntry = YES;
     [login setHidesWhenStopped:YES];
-    community_Name = [[LYSqllite currentCommnit] objectForKey:@"communitname"];
+    community_Name = [[LYSqllite selectedCommunit] objectForKey:@"communitname"];
     if (![community_Name length]) {
         community_Name = @"未知小区";
     }
@@ -42,6 +42,7 @@ static BOOL YTourist;
     singleRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(ClickView)];
     singleRecognizer.numberOfTapsRequired = 1; // 单击
     [self.view addGestureRecognizer:singleRecognizer];
+
     m_communityName.text = [[LYSqllite selectedCommunit] objectForKey:@"communitname"];
     
     [LYSqllite CreatUserTable];
@@ -172,7 +173,6 @@ static BOOL YTourist;
 //login 登录函数
 -(void)login:(NSString*)user password:(NSString *)password communitID:(NSString *)Communitid
 {
-
     if (!Communitid) {
         UIAlertView *alview = [[UIAlertView alloc] initWithTitle:@"提示" message:@"还未选择小区" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
         [alview show];
@@ -356,7 +356,9 @@ static BOOL YTourist;
     [userinfo setValue:@"-2" forKey:@"auth_status"];
     [LYSqllite wuser:userinfo];
     YTourist = TRUE;
+
     [LYFunctionInterface Setcommunitinfo:[LYSqllite selectedCommunit]];
+    
     [self performSegueWithIdentifier:@"GoLYFunctionInterface" sender:self];
 }
 

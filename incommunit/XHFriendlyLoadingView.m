@@ -23,13 +23,12 @@
     
     _activityIndicatorView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
     _activityIndicatorView.alpha = 0.;
-    
     _loadingLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.frame), 44)];
     self.loadingLabel.alpha = 0.;
     self.loadingLabel.textColor = [UIColor grayColor];
-    
     [self addSubview:self.activityIndicatorView];
     [self addSubview:self.loadingLabel];
+    
 }
 
 + (instancetype)shareFriendlyLoadingView {
