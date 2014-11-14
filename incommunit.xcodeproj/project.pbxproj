@@ -1281,9 +1281,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		AD33EC8919FBB13F00FE0C11 /* incommunit */ = {
+		AD33EC8919FBB13F00FE0C11 /* 小区帮帮 */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = AD33ECAD19FBB13F00FE0C11 /* Build configuration list for PBXNativeTarget "incommunit" */;
+			buildConfigurationList = AD33ECAD19FBB13F00FE0C11 /* Build configuration list for PBXNativeTarget "小区帮帮" */;
 			buildPhases = (
 				92F1C11EF68CCFA17166396A /* Check Pods Manifest.lock */,
 				AD33EC8619FBB13F00FE0C11 /* Sources */,
@@ -1295,7 +1295,7 @@
 			);
 			dependencies = (
 			);
-			name = incommunit;
+			name = "小区帮帮";
 			productName = incommunit;
 			productReference = AD33EC8A19FBB13F00FE0C11 /* incommunit.app */;
 			productType = "com.apple.product-type.application";
@@ -1351,7 +1351,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				AD33EC8919FBB13F00FE0C11 /* incommunit */,
+				AD33EC8919FBB13F00FE0C11 /* 小区帮帮 */,
 				AD33ECA219FBB13F00FE0C11 /* incommunitTests */,
 			);
 		};
@@ -1654,7 +1654,7 @@
 /* Begin PBXTargetDependency section */
 		AD33ECA519FBB13F00FE0C11 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = AD33EC8919FBB13F00FE0C11 /* incommunit */;
+			target = AD33EC8919FBB13F00FE0C11 /* 小区帮帮 */;
 			targetProxy = AD33ECA419FBB13F00FE0C11 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -1842,7 +1842,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		AD33ECAD19FBB13F00FE0C11 /* Build configuration list for PBXNativeTarget "incommunit" */ = {
+		AD33ECAD19FBB13F00FE0C11 /* Build configuration list for PBXNativeTarget "小区帮帮" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				AD33ECAE19FBB13F00FE0C11 /* Debug */,
