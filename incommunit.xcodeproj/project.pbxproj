@@ -264,7 +264,7 @@
 		AD26EB201A11F22A0024403E /* LYHomeMyOrder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LYHomeMyOrder.m; sourceTree = "<group>"; };
 		AD30F7D41A00D97A00C8709E /* LYProductinformation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LYProductinformation.h; sourceTree = "<group>"; };
 		AD30F7D51A00D97A00C8709E /* LYProductinformation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LYProductinformation.m; sourceTree = "<group>"; };
-		AD33EC8A19FBB13F00FE0C11 /* incommunit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = incommunit.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		AD33EC8A19FBB13F00FE0C11 /* incommunit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = incommunit.app; path = "小区帮帮.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		AD33EC8E19FBB13F00FE0C11 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AD33EC8F19FBB13F00FE0C11 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		AD33EC9119FBB13F00FE0C11 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
