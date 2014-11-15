@@ -6,9 +6,50 @@
 //  Copyright (c) 2014年 Eric Che. All rights reserved.
 //
 #import "LMComBoxView.h"
+
+
+@implementation LMComBoxTableView
+
+@end
+
+@interface LMComBoxOverlay : UIView
+@end
+
+@implementation  LMComBoxOverlay
+
+// - (void) dealloc { NSLog(@"dealloc %@", self); }
+
+- (id)initWithFrame:(CGRect)frame
+{
+    self = [super initWithFrame:frame];
+    if (self) {
+        self.backgroundColor = [UIColor clearColor];
+        self.opaque = NO;
+    }
+    return self;
+}
+
+- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    UIView *touched = [[touches anyObject] view];
+    if (touched == self) {
+        
+        for (UIView *v in self.subviews) {
+            if ([v isKindOfClass:[ LMComBoxTableView class]]
+                ) {
+                
+                [[(LMComBoxTableView *)v combox] performSelector:@selector(tapAction) withObject:nil];
+            }
+        }
+    }
+}
+
+@end
+
 @implementation LMComBoxView {
     CGFloat originalHeight;
     UIView *supView;
+    LMComBoxOverlay *overlayView;
 }
 @synthesize isOpen = _isOpen;
 @synthesize listTable = _listTable;
@@ -61,7 +102,8 @@
     
     //默认不展开
     _isOpen = NO;
-    _listTable = [[UITableView alloc]initWithFrame:CGRectMake(self.frame.origin.x, self.frame.origin.y+self.frame.size.height, self.frame.size.width, 0) style:UITableViewStylePlain];
+    _listTable = [[LMComBoxTableView alloc]initWithFrame:CGRectMake(self.frame.origin.x, self.frame.origin.y+self.frame.size.height, self.frame.size.width, 0) style:UITableViewStylePlain];
+    _listTable.combox = self;
     _listTable.separatorStyle = UITableViewCellSeparatorStyleNone;
     _listTable.delegate = self;
     _listTable.dataSource = self;
@@ -128,27 +170,32 @@
             self.supView.frame = fr;
         } completion:^(BOOL finished){
             [_listTable removeFromSuperview];//移除
+            [overlayView removeFromSuperview];
             _isOpen = NO;
             _arrow.transform = CGAffineTransformRotate(_arrow.transform, DEGREES_TO_RADIANS(180));
             }];
     }
     else
     {
+        _listTable.hidden = YES;
         CGRect fr = self.supView.frame;
         fr.size.height = 180;
         self.supView.frame = fr;
-        [UIView animateWithDuration:0.3 animations:^{
-            if(_titlesList.count>0)
-            {
-                /*
-                    注意：如果不加这句话，下面的操作会导致_listTable从上面飘下来的感觉：
-                         _listTable展开并且滑动到底部 -> 点击收起 -> 再点击展开
-                 */
-                [_listTable scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:YES];
-            }
-            [self.supView addSubview:_listTable];
-            [self.supView bringSubviewToFront:_listTable];//避免被其他子视图遮盖住
+        [UIView animateWithDuration:0.1 animations:^{
+            overlayView = [[LMComBoxOverlay alloc] initWithFrame:[UIScreen mainScreen].bounds];
+            [[[UIApplication sharedApplication].delegate window] addSubview:overlayView];
+            
+            
+            _listTable.hidden = YES;
+            
+            CGPoint superViewPoint = CGPointMake(CGRectGetMinX(self.frame), 0);
+            CGPoint point = [self.supView convertPoint:superViewPoint toView:[[UIApplication sharedApplication].delegate window]];
+            
+            [overlayView addSubview:_listTable];
+            //[self.supView addSubview:_listTable];
+            //[self.supView bringSubviewToFront:_listTable];//避免被其他子视图遮盖住
             CGRect frame = _listTable.frame;
+            frame.origin = point;
             frame.size.height = _tableHeight>0?_tableHeight:tableH;
             float height = [UIScreen mainScreen].bounds.size.height;
             if(frame.origin.y+frame.size.height>height)
@@ -158,9 +205,29 @@
             }
             frame.size.height = frame.size.height - originalHeight;
             [_listTable setFrame:frame];
+            
         } completion:^(BOOL finished){
-            _isOpen = YES;
-            _arrow.transform = CGAffineTransformRotate(_arrow.transform, DEGREES_TO_RADIANS(180));
+            
+            [UIView animateWithDuration:0.3 animations:^{
+                
+                
+            } completion:^(BOOL finished){
+                _listTable.hidden = NO;
+                
+                if(_titlesList.count>0)
+                {
+                    /*
+                     注意：如果不加这句话，下面的操作会导致_listTable从上面飘下来的感觉：
+                     _listTable展开并且滑动到底部 -> 点击收起 -> 再点击展开
+                     */
+                    [_listTable scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:YES];
+                }
+                
+                _isOpen = YES;
+                _arrow.transform = CGAffineTransformRotate(_arrow.transform, DEGREES_TO_RADIANS(180));
+                
+            }];
+            
         }];
     }
 }
