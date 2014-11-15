@@ -18,6 +18,13 @@
 #define kTextColor   [UIColor darkGrayColor]
 
 @class LMComBoxView;
+
+
+@interface LMComBoxTableView : UITableView
+@property (strong, nonatomic) LMComBoxView *combox;
+
+@end
+
 @protocol LMComBoxViewDelegate <NSObject>
 -(void)selectAtIndex:(int)index inCombox:(LMComBoxView *)_combox;
 @end
@@ -27,7 +34,7 @@
     UILabel *titleLabel;
 }
 @property(nonatomic,assign)BOOL isOpen;
-@property(nonatomic,strong)UITableView *listTable;
+@property(nonatomic,strong)LMComBoxTableView *listTable;
 @property(nonatomic,strong)NSMutableArray *titlesList;
 @property(nonatomic,assign)int defaultIndex;
 @property(nonatomic,assign)float tableHeight;
