@@ -7,6 +7,7 @@
 //
 
 #import "NCDetailTableViewController.h"
+#import "UIImageView+AsyncDownload.h"
 
 @interface NCDetailTableViewController ()
 @property (weak, nonatomic) IBOutlet UIImageView *titleImage;
@@ -27,8 +28,18 @@
     [super viewDidLoad];
     
     [self.navigationItem setTitle:@"xxx"];
-    [self setDetailLabelText:@"asdfasdfasdfasdfsd dsadfadfasdfeaefs"];
-    [self setTimestampString:@"1415006036000"];
+    [self setDetailLabelText:[m_detailData objectForKey:@"content"]];
+    [self setTimestampString:[m_detailData objectForKey:@"create_time"]];
+    [self setTitleLabelText:[m_detailData objectForKey:@"title"]];
+    [self setContactLabelText:[m_detailData objectForKey:@"contacts"]];
+    [self setPhoneLabelText:[m_detailData objectForKey:@"phone"]];
+    
+    [self setAuthorNameLabelText:[m_detailData objectForKey:@"nick_name"]];
+    
+    //可能是多张图片
+    [self setTitleImageContent:[m_detailData objectForKey:@"images"]];
+    [self setAuthorImageViewContent:[m_detailData objectForKey:@"head"]];
+    
     
     self.authorImageView.layer.cornerRadius = CGRectGetWidth(self.authorImageView.frame) / 2;
     self.authorImageView.clipsToBounds = YES;
@@ -44,7 +55,35 @@
     return [super tableView:tableView heightForRowAtIndexPath:indexPath];
 }
 
-- (IBAction)close:(id)sender {
+- (IBAction)close:(id)sender{
+    
+}
+
+-(void)setTitleImageContent:(NSArray *)array{
+    if(0 == [array count]){
+        return;
+    }
+    else{
+        //目前只显示一张图片
+        if ([[[array objectAtIndex:0] objectForKey:@"path"] length]) {
+            NSURL *url = [NSURL URLWithString:[[array objectAtIndex:0] objectForKey:@"path"]];
+            [self.titleImage setImageWithURL:url placeholderImage:nil];
+        }
+    }
+}
+
+-(void)setAuthorImageViewContent:(NSString *)authorImagePath{
+    if(0 == [authorImagePath length]){
+        return;
+    }
+    else {
+        if ([authorImagePath length])
+        {
+            NSURL *url = [NSURL URLWithString:authorImagePath];
+            [self.authorImageView setImageWithURL:url placeholderImage:nil];
+        }
+        self.authorImageView.image = [UIImage imageNamed:authorImagePath];
+    }
 }
 
 - (void)setDetailLabelText:(NSString *)detail {
@@ -56,6 +95,48 @@
     self.detailLabel.frame = frame;
     
     [self.detailLabel setText:detail];
+}
+-(void)setTitleLabelText:(NSString*)text{
+    CGFloat newHeight = [NCDetailTableViewController stringHeightWithString:@[text] size:self.detailLabel.frame.size font:self.detailLabel.font];
+    newHeight = MIN(newHeight, 64);
+    
+    CGRect frame = self.detailLabel.frame;
+    frame.size.height = newHeight;
+    self.detailLabel.frame = frame;
+    
+    [self.titleLabel setText:text];
+}
+-(void)setContactLabelText:(NSString*)text{
+    CGFloat newHeight = [NCDetailTableViewController stringHeightWithString:@[text] size:self.detailLabel.frame.size font:self.detailLabel.font];
+    newHeight = MIN(newHeight, 64);
+    
+    CGRect frame = self.detailLabel.frame;
+    frame.size.height = newHeight;
+    self.detailLabel.frame = frame;
+    
+    [self.contactLabel setText:text];
+}
+
+-(void)setPhoneLabelText:(NSString*)text{
+    CGFloat newHeight = [NCDetailTableViewController stringHeightWithString:@[text] size:self.detailLabel.frame.size font:self.detailLabel.font];
+    newHeight = MIN(newHeight, 64);
+    
+    CGRect frame = self.detailLabel.frame;
+    frame.size.height = newHeight;
+    self.detailLabel.frame = frame;
+    
+    [self.phoneLabel setText:text];
+}
+
+-(void)setAuthorNameLabelText:(NSString*)text{
+    CGFloat newHeight = [NCDetailTableViewController stringHeightWithString:@[text] size:self.detailLabel.frame.size font:self.detailLabel.font];
+    newHeight = MIN(newHeight, 64);
+    
+    CGRect frame = self.detailLabel.frame;
+    frame.size.height = newHeight;
+    self.detailLabel.frame = frame;
+    
+    [self.authorNameLabel setText:text];
 }
 
 - (void)setTimestampString:(NSString *)timestamp {
@@ -86,6 +167,11 @@
     CGRect rect = [string boundingRectWithSize:CGSizeMake(size.width, CGFLOAT_MAX) options:options attributes:attributes context:NULL];//计算文本大小
     
     return rect.size.height;
+}
+
+-(void)setDetailData:(NSDictionary*)dictionary
+{
+    m_detailData = dictionary;
 }
 
 @end

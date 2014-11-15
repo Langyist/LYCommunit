@@ -20,6 +20,7 @@
     NSMutableArray * m_infodata;
     int m_pagesize ;
     int m_pageOffset ;
+    NSDictionary *detailData;
 }
 
 @end

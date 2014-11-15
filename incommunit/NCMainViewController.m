@@ -12,6 +12,9 @@
 #import "UIView+Clone.h"
 #import "XHFriendlyLoadingView.h"
 #import "StoreOnlineNetworkEngine.h"
+
+#import "NCDetailTableViewController.h"
+
 @interface NCMainViewController () {
     UITableView* woodsInfoTableView;
     UITableView* carInfoTableView;
@@ -48,9 +51,9 @@
     [self GetNetdata];
     // Do any additional setup after loading the view.
     
-//    self.friendlyLoadingView = [[XHFriendlyLoadingView alloc] initWithFrame:self.view.bounds];
-//    [self.friendlyLoadingView showFriendlyLoadingViewWithText:@"正在加载..." loadingAnimated:YES];
-//    [self.view addSubview:self.friendlyLoadingView];
+    //    self.friendlyLoadingView = [[XHFriendlyLoadingView alloc] initWithFrame:self.view.bounds];
+    //    [self.friendlyLoadingView showFriendlyLoadingViewWithText:@"正在加载..." loadingAnimated:YES];
+    //    [self.view addSubview:self.friendlyLoadingView];
     
     [self.segmentedControl setMaskForItem:@[@"0"]];
     
@@ -94,6 +97,9 @@
     }
     [self.scrollView setContentOffset:CGPointMake(_scrollView.frame.size.width * index, 0) animated:YES];
     lastSelect = index;
+    
+    [self GetNetdata];
+    [_allInfoTableView reloadData];
 }
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
@@ -122,11 +128,15 @@
     return numberOfRowsInSection;
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
     NCTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"NCTableViewCell" forIndexPath:indexPath];
-    [cell setTitle:@"力帆羽毛球台"];
-    [cell setContent:@"力帆羽毛球台力帆羽毛球台力帆羽毛球台力帆羽毛球台力帆羽毛球台力帆羽毛球台力帆羽毛球台"];
-    [cell setTimestampString:@"1415006036000"];
+    
+    [cell setTitle:[[m_infodata objectAtIndex:indexPath.row] objectForKey:@"title"]];
+    [cell setContent:[[m_infodata objectAtIndex:indexPath.row] objectForKey:@"content"]];
+    [cell setTimestampString:[[m_infodata objectAtIndex:indexPath.row] objectForKey:@"create_time"]];
+    [cell setTitleImagePath:[[m_infodata objectAtIndex:indexPath.row] objectForKey:@"head"]];
+    
     if (indexPath.row != 0) {
         [cell setShowTopIcon:NO];
     }
@@ -137,11 +147,17 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    detailData = [[NSDictionary alloc]initWithDictionary:[m_infodata objectAtIndex:[indexPath row]]];
     [self performSegueWithIdentifier:@"NCDetail" sender:nil];
 }
 
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    NCDetailTableViewController *detailViewController = (NCDetailTableViewController*) segue.destinationViewController;
+    [detailViewController setDetailData:detailData];
+}
+
 #pragma mark -
-#pragma mark ColMenuDelegate 
+#pragma mark ColMenuDelegate
 
 - (NSInteger)sectionOfColMenu:(ColMenu *)colMenu {
     return 1;
@@ -152,7 +168,7 @@
 }
 
 - (NSString *)colMune:(ColMenu *)colMenu titleForItemOfSection:(NSInteger)section row:(NSInteger)row {
-   return [[m_type objectAtIndex:row] objectForKey:@"name"];
+    return [[m_type objectAtIndex:row] objectForKey:@"name"];
 }
 
 - (void)colMune:(ColMenu *)colMenu didSelectItemOfSection:(NSInteger)section row:(NSInteger)row {
@@ -161,11 +177,11 @@
 
 -(void)GetNetdata
 {
-
-     NSDictionary *  dic = @{@"type_id" : selectType
-                             ,@"pageOffset" : [[NSString alloc] initWithFormat:@"%d",m_pageOffset]
-                             ,@"pageSize" : [[NSString alloc] initWithFormat:@"%d",m_pagesize]
-                };
+    
+    NSDictionary *  dic = @{@"type_id" : selectType
+                            ,@"pageOffset" : [[NSString alloc] initWithFormat:@"%d",m_pageOffset]
+                            ,@"pageSize" : [[NSString alloc] initWithFormat:@"%d",m_pagesize]
+                            };
     
     [[StoreOnlineNetworkEngine shareInstance] startNetWorkWithPath:@"services/neighbor/list"
                                                             params:dic
@@ -179,9 +195,10 @@
                                                            }else
                                                            {
                                                                m_infodata =result;
+                                                               [_allInfoTableView reloadData];
                                                            }
                                                        }];
-
+    
 }
 -(void)GetType
 {
