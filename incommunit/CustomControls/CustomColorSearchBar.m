@@ -10,11 +10,24 @@
 #import "AppDelegate.h"
 @implementation CustomColorSearchBar
 
-- (void)awakeFromNib {
+- (void)customizeInterface {
     self.barTintColor = BK_GRAY;
     
     self.layer.borderWidth = 1;
     self.layer.borderColor = [BK_GRAY CGColor];
 }
+
+- (void)awakeFromNib {
+    [self customizeInterface];
+}
+
+- (id)initWithFrame:(CGRect)frame {
+    self = [super initWithFrame:frame];
+    if (self) {
+        [self customizeInterface];
+    }
+    return self;
+}
+
 
 @end

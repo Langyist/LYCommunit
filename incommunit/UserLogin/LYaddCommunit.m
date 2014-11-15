@@ -212,7 +212,7 @@
                 l1str = [[tempdata1 objectAtIndex:index] objectForKey:@"id"];
                 BuildingData = [[NSMutableArray alloc] init];
                 LMComBoxView *cityCombox = (LMComBoxView *)[bgScrollView viewWithTag:tag + 1 + kDropDownListTag];
-                [self done:m_communitid pid:l1str ComBoxView:cityCombox index:[NSString stringWithFormat:@"%d", tag + 1]];
+                [self done:m_communitid pid:l1str ComBoxView:cityCombox index:[NSString stringWithFormat:@"%ld", tag + 1]];
             }
         }
             break;
@@ -223,7 +223,7 @@
                 UnitData = [[NSMutableArray alloc] init];
                 l2str = [[tempdata2 objectAtIndex:index] objectForKey:@"id"];
                 LMComBoxView *cityCombox = (LMComBoxView *)[bgScrollView viewWithTag:tag + 1 + kDropDownListTag];
-                [self done:m_communitid pid:l2str ComBoxView:cityCombox index:[NSString stringWithFormat:@"%d", tag + 1]];
+                [self done:m_communitid pid:l2str ComBoxView:cityCombox index:[NSString stringWithFormat:@"%ld", tag + 1]];
             }
         }
             break;
@@ -234,7 +234,7 @@
                 HouseholdsData = [[NSMutableArray alloc] init];
                 l3str = [[tempdata3 objectAtIndex:index] objectForKey:@"id"];
                 LMComBoxView *cityCombox = (LMComBoxView *)[bgScrollView viewWithTag:tag + 1 + kDropDownListTag];
-                [self done:m_communitid pid:l2str ComBoxView:cityCombox index:[NSString stringWithFormat:@"%d", tag + 1]];
+                [self done:m_communitid pid:l2str ComBoxView:cityCombox index:[NSString stringWithFormat:@"%ld", tag + 1]];
             }
         }
             break;
@@ -245,7 +245,7 @@
                 HomeNumber = [[NSMutableArray alloc] init];
                 l4str = [[tempdata4 objectAtIndex:index] objectForKey:@"id"];
                 LMComBoxView *cityCombox = (LMComBoxView *)[bgScrollView viewWithTag:tag + 1 + kDropDownListTag];
-                [self done:m_communitid pid:l4str ComBoxView:cityCombox index:[NSString stringWithFormat:@"%d", tag + 1]];
+                [self done:m_communitid pid:l4str ComBoxView:cityCombox index:[NSString stringWithFormat:@"%ld", tag + 1]];
             }
         }
             break;

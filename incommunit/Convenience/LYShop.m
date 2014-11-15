@@ -15,6 +15,32 @@
 #import "StoreOnlineNetworkEngine.h"
 #define kDropDownListTag 1000
 #import "KxMenu.h"
+
+@interface storeslist : UITableViewCell
+
+@end
+
+@implementation storeslist
+
+- (void)drawRect:(CGRect)rect {
+    [super drawRect:rect];
+    
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    CGContextSetStrokeColorWithColor(context, [UIColor grayColor].CGColor);
+    
+    // Draw them with a 2.0 stroke width so they are a bit more visible.
+    CGContextSetLineWidth(context, 0.2f);
+    
+    CGContextMoveToPoint(context, 0.0f, 0.0f); //start at this point
+    
+    CGContextAddLineToPoint(context, CGRectGetWidth(rect), 0.0f); //draw to this point
+    
+    // and now draw the Path!
+    CGContextStrokePath(context);
+}
+
+@end
+
 @interface LYShop ()
 {
     LMContainsLMComboxScrollView *bgScrollView;
@@ -27,6 +53,7 @@
     NSMutableArray *tempgoodstype;
     NSString *categoryid ;
     NSString *order;
+    UIWebView *phoneCallWebView;
 }
 @end
 @implementation LYShop
@@ -70,9 +97,9 @@
                       ,orderItem
                       ,[self createFixableItem:10]
                       ,nil];
+    
     [self setToolbarItems:array animated:YES];
     [self Getstoresdata];
-    
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -136,7 +163,7 @@
                         if (imageUrl!=nil && ![imageUrl isEqualToString:@""])
                         {
                             NSURL *url = [NSURL URLWithString:imageUrl];
-                            [tempimv setImageWithURL:url placeholderImage:nil];
+                            [tempimv setImageFromURL:url];
                         }
                     }
                 }
@@ -171,19 +198,24 @@
     {
         StoreslistTableViewCell *storeslistTableViewCell = [tableView dequeueReusableCellWithIdentifier:@"StoreslistTableViewCell" forIndexPath:indexPath];
         m_Goodspice=(UIImageView *)[storeslistTableViewCell viewWithTag:104];
+        m_Goodspice.layer.cornerRadius = 3.0f;
+        m_GoodsChan.clipsToBounds = YES;
         m_GoodsName = (UILabel *)[storeslistTableViewCell viewWithTag:105];
         m_GoodsChan =(UILabel *)[storeslistTableViewCell viewWithTag:106];
         m_Price= (UILabel *)[storeslistTableViewCell viewWithTag:107];
-        m_ShoppingCartButton = (UIButton *)[storeslistTableViewCell viewWithTag:110];
+        m_ShoppingCartButton = (UIImageView *)[storeslistTableViewCell viewWithTag:110];
         m_ShoppingCartButton.tag = indexPath.row-6;
-        [m_ShoppingCartButton addTarget:self action:@selector(addShoppingCart:)
-                       forControlEvents:UIControlEventTouchUpInside];
+        m_ShoppingCartButton.userInteractionEnabled = YES;
+        UITapGestureRecognizer* recognizer;
+        recognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(addShoppingCart:)];
+        [m_ShoppingCartButton addGestureRecognizer:recognizer];
+        
         NSMutableDictionary *Goodsinfo =[m_Goodslist objectAtIndex:indexPath.row-6];
         NSString *imageUrl = [Goodsinfo objectForKey:@"logo"];
         if (imageUrl!=nil && ![imageUrl isEqualToString:@""])
         {
             NSURL *url = [NSURL URLWithString:imageUrl];
-            [m_Goodspice setImageWithURL:url placeholderImage:nil];
+            [m_Goodspice setImageFromURL:url];
         }
         m_GoodsName.text = [Goodsinfo objectForKey:@"name"];
         m_GoodsChan.text = [[NSString alloc]initWithFormat:@"点赞次数：%@",[Goodsinfo objectForKey:@"like"]];
@@ -195,7 +227,7 @@
 
 - (UIView *)sortView {
     if (!bgScrollView) {
-        bgScrollView = [[LMContainsLMComboxScrollView alloc]initWithFrame:CGRectMake(0, 10, self.view.frame.size.width, 34)];
+        bgScrollView = [[LMContainsLMComboxScrollView alloc]initWithFrame:CGRectMake(0, 7, self.view.frame.size.width, 33)];
         bgScrollView.backgroundColor = [UIColor clearColor];
         bgScrollView.showsVerticalScrollIndicator = NO;
         bgScrollView.showsHorizontalScrollIndicator = NO;
@@ -224,7 +256,16 @@
             break;
         case 3:
         {
-            NSLog(@"跳转到地图页面");
+            [self performSegueWithIdentifier:@"Gomap" sender:self];
+        }
+            break;
+        case 4:
+        {
+            NSURL *phoneURL = [NSURL URLWithString:[NSString stringWithFormat:@"tel:%@",[m_storesinfo objectForKey:@"phone"]]];
+            if ( !phoneCallWebView ) {
+                phoneCallWebView = [[UIWebView alloc]initWithFrame:CGRectZero];// 这个webView只是一个后台的容易 不需要add到页面上来 效果跟方法二一样 但是这个方法是合法的
+            }
+            [phoneCallWebView loadRequest:[NSURLRequest requestWithURL:phoneURL]];
         }
             break;
         default:
@@ -336,8 +377,29 @@
                                                        }];
 }
 
+//收藏商铺
+-(IBAction)StoresCollect:(id)sender
+{
+    NSDictionary *dic = @{@"id" : m_StoresID};
+    [[StoreOnlineNetworkEngine shareInstance] startNetWorkWithPath:@"services/shop/collect"
+                                                            params:dic
+                                                            repeat:YES
+                                                             isGet:YES
+                                                       resultBlock:^(BOOL bValidJSON, NSString *errorMsg, id result) {
+                                                           if(!bValidJSON)
+                                                           {
+                                                               UIAlertView * alview = [[UIAlertView alloc] initWithTitle:@"提示" message:errorMsg delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+                                                               [alview show];
+                                                           }else
+                                                           {
+                                                               UIAlertView * alview = [[UIAlertView alloc] initWithTitle:@"提示" message:@"商品收藏成功！" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+                                                               [alview show];
+                                                           }
+                                                       }];
+}
+
 #pragma mark 添加购物车
--(IBAction)addShoppingCart:(id)sender
+-(IBAction)addShoppingCart:(UIGestureRecognizer *)sender
 {
     NSDictionary *userInfo = [LYSqllite Ruser];
     if (!userInfo || [[userInfo objectForKey:@"auth_status"] isEqualToString:@"-2"]) {
@@ -347,21 +409,30 @@
         return;
     }
     
-    UIButton *btn = (UIButton *)sender;
-    NSMutableDictionary *stored =[m_Goodslist objectAtIndex:btn.tag];
+    NSMutableDictionary *stored =[m_Goodslist objectAtIndex:sender.view.tag];
     [LYSqllite addShoppingcart:stored number:@"1" StoresID:m_StoresID Storesname:[m_storesinfo objectForKey:@"name"] selectState:@"1"];
     m_addshopcatalert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"成功将商品加入了购物车" delegate:self cancelButtonTitle:@"继续购物" otherButtonTitles:@"去购物车结算", nil];
     [m_addshopcatalert show];
+    
+    [UIView animateWithDuration:0.2
+                          delay:0.0
+                        options:UIViewAnimationOptionCurveEaseInOut
+                     animations:^{
+                         CGRect frame = sender.view.frame;
+                         frame.origin = CGPointMake(frame.origin.x - 5, frame.origin.y - 5);
+                         frame.size = CGSizeMake( frame.size.width + 10, frame.size.height + 10 );
+                         sender.view.frame = frame;
+                     } completion:^(BOOL finished) {
+                         [UIView animateWithDuration:0.4 delay:0.0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+                             CGRect frame = sender.view.frame;
+                             frame.origin = sender.view.center;
+                             frame.size = CGSizeMake( 0, 0 );
+                             sender.view.frame = frame;
+                         } completion:^(BOOL finished) {
+                         }];
+                     }];
 }
 
--(IBAction)CellPhone:(id)sender
-{
-    NSString  *phonenumber =[[NSString alloc]initWithFormat:@"tel:%@",[m_storesinfo objectForKey:@"phone"]];
-    UIWebView*callWebview =[[UIWebView alloc] init];
-    NSURL *telURL =[NSURL URLWithString:phonenumber];
-    [callWebview loadRequest:[NSURLRequest requestWithURL:telURL]];
-    [self.view  addSubview:callWebview];
-}
 #pragma mark alertView 协议函数
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {

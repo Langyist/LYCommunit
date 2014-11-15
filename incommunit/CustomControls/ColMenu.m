@@ -13,6 +13,8 @@
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 
+static CGRect startRect;
+
 @interface ColMenuCell : UITableViewCell
 
 @end
@@ -35,20 +37,20 @@
 {
     [super drawRect:rect];
     
-    CGContextRef context = UIGraphicsGetCurrentContext();
-    CGContextSetStrokeColorWithColor(context, [UIColor lightGrayColor].CGColor);
-    
-    CGFloat lineWidth = 0.2f;
-    CGFloat move = 1.0f - lineWidth;
-    // Draw them with a 2.0 stroke width so they are a bit more visible.
-    CGContextSetLineWidth(context, lineWidth);
-    
-    CGContextMoveToPoint(context, 0.0f, CGRectGetHeight(rect) - move); //start at this point
-    
-    CGContextAddLineToPoint(context, CGRectGetWidth(rect), CGRectGetHeight(rect) - move); //draw to this point
-    
-    // and now draw the Path!
-    CGContextStrokePath(context);
+//    CGContextRef context = UIGraphicsGetCurrentContext();
+//    CGContextSetStrokeColorWithColor(context, [UIColor lightGrayColor].CGColor);
+//    
+//    CGFloat lineWidth = 0.2f;
+//    CGFloat move = 1.0f - lineWidth;
+//    // Draw them with a 2.0 stroke width so they are a bit more visible.
+//    CGContextSetLineWidth(context, lineWidth);
+//    
+//    CGContextMoveToPoint(context, 0.0f, CGRectGetHeight(rect) - move); //start at this point
+//    
+//    CGContextAddLineToPoint(context, CGRectGetWidth(rect), CGRectGetHeight(rect) - move); //draw to this point
+//    
+//    // and now draw the Path!
+//    CGContextStrokePath(context);
 }
 
 @end
@@ -66,14 +68,13 @@
     CGContextSetStrokeColorWithColor(context, [UIColor lightGrayColor].CGColor);
     
     CGFloat lineWidth = 0.2f;
+    CGFloat space = 15;
     // Draw them with a 2.0 stroke width so they are a bit more visible.
     CGContextSetLineWidth(context, lineWidth);
     
-    CGContextAddLineToPoint(context, lineWidth, CGRectGetHeight(rect)); //draw to this point
+    CGContextMoveToPoint(context, CGRectGetWidth(rect) - lineWidth, space); //start at this point
     
-    CGContextMoveToPoint(context, CGRectGetWidth(rect) - lineWidth, 0.0f); //start at this point
-    
-    CGContextAddLineToPoint(context, CGRectGetWidth(rect) - lineWidth, CGRectGetHeight(rect)); //draw to this point
+    CGContextAddLineToPoint(context, CGRectGetWidth(rect) - lineWidth, CGRectGetHeight(rect) - space); //draw to this point
     
     // and now draw the Path!
     CGContextStrokePath(context);
@@ -101,6 +102,18 @@
     return self;
 }
 
+- (void)drawRect:(CGRect)rect
+{
+    [super drawRect:rect];
+    
+    CGRect rectangle = CGRectMake(0, CGRectGetMaxY(startRect), CGRectGetWidth(rect), CGRectGetHeight(rect) - CGRectGetMaxY(startRect));
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    // #define BK_GRAY [UIColor colorWithRed:233/255.0f green:232/255.0f blue:232/255.0f alpha:1.0]
+    CGContextSetRGBFillColor(context, 233/255.0f, 232/255.0f, 232/255.0f, 0.8);
+    CGContextSetRGBStrokeColor(context, 233/255.0f, 232/255.0f, 232/255.0f, 0.8);
+    CGContextFillRect(context, rectangle);
+}
+
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
 {
     UIView *touched = [[touches anyObject] view];
@@ -121,6 +134,7 @@
 
 @implementation ColMenuView {
     UIView              *_contentView;
+    UIButton            *sureButton;
     ColMenuOverlay      *overlay;
     id<ColMenuDelegate> _colMenuDelegate;
 }
@@ -154,6 +168,8 @@
 {
     assert(delegate);
     
+    startRect = rect;
+    
     _colMenuDelegate = delegate;
     
     _contentView = [self mkContentView:view];
@@ -182,6 +198,18 @@
             [_contentView addSubview:tableView];
         }
     }
+    
+    [sureButton removeFromSuperview];
+    sureButton = nil;
+    sureButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [sureButton addTarget:self action:@selector(surePress:) forControlEvents:UIControlEventTouchUpInside];
+    sureButton.hidden = YES;
+    sureButton.frame = CGRectMake(CGRectGetWidth(_contentView.frame) - 44, CGRectGetHeight(_contentView.frame) - 44, 39, 41);
+    [sureButton setImage:[UIImage imageNamed:@"ic_dismiss"] forState:UIControlStateNormal];
+    [sureButton setContentEdgeInsets:UIEdgeInsetsMake(10, 10, 10, 10)];
+    sureButton.autoresizingMask = UIViewAutoresizingFlexibleRightMargin
+    | UIViewAutoresizingFlexibleBottomMargin;
+    [_contentView addSubview:sureButton];
     
     _contentView.hidden = YES;
     self.frame = (CGRect){0, CGRectGetMaxY(rect), _contentView.frame.size};
@@ -231,6 +259,8 @@
         [v removeFromSuperview];
     }
     
+    sureButton = nil;
+    
     UIView *contentView = [[UIView alloc] initWithFrame:CGRectZero];
     contentView.autoresizingMask = UIViewAutoresizingNone;
     contentView.backgroundColor = [UIColor clearColor];
@@ -278,10 +308,13 @@
                          
                          self.alpha = 1.0f;
                          self.frame = toFrame;
-                         _contentView.frame = contentFrame;
                          
-                     } completion:^(BOOL completed) {
                          _contentView.hidden = NO;
+                     } completion:^(BOOL completed) {
+                         _contentView.frame = contentFrame;
+                         sureButton.frame = CGRectMake(CGRectGetWidth(_contentView.frame) - 44, CGRectGetHeight(_contentView.frame) - 44, 39, 41);
+                         
+                         sureButton.hidden = NO;
                      }];
     
     return contentViewHeight;
@@ -311,6 +344,13 @@
     return sectionOfColMenu;
 }
 
+- (void)surePress:(id)sender {
+    if ([_colMenuDelegate respondsToSelector:@selector(done:)]) {
+        [_colMenuDelegate done:[ColMenu sharedMenu]];
+    }
+    [self dismissMenu:YES];
+}
+
 #pragma mark -
 #pragma mark UITableView
 
@@ -324,6 +364,11 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ColMenuCell" forIndexPath:indexPath];
+    [cell.textLabel setFont:[UIFont systemFontOfSize:14.0f]];
+    [cell.textLabel setTextColor:[UIColor darkGrayColor]];
+    UIView *selectedBackgroundView = [[UIView alloc] initWithFrame:cell.frame];
+    [selectedBackgroundView setBackgroundColor:TOP_BAR_YELLOW];
+    cell.selectedBackgroundView = selectedBackgroundView;
     if ([_colMenuDelegate respondsToSelector:@selector(colMune:titleForItemOfSection:row:)]) {
         [cell.textLabel setText:[_colMenuDelegate colMune:[ColMenu sharedMenu] titleForItemOfSection:tableView.tag row:indexPath.row]];
     }
@@ -334,7 +379,7 @@
     if ([_colMenuDelegate respondsToSelector:@selector(colMune:didSelectItemOfSection:row:)]) {
         [_colMenuDelegate colMune:[ColMenu sharedMenu] didSelectItemOfSection:tableView.tag row:indexPath.row];
     }
-    [self dismissMenu:YES];
+    //[self dismissMenu:YES];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -356,17 +401,16 @@
     UIView *viewForHeaderInSection = nil;
     if ([_colMenuDelegate respondsToSelector:@selector(colMune:titleForHeaderOfSection:)]) {
         NSString *titleForHeaderInSection = [_colMenuDelegate colMune:[ColMenu sharedMenu] titleForHeaderOfSection:tableView.tag];
-        titleForHeaderInSection = [NSString stringWithFormat:@" %@", titleForHeaderInSection ];
-        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(tableView.frame) - 1, 42)];
+        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(tableView.separatorInset.left, 0, CGRectGetWidth(tableView.frame) - tableView.separatorInset.left - 1, 42)];
         [label setText:titleForHeaderInSection];
         [label setBackgroundColor:[UIColor whiteColor]];
-        
-        UIBezierPath *shadowPath = [UIBezierPath bezierPathWithRect:label.bounds];
-        label.layer.masksToBounds = NO;
-        label.layer.shadowColor = [UIColor blackColor].CGColor;
-        label.layer.shadowOffset = CGSizeMake(0.0f, 2.0f);
-        label.layer.shadowOpacity = 0.2f;
-        label.layer.shadowPath = shadowPath.CGPath;
+//        
+//        UIBezierPath *shadowPath = [UIBezierPath bezierPathWithRect:label.bounds];
+//        label.layer.masksToBounds = NO;
+//        label.layer.shadowColor = [UIColor blackColor].CGColor;
+//        label.layer.shadowOffset = CGSizeMake(0.0f, 2.0f);
+//        label.layer.shadowOpacity = 0.2f;
+//        label.layer.shadowPath = shadowPath.CGPath;
         
         viewForHeaderInSection = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(tableView.frame), 44)];
         [viewForHeaderInSection addSubview:label];

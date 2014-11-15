@@ -18,5 +18,6 @@
 }
 @property (nonatomic,retain)IBOutlet UITableView *m_tableView;
 @property (nonatomic,retain)IBOutlet UILabel * m_storesNumber;
+@property (nonatomic,retain)IBOutlet UIButton * settlementButton;
 @property (retain, nonatomic) NSMutableArray *items;
 @end

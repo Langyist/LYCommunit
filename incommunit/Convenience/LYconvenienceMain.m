@@ -17,13 +17,15 @@
 #import "AppDelegate.h"
 #import "UIView+Clone.h"
 #import "LYFunctionInterface.h"
+#import "CustomColorSearchBar.h"
+
 #define REDCOLOR colorWithRed:255.0/255.0 green:230.0/255.0 blue:201.0/255.0 alpha:1
 
 @interface LYconvenienceMain ()
 {
-    UISearchBar *m_deliverSearch;
-    UISearchBar *m_shopSearch;
-    UISearchBar *m_microShop;
+    CustomColorSearchBar *m_deliverSearch;
+    CustomColorSearchBar *m_shopSearch;
+    CustomColorSearchBar *m_microShop;
     NSInteger lastIndex;
     UIView *footerView;
 }
@@ -67,6 +69,7 @@
     self._scrollView.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
     self._scrollView.pagingEnabled = YES;
     self._scrollView.delegate = self;
+    [self._scrollView setBackgroundColor:BK_GRAY];
     
     //精选
     m_Featuredtableview = [[AWaterfallTableView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self._scrollView.frame.size.height)];
@@ -77,6 +80,7 @@
     m_Featuredtableview.canRefresh = NO;
     m_Featuredtableview.canMore = NO;
     [m_Featuredtableview setContentInset:UIEdgeInsetsMake(7, 0, 0, 0)];
+    [m_Featuredtableview setBackgroundColor:BK_GRAY];
     [self._scrollView addSubview:m_Featuredtableview];
     
     UINib *nib = [UINib nibWithNibName:@"FeaturedCell" bundle:nil];
@@ -105,23 +109,23 @@
     m_Featuredtableview.tableFooterView = footerView;
     
     /*
-    送餐送货
+     送餐送货
      */
-    m_deliverSearch = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, self._scrollView.frame.size.width, 40)];
+    m_deliverSearch = [[CustomColorSearchBar alloc] initWithFrame:CGRectMake(0, 0, self._scrollView.frame.size.width, 40)];
     m_deliverSearch.delegate = self;
     m_deliverSearch.placeholder = @"搜索店铺";
     
     /*
      搜索
      */
-    m_shopSearch = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, self._scrollView.frame.size.width, 40)];
+    m_shopSearch = [[CustomColorSearchBar alloc] initWithFrame:CGRectMake(0, 0, self._scrollView.frame.size.width, 40)];
     m_shopSearch.delegate = self;
     m_shopSearch.placeholder = @"搜索店铺";
     
     /*
      小区微店
      */
-    m_microShop = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, self._scrollView.frame.size.width, 40)];
+    m_microShop = [[CustomColorSearchBar alloc] initWithFrame:CGRectMake(0, 0, self._scrollView.frame.size.width, 40)];
     m_microShop.delegate = self;
     m_microShop.placeholder = @"搜索店铺";
     
@@ -215,9 +219,9 @@
         numberOfRowsInSection = m_Featuredlist.count;
     }
     else if(tableView == m_Deliverytableview) {
-
+        
         numberOfRowsInSection = m_Deliverylist.count;
-
+        
     }
     else if (tableView == m_ShopDaquan) {
         numberOfRowsInSection = m_ShopDaquanlist.count;
@@ -430,7 +434,7 @@
 
 -(void)GetCellmicroShopdata
 {
-
+    
     NSDictionary *dic = @{@"category" : @"2"
                           ,@"order" : orderstr
                           ,@"longitude" : [[NSString alloc] initWithFormat:@"%f",longitude]
@@ -517,7 +521,7 @@
     if (searchBar == m_microShop) {
         [self GetCellmicroShopdata];
     }
-
+    
 }
 
 
@@ -540,47 +544,45 @@
 
 - (NSInteger)colMune:(ColMenu *)colMenu numberOfRowsInSection:(NSInteger)section {
     NSInteger numberOfRowsInSection = 0;
-            switch (section) {
-                case 0:
-                    numberOfRowsInSection = m_shoptypelist.count+1;
-                    break;
-                case 1:
-                    numberOfRowsInSection = [LYFunctionInterface Getorder].count+1;
-                    break;
-                default:
-                    break;
-            }
+    switch (section) {
+        case 0:
+            numberOfRowsInSection = m_shoptypelist.count+1;
+            break;
+        case 1:
+            numberOfRowsInSection = [LYFunctionInterface Getorder].count+1;
+            break;
+        default:
+            break;
+    }
     return numberOfRowsInSection;
 }
 
-- (NSString *)colMune:(ColMenu *)colMenu titleForItemOfSection:(NSInteger)section row:(NSInteger)row
-{
-
+- (NSString *)colMune:(ColMenu *)colMenu titleForItemOfSection:(NSInteger)section row:(NSInteger)row {
     NSDictionary *dictemp;
     NSString *str;
-            switch (section) {
-                case 0:
-                    if (row == 0) {
-                        str = @"全部";
-                    }else
-                    {
-                        dictemp = [m_shoptypelist objectAtIndex:row-1];
-                        str =  [dictemp objectForKey:@"name"];
-                    }
-                    break;
-                case 1:
-                    if (row == 0) {
-                        str = @"默认排序";
-                    }else
-                    {
-                        str = [[[LYFunctionInterface Getorder] objectAtIndex:row - 1] objectForKey:@"order_name"];
-                    }
-                    break;
-                default:
-                    break;
+    switch (section) {
+        case 0:
+            if (row == 0) {
+                str = @"全部";
+            }else
+            {
+                dictemp = [m_shoptypelist objectAtIndex:row-1];
+                str =  [dictemp objectForKey:@"name"];
             }
-           return str;
-
+            break;
+        case 1:
+            if (row == 0) {
+                str = @"默认排序";
+            }else
+            {
+                str = [[[LYFunctionInterface Getorder] objectAtIndex:row - 1] objectForKey:@"order_name"];
+            }
+            break;
+        default:
+            break;
+    }
+    return str;
+    
 }
 
 - (void)colMune:(ColMenu *)colMenu didSelectItemOfSection:(NSInteger)section row:(NSInteger)row {
@@ -636,7 +638,22 @@
                     break;
             }
     }
+    
+}
 
+- (NSString *)colMune:(ColMenu *)colMenu titleForHeaderOfSection:(NSInteger)section {
+    NSString * titleForHeaderOfSection = @"";
+    switch (section) {
+        case 0:
+            titleForHeaderOfSection = @"店铺分类";
+            break;
+        case 1:
+            titleForHeaderOfSection = @"排序方式";
+            break;
+        default:
+            break;
+    }
+    return titleForHeaderOfSection;
 }
 
 @end
