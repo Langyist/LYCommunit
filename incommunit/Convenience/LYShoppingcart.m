@@ -9,7 +9,7 @@
 #import "LYShoppingcart.h"
 #import "LYSqllite.h"
 #import "UIImageView+MKNetworkKitAdditions.h"
-
+#import "AppDelegate.h"
 @interface LYShoppingcart ()
 
 @property (weak, nonatomic) IBOutlet UILabel *totalLabel;
@@ -34,6 +34,12 @@
     m_textfiledlist = [[NSMutableArray alloc] init];
     self.m_tableView.allowsSelectionDuringEditing = YES;
     Goodslist = [LYSqllite GetGoods];
+    
+    [self.m_tableView setContentInset:UIEdgeInsetsMake(-37, 0, 0, 0)];
+    [self.m_tableView setBackgroundColor:BK_GRAY];
+    [self.view setBackgroundColor:BK_GRAY];
+    
+    self.settlementButton.layer.cornerRadius = 3.0f;
 }
 
 - (void)didReceiveMemoryWarning

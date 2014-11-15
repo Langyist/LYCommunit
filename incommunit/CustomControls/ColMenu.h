@@ -23,6 +23,7 @@
 - (NSInteger)sectionOfColMenu:(ColMenu *)colMenu;
 - (void)colMune:(ColMenu *)colMenu didSelectItemOfSection:(NSInteger)section row:(NSInteger)row;
 - (NSString *)colMune:(ColMenu *)colMenu titleForHeaderOfSection:(NSInteger)section;
+- (void)done:(ColMenu *)colMenu;
 
 @end
 

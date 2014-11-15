@@ -24,7 +24,7 @@
     
     CGContextRef context = UIGraphicsGetCurrentContext();
     
-    CGContextSetStrokeColorWithColor(context, SEPLINE_GRAY.CGColor);
+    CGContextSetStrokeColorWithColor(context, [UIColor grayColor].CGColor);
     
     CGFloat linewidth = 0.2f;
     CGContextSetLineWidth(context, linewidth);
@@ -92,7 +92,7 @@
     }
 
     CGFloat textWidth = [self labelWidth:self.m_distance];
-    CGFloat maxX = CGRectGetMaxX(self.m_distance.frame) - textWidth - CGRectGetWidth(self.distanceImage.frame) - 5;
+    CGFloat maxX = CGRectGetMaxX(self.m_distance.frame) - textWidth - CGRectGetWidth(self.distanceImage.frame) - 3;
     CGRect newFrame = self.distanceImage.frame;
     newFrame.origin.x = maxX;
     self.distanceImage.frame = newFrame;

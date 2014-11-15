@@ -238,6 +238,7 @@
 		F18E64311A12EF3A001BD189 /* 小区周边_guide.png in Resources */ = {isa = PBXBuildFile; fileRef = F18E642C1A12EF3A001BD189 /* 小区周边_guide.png */; };
 		F1D3726D1A0DF2BF0077BAAA /* StoreSettingAddCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F1D3726B1A0DF2BF0077BAAA /* StoreSettingAddCollectionViewCell.m */; };
 		F1D3726E1A0DF2BF0077BAAA /* StoreSettingAddCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F1D3726C1A0DF2BF0077BAAA /* StoreSettingAddCollectionViewCell.xib */; };
+		F1F04F6B1A15B11B00B9EABA /* ic_dismiss.png in Resources */ = {isa = PBXBuildFile; fileRef = F1F04F6A1A15B11B00B9EABA /* ic_dismiss.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -264,7 +265,7 @@
 		AD26EB201A11F22A0024403E /* LYHomeMyOrder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LYHomeMyOrder.m; sourceTree = "<group>"; };
 		AD30F7D41A00D97A00C8709E /* LYProductinformation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LYProductinformation.h; sourceTree = "<group>"; };
 		AD30F7D51A00D97A00C8709E /* LYProductinformation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LYProductinformation.m; sourceTree = "<group>"; };
-		AD33EC8A19FBB13F00FE0C11 /* incommunit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = incommunit.app; path = "小区帮帮.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		AD33EC8A19FBB13F00FE0C11 /* 小区帮帮.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "小区帮帮.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		AD33EC8E19FBB13F00FE0C11 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AD33EC8F19FBB13F00FE0C11 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		AD33EC9119FBB13F00FE0C11 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -645,6 +646,7 @@
 		F1D3726A1A0DF2BF0077BAAA /* StoreSettingAddCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StoreSettingAddCollectionViewCell.h; sourceTree = "<group>"; };
 		F1D3726B1A0DF2BF0077BAAA /* StoreSettingAddCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StoreSettingAddCollectionViewCell.m; sourceTree = "<group>"; };
 		F1D3726C1A0DF2BF0077BAAA /* StoreSettingAddCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StoreSettingAddCollectionViewCell.xib; sourceTree = "<group>"; };
+		F1F04F6A1A15B11B00B9EABA /* ic_dismiss.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_dismiss.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -693,7 +695,7 @@
 		AD33EC8B19FBB13F00FE0C11 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				AD33EC8A19FBB13F00FE0C11 /* incommunit.app */,
+				AD33EC8A19FBB13F00FE0C11 /* 小区帮帮.app */,
 				AD33ECA319FBB13F00FE0C11 /* incommunitTests.xctest */,
 			);
 			name = Products;
@@ -808,6 +810,7 @@
 		AD33ECC119FBCA2D00FE0C11 /* Image */ = {
 			isa = PBXGroup;
 			children = (
+				F1F04F6A1A15B11B00B9EABA /* ic_dismiss.png */,
 				AD5CD0071A14D55E0016E2C0 /* 58.png */,
 				AD5CD0081A14D55E0016E2C0 /* 80.png */,
 				AD5CD0091A14D55E0016E2C0 /* 87.png */,
@@ -1297,7 +1300,7 @@
 			);
 			name = "小区帮帮";
 			productName = incommunit;
-			productReference = AD33EC8A19FBB13F00FE0C11 /* incommunit.app */;
+			productReference = AD33EC8A19FBB13F00FE0C11 /* 小区帮帮.app */;
 			productType = "com.apple.product-type.application";
 		};
 		AD33ECA219FBB13F00FE0C11 /* incommunitTests */ = {
@@ -1329,11 +1332,11 @@
 				TargetAttributes = {
 					AD33EC8919FBB13F00FE0C11 = {
 						CreatedOnToolsVersion = 6.1;
-						DevelopmentTeam = 95N42RGW4F;
+						DevelopmentTeam = RVMYYQYXU5;
 					};
 					AD33ECA219FBB13F00FE0C11 = {
 						CreatedOnToolsVersion = 6.1;
-						DevelopmentTeam = 95N42RGW4F;
+						DevelopmentTeam = RVMYYQYXU5;
 						TestTargetID = AD33EC8919FBB13F00FE0C11;
 					};
 				};
@@ -1448,6 +1451,7 @@
 				F18E641E1A121614001BD189 /* 店铺_03.png in Resources */,
 				AD33ED1519FBCA2D00FE0C11 /* 3_10.png in Resources */,
 				AD6A9B911A09CC4B0031B7C2 /* BabyCell.xib in Resources */,
+				F1F04F6B1A15B11B00B9EABA /* ic_dismiss.png in Resources */,
 				AD33ED4B19FBCA2D00FE0C11 /* 蓝色_03.png in Resources */,
 				AD33ED2D19FBCA2D00FE0C11 /* 个人主页_13.png in Resources */,
 				F18E64191A10DBD6001BD189 /* 密码@3x.png in Resources */,
@@ -1762,7 +1766,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Yang Lu (RWU7U5K968)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = incommunit/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
@@ -1782,7 +1786,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Yang Lu (RWU7U5K968)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = incommunit/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;

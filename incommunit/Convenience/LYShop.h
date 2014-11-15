@@ -8,11 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "LMComBoxView.h"
-#import "UIImageView+AsyncDownload.h"
-
-@interface storeslist : UITableViewCell
-
-@end
+#import "UIImageView+MKNetworkKitAdditions.h"
 
 @interface LYShop : UITableViewController<UITextFieldDelegate,UITabBarDelegate,LMComBoxViewDelegate>
 {
@@ -40,7 +36,7 @@
     
     UINavigationItem   *Item;
     
-    UIButton * m_ShoppingCartButton;
+    UIImageView * m_ShoppingCartButton;
     UIAlertView *m_addshopcatalert;
     
     NSString *m_Goodsid;//商品ID
