@@ -15,8 +15,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "AD33EC8919FBB13F00FE0C11"
-               BuildableName = "&#x5c0f;&#x533a;&#x5e2e;&#x5e2e;.app"
-               BlueprintName = "&#x5c0f;&#x533a;&#x5e2e;&#x5e2e;"
+               BuildableName = "incommunit.app"
+               BlueprintName = "incommunit"
                ReferencedContainer = "container:incommunit.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -57,8 +57,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "AD33EC8919FBB13F00FE0C11"
-            BuildableName = "&#x5c0f;&#x533a;&#x5e2e;&#x5e2e;.app"
-            BlueprintName = "&#x5c0f;&#x533a;&#x5e2e;&#x5e2e;"
+            BuildableName = "incommunit.app"
+            BlueprintName = "incommunit"
             ReferencedContainer = "container:incommunit.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -76,8 +76,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "AD33EC8919FBB13F00FE0C11"
-            BuildableName = "&#x5c0f;&#x533a;&#x5e2e;&#x5e2e;.app"
-            BlueprintName = "&#x5c0f;&#x533a;&#x5e2e;&#x5e2e;"
+            BuildableName = "incommunit.app"
+            BlueprintName = "incommunit"
             ReferencedContainer = "container:incommunit.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
@@ -94,8 +94,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "AD33EC8919FBB13F00FE0C11"
-            BuildableName = "&#x5c0f;&#x533a;&#x5e2e;&#x5e2e;.app"
-            BlueprintName = "&#x5c0f;&#x533a;&#x5e2e;&#x5e2e;"
+            BuildableName = "incommunit.app"
+            BlueprintName = "incommunit"
             ReferencedContainer = "container:incommunit.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
