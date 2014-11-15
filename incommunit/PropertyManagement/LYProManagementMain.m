@@ -21,6 +21,7 @@
 #import "StoreOnlineNetworkEngine.h"
 #import "AppDelegate.h"
 #import "LYSqllite.h"
+#import "LYAnnDetails.h"
 @interface LYProManagementMain () {
     UIView *m_liuView;
     UIButton *repairButton;//我要报修button
@@ -641,13 +642,13 @@
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-//    if ([[segue identifier] isEqualToString:@"NInformation"])
-//    {
-//        if (0 != selectedDictionary.count)
-//        {
-//            [[segue destinationViewController] setDetailData:selectedDictionary];
-//        }
-//    }
+    if ([[segue identifier] isEqualToString:@"NInformation"])
+    {
+        if (0 != selectedDictionary.count)
+        {
+            [[segue destinationViewController] setDetailData:selectedDictionary];
+        }
+    }
 //    if ([[segue identifier] isEqualToString:@"replyMessage"])
 //    {
 //        if (0 != selectedDictionary.count)
