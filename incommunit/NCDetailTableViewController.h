@@ -9,5 +9,9 @@
 #import <UIKit/UIKit.h>
 
 @interface NCDetailTableViewController : UITableViewController
+{
+    NSDictionary *m_detailData;
+}
+-(void)setDetailData:(NSDictionary*)dictionary;
 
 @end

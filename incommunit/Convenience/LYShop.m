@@ -53,6 +53,7 @@
     NSMutableArray *tempgoodstype;
     NSString *categoryid ;
     NSString *order;
+    UIWebView *phoneCallWebView;
 }
 @end
 @implementation LYShop
@@ -255,7 +256,16 @@
             break;
         case 3:
         {
-            NSLog(@"跳转到地图页面");
+            [self performSegueWithIdentifier:@"Gomap" sender:self];
+        }
+            break;
+        case 4:
+        {
+            NSURL *phoneURL = [NSURL URLWithString:[NSString stringWithFormat:@"tel:%@",[m_storesinfo objectForKey:@"phone"]]];
+            if ( !phoneCallWebView ) {
+                phoneCallWebView = [[UIWebView alloc]initWithFrame:CGRectZero];// 这个webView只是一个后台的容易 不需要add到页面上来 效果跟方法二一样 但是这个方法是合法的
+            }
+            [phoneCallWebView loadRequest:[NSURLRequest requestWithURL:phoneURL]];
         }
             break;
         default:
@@ -367,6 +377,27 @@
                                                        }];
 }
 
+//收藏商铺
+-(IBAction)StoresCollect:(id)sender
+{
+    NSDictionary *dic = @{@"id" : m_StoresID};
+    [[StoreOnlineNetworkEngine shareInstance] startNetWorkWithPath:@"services/shop/collect"
+                                                            params:dic
+                                                            repeat:YES
+                                                             isGet:YES
+                                                       resultBlock:^(BOOL bValidJSON, NSString *errorMsg, id result) {
+                                                           if(!bValidJSON)
+                                                           {
+                                                               UIAlertView * alview = [[UIAlertView alloc] initWithTitle:@"提示" message:errorMsg delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+                                                               [alview show];
+                                                           }else
+                                                           {
+                                                               UIAlertView * alview = [[UIAlertView alloc] initWithTitle:@"提示" message:@"商品收藏成功！" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+                                                               [alview show];
+                                                           }
+                                                       }];
+}
+
 #pragma mark 添加购物车
 -(IBAction)addShoppingCart:(UIGestureRecognizer *)sender
 {
@@ -402,14 +433,6 @@
                      }];
 }
 
--(IBAction)CellPhone:(id)sender
-{
-    NSString  *phonenumber =[[NSString alloc]initWithFormat:@"tel:%@",[m_storesinfo objectForKey:@"phone"]];
-    UIWebView*callWebview =[[UIWebView alloc] init];
-    NSURL *telURL =[NSURL URLWithString:phonenumber];
-    [callWebview loadRequest:[NSURLRequest requestWithURL:telURL]];
-    [self.view  addSubview:callWebview];
-}
 #pragma mark alertView 协议函数
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {

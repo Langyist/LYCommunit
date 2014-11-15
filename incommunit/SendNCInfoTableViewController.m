@@ -152,9 +152,12 @@
 }
 
 - (IBAction)classPress:(id)sender {
+    //出现下拉菜单,浮出一层，下拉动画
+    
 }
 
 - (IBAction)submitPress:(id)sender {
+    //保存数据
 }
 
 - (void)imageViewTap:(UITapGestureRecognizer *) tap {
@@ -243,11 +246,15 @@
     
     if (textField == self.classTextField) {
         [self.classTextField resignFirstResponder];
+        m_classContent = textField.text;
     }else if (textField == self.titleTextField) {
+        m_titleContent = textField.text;
         [self.titleTextField resignFirstResponder];
     }else if (textField == self.contactTextField) {
+        m_contactContent = textField.text;
         [self.contactTextField resignFirstResponder];
     }else if (textField == self.contactStyleTextField) {
+        m_contactStyleContent = textField.text;
         [self.contactStyleTextField resignFirstResponder];
     }
     return YES;

@@ -18,5 +18,14 @@ UIActionSheetDelegate
 ,UIImagePickerControllerDelegate
 ,UINavigationControllerDelegate
 >
+{
+    NSString *m_classContent;
+    NSString *m_titleContent;
+    NSString *m_detailContent;
+    NSString *m_contactStyleContent;
+    NSString *m_contactContent;
+    NSMutableArray *m_imageArray;
+
+}
 
 @end

@@ -25,6 +25,11 @@
 <
 OpretionCellDelegate
 >
+{
+    int m_pagesize;
+    int m_pageOffset;
+    NSMutableArray *m_MyOrderlist;
+}
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 

@@ -9,7 +9,7 @@
 #import "LYHomeMyOrder.h"	
 #import "AppDelegate.h"
 #import "UIImageView+AsyncDownload.h"
-
+#import "StoreOnlineNetworkEngine.h"
 @interface OrderStoreCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet UIImageView *storeImageView;
 @property (weak, nonatomic) IBOutlet UILabel *storeNameLabel;
@@ -183,59 +183,78 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    m_pagesize = 10;
+    m_pageOffset = 0;
     dataList = @[@"", @""];
     
     [self.tableView setContentInset:UIEdgeInsetsMake(-1, 0, 0, 0)];
     
-//    [self getmyorder:@""];
+[self getmyorder];
 }
 
 #pragma mark UITableView delegate
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-
-    return 3;
+    return m_MyOrderlist.count;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    dataList = [[m_MyOrderlist objectAtIndex:section] objectForKey:@"commodities"];
     NSInteger numberOfItem = dataList.count;
-    return 3 + numberOfItem;
+    return numberOfItem+3;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    
+
     UITableViewCell *retCell = nil;
     
     if (indexPath.row == 0) {
         OrderStoreCell *cell = [tableView dequeueReusableCellWithIdentifier:@"OrderStoreCell" forIndexPath:indexPath];
-        [cell setStoreName:@"58度面包店"];
-        [cell setStatus:@"已提交"];
+        [cell setStoreName:[[m_MyOrderlist objectAtIndex:indexPath.section] objectForKey:@"shopName"]];
+        switch ([[[m_MyOrderlist objectAtIndex:indexPath.section] objectForKey:@"status"] intValue]) {
+            case 0:
+                [cell setStatus:@"新订单"];
+                break;
+            case 1:
+                [cell setStatus:@"已接受订单"];
+                break;
+            case 2:
+                [cell setStatus:@"已完成订单"];
+                break;
+            case 3:
+                [cell setStatus:@"已拒绝订单"];
+                break;
+            default:
+                break;
+        }
         
         retCell = cell;
     }
     else if (indexPath.row == 3 + dataList.count - 2) {
         TotelItemCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TotelItemCell" forIndexPath:indexPath];
-        [cell setPrice:20];
-        [cell setNumber:4];
-        
+        [cell setPrice:[[[m_MyOrderlist objectAtIndex:indexPath.section] objectForKey:@"total_price"] intValue]];
+        int  number = 0 ;
+        for(int i =0;i<dataList.count;i++)
+        {
+            NSDictionary * temp = [dataList objectAtIndex:i];
+            number = number+[[temp objectForKey:@"quantity"] intValue];
+        }
+        [cell setNumber:number];
         retCell = cell;
     }
     else if (indexPath.row == 3 + dataList.count - 1) {
         OpretionItemCell *cell = [tableView dequeueReusableCellWithIdentifier:@"OpretionItemCell" forIndexPath:indexPath];
         cell.tag = indexPath.section;
         cell.opretionDelegate = self;
-        
         retCell = cell;
     }
     else {
+        NSDictionary * temp = [dataList objectAtIndex:indexPath.row-1];
         OrderItemCell *cell = [tableView dequeueReusableCellWithIdentifier:@"OrderItemCell" forIndexPath:indexPath];
-        [cell setItemName:@"全麦面包"];
-        [cell setPrice:5];
-        [cell setNumber:2];
-        
+        [cell setItemName:[temp objectForKey:@"name"]];
+        [cell setPrice:[[temp objectForKey:@"price"] intValue]];
+        [cell setNumber:[[temp objectForKey:@"quantity"] intValue]];
         retCell = cell;
     }
-    
     retCell.selectionStyle = UITableViewCellSelectionStyleNone;
     return retCell;
 }
@@ -283,21 +302,23 @@
 }
 
 #pragma mark 网络数据
-- (void)getmyorder:(NSString *)URL {
-    
-    NSDictionary *plistDic = [[NSBundle mainBundle] infoDictionary];
-    NSLog(@"plistDic = %@",plistDic);
-    NSString *url = [plistDic objectForKey: @"URL"];
-    NSError *error;
-    //    加载一个NSURL对象
-    NSString *urlstr =[[NSString alloc] initWithFormat:@"%@/inCommunity/services/order/mylist",url] ;
-    
-    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:urlstr]];
-    //    将请求的url数据放到NSData对象中
-    NSData *response = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
-    //    iOS5自带解析类NSJSONSerialization从response中解析出数据放到字典中
-    NSDictionary *weatherDic = [NSJSONSerialization JSONObjectWithData:response options:NSJSONReadingMutableLeaves error:&error];
-    NSLog(@"%@",weatherDic);
+- (void)getmyorder{
+    NSDictionary *dic = @{@"pageSize" :[[NSString alloc] initWithFormat:@"%d",m_pagesize]
+                          ,@"pageOffset" : [[NSString alloc] initWithFormat:@"%d",m_pageOffset]};
+    [[StoreOnlineNetworkEngine shareInstance] startNetWorkWithPath:@"services/order/mylist"
+                                                            params:dic
+                                                            repeat:YES
+                                                             isGet:YES
+                                                       resultBlock:^(BOOL bValidJSON, NSString *errorMsg, id result) {
+                                                           if(!bValidJSON)
+                                                           {
+                                                               NSLog(@"error %@",errorMsg);
+                                                           }else
+                                                           {
+                                                               m_MyOrderlist =result;
+                                                               [self.tableView reloadData];
+                                                           }
+                                                       }];
 }
 
 #pragma mark -
