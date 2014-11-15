@@ -80,8 +80,15 @@
     m_iamgeview.userInteractionEnabled = YES;
     UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(imageViewTap:)];
     [m_iamgeview addGestureRecognizer:singleTap];
+    
+    UITapGestureRecognizer *closeKeyboardTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(closeKeyBoardTap)];
+    [self.view addGestureRecognizer:closeKeyboardTap];
 }
 
+- (void)closeKeyBoardTap {
+    
+    [self.m_Nickname resignFirstResponder];
+}
 
 - (void)imageViewTap:(UITapGestureRecognizer *) tap {
     

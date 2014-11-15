@@ -12,6 +12,8 @@
 #import "AppDelegate.h"
 @interface LYShoppingcart ()
 
+@property (weak, nonatomic) IBOutlet UILabel *totalLabel;
+
 @end
 
 @implementation LYShoppingcart
@@ -50,16 +52,7 @@
     [super setEditing:YES];
     [self.m_tableView performSelector:@selector(reloadData) withObject:nil afterDelay:0.3];
 }
-/*
- #pragma mark - Navigation
- 
- // In a storyboard-based application, you will often want to do a little preparation before navigation
- - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
- {
- // Get the new view controller using [segue destinationViewController].
- // Pass the selected object to the new view controller.
- }
- */
+
 #pragma mark Table view data source
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
@@ -125,7 +118,13 @@
         [name       setText:[temp objectForKey:@"name"]]; // 商品名字
         [quantityfl setText:[temp objectForKey:@"quantity"]]; // 选择数量
         CGFloat price = [[temp objectForKey:@"price"] floatValue];
-        [pricelb    setText:[[NSString alloc] initWithFormat:@"￥%.02f", price]]; // 价格，小数点两位精度
+        [pricelb setText:[[NSString alloc] initWithFormat:@"￥%.02f", price]]; // 价格，小数点两位精度
+        for (int i ; i < indexPath.row; i++) {
+            CGFloat textFloat = [[temp objectForKey:@"quantity"] floatValue];
+            CGFloat totalFloat = price * textFloat;
+            
+            self.totalLabel.text = [[NSString alloc] initWithFormat:@"￥%.02f",totalFloat];
+        }
         
         UIButton *LessButton = [[UIButton alloc] init];
         LessButton = (UIButton *)[cell viewWithTag:106];
