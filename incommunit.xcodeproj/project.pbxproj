@@ -216,6 +216,7 @@
 		F14F51F11A0378CF006CC884 /* InfoHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = F14F51EF1A0378CF006CC884 /* InfoHeader.xib */; };
 		F14F51F41A0382B7006CC884 /* MyStoresTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F14F51F31A0382B7006CC884 /* MyStoresTableViewController.m */; };
 		F15AE49A1A0208180084009C /* 黄色小三角_03.png in Resources */ = {isa = PBXBuildFile; fileRef = F15AE4991A0208180084009C /* 黄色小三角_03.png */; };
+		F15D944F1A19E8DB00C2C7FD /* HLineLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = F15D944E1A19E8DB00C2C7FD /* HLineLabel.m */; };
 		F16D77AE1A033E680044D858 /* CommentTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F16D77AC1A033E680044D858 /* CommentTableViewCell.m */; };
 		F16D77AF1A033E680044D858 /* CommentTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F16D77AD1A033E680044D858 /* CommentTableViewCell.xib */; };
 		F18E640C1A10B4D9001BD189 /* default_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = F18E640B1A10B4D9001BD189 /* default_icon.png */; };
@@ -619,6 +620,8 @@
 		F14F51F21A0382B7006CC884 /* MyStoresTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyStoresTableViewController.h; sourceTree = "<group>"; };
 		F14F51F31A0382B7006CC884 /* MyStoresTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyStoresTableViewController.m; sourceTree = "<group>"; };
 		F15AE4991A0208180084009C /* 黄色小三角_03.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "黄色小三角_03.png"; sourceTree = "<group>"; };
+		F15D944D1A19E8DB00C2C7FD /* HLineLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HLineLabel.h; sourceTree = "<group>"; };
+		F15D944E1A19E8DB00C2C7FD /* HLineLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HLineLabel.m; sourceTree = "<group>"; };
 		F16D77AB1A033E680044D858 /* CommentTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommentTableViewCell.h; sourceTree = "<group>"; };
 		F16D77AC1A033E680044D858 /* CommentTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommentTableViewCell.m; sourceTree = "<group>"; };
 		F16D77AD1A033E680044D858 /* CommentTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CommentTableViewCell.xib; sourceTree = "<group>"; };
@@ -803,6 +806,8 @@
 				F18E640E1A10BD91001BD189 /* CustomColorSearchBar.m */,
 				AD5CD0041A149F170016E2C0 /* UIImageView+MKNetworkKitAdditions.h */,
 				AD5CD0051A149F170016E2C0 /* UIImageView+MKNetworkKitAdditions.m */,
+				F15D944D1A19E8DB00C2C7FD /* HLineLabel.h */,
+				F15D944E1A19E8DB00C2C7FD /* HLineLabel.m */,
 			);
 			path = CustomControls;
 			sourceTree = "<group>";
@@ -1332,11 +1337,11 @@
 				TargetAttributes = {
 					AD33EC8919FBB13F00FE0C11 = {
 						CreatedOnToolsVersion = 6.1;
-						DevelopmentTeam = 95N42RGW4F;
+						DevelopmentTeam = RVMYYQYXU5;
 					};
 					AD33ECA219FBB13F00FE0C11 = {
 						CreatedOnToolsVersion = 6.1;
-						DevelopmentTeam = 95N42RGW4F;
+						DevelopmentTeam = RVMYYQYXU5;
 						TestTargetID = AD33EC8919FBB13F00FE0C11;
 					};
 				};
@@ -1597,6 +1602,7 @@
 				F16D77AE1A033E680044D858 /* CommentTableViewCell.m in Sources */,
 				F13D4C291A0750B100E23FDB /* NCMainViewController.m in Sources */,
 				AD6A9B821A09CA420031B7C2 /* LYDownCell.m in Sources */,
+				F15D944F1A19E8DB00C2C7FD /* HLineLabel.m in Sources */,
 				AD33ED5B19FBCAB500FE0C11 /* LYSqllite.m in Sources */,
 				AD6211D019FD598A009BECA6 /* LYToolsMain.m in Sources */,
 				F14F19041A0B583900731239 /* ArrowButton.m in Sources */,

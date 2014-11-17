@@ -28,12 +28,19 @@
 
 - (void)awakeFromNib {
     // Initialization code
+    
+    self.oreginPriceLabel.hidden = YES;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
 
     // Configure the view for the selected state
+}
+
+- (void)setOreginPrice:(NSString *)price {
+    self.oreginPriceLabel.hidden = !price;
+    [self.oreginPriceLabel setText:price];
 }
 
 @end

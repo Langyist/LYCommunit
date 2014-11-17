@@ -131,7 +131,7 @@
     
     m_Deliverytableview = [self addTableViewWithIndex:1 searchBar:m_deliverSearch];
     m_ShopDaquan = [self addTableViewWithIndex:2 searchBar:m_shopSearch];
-    m_CellmicroShop = [self addTableViewWithIndex:3 searchBar:m_microShop];
+    m_CellmicroShop = [self addTableViewWithIndex:3 searchBar:nil];
     CGSize size = CGSizeMake(CGRectGetMaxX(m_CellmicroShop.frame), 0);
     [self._scrollView setContentSize:size];
 }
@@ -144,6 +144,12 @@
     tableView.canRefresh = NO;
     tableView.canMore = NO;
     
+    if (searchBar) {
+        [tableView setContentInset:UIEdgeInsetsMake(0, 0, 0, 0)];
+    }
+    else {
+        [tableView setContentInset:UIEdgeInsetsMake(7, 0, 0, 0)];
+    }
     tableView.tableHeaderView = searchBar;
     tableView.tableFooterView = [footerView clone];
     
@@ -571,12 +577,7 @@
             }
             break;
         case 1:
-            if (row == 0) {
-                str = @"默认排序";
-            }else
-            {
-                str = [[[LYFunctionInterface Getorder] objectAtIndex:row - 1] objectForKey:@"order_name"];
-            }
+            str = [[[LYFunctionInterface Getorder] objectAtIndex:row] objectForKey:@"order_name"];
             break;
         default:
             break;

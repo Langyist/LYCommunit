@@ -40,6 +40,7 @@
     [self.view setBackgroundColor:BK_GRAY];
     
     self.settlementButton.layer.cornerRadius = 3.0f;
+    [self.settlementButton setBackgroundColor:SPECIAL_RED];
 }
 
 - (void)didReceiveMemoryWarning
@@ -93,6 +94,8 @@
         }
         [imageView  setImage:[UIImage imageNamed:imageName]]; // 是否全选
         [name setText:[temp objectForKey:@"Storesname"]]; // 商店名称
+        
+        cell.separatorInset = UIEdgeInsetsMake(16.f, 0.f, 0.f, 16.f);
     }
     else {
         CellIdentifier = @"selectGoodsCell";
@@ -134,6 +137,8 @@
         addButton = (UIButton *)[cell viewWithTag:104];
         addButton.tag = indexPath.row - 1;
         [m_textfiledlist addObject:quantityfl];
+        
+        cell.separatorInset = UIEdgeInsetsMake(16.f, 0.f, 0.f, cell.bounds.size.width - 16.f);
     }
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;
@@ -162,10 +167,10 @@
 {
     if (indexPath.row == 0)
     {
-        return 44;
+        return 38;
     }else
     {
-        return 60;
+        return 54;
     }
 }
 

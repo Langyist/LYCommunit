@@ -10,6 +10,33 @@
 #import "CustomToolbarItem.h"
 #import "AppDelegate.h"
 
+@interface InfoView : UIView
+
+@end
+
+@implementation InfoView
+
+- (void)drawRect:(CGRect)rect {
+    [super drawRect:rect];
+    
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    CGContextSetStrokeColorWithColor(context, [UIColor lightGrayColor].CGColor);
+    
+    CGFloat lineWidth = 0.2f;
+    CGFloat move = 30 - lineWidth;
+    // Draw them with a 2.0 stroke width so they are a bit more visible.
+    CGContextSetLineWidth(context, lineWidth);
+    
+    CGContextMoveToPoint(context, 0.0f, move); //start at this point
+    
+    CGContextAddLineToPoint(context, CGRectGetWidth(rect), move); //draw to this point
+    
+    // and now draw the Path!
+    CGContextStrokePath(context);
+}
+
+@end
+
 @interface LYProductinformation ()
 @property (weak, nonatomic) IBOutlet UIView *desContainerView;
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
@@ -24,10 +51,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     NSThread *myThread01 = [[NSThread alloc] initWithTarget:self
-                                         selector:@selector(GetProductDetails:)
-                                           object:self];
+                                                   selector:@selector(GetProductDetails:)
+                                                     object:self];
     [myThread01 start];
-
+    
     
     UIBarButtonItem *homePage = [self createCustomItem:@"首页" imageName:@"首页" selector:@selector(jumpToPage:) tag:100];
     UIBarButtonItem *persionalPage = [self createCustomItem:@"个人主页" imageName:@"2" selector:@selector(jumpToPage:) tag:101];
@@ -45,7 +72,7 @@
                       ,[self createFixableItem:17]
                       ,nil];
     [self setToolbarItems:array animated:YES];
-
+    
     UITapGestureRecognizer* singleRecognizer;
     singleRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(ClickView)];
     singleRecognizer.numberOfTapsRequired = 1; // 单击
@@ -138,32 +165,32 @@
 
 -(IBAction)SetChan:(NSString *)URL
 {
-//    if ([[[NSString alloc]initWithFormat:@"%@",[m_ProductDetails objectForKey:@"isLike"]]isEqual:@"1"])
-//    {
-//        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"你已经赞过该商品" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:@"取消赞", nil];
-//        [alert show];
-//    }else
-//    {
-//        NSDictionary *plistDic = [[NSBundle mainBundle] infoDictionary];
-//        NSLog(@"plistDic = %@",plistDic);
-//        NSString *url = [plistDic objectForKey: @"URL"];
-//        NSError *error;
-//        NSString *urlstr = [[NSString alloc] initWithFormat:@"%@/services/shop/commodity_like?id=%@",url,m_GoodsID];
-//        NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:urlstr]];
-//        NSData *response = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
-//        if (response!=nil)
-//        {
-//            NSDictionary *weatherDic = [NSJSONSerialization JSONObjectWithData:response options:NSJSONReadingMutableLeaves error:&error];
-//            NSString *status = [weatherDic objectForKey:@"status"];
-//            if (![[weatherDic objectForKey:@"status"]isEqual:@"200"])
-//            {
-//                UIAlertView * alert = [[UIAlertView alloc] initWithTitle:@"提示" message:[weatherDic objectForKey:@"message"] delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
-//                [alert show];
-//            }
-//            NSLog(@"%@",status);
-//            m_ProductDetails = [weatherDic objectForKey:@"data"];
-//        }
-//    }
+    //    if ([[[NSString alloc]initWithFormat:@"%@",[m_ProductDetails objectForKey:@"isLike"]]isEqual:@"1"])
+    //    {
+    //        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"你已经赞过该商品" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:@"取消赞", nil];
+    //        [alert show];
+    //    }else
+    //    {
+    //        NSDictionary *plistDic = [[NSBundle mainBundle] infoDictionary];
+    //        NSLog(@"plistDic = %@",plistDic);
+    //        NSString *url = [plistDic objectForKey: @"URL"];
+    //        NSError *error;
+    //        NSString *urlstr = [[NSString alloc] initWithFormat:@"%@/services/shop/commodity_like?id=%@",url,m_GoodsID];
+    //        NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:urlstr]];
+    //        NSData *response = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
+    //        if (response!=nil)
+    //        {
+    //            NSDictionary *weatherDic = [NSJSONSerialization JSONObjectWithData:response options:NSJSONReadingMutableLeaves error:&error];
+    //            NSString *status = [weatherDic objectForKey:@"status"];
+    //            if (![[weatherDic objectForKey:@"status"]isEqual:@"200"])
+    //            {
+    //                UIAlertView * alert = [[UIAlertView alloc] initWithTitle:@"提示" message:[weatherDic objectForKey:@"message"] delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+    //                [alert show];
+    //            }
+    //            NSLog(@"%@",status);
+    //            m_ProductDetails = [weatherDic objectForKey:@"data"];
+    //        }
+    //    }
 }
 
 //刷新数据
@@ -181,7 +208,7 @@
         }
         NSString *priceString = [NSString stringWithFormat:@"￥%.2f", [priceNumber floatValue]];
         NSMutableAttributedString *priceAttiString = [[NSMutableAttributedString alloc] initWithString:priceString];
-        [priceAttiString addAttribute:NSForegroundColorAttributeName value:TOP_BAR_YELLOW range:NSMakeRange(0, priceAttiString.length)];
+        [priceAttiString addAttribute:NSForegroundColorAttributeName value:SPECIAL_RED range:NSMakeRange(0, priceAttiString.length)];
         [priceAttiString addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:15] range:NSMakeRange(0, 1)];
         [priceAttiString addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:27] range:NSMakeRange(1, priceAttiString.length - 1)];
         [m_Price setAttributedText:priceAttiString];

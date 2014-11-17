@@ -15,7 +15,7 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="107" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="￥5.00" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Nfn-h6-39j">
-                        <rect key="frame" x="100" y="61" width="166" height="19"/>
+                        <rect key="frame" x="100" y="61" width="48" height="19"/>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <color key="textColor" red="0.99607849120000003" green="0.46666669849999998" blue="0.0078431377190000002" alpha="1" colorSpace="deviceRGB"/>
                         <nil key="highlightedColor"/>
@@ -38,13 +38,19 @@
                     <imageView userInteractionEnabled="NO" tag="110" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="加入购物车_13.png" translatesAutoresizingMaskIntoConstraints="NO" id="9Fn-Br-KVw">
                         <rect key="frame" x="274" y="47" width="38" height="33"/>
                     </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6fx-pc-RoW" customClass="HLineLabel">
+                        <rect key="frame" x="156" y="60" width="42" height="21"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                        <color key="textColor" red="0.50196078431372548" green="0.50196078431372548" blue="0.50196078431372548" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
                 </subviews>
             </tableViewCellContentView>
             <point key="canvasLocation" x="325" y="320"/>
         </tableViewCell>
     </objects>
     <resources>
-        <image name="ic_default_commodity.png" width="151" height="124"/>
+        <image name="ic_default_commodity.png" width="150" height="120"/>
         <image name="加入购物车_13.png" width="66" height="59"/>
     </resources>
 </document>
