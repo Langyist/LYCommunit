@@ -29,10 +29,10 @@
     
     m_titleLabel.text= [detailDataDictorynary objectForKey:@"name"];
     m_infoLabel.text = [detailDataDictorynary objectForKey:@"content"];
-//    [self setTextContent:[detailDataDictorynary objectForKey:@"content"]];
-//    [self setTimestamp:@"create_time"];
+    [self setTextContent:[detailDataDictorynary objectForKey:@"content"]];
+    [self setTimestamp:@"create_time"];
 
-    m_timeLabel.text = [NSString stringWithFormat:@"%@",[detailDataDictorynary objectForKey:@"create_time"]];
+//    m_timeLabel.text = [NSString stringWithFormat:@"%@",[detailDataDictorynary objectForKey:@"create_time"]];
 }
 - (void)didReceiveMemoryWarning
 {
