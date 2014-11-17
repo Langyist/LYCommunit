@@ -402,6 +402,7 @@ static CGRect startRect;
     if ([_colMenuDelegate respondsToSelector:@selector(colMune:titleForHeaderOfSection:)]) {
         NSString *titleForHeaderInSection = [_colMenuDelegate colMune:[ColMenu sharedMenu] titleForHeaderOfSection:tableView.tag];
         UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(tableView.separatorInset.left, 0, CGRectGetWidth(tableView.frame) - tableView.separatorInset.left - 1, 42)];
+        [label setFont:[UIFont systemFontOfSize:14.0f]];
         [label setText:titleForHeaderInSection];
         [label setBackgroundColor:[UIColor whiteColor]];
 //        

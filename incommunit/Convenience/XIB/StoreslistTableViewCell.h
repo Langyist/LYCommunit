@@ -10,4 +10,8 @@
 
 @interface StoreslistTableViewCell : UITableViewCell
 
+@property (weak, nonatomic) UILabel *oreginPriceLabel;
+
+- (void)setOreginPrice:(NSString *)price;
+
 @end
