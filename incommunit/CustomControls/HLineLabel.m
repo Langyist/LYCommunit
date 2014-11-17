@@ -18,8 +18,8 @@
     CGContextRef context = UIGraphicsGetCurrentContext();
     CGContextSetStrokeColorWithColor(context, [UIColor lightGrayColor].CGColor);
     
-    CGFloat lineWidth = 0.2f;
-    CGFloat space = CGRectGetHeight(rect) - lineWidth;
+    CGFloat lineWidth = 0.5f;
+    CGFloat space = CGRectGetHeight(rect) / 2.f - lineWidth + CGRectGetMinY(rect);
     // Draw them with a 2.0 stroke width so they are a bit more visible.
     CGContextSetLineWidth(context, lineWidth);
     

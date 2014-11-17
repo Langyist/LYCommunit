@@ -219,7 +219,8 @@
         }
         m_GoodsName.text = [Goodsinfo objectForKey:@"name"];
         m_GoodsChan.text = [[NSString alloc]initWithFormat:@"点赞次数：%@",[Goodsinfo objectForKey:@"like"]];
-        m_Price.text = [[NSString alloc]initWithFormat:@"￥%@.00",[Goodsinfo objectForKey:@"price"]];
+        [storeslistTableViewCell setPrice:[[NSString alloc]initWithFormat:@"￥%@.00",[Goodsinfo objectForKey:@"price"]]];
+        [storeslistTableViewCell setOreginPrice:[[NSString alloc]initWithFormat:@"￥%@.00",[Goodsinfo objectForKey:@"price"]]];
         cell = storeslistTableViewCell;
     }
     return cell;

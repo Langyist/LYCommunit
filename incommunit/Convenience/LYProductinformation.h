@@ -22,6 +22,7 @@
 @property(nonatomic,retain)IBOutlet UIImageView *m_iamgeview;
 @property(nonatomic,retain)IBOutlet UILabel *m_GoodsName;
 @property(nonatomic,retain)IBOutlet UILabel *m_Price;
+@property (weak, nonatomic) IBOutlet UILabel *oreginPrice;
 @property(nonatomic,retain)IBOutlet UITextView *m_Introduction;
 @property(nonatomic,retain)IBOutlet UITextField *m_textField;
 @end
