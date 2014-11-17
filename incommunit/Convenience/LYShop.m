@@ -273,7 +273,7 @@
     }
     if (indexPath.row > 5) {
         NSMutableDictionary *Goodsinfo =[m_Goodslist objectAtIndex:indexPath.row-6];
-        m_Goodsid =  m_Goodsid = [[NSString alloc] initWithFormat:@"%@",[Goodsinfo objectForKey:@"id"]];
+        m_Goodsid = [[NSString alloc] initWithFormat:@"%@",[Goodsinfo objectForKey:@"id"]];
         [self performSegueWithIdentifier:@"GoProductDetails" sender:self];
     }
     [tableView deselectRowAtIndexPath:indexPath animated:NO];

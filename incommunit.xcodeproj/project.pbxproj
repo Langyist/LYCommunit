@@ -157,6 +157,7 @@
 		AD6A9B961A09D0E20031B7C2 /* libbaidumapapi.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AD3DD40319FE348600364854 /* libbaidumapapi.a */; };
 		AD71C8E51A0DEC8900EAB40E /* StoreOnlineNetworkEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = AD71C8E41A0DEC8900EAB40E /* StoreOnlineNetworkEngine.m */; };
 		AD71C8E81A0DFBDD00EAB40E /* Location.m in Sources */ = {isa = PBXBuildFile; fileRef = AD71C8E71A0DFBDD00EAB40E /* Location.m */; };
+		AD77D5CE1A17513700CAB1F7 /* LYReplyMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = AD77D5CD1A17513700CAB1F7 /* LYReplyMessage.m */; };
 		AD7FBA8D1A0214E2008CC80A /* LYProManagementMain.m in Sources */ = {isa = PBXBuildFile; fileRef = AD7FBA8C1A0214E2008CC80A /* LYProManagementMain.m */; };
 		AD7FBAAE1A0216FF008CC80A /* ACCell1.xib in Resources */ = {isa = PBXBuildFile; fileRef = AD7FBA9E1A0216FF008CC80A /* ACCell1.xib */; };
 		AD7FBAAF1A0216FF008CC80A /* AnnouncementCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AD7FBA9F1A0216FF008CC80A /* AnnouncementCell.xib */; };
@@ -171,6 +172,8 @@
 		AD7FBAB81A0216FF008CC80A /* MaintenanceCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AD7FBAAD1A0216FF008CC80A /* MaintenanceCell.xib */; };
 		AD7FBABB1A021919008CC80A /* LYPostcomment.m in Sources */ = {isa = PBXBuildFile; fileRef = AD7FBABA1A021919008CC80A /* LYPostcomment.m */; };
 		AD8714D91A07728C00BEAF5E /* LYSubmitOrder.m in Sources */ = {isa = PBXBuildFile; fileRef = AD8714D81A07728C00BEAF5E /* LYSubmitOrder.m */; };
+		ADB9FF101A1740C100F0A2B2 /* LYAnnDetails.m in Sources */ = {isa = PBXBuildFile; fileRef = ADB9FF0F1A1740C100F0A2B2 /* LYAnnDetails.m */; };
+		ADB9FF131A17450700F0A2B2 /* LY_repair.m in Sources */ = {isa = PBXBuildFile; fileRef = ADB9FF121A17450700F0A2B2 /* LY_repair.m */; };
 		EF31A2111A0381D80039E52C /* XHFriendlyLoadingView.m in Sources */ = {isa = PBXBuildFile; fileRef = EF31A2101A0381D80039E52C /* XHFriendlyLoadingView.m */; };
 		EF486B021A075BA2003B5B54 /* 交流框_03.png in Resources */ = {isa = PBXBuildFile; fileRef = EF486AFE1A075BA2003B5B54 /* 交流框_03.png */; };
 		EF486B031A075BA2003B5B54 /* 进行中_03.png in Resources */ = {isa = PBXBuildFile; fileRef = EF486AFF1A075BA2003B5B54 /* 进行中_03.png */; };
@@ -530,6 +533,8 @@
 		AD71C8E41A0DEC8900EAB40E /* StoreOnlineNetworkEngine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StoreOnlineNetworkEngine.m; sourceTree = "<group>"; };
 		AD71C8E61A0DFBDD00EAB40E /* Location.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Location.h; sourceTree = "<group>"; };
 		AD71C8E71A0DFBDD00EAB40E /* Location.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Location.m; sourceTree = "<group>"; };
+		AD77D5CC1A17513700CAB1F7 /* LYReplyMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LYReplyMessage.h; sourceTree = "<group>"; };
+		AD77D5CD1A17513700CAB1F7 /* LYReplyMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LYReplyMessage.m; sourceTree = "<group>"; };
 		AD7FBA8B1A0214E2008CC80A /* LYProManagementMain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LYProManagementMain.h; sourceTree = "<group>"; };
 		AD7FBA8C1A0214E2008CC80A /* LYProManagementMain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LYProManagementMain.m; sourceTree = "<group>"; };
 		AD7FBA9E1A0216FF008CC80A /* ACCell1.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ACCell1.xib; sourceTree = "<group>"; };
@@ -552,6 +557,10 @@
 		AD7FBABA1A021919008CC80A /* LYPostcomment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LYPostcomment.m; sourceTree = "<group>"; };
 		AD8714D71A07728C00BEAF5E /* LYSubmitOrder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LYSubmitOrder.h; sourceTree = "<group>"; };
 		AD8714D81A07728C00BEAF5E /* LYSubmitOrder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LYSubmitOrder.m; sourceTree = "<group>"; };
+		ADB9FF0E1A1740C100F0A2B2 /* LYAnnDetails.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LYAnnDetails.h; sourceTree = "<group>"; };
+		ADB9FF0F1A1740C100F0A2B2 /* LYAnnDetails.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LYAnnDetails.m; sourceTree = "<group>"; };
+		ADB9FF111A17450700F0A2B2 /* LY_repair.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LY_repair.h; sourceTree = "<group>"; };
+		ADB9FF121A17450700F0A2B2 /* LY_repair.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LY_repair.m; sourceTree = "<group>"; };
 		D71C5CFE54A57C5A6016A6D9 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		EF31A20F1A0381D80039E52C /* XHFriendlyLoadingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XHFriendlyLoadingView.h; sourceTree = "<group>"; };
 		EF31A2101A0381D80039E52C /* XHFriendlyLoadingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XHFriendlyLoadingView.m; sourceTree = "<group>"; };
@@ -1203,6 +1212,12 @@
 		AD7FBA8A1A0214B7008CC80A /* PropertyManagement */ = {
 			isa = PBXGroup;
 			children = (
+				AD77D5CC1A17513700CAB1F7 /* LYReplyMessage.h */,
+				AD77D5CD1A17513700CAB1F7 /* LYReplyMessage.m */,
+				ADB9FF111A17450700F0A2B2 /* LY_repair.h */,
+				ADB9FF121A17450700F0A2B2 /* LY_repair.m */,
+				ADB9FF0E1A1740C100F0A2B2 /* LYAnnDetails.h */,
+				ADB9FF0F1A1740C100F0A2B2 /* LYAnnDetails.m */,
 				AD7FBA8B1A0214E2008CC80A /* LYProManagementMain.h */,
 				AD7FBA8C1A0214E2008CC80A /* LYProManagementMain.m */,
 				AD7FBAB91A021919008CC80A /* LYPostcomment.h */,
@@ -1563,6 +1578,7 @@
 				AD3DD40F19FE498600364854 /* LYShoppingcart.m in Sources */,
 				AD33EC9619FBB13F00FE0C11 /* LYSelectCommunit.m in Sources */,
 				AD6A9B731A09C77E0031B7C2 /* LYMycollection.m in Sources */,
+				AD77D5CE1A17513700CAB1F7 /* LYReplyMessage.m in Sources */,
 				AD6211AC19FD46BD009BECA6 /* LeslieAsyncImageDownloader.m in Sources */,
 				AD3DD3C319FE2E4A00364854 /* UIActionSheet+Blocks.m in Sources */,
 				AD5CD0061A149F170016E2C0 /* UIImageView+MKNetworkKitAdditions.m in Sources */,
@@ -1574,6 +1590,7 @@
 				AD6211E619FD90A8009BECA6 /* LYSignup.m in Sources */,
 				AD6211DA19FD5EFE009BECA6 /* LYPrivacySettings.m in Sources */,
 				AD7FBAB71A0216FF008CC80A /* LY_MaintenanceCell.m in Sources */,
+				ADB9FF131A17450700F0A2B2 /* LY_repair.m in Sources */,
 				AD3DD3B519FDF36600364854 /* LYaddCommunit.m in Sources */,
 				AD6211A019FD42CE009BECA6 /* LYnetwork.m in Sources */,
 				F18E64231A122C0B001BD189 /* SubmitOrderItemView.m in Sources */,
@@ -1624,6 +1641,7 @@
 				AD33ECC019FBC39700FE0C11 /* LYUIview.m in Sources */,
 				AD62118619FD3148009BECA6 /* LYUserloginView.m in Sources */,
 				F14F18FB1A0A15C200731239 /* AddActionViewController.m in Sources */,
+				ADB9FF101A1740C100F0A2B2 /* LYAnnDetails.m in Sources */,
 				AD09555D1A08C7BF00C53A6F /* LYFeedback.m in Sources */,
 				F10340CE19FF5BC500C5CB4E /* InsetTextField.m in Sources */,
 				F14F18FE1A0A2D0F00731239 /* ColMenu.m in Sources */,

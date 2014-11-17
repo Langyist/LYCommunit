@@ -31,7 +31,6 @@
 }
 
 @end
-
 @implementation LYconvenienceMain
 
 - (void)viewDidLoad
@@ -408,7 +407,6 @@
                                                                [m_Deliverytableview reloadData];
                                                            }
                                                        }];
-    
 }
 
 //获取店铺大全数据
@@ -605,7 +603,7 @@
                         orderstr = @"";
                     }else
                     {
-                        orderstr = [[[LYFunctionInterface Getorder] objectAtIndex:row-1] objectForKey:@"order_id"];
+                        orderstr = [[[LYFunctionInterface Getorder] objectAtIndex:row-1] objectForKey:@"order"];
                     }
                     [self GetdataDelivery];
                     break;
@@ -642,7 +640,8 @@
     
 }
 
-- (NSString *)colMune:(ColMenu *)colMenu titleForHeaderOfSection:(NSInteger)section {
+- (NSString *)colMune:(ColMenu *)colMenu titleForHeaderOfSection:(NSInteger)section
+{
     NSString * titleForHeaderOfSection = @"";
     switch (section) {
         case 0:

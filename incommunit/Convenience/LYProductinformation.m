@@ -9,6 +9,7 @@
 #import "LYProductinformation.h"
 #import "CustomToolbarItem.h"
 #import "AppDelegate.h"
+#import "StoreOnlineNetworkEngine.h"
 
 @interface InfoView : UIView
 
@@ -139,22 +140,19 @@
 #pragma mark - 获取网络数据
 -(void)GetProductDetails:(LYProductinformation *)obj
 {
-    NSDictionary *plistDic = [[NSBundle mainBundle] infoDictionary];
-    NSLog(@"plistDic = %@",plistDic);
-    NSString *url = [plistDic objectForKey: @"URL"];
-    NSError *error;
-    NSString *urlstr = [[NSString alloc] initWithFormat:@"%@/services/shop/commodity_detail?id=%@",url,m_GoodsID];
-    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:urlstr]];
-    NSData *response = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
-    if(response!=nil)
-    {
-        NSDictionary *weatherDic = [NSJSONSerialization JSONObjectWithData:response options:NSJSONReadingMutableLeaves error:&error];
-        NSString *status = [weatherDic objectForKey:@"status"];
-        NSLog(@"%@",status);
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self Updata:[weatherDic objectForKey:@"data"]];
-        });
-    }
+    NSDictionary *dic = @{@"id" : m_GoodsID };
+    [[StoreOnlineNetworkEngine shareInstance] startNetWorkWithPath:@"services/shop/commodity_detail"
+                                                            params:dic
+                                                            repeat:YES
+                                                             isGet:YES
+                                                       resultBlock:^(BOOL bValidJSON, NSString *errorMsg, id result) {
+                                                           if(!bValidJSON)
+                                                           {
+                                                           }else
+                                                           {
+                                                               [self Updata:result];
+                                                           
+                                                           }}];
 }
 
 - (IBAction)laud:(id)sender {
@@ -163,34 +161,35 @@
 - (IBAction)addShopingCart:(id)sender {
 }
 
--(IBAction)SetChan:(NSString *)URL
+-(IBAction)SetChan
 {
-    //    if ([[[NSString alloc]initWithFormat:@"%@",[m_ProductDetails objectForKey:@"isLike"]]isEqual:@"1"])
-    //    {
-    //        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"你已经赞过该商品" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:@"取消赞", nil];
-    //        [alert show];
-    //    }else
-    //    {
-    //        NSDictionary *plistDic = [[NSBundle mainBundle] infoDictionary];
-    //        NSLog(@"plistDic = %@",plistDic);
-    //        NSString *url = [plistDic objectForKey: @"URL"];
-    //        NSError *error;
-    //        NSString *urlstr = [[NSString alloc] initWithFormat:@"%@/services/shop/commodity_like?id=%@",url,m_GoodsID];
-    //        NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:urlstr]];
-    //        NSData *response = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
-    //        if (response!=nil)
-    //        {
-    //            NSDictionary *weatherDic = [NSJSONSerialization JSONObjectWithData:response options:NSJSONReadingMutableLeaves error:&error];
-    //            NSString *status = [weatherDic objectForKey:@"status"];
-    //            if (![[weatherDic objectForKey:@"status"]isEqual:@"200"])
-    //            {
-    //                UIAlertView * alert = [[UIAlertView alloc] initWithTitle:@"提示" message:[weatherDic objectForKey:@"message"] delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
-    //                [alert show];
-    //            }
-    //            NSLog(@"%@",status);
-    //            m_ProductDetails = [weatherDic objectForKey:@"data"];
-    //        }
-    //    }
+    if ([[[NSString alloc]initWithFormat:@"%@",[m_ProductDetails objectForKey:@"isLike"]]isEqual:@"1"])
+    {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"你已经赞过该商品" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:@"取消赞", nil];
+        [alert show];
+    }else
+    {
+        NSDictionary *dic = @{@"id" : m_GoodsID };
+        [[StoreOnlineNetworkEngine shareInstance] startNetWorkWithPath:@"services/shop/commodity_like"
+                                                                params:dic
+                                                                repeat:YES
+                                                                 isGet:YES
+                                                           resultBlock:^(BOOL bValidJSON, NSString *errorMsg, id result) {
+                                                               if(!bValidJSON)
+                                                               {
+                                                                   UIAlertView * alert = [[UIAlertView alloc] initWithTitle:@"提示"
+                                                                                                                    message:errorMsg
+                                                                                                                   delegate:self
+                                                                                                          cancelButtonTitle:@"确定"
+                                                                                                          otherButtonTitles:nil, nil];
+                                                                    [alert show];
+                                                               }else
+                                                               {
+                                                                   m_ProductDetails =result;
+                                                                   
+                                                               }}];
+        
+    }
 }
 
 //刷新数据
@@ -293,7 +292,6 @@
                          animations:^{
                              UIEdgeInsets inset = UIEdgeInsetsMake(0, 0, -ty, 0);
                              [self.scrollView setContentInset:inset];
-                             
                              [self.scrollView setContentOffset:CGPointMake(0, CGRectGetMinY(m_textField.frame) - 50)];
                          }];
     }
@@ -302,7 +300,6 @@
 #pragma mark 键盘即将退出
 
 - (void)keyBoardWillHide:(NSNotification *)note{
-    
     [UIView animateWithDuration:[note.userInfo[UIKeyboardAnimationDurationUserInfoKey] doubleValue]
                      animations:^{
                          [self.scrollView setContentInset:UIEdgeInsetsZero];
@@ -326,16 +323,16 @@
     switch (sender.tag) {
         case 100:
             [self.navigationController popToRootViewControllerAnimated:YES];
-            //[self performSegueWithIdentifier:@"BackMian" sender:self];
+            [self performSegueWithIdentifier:@"GoFunction" sender:self];
             break;
         case 101:
-            //[self performSegueWithIdentifier:@"GoTools" sender:self];
+            [self performSegueWithIdentifier:@"GoPersonal" sender:self];
             break;
         case 102:
-            [self performSegueWithIdentifier:@"GoMyCatshop" sender:self];
+            [self performSegueWithIdentifier:@"Goshopcat" sender:self];
             break;
         case 103:
-            [self performSegueWithIdentifier:@"Orders" sender:self];
+            [self performSegueWithIdentifier:@"GoMyOrder" sender:self];
             break;
         default:
             break;

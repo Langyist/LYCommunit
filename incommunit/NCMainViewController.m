@@ -15,7 +15,8 @@
 
 #import "NCDetailTableViewController.h"
 
-@interface NCMainViewController () {
+@interface NCMainViewController ()
+{
     UITableView* woodsInfoTableView;
     UITableView* carInfoTableView;
     UITableView* roomInfoTableView;
@@ -135,6 +136,7 @@
     [cell setTitle:[[m_infodata objectAtIndex:indexPath.row] objectForKey:@"title"]];
     [cell setContent:[[m_infodata objectAtIndex:indexPath.row] objectForKey:@"content"]];
     [cell setTimestampString:[[m_infodata objectAtIndex:indexPath.row] objectForKey:@"create_time"]];
+    [cell setTitleImagePath:[[m_infodata objectAtIndex:indexPath.row] objectForKey:@"head"]];
     
     if (indexPath.row != 0) {
         [cell setShowTopIcon:NO];

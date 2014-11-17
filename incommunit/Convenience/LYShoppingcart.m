@@ -122,12 +122,11 @@
         [quantityfl setText:[temp objectForKey:@"quantity"]]; // 选择数量
         CGFloat price = [[temp objectForKey:@"price"] floatValue];
         [pricelb setText:[[NSString alloc] initWithFormat:@"￥%.02f", price]]; // 价格，小数点两位精度
-        for (int i ; i < indexPath.row; i++) {
-            CGFloat textFloat = [[temp objectForKey:@"quantity"] floatValue];
-            CGFloat totalFloat = price * textFloat;
+
+        CGFloat textFloat = [[temp objectForKey:@"quantity"] floatValue];
+        CGFloat totalFloat = price * textFloat;
             
-            self.totalLabel.text = [[NSString alloc] initWithFormat:@"￥%.02f",totalFloat];
-        }
+        self.totalLabel.text = [[NSString alloc] initWithFormat:@"￥%.02f",totalFloat];
         
         UIButton *LessButton = [[UIButton alloc] init];
         LessButton = (UIButton *)[cell viewWithTag:106];
@@ -229,6 +228,7 @@
         for (NSDictionary *goodsInfo in listOne) {
             if ([[goodsInfo objectForKey:@"isSelected"] boolValue]) {
                 number += 1;
+                
             }
         }
     }
