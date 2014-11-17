@@ -635,7 +635,7 @@
                         orderstr = @"";
                     }else
                     {
-                        orderstr = [[[LYFunctionInterface Getorder] objectAtIndex:row-1] objectForKey:@"order_id"];
+                        orderstr = [[[LYFunctionInterface Getorder] objectAtIndex:row-1] objectForKey:@"order"];
                     }
                     [self GetShopDaquandata];
                     break;
