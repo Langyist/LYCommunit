@@ -2290,7 +2290,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="￥3.00" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="cNf-ds-azL">
-                                                <rect key="frame" x="32" y="216" width="257" height="21"/>
+                                                <rect key="frame" x="32" y="216" width="168" height="21"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="27"/>
                                                 <color key="textColor" red="0.99607849120000003" green="0.46666669849999998" blue="0.0078431377190000002" alpha="1" colorSpace="deviceRGB"/>
@@ -2357,6 +2357,13 @@
                                                     <action selector="laud:" destination="cSW-zU-IBM" eventType="touchUpInside" id="LrV-RU-r0Y"/>
                                                 </connections>
                                             </button>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="eNK-TC-KjK" customClass="HLineLabel">
+                                                <rect key="frame" x="122" y="219" width="87" height="21"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                <color key="textColor" red="0.50196078431372548" green="0.50196078431372548" blue="0.50196078431372548" alpha="1" colorSpace="calibratedRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                     </view>
@@ -2400,6 +2407,7 @@
                         <outlet property="m_Introduction" destination="Jiy-ra-Ur7" id="SVJ-0T-wwR"/>
                         <outlet property="m_Price" destination="cNf-ds-azL" id="obs-dY-dcn"/>
                         <outlet property="m_textField" destination="gix-b1-S44" id="5ve-Z0-YeK"/>
+                        <outlet property="oreginPrice" destination="eNK-TC-KjK" id="y4K-1L-qdf"/>
                         <outlet property="page" destination="IYh-Ub-1p9" id="f1y-m3-J0m"/>
                         <outlet property="scrollView" destination="fka-hO-3hc" id="uzy-oM-F1e"/>
                         <segue destination="CRG-7h-As7" kind="push" identifier="Goshopcat" id="Vii-lb-CrA"/>

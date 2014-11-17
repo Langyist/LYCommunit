@@ -51,6 +51,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    self.oreginPrice.hidden = YES;
+    
     NSThread *myThread01 = [[NSThread alloc] initWithTarget:self
                                                    selector:@selector(GetProductDetails:)
                                                      object:self];
@@ -212,6 +215,17 @@
         [priceAttiString addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:27] range:NSMakeRange(1, priceAttiString.length - 1)];
         [m_Price setAttributedText:priceAttiString];
         
+        NSString *oreginPriceString = priceString;
+        self.oreginPrice.hidden = !oreginPriceString;
+        [self.oreginPrice setText:oreginPriceString];
+        
+        CGFloat width = [self labelWidth:self.oreginPrice];
+        CGRect rect = self.oreginPrice.bounds;
+        rect.size.width = width;
+        self.oreginPrice.bounds = rect;
+        
+        [self repos];
+        
         // 商品描述
         NSString *desString = [dic objectForKey:@"description"];
         desString = desString ? desString : @"";
@@ -229,7 +243,7 @@
         // 变更控件size
         CGFloat height =[self heightOfLabel:@[desString] size:CGSizeMake(CGRectGetWidth(m_Introduction.frame), CGFLOAT_MAX) font:[UIFont systemFontOfSize:13]];
         
-        CGRect rect = m_Introduction.frame;
+        rect = m_Introduction.frame;
         rect.size.height = height;
         m_Introduction.frame = rect;
         
@@ -278,6 +292,24 @@
     }
     NSDictionary *attributes = [NSDictionary dictionaryWithObjectsAndKeys:font, NSFontAttributeName, nil];
     return [[[NSAttributedString alloc] initWithString:string attributes:attributes] size].width + 26;
+}
+
+- (void)repos {
+    if (!self.oreginPrice.hidden) {
+        CGFloat width = MIN([self widthOfString:self.m_Price.text withFont:self.m_Price.font], CGRectGetWidth(self.m_Price.frame));
+        CGFloat x = CGRectGetMinX(self.m_Price.frame) + width + 10;
+        CGRect rect = self.oreginPrice.frame;
+        rect.origin.x = x;
+        self.oreginPrice.frame = rect;
+    }
+}
+
+- (CGFloat)labelWidth:(UILabel *)label {
+    NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc]init];
+    paragraphStyle.lineBreakMode = NSLineBreakByWordWrapping;
+    NSDictionary *attributes = @{NSFontAttributeName:label.font, NSParagraphStyleAttributeName:paragraphStyle.copy};
+    CGRect textBounds = [label.text boundingRectWithSize:label.frame.size options:NSStringDrawingUsesLineFragmentOrigin attributes:attributes context:nil];
+    return CGRectGetWidth(textBounds);
 }
 
 #pragma mark - 键盘处理
