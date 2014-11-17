@@ -2407,7 +2407,7 @@
                         <segue destination="CRG-7h-As7" kind="push" identifier="Goshopcat" id="Vii-lb-CrA"/>
                         <segue destination="11b-WJ-Ia4" kind="push" identifier="GoMyOrder" id="wuH-0m-Af1"/>
                         <segue destination="cH0-W2-QML" kind="push" identifier="GoPersonal" id="yvO-v4-xXy"/>
-                        <segue destination="195-Ap-2Gv" kind="modal" id="5ST-dg-Gu3"/>
+                        <segue destination="195-Ap-2Gv" kind="modal" identifier="GoFunction" id="5ST-dg-Gu3"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0hn-ta-4FD" userLabel="First Responder" sceneMemberID="firstResponder"/>

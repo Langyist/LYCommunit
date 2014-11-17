@@ -335,7 +335,6 @@
                                                            {
                                                                UIAlertView *al =[[UIAlertView alloc]initWithTitle:@"提示" message:errorMsg delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
                                                                [al show];
-                                                               
                                                            }else
                                                            {
                                                                if ([index isEqual:@"0"]) {
@@ -344,7 +343,6 @@
                                                                        for (int i = 0; i<tempdata1.count; i++)
                                                                        {
                                                                            [PeriodData addObject:[[tempdata1 objectAtIndex:i] objectForKey:@"name"]];
-
                                                                        }
                                                                        BoxView.titlesList = PeriodData;
                                                                        [BoxView reloadData];
