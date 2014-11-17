@@ -5,7 +5,6 @@
 //  Created by LANGYI on 14/10/25.
 //  Copyright (c) 2014年 LANGYI. All rights reserved.
 //
-
 #import "AppDelegate.h"
 #import "UIImage+Scale.h"
 #import "Sqllite/LYSqllite.h"
@@ -22,15 +21,11 @@
 
 @implementation AppDelegate
 
-
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
     MKNetworkEngine *imageEngine = [[MKNetworkEngine alloc] initWithHostName:@"www.baidu.com"];
     [imageEngine useCache];
     [UIImageView setDefaultEngine:imageEngine];
-    
-    // Override point for customization after application launch.
-    
         _mapManager = [[BMKMapManager alloc]init];
         BOOL ret = [_mapManager start:@"lK7gaSg80peIGLH15plumdwW"  generalDelegate:nil];
         if (!ret) {

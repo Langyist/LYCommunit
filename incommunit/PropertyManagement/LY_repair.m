@@ -56,7 +56,7 @@
 }
 
 - (void)GestureImage:(UITapGestureRecognizer *) tap {
-    
+
     UIActionSheet *actionSheet = nil;
     if ([UIImagePickerController isSourceTypeAvailable: UIImagePickerControllerSourceTypeCamera]) {
         actionSheet = [[UIActionSheet alloc] initWithTitle:@"添加照片" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:CAMERA, PHOTOES, nil];
@@ -156,7 +156,6 @@
                                                                
                                                            }
                                                        }];
-
 }
 
 

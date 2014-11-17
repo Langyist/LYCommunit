@@ -639,7 +639,8 @@
     
 }
 
-- (NSString *)colMune:(ColMenu *)colMenu titleForHeaderOfSection:(NSInteger)section {
+- (NSString *)colMune:(ColMenu *)colMenu titleForHeaderOfSection:(NSInteger)section
+{
     NSString * titleForHeaderOfSection = @"";
     switch (section) {
         case 0:

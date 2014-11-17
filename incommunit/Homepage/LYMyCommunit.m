@@ -109,7 +109,8 @@
 }
 @end
 
-@implementation LYMyCommunit {
+@implementation LYMyCommunit
+{
     NSMutableDictionary *temp;
 }
 
