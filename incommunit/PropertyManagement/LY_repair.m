@@ -12,6 +12,7 @@
 #import <MobileCoreServices/UTCoreTypes.h>
 #define CAMERA @"相机"
 #define PHOTOES @"相册"
+#import "StoreOnlineNetworkEngine.h"
 
 @interface LY_repair () <UIActionSheetDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,UIGestureRecognizerDelegate>{
     
@@ -124,34 +125,38 @@
 }
 
 #pragma mark 保存到网络数据
-- (void)getsaverepair:(NSString *)url {
-    
-    NSError *error;
-    //    加载一个NSURL对象
-    NSString    *URLString = [NSString stringWithFormat:@"http://115.29.244.142/inCommunity/services/wuye/service/report"];
-    NSURL *urlstr = [NSURL URLWithString:URLString];
-    NSMutableURLRequest *request = [[NSMutableURLRequest alloc]initWithURL:urlstr cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:10];
-    [request setHTTPMethod:@"POST"];//设置请求方式为POST，默认为GET
-    NSString *param=[NSString stringWithFormat:@"name=%@/position=%@/description=%@/picture=%@",self.titletextField.text,self.addresstextField.text,self.contentField.text,self.addimageView];
-    NSData *data = [param dataUsingEncoding:NSUTF8StringEncoding];
-    [request setHTTPBody:data];
-    
-    //第三步，连接服务器
-    NSData *received = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
-    NSDictionary *saveDic = [NSJSONSerialization JSONObjectWithData:received options:NSJSONReadingMutableLeaves error:&error];
-    if ([[saveDic objectForKey:@"status"] isEqualToString:@"200"])
-    {
-        UIAlertView *al =[[UIAlertView alloc]initWithTitle:@"提示" message:@"报修发表成功！" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
-        [al show];
-    }else
-    {
-        UIAlertView *al =[[UIAlertView alloc]initWithTitle:@"提示"
-                                                   message:[saveDic objectForKey:@"message"]
-                                                  delegate:self
-                                         cancelButtonTitle:@"确定"
-                                         otherButtonTitles:nil, nil];
-        [al show];
-    }
+- (void)getsaverepair:(NSString *)url
+{
+    NSDictionary *dic = @{@"name" : self.titletextField.text
+                          ,@"position" : self.addresstextField.text
+                          ,@"description" : self.contentField.text
+                          ,@"picture" : self.addimageView};
+    [[StoreOnlineNetworkEngine shareInstance] startNetWorkWithPath:@"services/wuye/service/report"
+                                                            params:dic
+                                                            repeat:YES
+                                                             isGet:NO
+                                                       resultBlock:^(BOOL bValidJSON, NSString *errorMsg, id result) {
+                                                           if(!bValidJSON)
+                                                           {
+                                                               UIAlertView *al =[[UIAlertView alloc]initWithTitle:@"提示"
+                                                                                                          message:errorMsg
+                                                                                                         delegate:self
+                                                                                                cancelButtonTitle:@"确定"
+                                                                                                otherButtonTitles:nil, nil];
+                                                               [al show];
+
+                                                           }else
+                                                           {
+                                                               UIAlertView *al =[[UIAlertView alloc]initWithTitle:@"提示"
+                                                                                                          message:@"报修发表成功！"
+                                                                                                         delegate:self
+                                                                                                cancelButtonTitle:@"确定"
+                                                                                                otherButtonTitles:nil, nil];
+                                                               [al show];
+                                                               
+                                                           }
+                                                       }];
+
 }
 
 

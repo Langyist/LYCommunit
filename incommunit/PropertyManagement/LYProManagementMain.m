@@ -265,10 +265,9 @@
     
     if(recognizer.direction==UISwipeGestureRecognizerDirectionLeft) {
         { [UIView animateWithDuration:0.3 animations:^{
-            
             [self.m_scrollView setContentOffset:CGPointMake(2* self.view.frame.size.width,0) animated:YES];
             m_segment.selectedSegmentIndex = 2;
-            
+            [self GetPropertyExchangeData];
         }];}
     }
 }
@@ -280,6 +279,7 @@
             
             [self.m_scrollView setContentOffset:CGPointMake(0* self.view.frame.size.width,0) animated:YES];
             m_segment.selectedSegmentIndex = 0;
+            [self Getnotification];
         }];}
     }
 }
@@ -291,6 +291,7 @@
             
             [self.m_scrollView setContentOffset:CGPointMake(3* self.view.frame.size.width,0) animated:YES];
             m_segment.selectedSegmentIndex = 3;
+            [self GetPropertyServiceData];
         }];}
     }
 }
@@ -347,7 +348,6 @@
         case 2:
         {
             [self.m_scrollView setContentOffset:CGPointMake(2* self.view.frame.size.width,0) animated:YES];
-            
         }
             break;
         case 3:
@@ -547,7 +547,7 @@
     {
         NSDictionary *tempDic = [propertyService objectAtIndex:indexPath.row];
         IDNumber =[[tempDic objectForKey:@"id"] integerValue];
-        [NSThread detachNewThreadSelector:@selector(GetPropertyServiceDetailData:) toTarget:self withObject:nil];
+        [NSThread detachNewThreadSelector:@selector(GetPropertyServiceDetailData) toTarget:self withObject:nil];
         UINib *nib = [UINib nibWithNibName:@"MaintenanceCell" bundle:nil];
         [tableView registerNib:nib forCellReuseIdentifier:@"Maintenanceidentifier"];
         LY_MaintenanceCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Maintenanceidentifier"];
@@ -665,7 +665,8 @@
     }
 }
 //结束滑动显示button
-- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
+{
     if (scrollView == m_MaintableView) {
         repairButton.hidden = NO;
     }
@@ -723,142 +724,89 @@
                                                        }];
 }
 //获取"物业交流"的相关数据
--(BOOL)GetPropertyExchangeData:(NSString*)URL
+-(void)GetPropertyExchangeData
 {
-    NSDictionary *plistDic = [[NSBundle mainBundle] infoDictionary];
-    NSLog(@"plistDic = %@",plistDic);
-    NSString *url = [plistDic objectForKey: @"URL"];
-    NSError *error;
-    //物管联系方式
-    NSString *urlString = [NSString stringWithFormat:@"%@/services/wuye/contacts",url];
-    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:urlString]];
-    NSData *responseData = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:&error];
-    if (nil != error)
-    {
-        return NO;
-    }
-    NSDictionary *parseData = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingMutableLeaves error:&error];
-    if (nil != error)
-    {
-        return NO;
-    }
-    if (![[parseData objectForKey:@"status"] isEqualToString:@"200"])
-    {
-        NSLog(@"%@",[parseData objectForKey:@"status"]);
-        return NO;
-    }
-    propertyExchangeArray = [parseData objectForKey:@"data"];
-    //留言薄
-    urlString = nil;
-    request = nil;
-    responseData = nil;
-    urlString = [NSString stringWithFormat:@"%@/services/wuye/message/list?pageSize=10&pageOffset=0",url];
-    request = [NSURLRequest requestWithURL:[NSURL URLWithString:urlString]];
-    responseData = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:&error];
-    if (nil != error)
-    {
-        return NO;
-    }
-    parseData = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingMutableLeaves error:&error];
-    if (nil != error)
-    {
-        return NO;
-    }
-    if (![[parseData objectForKey:@"status"] isEqualToString:@"200"])
-    {        return NO;
-    }
-    messageBoardListArray = [parseData objectForKey:@"data"];
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [m_ACtableView  reloadData];
-        // 更新UI
-    });
-    return YES;
+    NSDictionary *dic = @{};
+    [[StoreOnlineNetworkEngine shareInstance] startNetWorkWithPath:@"services/wuye/contacts"
+                                                            params:dic
+                                                            repeat:YES
+                                                             isGet:YES
+                                                       resultBlock:^(BOOL bValidJSON, NSString *errorMsg, id result) {
+                                                           if(!bValidJSON)
+                                                           {
+                                                               NSLog(@"%@",errorMsg);
+                                                               
+                                                           }else
+                                                           {
+                                                               messageBoardListArray = result;
+                                                               [m_ACtableView reloadData];
+                                                           }
+                                                       }];
+
+    
 }
 //获取"物业维修"的相关数据
--(BOOL)GetPropertyServiceData:(NSString*)URL
+-(void)GetPropertyServiceData
 {
-    NSDictionary *plistDic = [[NSBundle mainBundle] infoDictionary];
-    NSLog(@"plistDic = %@",plistDic);
-    NSString *url = [plistDic objectForKey: @"URL"];
-    NSError *error;
-    NSString *urlString = [NSString stringWithFormat:@"%@/inCommunity/services/wuye/service/list",url];
-    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:urlString]];
-    NSData *responseData = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:&error];
-    if (nil != error)
-    {
-        return NO;
-    }
-    NSDictionary *parseData = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingMutableLeaves error:&error];
-    if (nil != error)
-    {
-        return NO;
-    }
-    if (![[parseData objectForKey:@"status"] isEqualToString:@"200"])
-    {
-        NSLog(@"%@",[parseData objectForKey:@"status"]);
-        return NO;
-    }
-    propertyService= [parseData objectForKey:@"data"];
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [m_MaintableView reloadData];
-    });
-    return YES;
+    NSDictionary *dic = @{};
+    [[StoreOnlineNetworkEngine shareInstance] startNetWorkWithPath:@"services/wuye/service/list"
+                                                            params:dic
+                                                            repeat:YES
+                                                             isGet:YES
+                                                       resultBlock:^(BOOL bValidJSON, NSString *errorMsg, id result) {
+                                                           if(!bValidJSON)
+                                                           {
+                                                               NSLog(@"%@",errorMsg);
+                                                               
+                                                           }else
+                                                           {
+                                                               propertyService = result;
+                                                               [m_MaintableView reloadData];
+                                                           }
+                                                       }];
+    
+    
 }
 
--(BOOL)GetPropertyServiceDetailData:(NSString*)URL
+-(void)GetPropertyServiceDetailData
 {
-    NSDictionary *plistDic = [[NSBundle mainBundle] infoDictionary];
-    NSLog(@"plistDic = %@",plistDic);
-    NSString *url = [plistDic objectForKey: @"URL"];
-    NSError *error;
-    NSString *urlString = [NSString stringWithFormat:@"%@/services/wuye/service/detail?id=%ld",url,(long)IDNumber];
-    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:urlString]];
-    NSData *responseData = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:&error];
-    if (nil != error)
-    {
-        return NO;
-    }
-    NSDictionary *parseData = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingMutableLeaves error:&error];
-    if (nil != error)
-    {
-        return NO;
-    }
-    if (![[parseData objectForKey:@"status"] isEqualToString:@"200"])
-    {
-       NSLog(@"%@",[parseData objectForKey:@"status"]);
-        return NO;
-    }
-    specifyPropertyService= [parseData objectForKey:@"data"];
-    return YES;
+    NSDictionary *dic = @{@"id" : [[NSString alloc] initWithFormat:@"%ld",(long)IDNumber]};
+    [[StoreOnlineNetworkEngine shareInstance] startNetWorkWithPath:@"services/wuye/service/detail"
+                                                            params:dic
+                                                            repeat:YES
+                                                             isGet:YES
+                                                       resultBlock:^(BOOL bValidJSON, NSString *errorMsg, id result) {
+                                                           if(!bValidJSON)
+                                                           {
+                                                               NSLog(@"%@",errorMsg);
+                                                               
+                                                           }else
+                                                           {
+                                                               specifyPropertyService = result;
+                                                               
+                                                           }
+                                                       }];
 }
 
--(BOOL)getMessageDetailData:(NSString*)URL
+-(void)getMessageDetailData
 {
-    NSDictionary *plistDic = [[NSBundle mainBundle] infoDictionary];
-    NSLog(@"plistDic = %@",plistDic);
-    NSString *url = [plistDic objectForKey: @"URL"];
-    NSError *error;
-    NSString *urlString = [NSString stringWithFormat:@"%@/services/wuye/message/detail?id=%ld",url,(long)IDNumber];
-    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:urlString]];
-    NSData *responseData = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:&error];
-    if (nil != error)
-    {
-        return NO;
-    }
-    NSDictionary *parseData = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingMutableLeaves error:&error];
-    if (nil != error)
-    {
-        return NO;
-    }
-    if (![[parseData objectForKey:@"status"] isEqualToString:@"200"])
-    {
-        NSLog(@"%@",[parseData objectForKey:@"status"]);
-        return NO;
-    }
-    specifyMessageDictionary= [parseData objectForKey:@"data"];
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [m_AnntableVeiw reloadData];
-    });
-    return YES;
+    
+    NSDictionary *dic = @{@"id" : [[NSString alloc] initWithFormat:@"%ld",(long)IDNumber]};
+    [[StoreOnlineNetworkEngine shareInstance] startNetWorkWithPath:@"services/wuye/message/detail"
+                                                            params:dic
+                                                            repeat:YES
+                                                             isGet:YES
+                                                       resultBlock:^(BOOL bValidJSON, NSString *errorMsg, id result) {
+                                                           if(!bValidJSON)
+                                                           {
+                                                               NSLog(@"%@",errorMsg);
+                                                               
+                                                           }else
+                                                           {
+                                                               specifyMessageDictionary = result;
+                                                                [m_AnntableVeiw reloadData];
+                                                               
+                                                           }
+                                                       }];
 }
 @end

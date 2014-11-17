@@ -7,7 +7,7 @@
 //
 
 #import "LYReplyMessage.h"
-
+#import "StoreOnlineNetworkEngine.h"
 @interface LYReplyMessage ()
 
 @end
@@ -64,39 +64,31 @@
     messageID = idString;
 }
 
--(BOOL)getMessageDetailData:(NSString*)URL
+-(void)getMessageDetailData:(NSString*)URL
 {
-    NSDictionary *plistDic = [[NSBundle mainBundle] infoDictionary];
-    NSLog(@"plistDic = %@",plistDic);
-    NSString *urlstr = [plistDic objectForKey: @"URL"];
+
+    NSDictionary *dic = @{@"id" : messageID};
+    [[StoreOnlineNetworkEngine shareInstance] startNetWorkWithPath:@"services/wuye/message/detail"
+                                                            params:dic
+                                                            repeat:YES
+                                                             isGet:YES
+                                                       resultBlock:^(BOOL bValidJSON, NSString *errorMsg, id result) {
+                                                           if(!bValidJSON)
+                                                           {
+                                                               UIAlertView *al = [[UIAlertView alloc] initWithTitle:@"提示"
+                                                                                                            message:errorMsg
+                                                                                                           delegate:self
+                                                                                                  cancelButtonTitle:@"确定"
+                                                                                                  otherButtonTitles:nil, nil];
+                                                               [al show];
+                                                           }else
+                                                           {
+                                                               messageDetailDictionary = result;
+                                                               
+                                                           }
+                                                       }];
+
     
-    NSError *error;
-    NSString *urlString = [NSString stringWithFormat:@"%@/services/wuye/message/detail?id=%@",urlstr,messageID];
-    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:urlString]];
-    NSData *responseData = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:&error];
-    if (nil != error)
-    {
-        //错误码
-        return NO;
-    }
-    NSDictionary *parseData = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingMutableLeaves error:&error];
-    if (nil != error)
-    {
-        //错误码
-        return NO;
-    }
-    if (![[parseData objectForKey:@"status"] isEqualToString:@"200"])
-    {
-        UIAlertView *al = [[UIAlertView alloc] initWithTitle:@"提示"
-                                                     message:[parseData objectForKey:@"message"]
-                                                    delegate:self
-                                           cancelButtonTitle:@"确定"
-                                           otherButtonTitles:nil, nil];
-        [al show];
-        return NO;
-    }
-    messageDetailDictionary= [parseData objectForKey:@"data"];
-    return YES;
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
@@ -145,42 +137,35 @@
 }
 
 //pid是留言ID，需要当前登陆用户的ID，不知道从哪里获取
--(BOOL)sendRequest:(NSString*)URL content:(NSString*)contentString pid:(NSString*)pid
+-(void)sendRequest:(NSString*)URL content:(NSString*)contentString pid:(NSString*)pid
 {
-    NSError *error;
-    //    加载一个NSURL对象
-    NSString    *URLString = [NSString stringWithFormat:@"%@/inCommunity/services/wuye/message/reply",URL];
-    NSURL *url = [NSURL URLWithString:URLString];
-    NSMutableURLRequest *request = [[NSMutableURLRequest alloc]initWithURL:url cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:10];
-    [request setHTTPMethod:@"POST"];//设置请求方式为POST，默认为GET
-    
-    NSString *str = @"content=";//设置参数
-    NSString *str1 = @"pid=";
-    str = [str stringByAppendingFormat:@"%@&%@%@",contentString,str1,pid];
-    
-    NSData *data = [str dataUsingEncoding:NSUTF8StringEncoding];
-    [request setHTTPBody:data];
-    
-    //第三步，连接服务器
-    NSData *received = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
-    NSDictionary *weatherDic = [NSJSONSerialization JSONObjectWithData:received options:NSJSONReadingMutableLeaves error:&error];
-    if ([[weatherDic objectForKey:@"status"] isEqualToString:@"200"])
-    {
-        UIAlertView *al =[[UIAlertView alloc]initWithTitle:@"提示" message:@"回复发表成功！" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
-        [al show];
-        return YES;
-    }else
-    {
-        UIAlertView *al =[[UIAlertView alloc]initWithTitle:@"提示"
-                                                   message:[weatherDic objectForKey:@"message"]
-                                                  delegate:self
-                                         cancelButtonTitle:@"确定"
-                                         otherButtonTitles:nil, nil];
-        [al show];
-        return NO;
-    }
+    NSDictionary *dic = @{@"content" : contentString
+                            ,@"pid" : pid };
+    [[StoreOnlineNetworkEngine shareInstance] startNetWorkWithPath:@"services/wuye/message/reply"
+                                                            params:dic
+                                                            repeat:YES
+                                                             isGet:NO
+                                                       resultBlock:^(BOOL bValidJSON, NSString *errorMsg, id result) {
+                                                           if(!bValidJSON)
+                                                           {
+                                                               UIAlertView *al =[[UIAlertView alloc]initWithTitle:@"提示"
+                                                                                                          message:errorMsg
+                                                                                                         delegate:self
+                                                                                                cancelButtonTitle:@"确定"
+                                                                                                otherButtonTitles:nil, nil];
+                                                               [al show];
+                                                           }else
+                                                           {
+                                                               UIAlertView *al =[[UIAlertView alloc]initWithTitle:@"提示"
+                                                                                                          message:@"回复发表成功！"
+                                                                                                         delegate:self
+                                                                                                cancelButtonTitle:@"确定"
+                                                                                                otherButtonTitles:nil, nil];
+                                                               [al show];
+
+                                                           }
+                                                       }];
+
 }
-
-
 
 @end
