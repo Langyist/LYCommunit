@@ -15,7 +15,8 @@
 
 #import "NCDetailTableViewController.h"
 
-@interface NCMainViewController () {
+@interface NCMainViewController ()
+{
     UITableView* woodsInfoTableView;
     UITableView* carInfoTableView;
     UITableView* roomInfoTableView;
