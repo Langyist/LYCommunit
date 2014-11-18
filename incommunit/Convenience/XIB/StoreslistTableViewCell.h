@@ -15,11 +15,4 @@
 - (void)setOreginPrice:(NSString *)price;
 - (void)setPrice:(NSString *)price;
 
-
-@property (weak, nonatomic) IBOutlet UILabel *oreginPriceLabel;
-@property (weak, nonatomic) IBOutlet UILabel *priceLabel;
-
-- (void)setOreginPrice:(NSString *)price;
-- (void)setPrice:(NSString *)price;
-
 @end

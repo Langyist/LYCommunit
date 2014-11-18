@@ -26,11 +26,13 @@
     MKNetworkEngine *imageEngine = [[MKNetworkEngine alloc] initWithHostName:@"www.baidu.com"];
     [imageEngine useCache];
     [UIImageView setDefaultEngine:imageEngine];
-        _mapManager = [[BMKMapManager alloc]init];
-        BOOL ret = [_mapManager start:@"lK7gaSg80peIGLH15plumdwW"  generalDelegate:nil];
-        if (!ret) {
-            NSLog(@"manager start failed!");
-        }
+    
+    _mapManager = [[BMKMapManager alloc]init];
+    BOOL ret = [_mapManager start:@"lK7gaSg80peIGLH15plumdwW" generalDelegate:nil];
+    if (!ret) {
+        NSLog(@"manager start failed!");
+    }
+    
     //去掉返回按钮自动添加的’back‘文字
     [[UIBarButtonItem appearance] setBackButtonTitlePositionAdjustment:UIOffsetMake(0, -60)
                                                          forBarMetrics:UIBarMetricsDefault];
@@ -51,14 +53,14 @@
     
     [self.window setBackgroundColor:TOP_BAR_YELLOW];
     
-//    NSMutableDictionary *userinfo =  [LYSqllite Ruser];
-//    NSMutableDictionary *communitInfo = [LYSqllite currentCommnit];
-//    if (userinfo != nil && ![[userinfo objectForKey:@"auth_status"] isEqualToString:@"-2"] && [[communitInfo objectForKey:@"community_id"] length])
-//    {
-//        UIStoryboard *storyboard = self.window.rootViewController.storyboard;
-//        UIViewController *rootViewController = [storyboard instantiateViewControllerWithIdentifier:@"MainPage"];
-//        self.window.rootViewController = rootViewController;
-//    }
+    //    NSMutableDictionary *userinfo =  [LYSqllite Ruser];
+    //    NSMutableDictionary *communitInfo = [LYSqllite currentCommnit];
+    //    if (userinfo != nil && ![[userinfo objectForKey:@"auth_status"] isEqualToString:@"-2"] && [[communitInfo objectForKey:@"community_id"] length])
+    //    {
+    //        UIStoryboard *storyboard = self.window.rootViewController.storyboard;
+    //        UIViewController *rootViewController = [storyboard instantiateViewControllerWithIdentifier:@"MainPage"];
+    //        self.window.rootViewController = rootViewController;
+    //    }
     
     return YES;
 }
