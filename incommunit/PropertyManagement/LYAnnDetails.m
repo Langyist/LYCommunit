@@ -27,9 +27,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
     NSURL *url = [NSURL URLWithString:[detailDataDictorynary objectForKey:@"image_path"]];
-    if (url!=nil&&![url isEqual:@""])
+    if (url!=nil&&![[[NSString alloc] initWithFormat:@"%@",url] isEqual:@""])
     {
         [m_iamgeview setImageWithURL:url placeholderImage:nil];
     }
@@ -53,7 +52,6 @@
     if (!text) {
         text = @"";
     }
-    
     NSMutableAttributedString *attrString = [[NSMutableAttributedString alloc] initWithString:text];
     
     NSMutableParagraphStyle *style = [[NSMutableParagraphStyle defaultParagraphStyle] mutableCopy];

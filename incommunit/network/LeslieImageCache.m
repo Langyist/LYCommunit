@@ -75,7 +75,6 @@
     if (!key) {
         return nil;
     }
-    
     NSRange range = [key rangeOfString:@"/" options:NSBackwardsSearch];
     NSString *filename = [key substringFromIndex:range.location+1];
     NSString *filepath = [cacheDir stringByAppendingPathComponent:filename];
