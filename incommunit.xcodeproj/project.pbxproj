@@ -1098,13 +1098,8 @@
 		AD6211C919FD554E009BECA6 /* Homepage */ = {
 			isa = PBXGroup;
 			children = (
-<<<<<<< HEAD
 				EF2BFEC01A1AF789009606CC /* LYcertification.h */,
 				EF2BFEC11A1AF789009606CC /* LYcertification.m */,
-=======
-				AD68CE621A1B2CC4007F4A5E /* LYcertification.h */,
-				AD68CE631A1B2CC4007F4A5E /* LYcertification.m */,
->>>>>>> FETCH_HEAD
 				AD26EB1F1A11F22A0024403E /* LYHomeMyOrder.h */,
 				AD26EB201A11F22A0024403E /* LYHomeMyOrder.m */,
 				AD6A9B741A09CA420031B7C2 /* XIB */,
@@ -1670,11 +1665,7 @@
 				AD6A9B841A09CA420031B7C2 /* LYRejectedCell.m in Sources */,
 				AD30F7D61A00D97A00C8709E /* LYProductinformation.m in Sources */,
 				AD71C8E81A0DFBDD00EAB40E /* Location.m in Sources */,
-<<<<<<< HEAD
 				EF2BFEC21A1AF789009606CC /* LYcertification.m in Sources */,
-=======
-				AD68CE641A1B2CC4007F4A5E /* LYcertification.m in Sources */,
->>>>>>> FETCH_HEAD
 				F14F51F01A0378CF006CC884 /* InfoHeader.m in Sources */,
 				AD33EC9019FBB13F00FE0C11 /* main.m in Sources */,
 				F13D4C2D1A07510F00E23FDB /* CustomSegmentedControl.m in Sources */,
