@@ -140,6 +140,7 @@
 		AD6211E919FD9F1C009BECA6 /* LYForgotPassword.m in Sources */ = {isa = PBXBuildFile; fileRef = AD6211E819FD9F1C009BECA6 /* LYForgotPassword.m */; };
 		AD6211EC19FDA63C009BECA6 /* HomepageMain.m in Sources */ = {isa = PBXBuildFile; fileRef = AD6211EB19FDA63C009BECA6 /* HomepageMain.m */; };
 		AD6211EF19FDA95E009BECA6 /* LYReal-name.m in Sources */ = {isa = PBXBuildFile; fileRef = AD6211EE19FDA95E009BECA6 /* LYReal-name.m */; };
+		AD68CE641A1B2CC4007F4A5E /* LYcertification.m in Sources */ = {isa = PBXBuildFile; fileRef = AD68CE631A1B2CC4007F4A5E /* LYcertification.m */; };
 		AD6A9B731A09C77E0031B7C2 /* LYMycollection.m in Sources */ = {isa = PBXBuildFile; fileRef = AD6A9B721A09C77E0031B7C2 /* LYMycollection.m */; };
 		AD6A9B801A09CA420031B7C2 /* DownCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AD6A9B751A09CA420031B7C2 /* DownCell.xib */; };
 		AD6A9B811A09CA420031B7C2 /* LYAcceptedCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AD6A9B771A09CA420031B7C2 /* LYAcceptedCell.m */; };
@@ -507,6 +508,8 @@
 		AD6211EB19FDA63C009BECA6 /* HomepageMain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomepageMain.m; sourceTree = "<group>"; };
 		AD6211ED19FDA95E009BECA6 /* LYReal-name.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "LYReal-name.h"; sourceTree = "<group>"; };
 		AD6211EE19FDA95E009BECA6 /* LYReal-name.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "LYReal-name.m"; sourceTree = "<group>"; };
+		AD68CE621A1B2CC4007F4A5E /* LYcertification.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LYcertification.h; sourceTree = "<group>"; };
+		AD68CE631A1B2CC4007F4A5E /* LYcertification.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LYcertification.m; sourceTree = "<group>"; };
 		AD6A9B711A09C77E0031B7C2 /* LYMycollection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LYMycollection.h; sourceTree = "<group>"; };
 		AD6A9B721A09C77E0031B7C2 /* LYMycollection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LYMycollection.m; sourceTree = "<group>"; };
 		AD6A9B751A09CA420031B7C2 /* DownCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DownCell.xib; sourceTree = "<group>"; };
@@ -1092,6 +1095,8 @@
 		AD6211C919FD554E009BECA6 /* Homepage */ = {
 			isa = PBXGroup;
 			children = (
+				AD68CE621A1B2CC4007F4A5E /* LYcertification.h */,
+				AD68CE631A1B2CC4007F4A5E /* LYcertification.m */,
 				AD26EB1F1A11F22A0024403E /* LYHomeMyOrder.h */,
 				AD26EB201A11F22A0024403E /* LYHomeMyOrder.m */,
 				AD6A9B741A09CA420031B7C2 /* XIB */,
@@ -1352,11 +1357,11 @@
 				TargetAttributes = {
 					AD33EC8919FBB13F00FE0C11 = {
 						CreatedOnToolsVersion = 6.1;
-						DevelopmentTeam = RVMYYQYXU5;
+						DevelopmentTeam = 95N42RGW4F;
 					};
 					AD33ECA219FBB13F00FE0C11 = {
 						CreatedOnToolsVersion = 6.1;
-						DevelopmentTeam = RVMYYQYXU5;
+						DevelopmentTeam = 95N42RGW4F;
 						TestTargetID = AD33EC8919FBB13F00FE0C11;
 					};
 				};
@@ -1657,6 +1662,7 @@
 				AD6A9B841A09CA420031B7C2 /* LYRejectedCell.m in Sources */,
 				AD30F7D61A00D97A00C8709E /* LYProductinformation.m in Sources */,
 				AD71C8E81A0DFBDD00EAB40E /* Location.m in Sources */,
+				AD68CE641A1B2CC4007F4A5E /* LYcertification.m in Sources */,
 				F14F51F01A0378CF006CC884 /* InfoHeader.m in Sources */,
 				AD33EC9019FBB13F00FE0C11 /* main.m in Sources */,
 				F13D4C2D1A07510F00E23FDB /* CustomSegmentedControl.m in Sources */,

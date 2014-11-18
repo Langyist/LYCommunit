@@ -9,7 +9,14 @@
 #import <UIKit/UIKit.h>
 
 @interface LYNumbersense : UIViewController <UITableViewDelegate,UITableViewDataSource>
+{
+
+    NSMutableArray * Numberlist;
+    NSMutableArray * m_PersonalNumber;
+    NSMutableArray * m_Administrative;
+}
 
 @property (strong, nonatomic) IBOutlet UITableView *m_tabeView;
+
 
 @end
