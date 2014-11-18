@@ -7,6 +7,7 @@
 //
 
 #import "LYAnnDetails.h"
+#import "UIImageView+AsyncDownload.h"
 
 @interface LYAnnDetails ()
 
@@ -27,12 +28,16 @@
 {
     [super viewDidLoad];
     
+    NSURL *url = [NSURL URLWithString:[detailDataDictorynary objectForKey:@"image_path"]];
+    if (url!=nil&&![url isEqual:@""])
+    {
+        [m_iamgeview setImageWithURL:url placeholderImage:nil];
+    }
+    
     m_titleLabel.text= [detailDataDictorynary objectForKey:@"name"];
-    m_infoLabel.text = [detailDataDictorynary objectForKey:@"content"];
     [self setTextContent:[detailDataDictorynary objectForKey:@"content"]];
-    [self setTimestamp:@"create_time"];
+    [self setTimestamp:[detailDataDictorynary objectForKey:@"create_time"]];
 
-//    m_timeLabel.text = [NSString stringWithFormat:@"%@",[detailDataDictorynary objectForKey:@"create_time"]];
 }
 - (void)didReceiveMemoryWarning
 {
@@ -74,16 +79,16 @@
     rect.size.height = height;
     m_infoLabel.frame = rect;
     
-    CGRect timeLabelFrame = m_titleLabel.frame;
+    CGRect timeLabelFrame = m_timeLabel.frame;
     timeLabelFrame.origin.y = CGRectGetMaxY(rect) + 20;
-    m_titleLabel.frame= timeLabelFrame;
+    m_timeLabel.frame= timeLabelFrame;
     
     [self.m_scrollView setContentSize:CGSizeMake(0, CGRectGetMaxY(timeLabelFrame) + 50)];
 }
 
 - (void)setTimestamp:(NSString *)timestamp {
     if (!timestamp) {
-        [m_titleLabel setText:@""];
+        [m_timeLabel setText:@""];
     }
     
     long long timestampInt = [timestamp longLongValue];
@@ -94,10 +99,10 @@
     formatter.dateFormat = @"yyyy年MM月dd日";
     NSString *time = [formatter stringFromDate:date];
     if (!time) {
-        [m_titleLabel setText:@""];
+        [m_timeLabel setText:@""];
         return;
     }
-    [m_titleLabel setText:time];
+    [m_timeLabel setText:time];
 }
 
 - (CGFloat)heightOfLabel:(NSArray *)textList size:(CGSize)size font:(UIFont *)font {

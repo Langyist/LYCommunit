@@ -581,10 +581,10 @@
             break;
     }
     return str;
-    
 }
 
-- (void)colMune:(ColMenu *)colMenu didSelectItemOfSection:(NSInteger)section row:(NSInteger)row {
+- (void)colMune:(ColMenu *)colMenu didSelectItemOfSection:(NSInteger)section row:(NSInteger)row
+{
     switch (self.m_segment.selectedSegmentIndex) {
         case 1: {
             switch (section) {
@@ -629,7 +629,7 @@
                         orderstr = @"";
                     }else
                     {
-                        orderstr = [[[LYFunctionInterface Getorder] objectAtIndex:row-1] objectForKey:@"order_id"];
+                        orderstr = [[[LYFunctionInterface Getorder] objectAtIndex:row-1] objectForKey:@"order"];
                     }
                     [self GetShopDaquandata];
                     break;

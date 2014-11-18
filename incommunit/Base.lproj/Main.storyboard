@@ -2410,6 +2410,10 @@
                         <outlet property="oreginPrice" destination="eNK-TC-KjK" id="y4K-1L-qdf"/>
                         <outlet property="page" destination="IYh-Ub-1p9" id="f1y-m3-J0m"/>
                         <outlet property="scrollView" destination="fka-hO-3hc" id="uzy-oM-F1e"/>
+                        <segue destination="CRG-7h-As7" kind="push" identifier="Goshopcat" id="Vii-lb-CrA"/>
+                        <segue destination="11b-WJ-Ia4" kind="push" identifier="GoMyOrder" id="wuH-0m-Af1"/>
+                        <segue destination="cH0-W2-QML" kind="push" identifier="GoPersonal" id="yvO-v4-xXy"/>
+                        <segue destination="195-Ap-2Gv" kind="modal" identifier="GoFunction" id="5ST-dg-Gu3"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0hn-ta-4FD" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -4500,16 +4504,6 @@
                                     <action selector="submitButton:" destination="dep-3h-KEM" eventType="touchUpInside" id="Q0N-oG-jYJ"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="9PE-Rm-7Id">
-                                <rect key="frame" x="250" y="335" width="50" height="50"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" image="add.png">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="addImageButton:" destination="dep-3h-KEM" eventType="touchUpInside" id="eG3-Rl-T7S"/>
-                                </connections>
-                            </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="btj-Sw-p0G">
                                 <rect key="frame" x="11" y="335" width="50" height="50"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -5315,11 +5309,14 @@
     <inferredMetricsTieBreakers>
         <segue reference="uEo-XU-qJG"/>
         <segue reference="pnN-Mq-Lrm"/>
-        <segue reference="pAm-k8-o87"/>
-        <segue reference="ZlB-3N-nCw"/>
+        <segue reference="5ST-dg-Gu3"/>
+        <segue reference="uEo-XU-qJG"/>
         <segue reference="N0t-b0-7PV"/>
-        <segue reference="e4p-wT-QTQ"/>
+        <segue reference="ZlB-3N-nCw"/>
+        <segue reference="Vii-lb-CrA"/>
+        <segue reference="yvO-v4-xXy"/>
         <segue reference="vk7-fL-aT2"/>
+        <segue reference="e4p-wT-QTQ"/>
         <segue reference="shx-Oe-7jn"/>
     </inferredMetricsTieBreakers>
 </document>
