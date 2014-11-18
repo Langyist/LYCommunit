@@ -202,6 +202,14 @@
 
 -(IBAction)Settlement:(id)sender
 {
+    for (NSArray *shopInfo in Goodslist) {
+        for (NSDictionary *itemInfo in shopInfo) {
+            if ([[itemInfo objectForKey:@"Selected"] boolValue]) {
+                [LYSqllite Modifystate:[itemInfo objectForKey:@"Storesid"]];
+            }
+        }
+    }
+    
     [self performSegueWithIdentifier:@"GoSettlement" sender:self];
 }
 
