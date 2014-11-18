@@ -26,4 +26,5 @@
 + (NSDictionary *)selectedCommunit;
 + (void)setSelectedCommunit:(NSDictionary *)communitInfo;
 +(void)delectGoods:(NSString *)GoodsID;
++(BOOL)Modifyquantity:(NSString *)GoodsID quantity:(NSString *)quantitystr;
 @end
