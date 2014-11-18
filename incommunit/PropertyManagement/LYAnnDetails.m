@@ -27,6 +27,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
     NSURL *url = [NSURL URLWithString:[detailDataDictorynary objectForKey:@"image_path"]];
     if (url!=nil&&![[[NSString alloc] initWithFormat:@"%@",url] isEqual:@""])
     {
