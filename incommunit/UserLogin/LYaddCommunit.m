@@ -367,7 +367,6 @@
                                                                    [BoxView reloadData];
                                                                }else if([index isEqual:@"3"])
                                                                {
-
                                                                    tempdata4 = result;
                                                                    for (int i = 0; i<tempdata4.count; i++)
                                                                    {
