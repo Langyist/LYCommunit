@@ -10,6 +10,39 @@
 #import "LYSqllite.h"
 #import "UIImageView+MKNetworkKitAdditions.h"
 #import "AppDelegate.h"
+
+#if __LP64__
+#define MOVE 32
+#else
+#define MOVE 16
+#endif
+
+
+@class ShopcartCell;
+
+typedef void (^ChangeNumberBlock)(ShopcartCell *cell, BOOL add);
+
+@interface ShopcartCell : UITableViewCell
+
+@end
+
+@implementation ShopcartCell {
+    ChangeNumberBlock block;
+}
+
+- (IBAction)changeNumber:(UIButton *)sender {
+    if (block) {
+        block(self, (sender.tag == 0) ? NO : YES);
+    }
+}
+
+- (void)setBlock:(ChangeNumberBlock)aBlock {
+    block = aBlock;
+}
+
+@end
+
+
 @interface LYShoppingcart ()
 @property (weak, nonatomic) IBOutlet UILabel *totalLabel;
 @end
@@ -104,10 +137,11 @@ static NSDictionary * temp;
         }
         cell = (UITableViewCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
         UIImageView *imageView  = (UIImageView *)[cell viewWithTag:100];
+
         //UIImageView *pimageview =;
-        UILabel     *name       = (UILabel *)[cell viewWithTag:102];
-        UITextField *quantityfl = (UITextField *)[cell viewWithTag:105];
-        UILabel     *pricelb    = (UILabel *)[cell viewWithTag:103];
+        UILabel     *name       = (UILabel *)[itemcell viewWithTag:102];
+        UITextField *quantityfl = (UITextField *)[itemcell viewWithTag:105];
+        UILabel     *pricelb    = (UILabel *)[itemcell viewWithTag:103];
         NSString *imageName = @"Selected";
         if (![[temp objectForKey:@"selectState"] boolValue])
         {
@@ -118,7 +152,7 @@ static NSDictionary * temp;
         if (imageUrl!=nil && ![imageUrl isEqualToString:@"(null)"])
         {
             NSURL *url = [NSURL URLWithString:imageUrl];
-            [(UIImageView *)[cell viewWithTag:101] setImageFromURL:url placeHolderImage:[UIImage imageNamed:@""] usingEngine:nil animation:NO];
+            [(UIImageView *)[itemcell viewWithTag:101] setImageFromURL:url placeHolderImage:[UIImage imageNamed:@""] usingEngine:nil animation:NO];
         }
         [name       setText:[temp objectForKey:@"name"]]; // 商品名字
         [quantityfl setText:[temp objectForKey:@"quantity"]]; // 选择数量
@@ -130,14 +164,12 @@ static NSDictionary * temp;
             
         self.totalLabel.text = [[NSString alloc] initWithFormat:@"￥%.02f",totalFloat];
         
-        UIButton *LessButton = [[UIButton alloc] init];
-        LessButton = (UIButton *)[cell viewWithTag:106];
-        LessButton.tag = indexPath.row - 1;
+        itemcell.tag = indexPath.section << MOVE | (indexPath.row - 1);
+        [itemcell setBlock:^(ShopcartCell *acell, BOOL add) {
+            [self changeNumberOfItem:add sender:acell];
+        }];
         
-        UIButton *addButton = [[UIButton alloc] init];
-        addButton = (UIButton *)[cell viewWithTag:104];
-        addButton.tag = indexPath.row - 1;
-        [m_textfiledlist addObject:quantityfl];
+        cell = itemcell;
         
         cell.separatorInset = UIEdgeInsetsMake(16.f, 0.f, 0.f, cell.bounds.size.width - 16.f);
     }
@@ -183,33 +215,38 @@ static NSDictionary * temp;
     return 7;
 }
 
--(IBAction)add:(id)sender
-{
-    UIButton *btn = (UIButton *)sender;
-    UITextField *ft = [[UITextField alloc] init];
-    ft = [m_textfiledlist objectAtIndex:btn.tag];
-    ft.text = [[NSString alloc]initWithFormat:@"%d",[ft.text intValue]+1];
-}
+- (void)changeNumberOfItem:(BOOL)add sender:(UITableViewCell *)sender {
 
--(IBAction)lss:(id)sender
-{
-    UIButton *btn = (UIButton *)sender;
-    UITextField *ft = [[UITextField alloc] init];
-    ft = [m_textfiledlist objectAtIndex:btn.tag];
-    if ([ft.text intValue]>0)
-    {
-        ft.text = [[NSString alloc]initWithFormat:@"%d",[ft.text intValue]-1];
+    NSInteger tag = sender.tag;
+    NSInteger section = tag >> MOVE;
+    NSInteger row = (tag << MOVE) >> MOVE;
+    
+    if (Goodslist.count > section) {
+        NSMutableArray *items = [NSMutableArray arrayWithArray:[Goodslist objectAtIndex:section]];
+        if (items.count > row) {
+            NSMutableDictionary *itemInfo = [items objectAtIndex:row];
+            NSString *numberOfItemString = [itemInfo objectForKey:@"quantity"];
+            NSInteger numberOfItem = [numberOfItemString integerValue];
+            if (add) {
+                numberOfItem += 1;
+            }
+            else {
+                numberOfItem -= 1;
+            }
+            numberOfItem = MAX(0, numberOfItem);
+            [itemInfo setObject:[NSString stringWithFormat:@"%d", numberOfItem] forKey:@"quantity"];
+            [LYSqllite Modifyquantity:[itemInfo objectForKey:@"commodity_id"] quantity:[itemInfo objectForKey:@"quantity"]];
+            [items setObject:itemInfo atIndexedSubscript:row];
+            [Goodslist setObject:items atIndexedSubscript:section];
+            NSIndexPath *indexPath = [NSIndexPath indexPathForRow:row + 1 inSection:section];
+            [m_tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+        }
     }
+    
 }
 
 -(IBAction)Settlement:(id)sender
 {
-    for (NSArray *shopInfo in Goodslist) {
-        for (NSDictionary *itemInfo in shopInfo) {
-            [LYSqllite Modifystate:[itemInfo objectForKey:@"commodity_id"] state:[itemInfo objectForKey:@"selectState"]];
-        }
-    }
-    
     [self performSegueWithIdentifier:@"GoSettlement" sender:self];
 }
 
@@ -225,6 +262,7 @@ static NSDictionary * temp;
         for (NSInteger index = 0; index < [tempGoodList count]; index++) {
             NSMutableDictionary *tempGoodsInfo = [NSMutableDictionary dictionaryWithDictionary:[tempGoodList objectAtIndex:index]];
             [tempGoodsInfo setObject:selectedStatusString forKey:@"selectState"];
+            [LYSqllite Modifystate:[tempGoodsInfo objectForKey:@"commodity_id"] state:[tempGoodsInfo objectForKey:@"selectState"]];
             [newGoodsList addObject:tempGoodsInfo];
         }
     }
@@ -233,6 +271,7 @@ static NSDictionary * temp;
         // 重新设置当前项目的选中值;
         NSMutableDictionary *tempGoodsInfo = [NSMutableDictionary dictionaryWithDictionary:[newGoodsList objectAtIndex:indexPath.row - 1]];
         [tempGoodsInfo setObject:selectedStatusString forKey:@"selectState"];
+        [LYSqllite Modifystate:[tempGoodsInfo objectForKey:@"commodity_id"] state:[tempGoodsInfo objectForKey:@"selectState"]];
         [newGoodsList setObject:tempGoodsInfo atIndexedSubscript:indexPath.row - 1];
     }
     
