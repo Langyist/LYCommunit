@@ -443,7 +443,7 @@ return bl;
 +(BOOL)Modifystate:(NSString *)GoodsID state:(NSString *)statestr
 {
     sqlite3 *tempdatabase =  [[[LYSqllite alloc] init] openSqlite:@"LY_db.db"];
-    NSString * sqlstr = [[NSString alloc] initWithFormat:@"UPDATE ShoppingCart SET selectState = '%@' WHERE Storesid = '%@'",statestr,GoodsID];
+    NSString * sqlstr = [[NSString alloc] initWithFormat:@"UPDATE ShoppingCart SET selectState ='%@' WHERE Storesid ='%@'",statestr,GoodsID];
     BOOL bl = [[[LYSqllite alloc]init]execSql:sqlstr database:tempdatabase];
     return bl;
 }
