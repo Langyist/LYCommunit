@@ -423,7 +423,10 @@ return bl;
                 //        sqlList.sqlname = [NSString stringWithUTF8String:strName];
             }
         }
-        [backlist addObject:goodslist];
+        if(goodslist.count>0)
+        {
+            [backlist addObject:goodslist];
+        }
         sqlite3_finalize(statement);
         sqlite3_close(tempdatabase);
     }
@@ -433,10 +436,10 @@ return bl;
 }
 
 //删除指定的商品
-+(void)delectGoods:(NSString *)GoodsID
++(void)delectGoods:(NSString *)selectState
 {
     sqlite3 *tempdatabase =  [[[LYSqllite alloc] init] openSqlite:@"LY_db.db"];
-    NSString * sqlstr = [[NSString alloc] initWithFormat:@"delete from ShoppingCart where commodity_id=%@",GoodsID];
+    NSString * sqlstr = [[NSString alloc] initWithFormat:@"delete from ShoppingCart WHERE selectState=%@",selectState];
     [[[LYSqllite alloc]init]execSql:sqlstr database:tempdatabase];
 }
 

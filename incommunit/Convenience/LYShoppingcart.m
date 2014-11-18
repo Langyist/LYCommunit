@@ -11,13 +11,10 @@
 #import "UIImageView+MKNetworkKitAdditions.h"
 #import "AppDelegate.h"
 @interface LYShoppingcart ()
-
 @property (weak, nonatomic) IBOutlet UILabel *totalLabel;
-
 @end
-
+static NSDictionary * temp;
 @implementation LYShoppingcart
-
 @synthesize m_tableView,m_storesNumber;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -79,7 +76,10 @@
     if (indexPath.row == 0)
     {
         CellIdentifier = @"selectStoresCell";
-        NSDictionary * temp = [tempinfo objectAtIndex:indexPath.row];
+        if(tempinfo.count>0)
+        {
+         temp= [tempinfo objectAtIndex:indexPath.row];
+        }
         cell = (UITableViewCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
         UIImageView *imageView  = (UIImageView *)[cell viewWithTag:100];
         UILabel     *name       = (UILabel *)[cell viewWithTag:101];
@@ -99,7 +99,9 @@
     }
     else {
         CellIdentifier = @"selectGoodsCell";
-        NSDictionary * temp = [tempinfo objectAtIndex:indexPath.row - 1];
+        if (tempinfo.count>0) {
+            temp = [tempinfo objectAtIndex:indexPath.row - 1];
+        }
         cell = (UITableViewCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
         UIImageView *imageView  = (UIImageView *)[cell viewWithTag:100];
         //UIImageView *pimageview =;
@@ -228,7 +230,6 @@
     }
     else {
         newGoodsList = tempGoodList;
-        
         // 重新设置当前项目的选中值;
         NSMutableDictionary *tempGoodsInfo = [NSMutableDictionary dictionaryWithDictionary:[newGoodsList objectAtIndex:indexPath.row - 1]];
         [tempGoodsInfo setObject:selectedStatusString forKey:@"selectState"];
@@ -237,7 +238,7 @@
     
     [Goodslist setObject:newGoodsList atIndexedSubscript:indexPath.section];
     [m_tableView reloadSections:[NSIndexSet indexSetWithIndex:indexPath.section] withRowAnimation:UITableViewRowAnimationFade];
-    
+
     number = 0;
     for (NSArray *listOne in Goodslist) {
         for (NSDictionary *goodsInfo in listOne) {
@@ -248,5 +249,11 @@
     }
     m_storesNumber.text = [[NSString alloc] initWithFormat:@"共%d件商品", number];
 }
-
+-(IBAction)deleteGoods:(id)sender
+{
+    [LYSqllite delectGoods:@"1"];
+    Goodslist = [[NSMutableArray alloc] init];
+    Goodslist = [LYSqllite GetGoods];
+    [m_tableView reloadData];
+}
 @end

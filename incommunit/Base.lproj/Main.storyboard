@@ -830,11 +830,8 @@
                         <segue destination="11b-WJ-Ia4" kind="push" identifier="GoMyorder" id="Bv1-7h-vqH"/>
                         <segue destination="VzL-hf-L0Q" kind="push" identifier="Gonumbersense" id="gdj-7s-890"/>
                         <segue destination="nMO-1L-pRy" kind="push" identifier="MyStores" id="Iot-qf-cOv"/>
-<<<<<<< HEAD
                         <segue destination="CRG-7h-As7" kind="push" identifier="GoShoppingcart" id="BZF-K6-2v2"/>
-=======
-                        <segue destination="CRG-7h-As7" kind="push" identifier="Goshopcat" id="yi4-rI-PJH"/>
->>>>>>> FETCH_HEAD
+
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ryA-Oh-UMR" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1966,33 +1963,21 @@
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         </imageView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="EAI-MP-fX9">
-<<<<<<< HEAD
                                             <rect key="frame" x="94" y="23" width="2760" height="21"/>
-=======
-                                            <rect key="frame" x="94" y="23" width="3080" height="21"/>
->>>>>>> FETCH_HEAD
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="7Gx-GX-6XN">
-<<<<<<< HEAD
                                             <rect key="frame" x="94" y="46" width="2760" height="21"/>
-=======
-                                            <rect key="frame" x="94" y="46" width="3080" height="21"/>
->>>>>>> FETCH_HEAD
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                             <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="BmH-Z0-6eh">
-<<<<<<< HEAD
                                             <rect key="frame" x="5682" y="-10" width="68" height="20"/>
-=======
-                                            <rect key="frame" x="6002" y="31" width="68" height="20"/>
->>>>>>> FETCH_HEAD
                                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -2812,6 +2797,9 @@
                                     <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="deleteGoods:" destination="CRG-7h-As7" eventType="touchUpInside" id="o5I-5L-jfO"/>
+                                </connections>
                             </button>
                         </barButtonItem>
                     </navigationItem>
@@ -3033,11 +3021,7 @@
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 </imageView>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="新订单" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="YK6-f3-Oaa">
-<<<<<<< HEAD
                                                     <rect key="frame" x="318" y="10" width="82" height="21"/>
-=======
-                                                    <rect key="frame" x="349" y="10" width="84" height="21"/>
->>>>>>> FETCH_HEAD
                                                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <color key="textColor" red="0.94901960784313721" green="0.69803921568627447" blue="0.23137254901960785" alpha="1" colorSpace="deviceRGB"/>
@@ -3078,11 +3062,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="103" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="X10" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="g0B-SO-74x">
-<<<<<<< HEAD
                                                     <rect key="frame" x="248" y="15" width="54" height="21"/>
-=======
-                                                    <rect key="frame" x="248" y="15" width="52" height="21"/>
->>>>>>> FETCH_HEAD
                                                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                     <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
@@ -3112,11 +3092,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="总计￥30.00" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="8T9-Sx-7cV">
-<<<<<<< HEAD
                                                     <rect key="frame" x="204" y="8" width="98" height="21"/>
-=======
-                                                    <rect key="frame" x="204" y="8" width="96" height="21"/>
->>>>>>> FETCH_HEAD
                                                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
@@ -3137,11 +3113,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="VLD-j3-ija">
-<<<<<<< HEAD
                                                     <rect key="frame" x="226" y="8" width="76" height="30"/>
-=======
-                                                    <rect key="frame" x="224" y="8" width="76" height="30"/>
->>>>>>> FETCH_HEAD
                                                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <state key="normal" title="删除订单">
@@ -3153,11 +3125,7 @@
                                                     </connections>
                                                 </button>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="SiX-YX-evV">
-<<<<<<< HEAD
                                                     <rect key="frame" x="128" y="8" width="78" height="30"/>
-=======
-                                                    <rect key="frame" x="128" y="8" width="76" height="30"/>
->>>>>>> FETCH_HEAD
                                                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <state key="normal" title="取消订单">
@@ -4346,11 +4314,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" tag="101" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="wiS-Wp-hvS">
-<<<<<<< HEAD
                                                     <rect key="frame" x="19" y="9" width="3792" height="21"/>
-=======
-                                                    <rect key="frame" x="18" y="9" width="4112" height="21"/>
->>>>>>> FETCH_HEAD
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -4559,11 +4523,7 @@
                     </view>
                     <navigationItem key="navigationItem" title="我要报修" id="moN-pl-4UU"/>
                     <connections>
-<<<<<<< HEAD
                         <outlet property="addimageView" destination="btj-Sw-p0G" id="zIb-Xb-TSn"/>
-=======
-                        <outlet property="addimageView" destination="btj-Sw-p0G" id="ihi-5E-A3m"/>
->>>>>>> FETCH_HEAD
                         <outlet property="addresstextField" destination="0G4-yA-ghv" id="UPx-Xz-ZNF"/>
                         <outlet property="contentField" destination="l6a-a9-KaT" id="sdZ-dX-Obe"/>
                         <outlet property="submitButton" destination="HvT-6u-VQQ" id="T0i-s1-g6q"/>
@@ -5356,17 +5316,6 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-<<<<<<< HEAD
-=======
-        <segue reference="pnN-Mq-Lrm"/>
-        <segue reference="5ST-dg-Gu3"/>
-        <segue reference="uEo-XU-qJG"/>
-        <segue reference="N0t-b0-7PV"/>
-        <segue reference="yvO-v4-xXy"/>
-        <segue reference="Bv1-7h-vqH"/>
-        <segue reference="yi4-rI-PJH"/>
-        <segue reference="vk7-fL-aT2"/>
->>>>>>> FETCH_HEAD
         <segue reference="e4p-wT-QTQ"/>
         <segue reference="vk7-fL-aT2"/>
         <segue reference="shx-Oe-7jn"/>
