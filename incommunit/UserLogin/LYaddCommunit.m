@@ -234,7 +234,7 @@
                 HouseholdsData = [[NSMutableArray alloc] init];
                 l3str = [[tempdata3 objectAtIndex:index] objectForKey:@"id"];
                 LMComBoxView *cityCombox = (LMComBoxView *)[bgScrollView viewWithTag:tag + 1 + kDropDownListTag];
-                [self done:m_communitid pid:l2str ComBoxView:cityCombox index:[NSString stringWithFormat:@"%ld", tag + 1]];
+                [self done:m_communitid pid:l3str ComBoxView:cityCombox index:[NSString stringWithFormat:@"%ld", tag + 1]];
             }
         }
             break;

@@ -14,7 +14,7 @@
 +(void)CreatUserTable;
 +(BOOL)wuser:(NSMutableDictionary *)userinfo;
 +(NSMutableDictionary *)Ruser;
-+(BOOL)Modifystate:(NSString *)GoodsID;
++(BOOL)Modifystate:(NSString *)GoodsID state:(NSString *)statestr
 +(void)deletetable;
 +(void)deleteuserinfo :(NSString *)name;
 
@@ -25,5 +25,5 @@
 
 + (NSDictionary *)selectedCommunit;
 + (void)setSelectedCommunit:(NSDictionary *)communitInfo;
-
++(void)delectGoods:(NSString *)GoodsID;
 @end
