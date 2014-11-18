@@ -199,6 +199,7 @@
         StoreslistTableViewCell *storeslistTableViewCell = [tableView dequeueReusableCellWithIdentifier:@"StoreslistTableViewCell" forIndexPath:indexPath];
         m_GoodsImage=(UIImageView *)[storeslistTableViewCell viewWithTag:104];
         m_GoodsImage.layer.cornerRadius = 3.0f;
+        m_GoodsImage.clipsToBounds = YES;
         m_GoodsChan.clipsToBounds = YES;
         m_GoodsName = (UILabel *)[storeslistTableViewCell viewWithTag:105];
         m_GoodsChan =(UILabel *)[storeslistTableViewCell viewWithTag:106];
@@ -218,7 +219,7 @@
             [m_GoodsImage setImageFromURL:url];
         }
         m_GoodsName.text = [Goodsinfo objectForKey:@"name"];
-        m_GoodsChan.text = [[NSString alloc]initWithFormat:@"点赞次数：%@",[Goodsinfo objectForKey:@"like"]];
+        m_GoodsChan.text = [[NSString alloc]initWithFormat:@"%@人点赞",[Goodsinfo objectForKey:@"like"]];
         [storeslistTableViewCell setPrice:[[NSString alloc]initWithFormat:@"￥%@.00",[Goodsinfo objectForKey:@"price"]]];
         [storeslistTableViewCell setOreginPrice:[[NSString alloc]initWithFormat:@"￥%@.00",[Goodsinfo objectForKey:@"price"]]];
         cell = storeslistTableViewCell;

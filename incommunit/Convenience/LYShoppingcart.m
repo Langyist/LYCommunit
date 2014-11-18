@@ -35,7 +35,7 @@
     self.m_tableView.allowsSelectionDuringEditing = YES;
     Goodslist = [LYSqllite GetGoods];
     
-    [self.m_tableView setContentInset:UIEdgeInsetsMake(-37, 0, 0, 0)];
+    [self.m_tableView setContentInset:UIEdgeInsetsMake(-0.5, 0, 0, 0)];
     [self.m_tableView setBackgroundColor:BK_GRAY];
     [self.view setBackgroundColor:BK_GRAY];
     
@@ -95,7 +95,7 @@
         [imageView  setImage:[UIImage imageNamed:imageName]]; // 是否全选
         [name setText:[temp objectForKey:@"Storesname"]]; // 商店名称
         
-        cell.separatorInset = UIEdgeInsetsMake(16.f, 0.f, 0.f, 16.f);
+        cell.separatorInset = UIEdgeInsetsMake(15.f, 0.f, 0.f, 15.f);
     }
     else {
         CellIdentifier = @"selectGoodsCell";
@@ -171,6 +171,14 @@
     {
         return 54;
     }
+}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    return 0.5;
+}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
+    return 7;
 }
 
 -(IBAction)add:(id)sender

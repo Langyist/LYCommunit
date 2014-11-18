@@ -103,6 +103,7 @@
     self.timeTextField.rightViewMode = UITextFieldViewModeAlways;
     
     self.submitButton.layer.cornerRadius = 3.0f;
+    [self.submitButton setBackgroundColor:SPECIAL_RED];
     
     dataList = @[@"", @""];
     
