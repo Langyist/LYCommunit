@@ -105,13 +105,14 @@ static NSDictionary * temp;
 {
     UITableViewCell *cell;
     NSMutableArray  *tempinfo = [Goodslist objectAtIndex:indexPath.section];
+    NSDictionary *temp = nil;
     static NSString *CellIdentifier;
     if (indexPath.row == 0)
     {
         CellIdentifier = @"selectStoresCell";
         if(tempinfo.count>0)
         {
-         temp= [tempinfo objectAtIndex:indexPath.row];
+            temp = [tempinfo objectAtIndex:indexPath.row];
         }
         cell = (UITableViewCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
         UIImageView *imageView  = (UIImageView *)[cell viewWithTag:100];
@@ -135,9 +136,9 @@ static NSDictionary * temp;
         if (tempinfo.count>0) {
             temp = [tempinfo objectAtIndex:indexPath.row - 1];
         }
-        cell = (UITableViewCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
-        UIImageView *imageView  = (UIImageView *)[cell viewWithTag:100];
 
+        ShopcartCell * itemcell = (ShopcartCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+        UIImageView *imageView  = (UIImageView *)[itemcell viewWithTag:100];
         //UIImageView *pimageview =;
         UILabel     *name       = (UILabel *)[itemcell viewWithTag:102];
         UITextField *quantityfl = (UITextField *)[itemcell viewWithTag:105];
@@ -158,10 +159,10 @@ static NSDictionary * temp;
         [quantityfl setText:[temp objectForKey:@"quantity"]]; // 选择数量
         CGFloat price = [[temp objectForKey:@"price"] floatValue];
         [pricelb setText:[[NSString alloc] initWithFormat:@"￥%.02f", price]]; // 价格，小数点两位精度
-
+        
         CGFloat textFloat = [[temp objectForKey:@"quantity"] floatValue];
         CGFloat totalFloat = price * textFloat;
-            
+        
         self.totalLabel.text = [[NSString alloc] initWithFormat:@"￥%.02f",totalFloat];
         
         itemcell.tag = indexPath.section << MOVE | (indexPath.row - 1);
@@ -216,7 +217,7 @@ static NSDictionary * temp;
 }
 
 - (void)changeNumberOfItem:(BOOL)add sender:(UITableViewCell *)sender {
-
+    
     NSInteger tag = sender.tag;
     NSInteger section = tag >> MOVE;
     NSInteger row = (tag << MOVE) >> MOVE;

@@ -10,7 +10,7 @@
 #import "AppDelegate.h"
 #import "InsetTextField.h"
 #import "SubmitOrderItemView.h"
-
+#import "LYSqllite.h"
 @interface Right : UIView
 
 @end
@@ -105,7 +105,7 @@
     self.submitButton.layer.cornerRadius = 3.0f;
     [self.submitButton setBackgroundColor:SPECIAL_RED];
     
-    dataList = @[@"", @""];
+    dataList = [LYSqllite GetGood:@"1"];
     
     [self addItemsInfo];
 }
@@ -118,7 +118,7 @@
     
     CGFloat y = CGRectGetMaxY(self.startLabel.frame) + 8;
     CGFloat realy = y;
-    for (NSString *item in dataList) {
+    for (int i = 0;i<dataList.count;i++) {
         NSArray *nibViews = [[NSBundle mainBundle] loadNibNamed:@"SubmitOrderItemView" owner:self options:nil];
         SubmitOrderItemView *item = [nibViews objectAtIndex:0];
         CGRect rect = item.frame;
@@ -130,9 +130,9 @@
         
         realy += CGRectGetHeight(rect);
         
-        [item setName:@"百事可乐"];
-        [item setPrice:5];
-        [item setNumber:2];
+        [item setName:[[dataList objectAtIndex:i] objectForKey:@"name"]];
+        [item setPrice:[[[dataList objectAtIndex:i] objectForKey:@"price"] intValue]];
+        [item setNumber:[[[dataList objectAtIndex:i] objectForKey:@"quantity"] intValue]];
     }
     
     CGFloat move = realy - y;
@@ -217,6 +217,34 @@
 }
 
 - (IBAction)submitPress:(id)sender {
+//    NSDictionary *dic = @{@"address" : _addressTextField.text
+//                          ,@"contacts"};
+//    [[StoreOnlineNetworkEngine shareInstance] startNetWorkWithPath:@"services/order/add"
+//                                                            params:dic
+//                                                            repeat:YES
+//                                                             isGet:NO
+//                                                       resultBlock:^(BOOL bValidJSON, NSString *errorMsg, id result) {
+//                                                           if(!bValidJSON)
+//                                                           {
+//                                                               NSLog(@"error %@",errorMsg);
+//                                                           }else
+//                                                           {
+//                                                               m_storesinfo =result;
+//                                                               m_Goodslist = [m_storesinfo objectForKey:@"commodities"];
+//                                                               [tempgoodstype addObject:@"全部"];
+//                                                               for (int i=0; i<Goodstype.count; i++)
+//                                                               {
+//                                                                   NSDictionary *temp = [Goodstype objectAtIndex:i];
+//                                                                   [tempgoodstype addObject:[temp  objectForKey:@"name"]];
+//                                                               }
+//                                                               [m_stores setValue:[m_storesinfo objectForKey:@"name"] forKey:@"name"];
+//                                                               self.title = [m_storesinfo objectForKey:@"name"];
+//                                                               [self.tableView reloadData];
+//                                                               [self serachGoods];
+//                                                           }
+//                                                       }];
+    
 }
+
 
 @end

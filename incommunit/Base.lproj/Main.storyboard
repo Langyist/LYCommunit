@@ -831,7 +831,6 @@
                         <segue destination="VzL-hf-L0Q" kind="push" identifier="Gonumbersense" id="gdj-7s-890"/>
                         <segue destination="nMO-1L-pRy" kind="push" identifier="MyStores" id="Iot-qf-cOv"/>
                         <segue destination="CRG-7h-As7" kind="push" identifier="GoShoppingcart" id="BZF-K6-2v2"/>
-
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ryA-Oh-UMR" userLabel="First Responder" sceneMemberID="firstResponder"/>

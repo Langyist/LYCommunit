@@ -39,22 +39,7 @@
     [_positiveimage addGestureRecognizer:singleTap];
 }
 
-- (IBAction)fristButton:(id)sender {
-    
-<<<<<<< HEAD
-}
-- (IBAction)secendButton:(id)sender {
-    
-}
-- (IBAction)thirdButton:(id)sender {
-    
-}
-- (IBAction)foreButton:(id)sender {
-    
-}
 - (IBAction)fiveButton:(id)sender {
-    
-=======
     bgScrollView = [[LMContainsLMComboxScrollView alloc]initWithFrame:CGRectMake(12, 457, 50, 30)];
     bgScrollView.backgroundColor = [UIColor grayColor];
     bgScrollView.showsVerticalScrollIndicator = NO;
@@ -81,7 +66,6 @@
     
 }
 - (IBAction)foreButton:(id)sender {
-    
     bgScrollView = [[LMContainsLMComboxScrollView alloc]initWithFrame:CGRectMake(188, 457, 50, 30)];
     bgScrollView.backgroundColor = [UIColor grayColor];
     bgScrollView.showsVerticalScrollIndicator = NO;
@@ -89,17 +73,6 @@
     [self.view addSubview: bgScrollView];
     
 }
-- (IBAction)fiveButton:(id)sender {
-    
-    bgScrollView = [[LMContainsLMComboxScrollView alloc]initWithFrame:CGRectMake(245, 457, 50, 30)];
-    bgScrollView.backgroundColor = [UIColor grayColor];
-    bgScrollView.showsVerticalScrollIndicator = NO;
-    bgScrollView.showsHorizontalScrollIndicator = NO;
-    [self.view addSubview: bgScrollView];
-    
->>>>>>> FETCH_HEAD
-}
-
 
 - (void)didReceiveMemoryWarning
 {
@@ -159,11 +132,11 @@
         UIAlertView *alert=[[UIAlertView alloc] initWithTitle:@"提示信息!" message:@"系统只支持图片格式" delegate:nil cancelButtonTitle:@"确认" otherButtonTitles: nil];
         [alert show];
     }
-    [picker dismissModalViewControllerAnimated:YES];
+    [picker dismissViewControllerAnimated:YES completion:nil];
 }
 
 -(void) imagePickerControllerDidCancel:(UIImagePickerController *)picker{
-    [picker dismissModalViewControllerAnimated:YES];
+    [picker dismissViewControllerAnimated:YES completion:nil];
 }
 
 -(void)getMediaFromSource:(UIImagePickerControllerSourceType)sourceType {
@@ -172,13 +145,14 @@
         NSArray *mediatypes=[UIImagePickerController availableMediaTypesForSourceType:sourceType];
         UIImagePickerController *picker=[[UIImagePickerController alloc] init];
         picker.mediaTypes=mediatypes;
-        picker.delegate=self;
+        picker.delegate = self;
+
         picker.allowsEditing=YES;
         picker.sourceType=sourceType;
         NSString *requiredmediatype=(NSString *)kUTTypeImage;
         NSArray *arrmediatypes=[NSArray arrayWithObject:requiredmediatype];
         [picker setMediaTypes:arrmediatypes];
-        [self presentModalViewController:picker animated:YES];
+        [self presentViewController:picker animated:YES completion:nil];
     }
     else{
         UIAlertView *alert=[[UIAlertView alloc] initWithTitle:@"错误信息!" message:@"当前设备不支持拍摄功能" delegate:nil cancelButtonTitle:@"确认" otherButtonTitles: nil];
