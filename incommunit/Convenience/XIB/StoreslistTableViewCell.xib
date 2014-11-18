@@ -40,7 +40,6 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <imageView userInteractionEnabled="NO" tag="110" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="加入购物车_13.png" id="9Fn-Br-KVw">
-
                         <rect key="frame" x="274" y="43" width="38" height="33"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
                     </imageView>

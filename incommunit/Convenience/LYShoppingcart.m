@@ -86,7 +86,7 @@
         NSString *imageName = @"Selected";
         for (NSDictionary *goodsInfo in tempinfo)
         {
-            if (![[goodsInfo objectForKey:@"isSelected"] boolValue])
+            if (![[goodsInfo objectForKey:@"selectState"] boolValue])
             {
                 imageName = @"Unselected";
                 break;
@@ -107,7 +107,7 @@
         UITextField *quantityfl = (UITextField *)[cell viewWithTag:105];
         UILabel     *pricelb    = (UILabel *)[cell viewWithTag:103];
         NSString *imageName = @"Selected";
-        if (![[temp objectForKey:@"isSelected"] boolValue])
+        if (![[temp objectForKey:@"selectState"] boolValue])
         {
             imageName = @"Unselected";
         }
@@ -146,20 +146,20 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSMutableArray  *tempinfo = [Goodslist objectAtIndex:indexPath.section];
-    BOOL isSelected = NO;
+    BOOL selectState = NO;
     if (indexPath.row == 0) {
         for (NSDictionary *goodsInfo in tempinfo) {
-            if (![[goodsInfo objectForKey:@"isSelected"] boolValue]) {
-                isSelected = YES;
+            if (![[goodsInfo objectForKey:@"selectState"] boolValue]) {
+                selectState = YES;
                 break;
             }
         }
     }
     else {
         NSDictionary * temp = [tempinfo objectAtIndex:indexPath.row - 1];
-        isSelected = ![[temp objectForKey:@"isSelected"] boolValue];
+        selectState = ![[temp objectForKey:@"selectState"] boolValue];
     }
-    [self changeDataSelected:indexPath isSelected:isSelected];
+    [self changeDataSelected:indexPath selectState:selectState];
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -202,20 +202,27 @@
 
 -(IBAction)Settlement:(id)sender
 {
+    for (NSArray *shopInfo in Goodslist) {
+        for (NSDictionary *itemInfo in shopInfo) {
+            [LYSqllite Modifystate:[itemInfo objectForKey:@"commodity_id"] state:[itemInfo objectForKey:@"selectState"]];
+        }
+    }
+    
     [self performSegueWithIdentifier:@"GoSettlement" sender:self];
 }
 
 #pragma mark -
 #pragma mark Method
-- (void)changeDataSelected:(NSIndexPath *)indexPath isSelected:(BOOL)selected
+- (void)changeDataSelected:(NSIndexPath *)indexPath selectState:(BOOL)selected
 {
+    NSString *selectedStatusString = selected ? @"1" : @"0";
     NSMutableArray *newGoodsList = [[NSMutableArray alloc] init];
     NSMutableArray *tempGoodList = [Goodslist objectAtIndex:indexPath.section];
     if (indexPath.row == 0) {
         // 重新设置所有项目的选中值;
         for (NSInteger index = 0; index < [tempGoodList count]; index++) {
             NSMutableDictionary *tempGoodsInfo = [NSMutableDictionary dictionaryWithDictionary:[tempGoodList objectAtIndex:index]];
-            [tempGoodsInfo setObject:[NSNumber numberWithBool:selected] forKey:@"isSelected"];
+            [tempGoodsInfo setObject:selectedStatusString forKey:@"selectState"];
             [newGoodsList addObject:tempGoodsInfo];
         }
     }
@@ -224,7 +231,7 @@
         
         // 重新设置当前项目的选中值;
         NSMutableDictionary *tempGoodsInfo = [NSMutableDictionary dictionaryWithDictionary:[newGoodsList objectAtIndex:indexPath.row - 1]];
-        [tempGoodsInfo setObject:[NSNumber numberWithBool:selected] forKey:@"isSelected"];
+        [tempGoodsInfo setObject:selectedStatusString forKey:@"selectState"];
         [newGoodsList setObject:tempGoodsInfo atIndexedSubscript:indexPath.row - 1];
     }
     
@@ -234,9 +241,8 @@
     number = 0;
     for (NSArray *listOne in Goodslist) {
         for (NSDictionary *goodsInfo in listOne) {
-            if ([[goodsInfo objectForKey:@"isSelected"] boolValue]) {
+            if ([[goodsInfo objectForKey:@"selectState"] boolValue]) {
                 number += 1;
-                
             }
         }
     }

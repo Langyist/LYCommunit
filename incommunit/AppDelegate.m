@@ -33,6 +33,9 @@
         NSLog(@"manager start failed!");
     }
     
+    //调整标题位置
+    [[UIBarButtonItem appearance] setTitlePositionAdjustment:UIOffsetMake(0, -20) forBarMetrics:UIBarMetricsDefault];
+                                                                   
     //去掉返回按钮自动添加的’back‘文字
     [[UIBarButtonItem appearance] setBackButtonTitlePositionAdjustment:UIOffsetMake(0, -60)
                                                          forBarMetrics:UIBarMetricsDefault];
