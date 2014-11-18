@@ -136,9 +136,9 @@ static NSDictionary * temp;
         if (tempinfo.count>0) {
             temp = [tempinfo objectAtIndex:indexPath.row - 1];
         }
-
         ShopcartCell * itemcell = (ShopcartCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
         UIImageView *imageView  = (UIImageView *)[itemcell viewWithTag:100];
+        
         //UIImageView *pimageview =;
         UILabel     *name       = (UILabel *)[itemcell viewWithTag:102];
         UITextField *quantityfl = (UITextField *)[itemcell viewWithTag:105];

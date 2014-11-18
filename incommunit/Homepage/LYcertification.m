@@ -12,7 +12,7 @@
 #import <MobileCoreServices/UTCoreTypes.h>
 #import "UIActionSheet+Blocks.h"
 #import "LMContainsLMComboxScrollView.h"
-
+#define kDropDownListTag 1000
 @interface LYcertification () {
     
     LMContainsLMComboxScrollView *bgScrollView;
@@ -37,41 +37,39 @@
     _positiveimage.userInteractionEnabled=YES;
     UITapGestureRecognizer *singleTap =[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(showActionSheet:)];
     [_positiveimage addGestureRecognizer:singleTap];
+    
+    _reverseiamge.userInteractionEnabled=YES;
+    UITapGestureRecognizer *singleTap1 =[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(showActionSheet:)];
+    [_reverseiamge addGestureRecognizer:singleTap1];
+    
+    [self.scrollView setContentSize:CGSizeMake(0, CGRectGetMaxY(self.submitButton.frame) + 50)];
+    
+    bgScrollView = [[LMContainsLMComboxScrollView alloc]initWithFrame:self.addressView.frame];
+    bgScrollView.backgroundColor = [UIColor clearColor];
+    bgScrollView.showsVerticalScrollIndicator = NO;
+    bgScrollView.showsHorizontalScrollIndicator = NO;
+    [self.scrollView addSubview:bgScrollView];
+    [self setUpBgScrollView];
+    self.submitButton.layer.cornerRadius = 3.0f;
 }
 
-- (IBAction)fiveButton:(id)sender {
-    bgScrollView = [[LMContainsLMComboxScrollView alloc]initWithFrame:CGRectMake(12, 457, 50, 30)];
-    bgScrollView.backgroundColor = [UIColor grayColor];
-    bgScrollView.showsVerticalScrollIndicator = NO;
-    bgScrollView.showsHorizontalScrollIndicator = NO;
-    [self.view addSubview: bgScrollView];
-    
-}
-- (IBAction)secendButton:(id)sender {
-    
-    bgScrollView = [[LMContainsLMComboxScrollView alloc]initWithFrame:CGRectMake(72, 457, 50, 30)];
-    bgScrollView.backgroundColor = [UIColor grayColor];
-    bgScrollView.showsVerticalScrollIndicator = NO;
-    bgScrollView.showsHorizontalScrollIndicator = NO;
-    [self.view addSubview: bgScrollView];
-    
-}
-- (IBAction)thirdButton:(id)sender {
-    
-    bgScrollView = [[LMContainsLMComboxScrollView alloc]initWithFrame:CGRectMake(130, 457, 50, 30)];
-    bgScrollView.backgroundColor = [UIColor grayColor];
-    bgScrollView.showsVerticalScrollIndicator = NO;
-    bgScrollView.showsHorizontalScrollIndicator = NO;
-    [self.view addSubview: bgScrollView];
-    
-}
-- (IBAction)foreButton:(id)sender {
-    bgScrollView = [[LMContainsLMComboxScrollView alloc]initWithFrame:CGRectMake(188, 457, 50, 30)];
-    bgScrollView.backgroundColor = [UIColor grayColor];
-    bgScrollView.showsVerticalScrollIndicator = NO;
-    bgScrollView.showsHorizontalScrollIndicator = NO;
-    [self.view addSubview: bgScrollView];
-    
+-(void)setUpBgScrollView
+{
+    for (NSInteger i = 0; i < 5; i++) {
+        LMComBoxView *comBox = [[LMComBoxView alloc] initWithFrame:
+                                CGRectMake(0 + (bgScrollView.frame.size.width / 5) * i,
+                                           0,
+                                           bgScrollView.frame.size.width / 5,
+                                           bgScrollView.frame.size.height)];
+        comBox.backgroundColor = [UIColor whiteColor];
+        comBox.arrowImgName = @"down_dark0.png";
+        NSMutableArray  *itemsArray = [[NSMutableArray alloc] initWithCapacity:1];
+        comBox.delegate = self;
+        comBox.supView = bgScrollView;
+        [comBox defaultSettings];
+        comBox.tag = kDropDownListTag + i;
+        [bgScrollView addSubview:comBox];
+    }
 }
 
 - (void)didReceiveMemoryWarning
@@ -146,7 +144,6 @@
         UIImagePickerController *picker=[[UIImagePickerController alloc] init];
         picker.mediaTypes=mediatypes;
         picker.delegate = self;
-
         picker.allowsEditing=YES;
         picker.sourceType=sourceType;
         NSString *requiredmediatype=(NSString *)kUTTypeImage;
@@ -198,5 +195,16 @@ static UIImage *shrinkImage(UIImage *orignal,CGSize size) {
                   }];
 }
 
+- (IBAction)submitPress:(id)sender {
+}
 
+#pragma mark -
+#pragma mark LMComBoxViewDelegate
+
+-(void)selectAtIndex:(int)index inCombox:(LMComBoxView *)_combox
+{
+    
+}
+
+>>>>>>> AndrewLee
 @end
