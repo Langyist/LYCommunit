@@ -7,10 +7,19 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "LMComBoxView.h"
 
-@interface LYcertification : UIViewController
+@interface LYcertification : UIViewController <LMComBoxViewDelegate>
 
 @property (strong, nonatomic) IBOutlet UIImageView *positiveimage;
 @property (strong, nonatomic) IBOutlet UIImageView *reverseiamge;
+@property (weak, nonatomic) IBOutlet UILabel *positiveLabel;
+@property (weak, nonatomic) IBOutlet UILabel *reverseLabel;
+@property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
+@property (weak, nonatomic) IBOutlet UIButton *submitButton;
+@property (weak, nonatomic) IBOutlet UIView *addressView;
+
+- (IBAction)submitPress:(id)sender;
+
 @property(nonatomic,copy) NSString *lastChosenMediaType;
 @end
