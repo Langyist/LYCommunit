@@ -2367,7 +2367,7 @@
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                     </view>
-                                    <view contentMode="scaleToFill" id="euc-RA-WJj" customClass="InfoView">
+                                    <view contentMode="scaleToFill" id="euc-RA-WJj">
                                         <rect key="frame" x="0.0" y="314" width="320" height="190"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                         <subviews>
@@ -2385,6 +2385,11 @@
                                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
+                                            <view contentMode="scaleToFill" id="wNT-X2-Sp4" customClass="InfoView">
+                                                <rect key="frame" x="0.0" y="43" width="320" height="1"/>
+                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            </view>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                     </view>
@@ -5309,11 +5314,11 @@
         <segue reference="5ST-dg-Gu3"/>
         <segue reference="uEo-XU-qJG"/>
         <segue reference="N0t-b0-7PV"/>
-        <segue reference="ZlB-3N-nCw"/>
-        <segue reference="Vii-lb-CrA"/>
         <segue reference="yvO-v4-xXy"/>
-        <segue reference="vk7-fL-aT2"/>
+        <segue reference="wuH-0m-Af1"/>
+        <segue reference="Vii-lb-CrA"/>
         <segue reference="e4p-wT-QTQ"/>
+        <segue reference="vk7-fL-aT2"/>
         <segue reference="shx-Oe-7jn"/>
     </inferredMetricsTieBreakers>
 </document>

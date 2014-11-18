@@ -140,7 +140,7 @@ static NSDictionary *   m_cityinfo;//城市信息
     BMKReverseGeoCodeOption *reverseGeoCodeOption= [[BMKReverseGeoCodeOption alloc] init];
     //需要逆地理编码的坐标位置
     reverseGeoCodeOption.reverseGeoPoint = userLocation.location.coordinate;
-    BOOL ret = [_geoCodeSearch reverseGeoCode:reverseGeoCodeOption];
+    [_geoCodeSearch reverseGeoCode:reverseGeoCodeOption];
     [locService stopUserLocationService];
 }
 
