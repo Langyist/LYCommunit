@@ -448,6 +448,15 @@ return bl;
     return bl;
 }
 
+//修改商品数量
++(BOOL)Modifyquantity:(NSString *)GoodsID quantity:(NSString *)quantitystr
+{
+    sqlite3 *tempdatabase =  [[[LYSqllite alloc] init] openSqlite:@"LY_db.db"];
+    NSString * sqlstr = [[NSString alloc] initWithFormat:@"UPDATE ShoppingCart SET quantity = '%@' WHERE commodity_id = '%@'",quantitystr,GoodsID];
+    BOOL bl = [[[LYSqllite alloc]init]execSql:sqlstr database:tempdatabase];
+    return bl;
+}
+
 + (NSDictionary *)selectedCommunit {
     return selectedCommunitInfo;
 }
