@@ -30,6 +30,7 @@
     
     NSURL *url = [NSURL URLWithString:[detailDataDictorynary objectForKey:@"image_path"]];
     if (url!=nil&&![[[NSString alloc] initWithFormat:@"%@",url] isEqual:@""])
+
     {
         [m_iamgeview setImageWithURL:url placeholderImage:nil];
     }
