@@ -21,7 +21,7 @@
     UIButton *m_Address;
     UIButton *m_Phone;
     NSMutableArray *m_Goodslist;
-    UIImageView *m_Goodspice;
+    UIImageView *m_GoodsImage;
     UILabel *m_GoodsName;
     UILabel *m_GoodsChan;
     UILabel *m_Price;

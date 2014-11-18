@@ -41,6 +41,7 @@
 - (void)setOreginPrice:(NSString *)price {
     self.oreginPriceLabel.hidden = !price;
     [self.oreginPriceLabel setText:price];
+    
     CGFloat width = [self labelWidth:self.oreginPriceLabel];
     CGRect rect = self.oreginPriceLabel.bounds;
     rect.size.width = width;
