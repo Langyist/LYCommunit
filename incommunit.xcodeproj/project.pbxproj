@@ -174,6 +174,7 @@
 		AD8714D91A07728C00BEAF5E /* LYSubmitOrder.m in Sources */ = {isa = PBXBuildFile; fileRef = AD8714D81A07728C00BEAF5E /* LYSubmitOrder.m */; };
 		ADB9FF101A1740C100F0A2B2 /* LYAnnDetails.m in Sources */ = {isa = PBXBuildFile; fileRef = ADB9FF0F1A1740C100F0A2B2 /* LYAnnDetails.m */; };
 		ADB9FF131A17450700F0A2B2 /* LY_repair.m in Sources */ = {isa = PBXBuildFile; fileRef = ADB9FF121A17450700F0A2B2 /* LY_repair.m */; };
+		EF2BFEC21A1AF789009606CC /* LYcertification.m in Sources */ = {isa = PBXBuildFile; fileRef = EF2BFEC11A1AF789009606CC /* LYcertification.m */; };
 		EF31A2111A0381D80039E52C /* XHFriendlyLoadingView.m in Sources */ = {isa = PBXBuildFile; fileRef = EF31A2101A0381D80039E52C /* XHFriendlyLoadingView.m */; };
 		EF486B021A075BA2003B5B54 /* 交流框_03.png in Resources */ = {isa = PBXBuildFile; fileRef = EF486AFE1A075BA2003B5B54 /* 交流框_03.png */; };
 		EF486B031A075BA2003B5B54 /* 进行中_03.png in Resources */ = {isa = PBXBuildFile; fileRef = EF486AFF1A075BA2003B5B54 /* 进行中_03.png */; };
@@ -562,6 +563,8 @@
 		ADB9FF111A17450700F0A2B2 /* LY_repair.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LY_repair.h; sourceTree = "<group>"; };
 		ADB9FF121A17450700F0A2B2 /* LY_repair.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LY_repair.m; sourceTree = "<group>"; };
 		D71C5CFE54A57C5A6016A6D9 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		EF2BFEC01A1AF789009606CC /* LYcertification.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LYcertification.h; sourceTree = "<group>"; };
+		EF2BFEC11A1AF789009606CC /* LYcertification.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LYcertification.m; sourceTree = "<group>"; };
 		EF31A20F1A0381D80039E52C /* XHFriendlyLoadingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XHFriendlyLoadingView.h; sourceTree = "<group>"; };
 		EF31A2101A0381D80039E52C /* XHFriendlyLoadingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XHFriendlyLoadingView.m; sourceTree = "<group>"; };
 		EF486AFE1A075BA2003B5B54 /* 交流框_03.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "交流框_03.png"; sourceTree = "<group>"; };
@@ -1092,6 +1095,8 @@
 		AD6211C919FD554E009BECA6 /* Homepage */ = {
 			isa = PBXGroup;
 			children = (
+				EF2BFEC01A1AF789009606CC /* LYcertification.h */,
+				EF2BFEC11A1AF789009606CC /* LYcertification.m */,
 				AD26EB1F1A11F22A0024403E /* LYHomeMyOrder.h */,
 				AD26EB201A11F22A0024403E /* LYHomeMyOrder.m */,
 				AD6A9B741A09CA420031B7C2 /* XIB */,
@@ -1352,11 +1357,11 @@
 				TargetAttributes = {
 					AD33EC8919FBB13F00FE0C11 = {
 						CreatedOnToolsVersion = 6.1;
-						DevelopmentTeam = RVMYYQYXU5;
+						DevelopmentTeam = 95N42RGW4F;
 					};
 					AD33ECA219FBB13F00FE0C11 = {
 						CreatedOnToolsVersion = 6.1;
-						DevelopmentTeam = RVMYYQYXU5;
+						DevelopmentTeam = 95N42RGW4F;
 						TestTargetID = AD33EC8919FBB13F00FE0C11;
 					};
 				};
@@ -1657,6 +1662,7 @@
 				AD6A9B841A09CA420031B7C2 /* LYRejectedCell.m in Sources */,
 				AD30F7D61A00D97A00C8709E /* LYProductinformation.m in Sources */,
 				AD71C8E81A0DFBDD00EAB40E /* Location.m in Sources */,
+				EF2BFEC21A1AF789009606CC /* LYcertification.m in Sources */,
 				F14F51F01A0378CF006CC884 /* InfoHeader.m in Sources */,
 				AD33EC9019FBB13F00FE0C11 /* main.m in Sources */,
 				F13D4C2D1A07510F00E23FDB /* CustomSegmentedControl.m in Sources */,
