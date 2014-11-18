@@ -2673,13 +2673,13 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="101" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="商铺名字" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="LDd-92-sOV">
-                                                    <rect key="frame" x="42" y="9" width="266" height="21"/>
+                                                    <rect key="frame" x="38" y="9" width="266" height="21"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <imageView userInteractionEnabled="NO" tag="100" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Unselected.png" id="7Uc-Uo-hAh">
-                                                    <rect key="frame" x="17" y="11" width="17" height="17"/>
+                                                    <rect key="frame" x="14" y="12" width="15" height="15"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 </imageView>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="oN2-cn-7Fd">
@@ -2701,27 +2701,20 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" tag="101" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="图片_02.png" id="fBH-ed-dRq">
-                                                    <rect key="frame" x="42" y="9" width="45" height="36"/>
+                                                    <rect key="frame" x="38" y="9" width="45" height="36"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 </imageView>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="102" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="全麦面包" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="JmZ-4H-hHm">
-                                                    <rect key="frame" x="97" y="5" width="115" height="21"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                    <color key="textColor" red="0.50196078431372548" green="0.50196078431372548" blue="0.50196078431372548" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="103" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="￥5.00" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="HE6-Pj-ngb">
-                                                    <rect key="frame" x="97" y="29" width="115" height="21"/>
+                                                    <rect key="frame" x="93" y="6" width="115" height="21"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                     <color key="textColor" red="0.50196078431372548" green="0.50196078431372548" blue="0.50196078431372548" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <button opaque="NO" tag="104" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="BS3-hx-YMU">
-                                                    <rect key="frame" x="224" y="5" width="31" height="44"/>
+                                                    <rect key="frame" x="225" y="5" width="31" height="44"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <inset key="contentEdgeInsets" minX="7" minY="7" maxX="0.0" maxY="7"/>
+                                                    <inset key="contentEdgeInsets" minX="9" minY="9" maxX="0.0" maxY="9"/>
                                                     <state key="normal" image="减少_07.png">
                                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
@@ -2730,15 +2723,15 @@
                                                     </connections>
                                                 </button>
                                                 <textField opaque="NO" clipsSubviews="YES" tag="105" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="0" textAlignment="center" minimumFontSize="17" background="增加减少_07.png" id="V29-zg-svq">
-                                                    <rect key="frame" x="254" y="12" width="26" height="30"/>
+                                                    <rect key="frame" x="255" y="14" width="26" height="26"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                     <textInputTraits key="textInputTraits"/>
                                                 </textField>
                                                 <button opaque="NO" tag="106" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="4NJ-JG-OnI">
-                                                    <rect key="frame" x="280" y="6" width="32" height="43"/>
+                                                    <rect key="frame" x="281" y="6" width="32" height="43"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <inset key="contentEdgeInsets" minX="0.0" minY="7" maxX="7" maxY="7"/>
+                                                    <inset key="contentEdgeInsets" minX="0.0" minY="9" maxX="9" maxY="9"/>
                                                     <state key="normal" image="增加_07.png">
                                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
@@ -2747,9 +2740,16 @@
                                                     </connections>
                                                 </button>
                                                 <imageView userInteractionEnabled="NO" tag="100" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Unselected.png" id="xiK-7X-Ag0">
-                                                    <rect key="frame" x="17" y="18" width="17" height="17"/>
+                                                    <rect key="frame" x="14" y="19" width="15" height="15"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 </imageView>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="103" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="￥5.00" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="HE6-Pj-ngb">
+                                                    <rect key="frame" x="92" y="28" width="115" height="21"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                    <color key="textColor" red="0.50196078431372548" green="0.50196078431372548" blue="0.50196078431372548" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
                                             </subviews>
                                         </tableViewCellContentView>
                                         <inset key="separatorInset" minX="0.0" minY="0.0" maxX="320" maxY="0.0"/>
@@ -4518,7 +4518,6 @@
                     </view>
                     <navigationItem key="navigationItem" id="moN-pl-4UU"/>
                     <connections>
-                        <outlet property="addimageButton" destination="9PE-Rm-7Id" id="Yc2-ya-egH"/>
                         <outlet property="addimageView" destination="btj-Sw-p0G" id="ihi-5E-A3m"/>
                         <outlet property="addresstextField" destination="0G4-yA-ghv" id="UPx-Xz-ZNF"/>
                         <outlet property="contentField" destination="l6a-a9-KaT" id="sdZ-dX-Obe"/>
@@ -5266,7 +5265,6 @@
         <image name="7_10.png" width="40" height="40"/>
         <image name="8_10.png" width="40" height="40"/>
         <image name="Unselected.png" width="32" height="33"/>
-        <image name="add.png" width="64" height="64"/>
         <image name="arrows_right.png" width="14" height="23"/>
         <image name="call_btr.png" width="54" height="54"/>
         <image name="default_icon.png" width="87" height="88"/>
@@ -5312,7 +5310,6 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="uEo-XU-qJG"/>
         <segue reference="pnN-Mq-Lrm"/>
         <segue reference="5ST-dg-Gu3"/>
         <segue reference="uEo-XU-qJG"/>
@@ -5320,7 +5317,6 @@
         <segue reference="yvO-v4-xXy"/>
         <segue reference="wuH-0m-Af1"/>
         <segue reference="Vii-lb-CrA"/>
-        <segue reference="e4p-wT-QTQ"/>
         <segue reference="vk7-fL-aT2"/>
         <segue reference="e4p-wT-QTQ"/>
         <segue reference="shx-Oe-7jn"/>

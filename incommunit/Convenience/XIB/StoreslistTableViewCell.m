@@ -44,7 +44,7 @@
     
     CGFloat width = [self labelWidth:self.oreginPriceLabel];
     CGRect rect = self.oreginPriceLabel.bounds;
-    rect.size.width = width;
+    rect.size.width = width + 3;
     self.oreginPriceLabel.bounds = rect;
     
     [self repos];
@@ -59,7 +59,7 @@
 - (void)repos {
     if (!self.oreginPriceLabel.hidden) {
         CGFloat width = MIN([self labelWidth:self.priceLabel], CGRectGetWidth(self.priceLabel.frame));
-        CGFloat x = CGRectGetMinX(self.priceLabel.frame) + width + 10;
+        CGFloat x = CGRectGetMinX(self.priceLabel.frame) + width + 5;
         CGRect rect = self.oreginPriceLabel.frame;
         rect.origin.x = x;
         self.oreginPriceLabel.frame = rect;

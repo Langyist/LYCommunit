@@ -553,7 +553,7 @@
             numberOfRowsInSection = m_shoptypelist.count+1;
             break;
         case 1:
-            numberOfRowsInSection = [LYFunctionInterface Getorder].count+1;
+            numberOfRowsInSection = [LYFunctionInterface Getorder].count;
             break;
         default:
             break;
