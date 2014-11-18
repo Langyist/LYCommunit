@@ -839,7 +839,7 @@
         <!--公告详情-->
         <scene sceneID="WIW-4j-rOJ">
             <objects>
-                <viewController id="pmZ-ZA-rK0" customClass="LYAnnDetails" sceneMemberID="viewController">
+                <viewController id="pmZ-ZA-rK0" customClass="LYAnnouncementDetails" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="xFp-6N-UyE">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -4518,6 +4518,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="moN-pl-4UU"/>
                     <connections>
+                        <outlet property="addimageButton" destination="9PE-Rm-7Id" id="Yc2-ya-egH"/>
                         <outlet property="addimageView" destination="btj-Sw-p0G" id="ihi-5E-A3m"/>
                         <outlet property="addresstextField" destination="0G4-yA-ghv" id="UPx-Xz-ZNF"/>
                         <outlet property="contentField" destination="l6a-a9-KaT" id="sdZ-dX-Obe"/>
@@ -5265,6 +5266,7 @@
         <image name="7_10.png" width="40" height="40"/>
         <image name="8_10.png" width="40" height="40"/>
         <image name="Unselected.png" width="32" height="33"/>
+        <image name="add.png" width="64" height="64"/>
         <image name="arrows_right.png" width="14" height="23"/>
         <image name="call_btr.png" width="54" height="54"/>
         <image name="default_icon.png" width="87" height="88"/>
@@ -5310,6 +5312,7 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
+        <segue reference="uEo-XU-qJG"/>
         <segue reference="pnN-Mq-Lrm"/>
         <segue reference="5ST-dg-Gu3"/>
         <segue reference="uEo-XU-qJG"/>
@@ -5319,6 +5322,7 @@
         <segue reference="Vii-lb-CrA"/>
         <segue reference="e4p-wT-QTQ"/>
         <segue reference="vk7-fL-aT2"/>
+        <segue reference="e4p-wT-QTQ"/>
         <segue reference="shx-Oe-7jn"/>
     </inferredMetricsTieBreakers>
 </document>
