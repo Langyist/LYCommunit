@@ -15,5 +15,4 @@
 - (void)setOreginPrice:(NSString *)price;
 - (void)setPrice:(NSString *)price;
 
-
 @end
