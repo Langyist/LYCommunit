@@ -10,6 +10,7 @@
 #import "LYSelectCommunit.h"
 #import "NumberSenceHeaderView.h"
 #import "LYSqllite.h"
+#import "StoreOnlineNetworkEngine.h"
 @interface LYNumbersenseCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *callNumberLabel;
@@ -47,9 +48,11 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    m_Administrative = [[NSMutableArray alloc] init];
+    m_PersonalNumber = [[NSMutableArray alloc] init];
     self.m_tabeView.delegate = self;
     self.m_tabeView.dataSource = self;
-    [self getNumbersense:@""];
+    [self getNumbersense];
 }
 
 - (void)didReceiveMemoryWarning
@@ -64,7 +67,14 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    NSInteger numberOfRowsInSection = 2;
+    NSInteger numberOfRowsInSection ;
+    if(section == 0)
+    {
+        numberOfRowsInSection =m_Administrative.count;
+    }else if (section == 1)
+    {
+        numberOfRowsInSection = m_PersonalNumber.count;
+    }
     return numberOfRowsInSection;
 }
 
@@ -74,10 +84,17 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-    LYNumbersenseCell *cell = [tableView dequeueReusableCellWithIdentifier:@"administrativeCell" forIndexPath:indexPath];
-    [cell setName:@"xxx"];
-    [cell setCallNumber:0];
+     LYNumbersenseCell *cell = [tableView dequeueReusableCellWithIdentifier:@"administrativeCell" forIndexPath:indexPath];
+    if(indexPath.section == 0)
+    {
+        [cell setName:[[m_Administrative objectAtIndex:indexPath.row] objectForKey:@"name"]];
+        [cell setCallNumber:[[[m_Administrative objectAtIndex:indexPath.row] objectForKey:@"call_number"] intValue]];
+    }else if (indexPath.section == 1)
+    {
+   
+        [cell setName:[[m_PersonalNumber objectAtIndex:indexPath.row] objectForKey:@"name"]];
+        [cell setCallNumber:[[[m_PersonalNumber objectAtIndex:indexPath.row] objectForKey:@"call_number"] intValue]];
+    }
     return cell;
 }
 
@@ -88,23 +105,44 @@
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     NSArray *nibViews = [[NSBundle mainBundle] loadNibNamed:@"NumberSenceHeaderView" owner:self options:nil];
     NumberSenceHeaderView *view = nibViews.lastObject;
-    [view setName:@"xxx"];
+    if(section == 0)
+    {
+        [view setName:@"行政"];
+    }else
+    {
+        [view setName:@"个人"];
+    }
     return view;
 }
 
 #pragma mark 网络请求数据
-- (void)getNumbersense:(NSString *)url {
-    
-    NSError *error;
-    NSString *urlstr = [[NSString alloc] initWithFormat:@"http://115.29.244.142/inCommunity/services/community/contact_list/community_id=%@",[[LYSqllite currentCommnit] objectForKey:@"id"]];
-    //    加载一个NSURL对象
-    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:urlstr]];
-    //    将请求的url数据放到NSData对象中
-    NSData *response = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
-    //    iOS5自带解析类NSJSONSerialization从response中解析出数据放到字典中
-    NSDictionary *weatherDic = [NSJSONSerialization JSONObjectWithData:response options:NSJSONReadingMutableLeaves error:&error];
-    
-    NSLog(@"%@",weatherDic);
+- (void)getNumbersense
+{
+    NSDictionary *dic = @{@"community_id" : [[LYSqllite currentCommnit] objectForKey:@"community_id"]};
+    [[StoreOnlineNetworkEngine shareInstance] startNetWorkWithPath:@"services/community/contact_list"
+                                                            params:dic
+                                                            repeat:YES
+                                                             isGet:YES
+                                                       resultBlock:^(BOOL bValidJSON, NSString *errorMsg, id result) {
+                                                           if(!bValidJSON)
+                                                           {
+                                                               UIAlertView * mslaView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"" delegate:errorMsg cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+                                                               [mslaView show];
+                                                           }else
+                                                           {
+                                                               Numberlist =result;
+                                                               for (int i = 0; i<Numberlist.count; i++) {
+                                                                   NSDictionary * temp = [Numberlist objectAtIndex:i];
+                                                                   if ([[temp objectForKey:@"type"]isEqualToString:@"行政"])
+                                                                   {
+                                                                       [m_Administrative addObject:temp];
+                                                                   }else if([[temp objectForKey:@"type"]isEqualToString:@"个人"])
+                                                                   {
+                                                                       [m_PersonalNumber addObject:temp];
+                                                                   }
+                                                               }
+                                                               [self.m_tabeView reloadData];
+                                                           }}];
 }
 
 @end

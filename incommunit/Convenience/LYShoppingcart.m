@@ -44,13 +44,10 @@ typedef void (^ChangeNumberBlock)(ShopcartCell *cell, BOOL add);
 
 
 @interface LYShoppingcart ()
-
 @property (weak, nonatomic) IBOutlet UILabel *totalLabel;
-
 @end
 
 @implementation LYShoppingcart
-
 @synthesize m_tableView,m_storesNumber;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -108,11 +105,15 @@ typedef void (^ChangeNumberBlock)(ShopcartCell *cell, BOOL add);
 {
     UITableViewCell *cell;
     NSMutableArray  *tempinfo = [Goodslist objectAtIndex:indexPath.section];
+    NSDictionary *temp = nil;
     static NSString *CellIdentifier;
     if (indexPath.row == 0)
     {
         CellIdentifier = @"selectStoresCell";
-        NSDictionary * temp = [tempinfo objectAtIndex:indexPath.row];
+        if(tempinfo.count>0)
+        {
+            temp = [tempinfo objectAtIndex:indexPath.row];
+        }
         cell = (UITableViewCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
         UIImageView *imageView  = (UIImageView *)[cell viewWithTag:100];
         UILabel     *name       = (UILabel *)[cell viewWithTag:101];
@@ -132,9 +133,12 @@ typedef void (^ChangeNumberBlock)(ShopcartCell *cell, BOOL add);
     }
     else {
         CellIdentifier = @"selectGoodsCell";
-        NSDictionary * temp = [tempinfo objectAtIndex:indexPath.row - 1];
+        if (tempinfo.count>0) {
+            temp = [tempinfo objectAtIndex:indexPath.row - 1];
+        }
         ShopcartCell * itemcell = (ShopcartCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
         UIImageView *imageView  = (UIImageView *)[itemcell viewWithTag:100];
+        
         //UIImageView *pimageview =;
         UILabel     *name       = (UILabel *)[itemcell viewWithTag:102];
         UITextField *quantityfl = (UITextField *)[itemcell viewWithTag:105];
@@ -155,10 +159,10 @@ typedef void (^ChangeNumberBlock)(ShopcartCell *cell, BOOL add);
         [quantityfl setText:[temp objectForKey:@"quantity"]]; // 选择数量
         CGFloat price = [[temp objectForKey:@"price"] floatValue];
         [pricelb setText:[[NSString alloc] initWithFormat:@"￥%.02f", price]]; // 价格，小数点两位精度
-
+        
         CGFloat textFloat = [[temp objectForKey:@"quantity"] floatValue];
         CGFloat totalFloat = price * textFloat;
-            
+        
         self.totalLabel.text = [[NSString alloc] initWithFormat:@"￥%.02f",totalFloat];
         
         itemcell.tag = indexPath.section << MOVE | (indexPath.row - 1);
@@ -213,7 +217,7 @@ typedef void (^ChangeNumberBlock)(ShopcartCell *cell, BOOL add);
 }
 
 - (void)changeNumberOfItem:(BOOL)add sender:(UITableViewCell *)sender {
-
+    
     NSInteger tag = sender.tag;
     NSInteger section = tag >> MOVE;
     NSInteger row = (tag << MOVE) >> MOVE;
@@ -265,7 +269,6 @@ typedef void (^ChangeNumberBlock)(ShopcartCell *cell, BOOL add);
     }
     else {
         newGoodsList = tempGoodList;
-        
         // 重新设置当前项目的选中值;
         NSMutableDictionary *tempGoodsInfo = [NSMutableDictionary dictionaryWithDictionary:[newGoodsList objectAtIndex:indexPath.row - 1]];
         [tempGoodsInfo setObject:selectedStatusString forKey:@"selectState"];
@@ -286,5 +289,11 @@ typedef void (^ChangeNumberBlock)(ShopcartCell *cell, BOOL add);
     }
     m_storesNumber.text = [[NSString alloc] initWithFormat:@"共%d件商品", number];
 }
-
+-(IBAction)deleteGoods:(id)sender
+{
+    [LYSqllite delectGoods:@"1"];
+    Goodslist = [[NSMutableArray alloc] init];
+    Goodslist = [LYSqllite GetGoods];
+    [m_tableView reloadData];
+}
 @end

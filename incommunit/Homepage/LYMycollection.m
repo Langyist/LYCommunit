@@ -39,12 +39,10 @@
     m_neighborhoodtableView = [self addTableViewWithIndex:2];
     [m_scrollView setContentSize:CGSizeMake(CGRectGetMaxX(m_neighborhoodtableView.frame), 0)];
     
-    UINib *nib = [UINib nibWithNibName:@"BabyCell" bundle:nil];
-    [self.m_babytableView registerNib:nib forCellReuseIdentifier:@"babyCellIdentifier"];
-    UINib *nib1 = [UINib nibWithNibName:@"LYShopCell" bundle:nil];
-    [m_shoptableView registerNib:nib1 forCellReuseIdentifier:@"shopCellIdentifier"];
-    UINib *nib2 = [UINib nibWithNibName:@"LYNeighborhoodCell" bundle:nil];
-    [m_neighborhoodtableView registerNib:nib2 forCellReuseIdentifier:@"neighborhoodCellidentifier"];
+//    UINib *nib = [UINib nibWithNibName:@"BabyCell" bundle:nil];
+//    [self.m_babytableView registerNib:nib forCellReuseIdentifier:@"babyCellIdentifier"];
+//    UINib *nib2 = [UINib nibWithNibName:@"LYNeighborhoodCell" bundle:nil];
+//    [m_neighborhoodtableView registerNib:nib2 forCellReuseIdentifier:@"neighborhoodCellidentifier"];
 }
 
 - (UITableView *)addTableViewWithIndex:(NSInteger)index {
@@ -141,37 +139,36 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell;
+
     if (tableView == _m_babytableView) {
+        UITableViewCell *babycell;
         UINib *nib = [UINib nibWithNibName:@"BabyCell" bundle:nil];
         [tableView registerNib:nib forCellReuseIdentifier:@"babyCellIdentifier"];
         
-        cell = [tableView dequeueReusableCellWithIdentifier:@"babyCellIdentifier"];
-        
+        babycell = [tableView dequeueReusableCellWithIdentifier:@"babyCellIdentifier"];
+        return babycell;
     }
     else if (tableView == m_shoptableView) {
-        
-        cell = [tableView dequeueReusableCellWithIdentifier:@"shopCellIdentifier"];
-
+        UITableViewCell *shopcell;
+        UINib *nib1 = [UINib nibWithNibName:@"LYShopCell" bundle:nil];
+        [m_shoptableView registerNib:nib1 forCellReuseIdentifier:@"shopCellIdentifier"];
+        shopcell = [tableView dequeueReusableCellWithIdentifier:@"shopCellIdentifier"];
+        return shopcell;
     }
     else if (tableView == m_neighborhoodtableView) {
-    
-        LYNeighborhoodCell *mycell = [tableView dequeueReusableCellWithIdentifier:@"neighborhoodCellidentifier" forIndexPath:indexPath];
+        LYNeighborhoodCell *mycell;
+        UINib *nib2 = [UINib nibWithNibName:@"LYNeighborhoodCell" bundle:nil];
+        [m_neighborhoodtableView registerNib:nib2 forCellReuseIdentifier:@"neighborhoodCellidentifier"];
+        mycell = [tableView dequeueReusableCellWithIdentifier:@"neighborhoodCellidentifier" forIndexPath:indexPath];
         [mycell setImagePath:@""];
         [mycell setName:@""];
         [mycell setSummary:@""];
         [mycell setDeleteBlock:^(LYNeighborhoodCell *cell) {
             
         }];
-        return cell;
-    }else if (tableView == m_neighborhoodtableView)
-    {
-        UINib *nib = [UINib nibWithNibName:@"LYNeighborhoodCell" bundle:nil];
-        [tableView registerNib:nib forCellReuseIdentifier:@"neighborhoodCellidentifier"];
-        cell = [tableView dequeueReusableCellWithIdentifier:@"neighborhoodCellidentifier"];
-        return cell;
+        return mycell;
     }
-    return cell;
+    return nil;
 }
 
 @end

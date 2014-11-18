@@ -48,22 +48,17 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
     self.m_messagetext.delegate = self;
     self.m_messagetext.returnKeyType = UIReturnKeyDone;
-    
-//    UITapGestureRecognizer *singleRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(ClickView)];
-//    [self.view addGestureRecognizer:singleRecognizer];
 }
-////点击空白关闭键盘
-//-(void)ClickView
-//{
-//    [self.m_messagetext resignFirstResponder];
-//    
-//}
 
 -(IBAction)PostMessage:(id)sender
 {
     if (0 != [messaggeString length])
     {
         [self sendRequest:@"http://121.40.207.159/inCommunity/" content:messaggeString];
+    }else {
+        
+        UIAlertView *al =[[UIAlertView alloc]initWithTitle:@"提示" message:@"留言内容不能为空" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+        [al show];
     }
 }
 

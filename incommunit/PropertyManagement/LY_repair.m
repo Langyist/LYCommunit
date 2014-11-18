@@ -41,11 +41,11 @@
     self.contentField.delegate = self;
     self.submitButton.layer.cornerRadius = 5;
     
-    UITapGestureRecognizer *gesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(GestureImage:)];
-    [self.addimageView addGestureRecognizer:gesture];
-    
     UITapGestureRecognizer *closeKeyboard = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(closeKeyboard:)];
     [self.view addGestureRecognizer:closeKeyboard];
+    
+    UITapGestureRecognizer *gesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(GestureImage:)];
+    [self.addimageView addGestureRecognizer:gesture];
 }
 
 - (void)closeKeyboard:(UITapGestureRecognizer *)tap {

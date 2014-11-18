@@ -94,7 +94,7 @@
     }
     else if (indexPath.section == 4) {
         if (indexPath.row == 0) {
-            [self performSegueWithIdentifier:@"Goselectstore" sender:self];
+            [self performSegueWithIdentifier:@"Goshopcat" sender:self];
             NSLog(@"我的购物车");
         }else if (indexPath.row == 1) {
             
