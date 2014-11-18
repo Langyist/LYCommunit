@@ -376,7 +376,7 @@ static NSDictionary *   m_cityinfo;//城市信息
             m_pageOffset = 0;
             if ([CLLocationManager locationServicesEnabled])
             {
-                [self->locationManager startUpdatingLocation];
+                [self->locService startUserLocationService];
             }
             else
             {

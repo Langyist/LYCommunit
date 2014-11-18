@@ -553,7 +553,7 @@
             numberOfRowsInSection = m_shoptypelist.count+1;
             break;
         case 1:
-            numberOfRowsInSection = [LYFunctionInterface Getorder].count+1;
+            numberOfRowsInSection = [LYFunctionInterface Getorder].count;
             break;
         default:
             break;
@@ -575,13 +575,7 @@
             }
             break;
         case 1:
-            if(row == 0)
-            {
-                str = @"默认排序";
-            }else
-            {
-                str = [[[LYFunctionInterface Getorder] objectAtIndex:row-1] objectForKey:@"order_name"];
-            }
+            str = [[[LYFunctionInterface Getorder] objectAtIndex:row] objectForKey:@"order_name"];
             break;
         default:
             break;

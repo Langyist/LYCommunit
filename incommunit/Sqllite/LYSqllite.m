@@ -277,6 +277,9 @@ return bl;
     sqlite3_close(tempdatabase);
     [self CreatUserTable];
 }
+
+
+
 #pragma mark -购物车信息表
 //创建购物车表
 +(void)CreatShoppingcart
@@ -396,21 +399,21 @@ return bl;
             {
                 NSMutableDictionary *temp = [[NSMutableDictionary alloc] init];
                 char* strText   = (char*)sqlite3_column_text(statement, 1);
-                [temp setValue:[NSString stringWithUTF8String:strText] forKey:@"name"];
+                [temp setValue:[NSString stringWithUTF8String:strText] forKey:@"name"];//商品名字
                 char* strText01   = (char*)sqlite3_column_text(statement, 2);
-                [temp setValue:[NSString stringWithUTF8String:strText01] forKey:@"price"];
+                [temp setValue:[NSString stringWithUTF8String:strText01] forKey:@"price"];//商品价格
                 char* strText02   = (char*)sqlite3_column_text(statement, 3);
-                [temp setValue:[NSString stringWithUTF8String:strText02] forKey:@"quantity"];
+                [temp setValue:[NSString stringWithUTF8String:strText02] forKey:@"quantity"];//商品数量
                 char* strText03   = (char*)sqlite3_column_text(statement, 4);
-                [temp setValue:[NSString stringWithUTF8String:strText03] forKey:@"commodity_id"];
+                [temp setValue:[NSString stringWithUTF8String:strText03] forKey:@"commodity_id"];//商品ID
                 char* strText04   = (char*)sqlite3_column_text(statement, 5);
-                [temp setValue:[NSString stringWithUTF8String:strText04] forKey:@"logo"];
+                [temp setValue:[NSString stringWithUTF8String:strText04] forKey:@"logo"]; //商品logo
                 char* strText05   = (char*)sqlite3_column_text(statement, 6);
-                [temp setValue:[NSString stringWithUTF8String:strText05] forKey:@"Storesid"];
+                [temp setValue:[NSString stringWithUTF8String:strText05] forKey:@"Storesid"];//店铺id
                 char* strText06   = (char*)sqlite3_column_text(statement, 7);
-                [temp setValue:[NSString stringWithUTF8String:strText06] forKey:@"Storesname"];
+                [temp setValue:[NSString stringWithUTF8String:strText06] forKey:@"Storesname"];//店铺名字
                 char* strText07   = (char*)sqlite3_column_text(statement, 8);
-                [temp setValue:[NSString stringWithUTF8String:strText07] forKey:@"selectState"];
+                [temp setValue:[NSString stringWithUTF8String:strText07] forKey:@"selectState"];//是否选中
                 [goodslist addObject:temp];
                 //        sqlTestList* sqlList = [[sqlTestList alloc] init] ;
                 //        sqlList.sqlID    = sqlite3_column_int(statement,0);
@@ -429,10 +432,27 @@ return bl;
     return backlist ;
 }
 
-+(BOOL)Modifystate:(NSString *)GoodsID
+//删除指定的商品
++(void)delectGoods:(NSString *)GoodsID
 {
     sqlite3 *tempdatabase =  [[[LYSqllite alloc] init] openSqlite:@"LY_db.db"];
-    NSString * sqlstr = [[NSString alloc] initWithFormat:@"UPDATE ShoppingCart SET selectState = '1' WHERE Storesid = '%@'",GoodsID];
+    NSString * sqlstr = [[NSString alloc] initWithFormat:@"delete from ShoppingCart where commodity_id=%@",GoodsID];
+    [[[LYSqllite alloc]init]execSql:sqlstr database:tempdatabase];
+}
+
++(BOOL)Modifystate:(NSString *)GoodsID state:(NSString *)statestr
+{
+    sqlite3 *tempdatabase =  [[[LYSqllite alloc] init] openSqlite:@"LY_db.db"];
+    NSString * sqlstr = [[NSString alloc] initWithFormat:@"UPDATE ShoppingCart SET selectState = '%@' WHERE commodity_id = '%@'",statestr,GoodsID];
+    BOOL bl = [[[LYSqllite alloc]init]execSql:sqlstr database:tempdatabase];
+    return bl;
+}
+
+//修改商品数量
++(BOOL)Modifyquantity:(NSString *)GoodsID quantity:(NSString *)quantitystr
+{
+    sqlite3 *tempdatabase =  [[[LYSqllite alloc] init] openSqlite:@"LY_db.db"];
+    NSString * sqlstr = [[NSString alloc] initWithFormat:@"UPDATE ShoppingCart SET quantity = '%@' WHERE commodity_id = '%@'",quantitystr,GoodsID];
     BOOL bl = [[[LYSqllite alloc]init]execSql:sqlstr database:tempdatabase];
     return bl;
 }

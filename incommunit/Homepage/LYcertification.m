@@ -41,6 +41,7 @@
 
 - (IBAction)fristButton:(id)sender {
     
+<<<<<<< HEAD
 }
 - (IBAction)secendButton:(id)sender {
     
@@ -53,6 +54,50 @@
 }
 - (IBAction)fiveButton:(id)sender {
     
+=======
+    bgScrollView = [[LMContainsLMComboxScrollView alloc]initWithFrame:CGRectMake(12, 457, 50, 30)];
+    bgScrollView.backgroundColor = [UIColor grayColor];
+    bgScrollView.showsVerticalScrollIndicator = NO;
+    bgScrollView.showsHorizontalScrollIndicator = NO;
+    [self.view addSubview: bgScrollView];
+    
+}
+- (IBAction)secendButton:(id)sender {
+    
+    bgScrollView = [[LMContainsLMComboxScrollView alloc]initWithFrame:CGRectMake(72, 457, 50, 30)];
+    bgScrollView.backgroundColor = [UIColor grayColor];
+    bgScrollView.showsVerticalScrollIndicator = NO;
+    bgScrollView.showsHorizontalScrollIndicator = NO;
+    [self.view addSubview: bgScrollView];
+    
+}
+- (IBAction)thirdButton:(id)sender {
+    
+    bgScrollView = [[LMContainsLMComboxScrollView alloc]initWithFrame:CGRectMake(130, 457, 50, 30)];
+    bgScrollView.backgroundColor = [UIColor grayColor];
+    bgScrollView.showsVerticalScrollIndicator = NO;
+    bgScrollView.showsHorizontalScrollIndicator = NO;
+    [self.view addSubview: bgScrollView];
+    
+}
+- (IBAction)foreButton:(id)sender {
+    
+    bgScrollView = [[LMContainsLMComboxScrollView alloc]initWithFrame:CGRectMake(188, 457, 50, 30)];
+    bgScrollView.backgroundColor = [UIColor grayColor];
+    bgScrollView.showsVerticalScrollIndicator = NO;
+    bgScrollView.showsHorizontalScrollIndicator = NO;
+    [self.view addSubview: bgScrollView];
+    
+}
+- (IBAction)fiveButton:(id)sender {
+    
+    bgScrollView = [[LMContainsLMComboxScrollView alloc]initWithFrame:CGRectMake(245, 457, 50, 30)];
+    bgScrollView.backgroundColor = [UIColor grayColor];
+    bgScrollView.showsVerticalScrollIndicator = NO;
+    bgScrollView.showsHorizontalScrollIndicator = NO;
+    [self.view addSubview: bgScrollView];
+    
+>>>>>>> FETCH_HEAD
 }
 
 

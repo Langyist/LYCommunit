@@ -94,7 +94,11 @@
     }
     else if (indexPath.section == 4) {
         if (indexPath.row == 0) {
+<<<<<<< HEAD
             [self performSegueWithIdentifier:@"GoShoppingcart" sender:self];
+=======
+            [self performSegueWithIdentifier:@"Goshopcat" sender:self];
+>>>>>>> FETCH_HEAD
             NSLog(@"我的购物车");
         }else if (indexPath.row == 1) {
             

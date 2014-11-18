@@ -21,16 +21,15 @@
     [super drawRect:rect];
     
     CGContextRef context = UIGraphicsGetCurrentContext();
-    CGContextSetStrokeColorWithColor(context, [UIColor lightGrayColor].CGColor);
+    CGContextSetStrokeColorWithColor(context, [UIColor grayColor].CGColor);
     
-    CGFloat lineWidth = 0.2f;
-    CGFloat move = 30 - lineWidth;
+    CGFloat lineWidth = 0.25f;
     // Draw them with a 2.0 stroke width so they are a bit more visible.
     CGContextSetLineWidth(context, lineWidth);
     
-    CGContextMoveToPoint(context, 0.0f, move); //start at this point
+    CGContextMoveToPoint(context, 0.0f, 0); //start at this point
     
-    CGContextAddLineToPoint(context, CGRectGetWidth(rect), move); //draw to this point
+    CGContextAddLineToPoint(context, CGRectGetWidth(rect), 0); //draw to this point
     
     // and now draw the Path!
     CGContextStrokePath(context);
