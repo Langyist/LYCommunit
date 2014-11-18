@@ -277,6 +277,9 @@ return bl;
     sqlite3_close(tempdatabase);
     [self CreatUserTable];
 }
+
+
+
 #pragma mark -购物车信息表
 //创建购物车表
 +(void)CreatShoppingcart
@@ -427,6 +430,14 @@ return bl;
     sqlite3_finalize(statementst);
     sqlite3_close(tempdatabase);
     return backlist ;
+}
+
+//删除指定的商品
+-(void)delectGoods:(NSString *)GoodsID
+{
+    sqlite3 *tempdatabase =  [[[LYSqllite alloc] init] openSqlite:@"LY_db.db"];
+    NSString * sqlstr = [[NSString alloc] initWithFormat:@"delete from ShoppingCart where Storesid=%@",GoodsID];
+    [[[LYSqllite alloc]init]execSql:sqlstr database:tempdatabase];
 }
 
 +(BOOL)Modifystate:(NSString *)GoodsID
