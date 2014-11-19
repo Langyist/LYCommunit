@@ -79,7 +79,7 @@
     m_infoLabel.frame = rect;
     
     CGRect timeLabelFrame = m_timeLabel.frame;
-    timeLabelFrame.origin.y = CGRectGetMaxY(rect) + 20;
+    timeLabelFrame.origin.y = CGRectGetMaxY(rect) + 35;
     m_timeLabel.frame= timeLabelFrame;
     
     [self.m_scrollView setContentSize:CGSizeMake(0, CGRectGetMaxY(timeLabelFrame) + 50)];

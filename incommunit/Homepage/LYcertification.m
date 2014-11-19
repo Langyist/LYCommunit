@@ -12,6 +12,7 @@
 #import <MobileCoreServices/UTCoreTypes.h>
 #import "UIActionSheet+Blocks.h"
 #import "LMContainsLMComboxScrollView.h"
+
 #define kDropDownListTag 1000
 #define CAMERA @"相机"
 #define PHOTOES @"相册"
@@ -81,9 +82,28 @@
         return;
     }
     
+<<<<<<< HEAD
     UIActionSheet *actionSheet = nil;
     if ([UIImagePickerController isSourceTypeAvailable: UIImagePickerControllerSourceTypeCamera]) {
         actionSheet = [[UIActionSheet alloc] initWithTitle:@"添加照片" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:CAMERA, PHOTOES, nil];
+=======
+}
+
+//反面
+- (IBAction)reverseButton:(id)sender {
+    UIAlertView *alert=[[UIAlertView alloc] initWithTitle:@"请选择图片来源"
+                                                  message:@""
+                                                 delegate:self
+                                        cancelButtonTitle:@"取消"
+                                        otherButtonTitles:@"拍照",@"从手机相册选择", nil];
+    [alert show];
+}
+
+#pragma 拍照选择模块
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    if(buttonIndex==1){
+        [self shootPiicturePrVideo];
+>>>>>>> FETCH_HEAD
     }
     else {
         actionSheet = [[UIActionSheet alloc] initWithTitle:@"添加照片" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:PHOTOES, nil];
