@@ -224,6 +224,7 @@
 		F16297AA1A1C90E100DAEB33 /* repair_status1.png in Resources */ = {isa = PBXBuildFile; fileRef = F16297A71A1C90E100DAEB33 /* repair_status1.png */; };
 		F16297AB1A1C90E100DAEB33 /* repair_status2.png in Resources */ = {isa = PBXBuildFile; fileRef = F16297A81A1C90E100DAEB33 /* repair_status2.png */; };
 		F16297AC1A1C90E100DAEB33 /* status_closed.png in Resources */ = {isa = PBXBuildFile; fileRef = F16297A91A1C90E100DAEB33 /* status_closed.png */; };
+		F16297AF1A1C9CC000DAEB33 /* RepairDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F16297AE1A1C9CC000DAEB33 /* RepairDetailViewController.m */; };
 		F16D77AE1A033E680044D858 /* CommentTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F16D77AC1A033E680044D858 /* CommentTableViewCell.m */; };
 		F16D77AF1A033E680044D858 /* CommentTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F16D77AD1A033E680044D858 /* CommentTableViewCell.xib */; };
 		F18E640C1A10B4D9001BD189 /* default_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = F18E640B1A10B4D9001BD189 /* default_icon.png */; };
@@ -640,6 +641,8 @@
 		F16297A71A1C90E100DAEB33 /* repair_status1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = repair_status1.png; sourceTree = "<group>"; };
 		F16297A81A1C90E100DAEB33 /* repair_status2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = repair_status2.png; sourceTree = "<group>"; };
 		F16297A91A1C90E100DAEB33 /* status_closed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = status_closed.png; sourceTree = "<group>"; };
+		F16297AD1A1C9CC000DAEB33 /* RepairDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RepairDetailViewController.h; sourceTree = "<group>"; };
+		F16297AE1A1C9CC000DAEB33 /* RepairDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RepairDetailViewController.m; sourceTree = "<group>"; };
 		F16D77AB1A033E680044D858 /* CommentTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommentTableViewCell.h; sourceTree = "<group>"; };
 		F16D77AC1A033E680044D858 /* CommentTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommentTableViewCell.m; sourceTree = "<group>"; };
 		F16D77AD1A033E680044D858 /* CommentTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CommentTableViewCell.xib; sourceTree = "<group>"; };
@@ -1237,6 +1240,8 @@
 				AD7FBAB91A021919008CC80A /* LYPostcomment.h */,
 				AD7FBABA1A021919008CC80A /* LYPostcomment.m */,
 				AD7FBA8E1A021623008CC80A /* XIB */,
+				F16297AD1A1C9CC000DAEB33 /* RepairDetailViewController.h */,
+				F16297AE1A1C9CC000DAEB33 /* RepairDetailViewController.m */,
 			);
 			path = PropertyManagement;
 			sourceTree = "<group>";
@@ -1629,6 +1634,7 @@
 				AD26EB211A11F22A0024403E /* LYHomeMyOrder.m in Sources */,
 				AD7FBAB51A0216FF008CC80A /* LY_AnnouncementNoCell.m in Sources */,
 				AD7FBAB31A0216FF008CC80A /* LY_ACCell1.m in Sources */,
+				F16297AF1A1C9CC000DAEB33 /* RepairDetailViewController.m in Sources */,
 				AD7FBAB41A0216FF008CC80A /* LY_AnnouncementCell.m in Sources */,
 				AD3DD40919FE362D00364854 /* LYBaiduMap.mm in Sources */,
 				AD197F151A0B660D00E05089 /* LYNumbersense.m in Sources */,

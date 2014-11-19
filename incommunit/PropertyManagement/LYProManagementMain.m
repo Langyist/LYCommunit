@@ -23,6 +23,7 @@
 #import "LYSqllite.h"
 #import "LYAnnDetails.h"
 #import "LYReplyMessage.h"
+#import "RepairDetailViewController.h"
 @interface LYProManagementMain () {
     UIView *m_liuView;
     UIButton *repairButton;//我要报修button
@@ -759,7 +760,8 @@
         [self performSegueWithIdentifier:@"replyMessage" sender:self];
     }
     else if (tableView == m_MaintableView) {
-        [self performSegueWithIdentifier:@"replyMessage" sender:self];
+        specifyPropertyService = [propertyService objectAtIndex:indexPath.row];
+        [self performSegueWithIdentifier:@"RepairDetail" sender:self];
     }
 }
 
@@ -778,6 +780,14 @@
         {
             NSString *idString = [NSString stringWithFormat:@"%@", [specifyMessageDictionary objectForKey:@"id"]];
             [((LYReplyMessage *)segue.destinationViewController) setMessageID:idString];
+        }
+    }
+    else if ([[segue identifier] isEqualToString:@"RepairDetail"])
+    {
+        if (0 != specifyPropertyService.count)
+        {
+            NSString *idString = [NSString stringWithFormat:@"%@", [specifyPropertyService objectForKey:@"id"]];
+            [((RepairDetailViewController *)segue.destinationViewController) setRepairID:idString];
         }
     }
 }
