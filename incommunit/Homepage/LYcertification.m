@@ -20,6 +20,7 @@
 @interface LYcertification ()<UIActionSheetDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate> {
     LMContainsLMComboxScrollView *bgScrollView;
     NSArray *photoImageDataList;
+    int  temptag;
 }
 
 @end
@@ -39,10 +40,12 @@
 {
     [super viewDidLoad];
     _positiveimage.userInteractionEnabled=YES;
+    _positiveimage.tag = 101;
     UITapGestureRecognizer *singleTap =[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(showActionSheet:)];
     [_positiveimage addGestureRecognizer:singleTap];
     
     _reverseiamge.userInteractionEnabled=YES;
+    _reverseiamge.tag = 102;
     UITapGestureRecognizer *singleTap1 =[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(showActionSheet:)];
     [_reverseiamge addGestureRecognizer:singleTap1];
     
@@ -77,10 +80,11 @@
 }
 
 - (void)showActionSheet:(UITapGestureRecognizer *) tap {
-    if (tap.view.tag >= [photoImageDataList count] && [photoImageDataList count] != 0) {
-        return;
+    if (tap.view.tag == self.positiveimage.tag) {
+        temptag = self.positiveimage.tag;
+    }else if (tap.view.tag == self.reverseiamge.tag) {
+        temptag = self.reverseiamge.tag;
     }
-    
     UIActionSheet *actionSheet = nil;
     if ([UIImagePickerController isSourceTypeAvailable: UIImagePickerControllerSourceTypeCamera]) {
         actionSheet = [[UIActionSheet alloc] initWithTitle:@"添加照片" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:CAMERA, PHOTOES, nil];
@@ -88,7 +92,6 @@
     else {
         actionSheet = [[UIActionSheet alloc] initWithTitle:@"添加照片" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:PHOTOES, nil];
     }
-    
     [actionSheet showInView:self.view];
 }
 
@@ -119,11 +122,13 @@
         if (data.length > 1024 * 200) {
             data = UIImageJPEGRepresentation(image, 1024.0f * 200.0f / (CGFloat)data.length);
         }
-        UIImageView *imageView = [photoImageDataList objectAtIndex:photoImageDataList.count - 1];
-        [imageView setImage:[UIImage imageWithData:data]];
-        self.positiveimage.image = [photoImageDataList objectAtIndex:0];
-        self.reverseiamge.image = [photoImageDataList objectAtIndex:1];
-    }];
+        if (temptag == 101) {
+            self.positiveimage.image = image;
+        }else if (temptag == 102)
+        {
+            self.reverseiamge.image = image;
+        }
+}];
 }
 
 - (IBAction)submitPress:(id)sender {
