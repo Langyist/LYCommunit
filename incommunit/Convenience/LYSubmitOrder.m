@@ -133,7 +133,7 @@
         [item setName:[[dataList objectAtIndex:i] objectForKey:@"name"]];
         [item setPrice:[[[dataList objectAtIndex:i] objectForKey:@"price"] intValue]];
         [item setNumber:[[[dataList objectAtIndex:i] objectForKey:@"quantity"] intValue]];
-        Storesidstr = [[dataList objectAtIndex:i] objectForKey:@"Storesid"];
+        Storesidstr = [LYSqllite Storesid:@"1"];
         Totalprice= Totalprice+[[[dataList objectAtIndex:i] objectForKey:@"price"] intValue]*[[[dataList objectAtIndex:i] objectForKey:@"quantity"] intValue];
     }
     _priceLabel.text = [[NSString alloc] initWithFormat:@"￥%d.00",Totalprice];
@@ -219,6 +219,8 @@
 }
 
 - (IBAction)submitPress:(id)sender {
+    NSString *jsonString = [[NSString alloc] initWithData:[self toJSONData:dataList] encoding:NSUTF8StringEncoding];
+    jsonString = [[NSString alloc] initWithFormat:@"{\"commodityList\":%@}",jsonString];
     NSDictionary *dic = @{@"address" : _addressTextField.text
                           ,@"contacts" : _reciverTextField.text
                           ,@"phone" : _phoneTextField.text
@@ -226,7 +228,7 @@
                           ,@"remark" : _markTextField.text
                           ,@"total_price" : [[NSString alloc] initWithFormat:@"%d",Totalprice]
                           ,@"shop_id" : Storesidstr
-                          ,};
+                          ,@"commodity_info" : jsonString};
     [[StoreOnlineNetworkEngine shareInstance] startNetWorkWithPath:@"services/order/add"
                                                             params:dic
                                                             repeat:YES
@@ -248,6 +250,20 @@
     
 }
 
+// 将数组转JSON
+- (NSData *)toJSONData:(id)theData{
+    NSError *error = nil;
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:theData
+                                                       options:NSJSONWritingPrettyPrinted
+                                                         error:&error];
+                                            if ([jsonData length] > 0 && error == nil){
+                                                return jsonData;
+                                            }else{
+                                                return nil;
+                                            }
+}
+//NSString *jsonString = [[NSString alloc] initWithData:jsonDataencoding:NSUTF8StringEncoding];
+//NSString *jsonString = [[NSString alloc] initWithData:jsonDataencoding:NSUTF8StringEncoding];
 -(void)GetDeliverytime
 {
     NSDictionary *dic = @{@"shop_id" : Storesidstr};

@@ -50,12 +50,6 @@
     m_pageOffset = 0 ;
     [self GetType];
     [self GetNetdata];
-    // Do any additional setup after loading the view.
-    
-    //    self.friendlyLoadingView = [[XHFriendlyLoadingView alloc] initWithFrame:self.view.bounds];
-    //    [self.friendlyLoadingView showFriendlyLoadingViewWithText:@"正在加载..." loadingAnimated:YES];
-    //    [self.view addSubview:self.friendlyLoadingView];
-    
     [self.segmentedControl setMaskForItem:@[@"0"]];
     
     UINib *nib = [UINib nibWithNibName:@"NCTableViewCell" bundle:nil];
@@ -147,7 +141,8 @@
     return cell;
 }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
     detailData = [[NSDictionary alloc]initWithDictionary:[m_infodata objectAtIndex:[indexPath row]]];
     [self performSegueWithIdentifier:@"NCDetail" sender:nil];
 }
