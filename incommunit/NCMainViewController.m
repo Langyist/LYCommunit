@@ -46,10 +46,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     selectType = @"1";
-    m_pagesize = 10;
+    m_pagesize = 50;
     m_pageOffset = 0 ;
     [self GetType];
-    [self GetNetdata];
+    [self GetNetdata:0];
     [self.segmentedControl setMaskForItem:@[@"0"]];
     
     UINib *nib = [UINib nibWithNibName:@"NCTableViewCell" bundle:nil];
@@ -92,9 +92,33 @@
     }
     [self.scrollView setContentOffset:CGPointMake(_scrollView.frame.size.width * index, 0) animated:YES];
     lastSelect = index;
-    
-    [self GetNetdata];
-    [_allInfoTableView reloadData];
+    switch (index) {
+        case 0:
+        {
+             selectType = @"0";
+            [self GetNetdata:0];
+        }
+            break;
+        case 1:
+        {
+            selectType = @"1";
+            [self GetNetdata:1];
+        }
+            break;
+        case 2:
+        {
+            selectType = @"2";
+            [self GetNetdata:2];
+        }
+            break;
+        case 3:
+        {
+            selectType = @"3";
+            [self GetNetdata:3];
+        }
+        default:
+            break;
+    }
 }
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
@@ -110,10 +134,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     NSInteger numberOfRowsInSection = 0;
-    if (tableView == _allInfoTableView) {
-        numberOfRowsInSection = m_infodata.count;
-    }
-    
+    numberOfRowsInSection = m_infodata.count;
     if (numberOfRowsInSection == 0) {
         tableView.tableFooterView.hidden = NO;
     }
@@ -147,9 +168,13 @@
     [self performSegueWithIdentifier:@"NCDetail" sender:nil];
 }
 
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    NCDetailTableViewController *detailViewController = (NCDetailTableViewController*) segue.destinationViewController;
-    [detailViewController setDetailData:detailData];
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([segue.identifier isEqualToString: @"NCDetail"])
+    {
+        NCDetailTableViewController *detailViewController = (NCDetailTableViewController*) segue.destinationViewController;
+        [detailViewController setDetailData:detailData];
+    }
 }
 
 #pragma mark -
@@ -171,7 +196,7 @@
     selectType = [[m_type objectAtIndex:row] objectForKey:@"id"];
 }
 
--(void)GetNetdata
+-(void)GetNetdata:(int)caseid
 {
     NSDictionary *  dic = @{@"type_id" : selectType
                             ,@"pageOffset" : [[NSString alloc] initWithFormat:@"%d",m_pageOffset]
@@ -189,10 +214,33 @@
                                                                [alview show];
                                                            }else
                                                            {
-                                                               m_infodata =result;
-                                                               [_allInfoTableView reloadData];
+                                                                m_infodata =result;
+                                                               switch (caseid) {
+                                                                   case 0:
+                                                                   {
+                                                                       [_allInfoTableView reloadData];
+                                                                   }
+                                                                       break;
+                                                                   case 1:
+                                                                   {
+                                                                       [woodsInfoTableView reloadData];
+                                                                   }
+                                                                       break;
+                                                                   case 2:
+                                                                   {
+                                                                       [carInfoTableView reloadData];
+                                                                   }
+                                                                       break;
+                                                                   case 3:
+                                                                   {;
+                                                                       [roomInfoTableView reloadData];
+                                                                   }
+                                                                   default:
+                                                                       break;
+                                                                }
+                                                               }
                                                            }
-                                                       }];
+                                                       ];
     
 }
 -(void)GetType
@@ -210,5 +258,9 @@
                                                                m_type =result;
                                                            }
                                                        }];
+}
+-(IBAction)sendInfo:(id)sender
+{
+    [self performSegueWithIdentifier:@"Gosendinfo" sender:nil];
 }
 @end

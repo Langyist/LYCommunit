@@ -27,7 +27,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [self.navigationItem setTitle:@"xxx"];
+    [self.navigationItem setTitle:@"邻里互助详情"];
     [self setDetailLabelText:[m_detailData objectForKey:@"content"]];
     [self setTimestampString:[m_detailData objectForKey:@"create_time"]];
     [self setTitleLabelText:[m_detailData objectForKey:@"title"]];
@@ -67,7 +67,7 @@
         //目前只显示一张图片
         if ([[[array objectAtIndex:0] objectForKey:@"path"] length]) {
             NSURL *url = [NSURL URLWithString:[[array objectAtIndex:0] objectForKey:@"path"]];
-            [self.titleImage setImageWithURL:url placeholderImage:nil];
+            [_titleImage setImageWithURL:url placeholderImage:nil];
         }
     }
 }
