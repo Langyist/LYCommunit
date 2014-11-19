@@ -173,7 +173,6 @@
 
 -(void)GetNetdata
 {
-    
     NSDictionary *  dic = @{@"type_id" : selectType
                             ,@"pageOffset" : [[NSString alloc] initWithFormat:@"%d",m_pageOffset]
                             ,@"pageSize" : [[NSString alloc] initWithFormat:@"%d",m_pagesize]
@@ -209,7 +208,6 @@
                                                                NSLog(@"%@",errorMsg);
                                                            }else{
                                                                m_type =result;
-                                                               
                                                            }
                                                        }];
 }
