@@ -12,7 +12,13 @@
 #import <MobileCoreServices/UTCoreTypes.h>
 #import "UIActionSheet+Blocks.h"
 #import "LMContainsLMComboxScrollView.h"
+<<<<<<< HEAD
 #define kDropDownListTag 1000
+=======
+
+#define kDropDownListTag 1000
+
+>>>>>>> AndrewLee
 @interface LYcertification () {
     
     LMContainsLMComboxScrollView *bgScrollView;
@@ -196,6 +202,10 @@ static UIImage *shrinkImage(UIImage *orignal,CGSize size) {
                   }];
 }
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> AndrewLee
 - (IBAction)submitPress:(id)sender {
 }
 
