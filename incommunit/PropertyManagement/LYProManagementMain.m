@@ -141,11 +141,15 @@
     m_MaintableView.delegate = self;
     m_MaintableView.dataSource = self;
     [m_view04 addSubview:m_MaintableView];
+    
+    UINib *nib2 = [UINib nibWithNibName:@"MaintenanceCell" bundle:nil];
+    [m_MaintableView registerNib:nib2 forCellReuseIdentifier:@"Maintenanceidentifier"];
+    
     //我要报修button
-    repairButton = [[UIButton alloc] initWithFrame:CGRectMake(0, m_view04.frame.size.height - 150, 150, 50)];
-    repairButton.backgroundColor = [UIColor greenColor];
+    repairButton = [[UIButton alloc] initWithFrame:CGRectMake(-3, m_view04.frame.size.height - 150, 150, 50)];
+    repairButton.backgroundColor = [UIColor colorWithRed:188.0f/255.0f green:210.0f/255.0f blue:94.0f/255.0f alpha:1];
     repairButton.layer.cornerRadius = 3;
-    repairButton.alpha = 0.7;
+    repairButton.alpha = 0.9;
     [repairButton addTarget:self action:@selector(repairButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
     [m_view04 addSubview:repairButton];
     
@@ -156,7 +160,7 @@
     UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(50, 10, 100, 30)];
     label.text = @"我要报修";
     label.textColor = [UIColor whiteColor];
-    label.font = [UIFont systemFontOfSize:20];
+    label.font = [UIFont boldSystemFontOfSize:16];
     [repairButton addSubview:label];
     
     [m_view04 addSubview:repairButton];
@@ -449,7 +453,7 @@
         return heightForRowAtIndexPath;
     }
     else if (tableView == m_MaintableView) {
-        return 144;
+        return 171;
     }
     return 0;
 }
@@ -566,43 +570,48 @@
                 break;
         }
     }
-    else if (tableView == m_MaintableView)
-    {
-        NSDictionary *tempDic = [propertyService objectAtIndex:indexPath.row];
-        IDNumber =[[tempDic objectForKey:@"id"] integerValue];
-        [NSThread detachNewThreadSelector:@selector(GetPropertyServiceDetailData) toTarget:self withObject:nil];
-        UINib *nib = [UINib nibWithNibName:@"MaintenanceCell" bundle:nil];
-        [tableView registerNib:nib forCellReuseIdentifier:@"Maintenanceidentifier"];
-        LY_MaintenanceCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Maintenanceidentifier"];
-        cell.headNameLabel.text = [specifyPropertyService  objectForKey:@"name"];
-        NSString *imageUrl = [specifyPropertyService  objectForKey:@"image_path"];
-        if (imageUrl!=nil && ![imageUrl isEqualToString:@""])
-        {
-            NSURL *url = [NSURL URLWithString:imageUrl];
-            [cell.avatarImageView setImageWithURL:url placeholderImage:nil];
-        }
-        cell.nameLabel.text = [specifyPropertyService  objectForKey:@"nick_name"];
-        cell.addressLabel.text = [specifyPropertyService objectForKey:@"position"];
-        cell.timeLabel.text =  [NSString stringWithFormat:@"%@",[specifyPropertyService objectForKey:@"create_time"]];
-        cell.detailLabel.text = [specifyPropertyService  objectForKey:@"description"];
-        NSString *statusString = [NSString stringWithFormat:@"%@",[specifyPropertyService objectForKey:@"status"]];
-        if ([statusString isEqualToString:@"0"])
-        {
-            cell.statusLabel.text = @"待审核";
-        }
-        else if ([statusString isEqualToString:@"1"])
-        {
-            cell.statusLabel.text = @"维修中";
-        }
-        else if ([statusString isEqualToString:@"2"])
-        {
-            cell.statusLabel.text = @"拒绝维修";
-        }
-        else  if ([statusString isEqualToString:@"3"])
-        {
-            cell.statusLabel.text = @"维修完";
-        }
+    else if (tableView == m_MaintableView) {
+        
+        LY_MaintenanceCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Maintenanceidentifier" forIndexPath:indexPath];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        
+        if (propertyService.count > indexPath.row) {
+            
+            NSDictionary *tempDic = [propertyService objectAtIndex:indexPath.row];
+            
+            cell.headNameLabel.text = [tempDic objectForKey:@"name"];
+            
+            NSString *statusString = [NSString stringWithFormat:@"%@", [tempDic objectForKey:@"status"]];
+            NSString *imageName = @"repair_status1";
+            if ([statusString isEqualToString:@"0"]) {
+                imageName = @"";
+            }
+            else if ([statusString isEqualToString:@"1"]) {
+                imageName = @"repair_status1";
+            }
+            else if ([statusString isEqualToString:@"2"]) {
+                imageName = @"status_closed";
+            }
+            else  if ([statusString isEqualToString:@"3"]) {
+                imageName = @"repair_status2";
+            }
+            [cell.statusImageView setImage:[UIImage imageNamed:imageName]];
+            
+            NSString *imageUrl = [specifyPropertyService  objectForKey:@"image_path"];
+            if (imageUrl != nil && ![imageUrl isEqualToString:@""]) {
+                NSURL *url = [NSURL URLWithString:imageUrl];
+                [cell.avatarImageView setImageWithURL:url placeholderImage:nil];
+            }
+            else {
+                [cell.avatarImageView setImage:[UIImage imageNamed:@"default_icon"]];
+            }
+            
+            cell.nameLabel.text = [tempDic objectForKey:@"nick_name"];
+            cell.addressLabel.text = [tempDic objectForKey:@"position"];
+            cell.timeLabel.text =  [NSString stringWithFormat:@"%@", [tempDic objectForKey:@"create_time"]];
+            cell.detailLabel.text = [tempDic  objectForKey:@"description"];
+        }
+        
         return cell;
     }
     return nil;
@@ -747,6 +756,9 @@
             }
         }
         specifyMessageDictionary = [communicationInfo objectAtIndex:row];
+        [self performSegueWithIdentifier:@"replyMessage" sender:self];
+    }
+    else if (tableView == m_MaintableView) {
         [self performSegueWithIdentifier:@"replyMessage" sender:self];
     }
 }
