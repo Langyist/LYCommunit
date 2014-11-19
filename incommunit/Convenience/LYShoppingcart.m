@@ -42,24 +42,14 @@ typedef void (^ChangeNumberBlock)(ShopcartCell *cell, BOOL add);
 
 @end
 
-
-@interface LYShoppingcart ()
-@property (weak, nonatomic) IBOutlet UILabel *totalLabel;
-@end
-
 @implementation LYShoppingcart
+
 @synthesize m_tableView,m_storesNumber;
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-    }
-    return self;
-}
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
     number= 0;
     m_textfiledlist = [[NSMutableArray alloc] init];
     self.m_tableView.allowsSelectionDuringEditing = YES;
@@ -71,7 +61,11 @@ typedef void (^ChangeNumberBlock)(ShopcartCell *cell, BOOL add);
     
     self.settlementButton.layer.cornerRadius = 3.0f;
     [self.settlementButton setBackgroundColor:SPECIAL_RED];
+}
+
+- (void)viewDidAppear:(BOOL)animated {
     
+    [super viewDidAppear:animated];
     [self calculationTotlePrice];
 }
 
@@ -294,7 +288,8 @@ typedef void (^ChangeNumberBlock)(ShopcartCell *cell, BOOL add);
     
     [self calculationTotlePrice];
 }
--(IBAction)deleteGoods:(id)sender
+
+- (IBAction)deleteGoods:(id)sender
 {
     [LYSqllite delectGoods:@"1"];
     Goodslist = [[NSMutableArray alloc] init];
@@ -306,9 +301,11 @@ typedef void (^ChangeNumberBlock)(ShopcartCell *cell, BOOL add);
     CGFloat totlePrice = 0;
     for (NSArray *items in Goodslist) {
         for (NSDictionary *itemInfo in items) {
-            NSInteger itemNumber = [[itemInfo objectForKey:@"quantity"] integerValue];
-            CGFloat itemPrice = [[itemInfo objectForKey:@"price"] floatValue];
-            totlePrice += itemNumber * itemPrice;
+            if ([[itemInfo objectForKey:@"selectState"] boolValue]) {
+                NSInteger itemNumber = [[itemInfo objectForKey:@"quantity"] integerValue];
+                CGFloat itemPrice = [[itemInfo objectForKey:@"price"] floatValue];
+                totlePrice += itemNumber * itemPrice;
+            }
         }
     }
     
