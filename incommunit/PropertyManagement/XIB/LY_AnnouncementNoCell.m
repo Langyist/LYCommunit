@@ -7,10 +7,13 @@
 //
 
 #import "LY_AnnouncementNoCell.h"
+#import "AppDelegate.h"
 @implementation LY_AnnouncementNoCell
 @synthesize lable1,lable2,lable3,m_imageview,m_iamge,label4;
 - (void)awakeFromNib {
     // Initialization code
+    
+    [self.contentView setBackgroundColor:BK_GRAY];
 }
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
