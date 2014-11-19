@@ -59,10 +59,13 @@
                                              }
                                   forState:UIControlStateSelected];
     self.m_scrollView.contentSize = CGSizeMake(self.m_scrollView.frame.size.width * 3, self.m_scrollView.frame.size.height);
+    [self.m_scrollView setBackgroundColor:BK_GRAY];
     [self.m_scrollView setScrollEnabled:NO];
     //物业公告
     m_view01 = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.m_scrollView.frame.size.width, self.m_scrollView.frame.size.height)];
+    [m_view01 setBackgroundColor:BK_GRAY];
     m_AnntableVeiw = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.m_scrollView.frame.size.height)];
+    [m_AnntableVeiw setContentInset:UIEdgeInsetsMake(5, 0, 4, 0)];
     UINib *nib = [UINib nibWithNibName:@"AnnouncementCellNo" bundle:nil];
     [m_AnntableVeiw registerNib:nib forCellReuseIdentifier:@"AnnouncementNoCellidentifier"];
     UINib *nib1 = [UINib nibWithNibName:@"AnnouncementCell" bundle:nil];
@@ -70,6 +73,7 @@
     m_AnntableVeiw.separatorStyle = UITableViewCellSeparatorStyleNone;
     m_AnntableVeiw.delegate = self;
     m_AnntableVeiw.dataSource = self;
+    [m_AnntableVeiw setBackgroundColor:BK_GRAY];
     [m_view01 addSubview:m_AnntableVeiw];
     [self.m_scrollView addSubview:m_view01];
     //信息查询
