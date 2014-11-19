@@ -307,30 +307,6 @@ typedef void (^ChangeNumberBlock)(ShopcartCell *cell, BOOL add);
             }
         }
     }
-    
-    self.totalLabel.text = [[NSString alloc] initWithFormat:@"￥%.2f", totlePrice];
-}
-
-- (IBAction)deleteGoods:(id)sender
-{
-    [LYSqllite delectGoods:@"1"];
-    Goodslist = [[NSMutableArray alloc] init];
-    Goodslist = [LYSqllite GetGoods];
-    [m_tableView reloadData];
-}
-
-- (void)calculationTotlePrice {
-    CGFloat totlePrice = 0;
-    for (NSArray *items in Goodslist) {
-        for (NSDictionary *itemInfo in items) {
-            if ([[itemInfo objectForKey:@"selectState"] boolValue]) {
-                NSInteger itemNumber = [[itemInfo objectForKey:@"quantity"] integerValue];
-                CGFloat itemPrice = [[itemInfo objectForKey:@"price"] floatValue];
-                totlePrice += itemNumber * itemPrice;
-            }
-        }
-    }
-    
     self.totalLabel.text = [[NSString alloc] initWithFormat:@"￥%.2f", totlePrice];
 }
 @end
