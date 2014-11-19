@@ -436,9 +436,14 @@ return bl;
 }
 
 
-//查询购物车数据
+/*
+ 查询购物车数据
+ stattestr 商品状态 1为选中 0 为没选中
+ 
+*/
 + (NSMutableArray*)GetGood:(NSString *)stattestr
 {
+    int Totalprice = 0;//总价
     sqlite3 *tempdatabase =  [[[LYSqllite alloc] init] openSqlite:@"LY_db.db"];
     sqlite3_stmt *statementst = nil;
     NSMutableArray *goodslist;
@@ -472,14 +477,10 @@ return bl;
             char* strText07   = (char*)sqlite3_column_text(statement, 8);
             [temp setValue:[NSString stringWithUTF8String:strText07] forKey:@"selectState"];//是否选中
             [goodslist addObject:temp];
-            //        sqlTestList* sqlList = [[sqlTestList alloc] init] ;
-            //        sqlList.sqlID    = sqlite3_column_int(statement,0);
-            //        char* strText   = (char*)sqlite3_column_text(statement, 1);
-            //        sqlList.sqlText = [NSString stringWithUTF8String:strText];
-            //        char *strName = (char*)sqlite3_column_text(statement, 2);
-            //        sqlList.sqlname = [NSString stringWithUTF8String:strName];
+            Totalprice = Totalprice +[[NSString stringWithUTF8String:strText01] intValue]*[[NSString stringWithUTF8String:strText02] intValue];
         }
     }
+    NSLog(@"%d",Totalprice);
     sqlite3_finalize(statement);
     sqlite3_close(tempdatabase);
     sqlite3_finalize(statementst);

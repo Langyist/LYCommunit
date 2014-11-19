@@ -206,5 +206,4 @@ static UIImage *shrinkImage(UIImage *orignal,CGSize size) {
     
 }
 
->>>>>>> AndrewLee
 @end
