@@ -22,9 +22,17 @@
 #import "AppDelegate.h"
 #import "LYSqllite.h"
 #import "LYAnnDetails.h"
+#import "LYReplyMessage.h"
 @interface LYProManagementMain () {
     UIView *m_liuView;
     UIButton *repairButton;//我要报修button
+    
+    UILabel *m_QQLabel;
+    UILabel *m_phoneLabel;
+    
+    NSArray *communicationStyle;
+    NSArray *communicationInfo;
+    NSArray *communicationInfoRange;
 }
 
 @end
@@ -111,59 +119,15 @@
     
     //物业交流
     m_view03 = [[UIView alloc] initWithFrame:CGRectMake(self.view.frame.size.width * 2, 0, self.m_scrollView.frame.size.width, self.view.frame.size.height)];
-    [m_view03 setBackgroundColor:[UIColor colorWithRed:233/255.0f green:233/255.0f blue:233/255.0f alpha:1]];
-    UIView *m_ACView = [[UIView alloc] initWithFrame:CGRectMake(0, 6, 320, 100)];
-    [m_ACView setBackgroundColor:[UIColor whiteColor]];
-    m_ACView.layer.cornerRadius = 0.1;
+    [m_view03 setBackgroundColor:BK_GRAY];
     
-    NSDictionary *temp = [propertyExchangeArray objectAtIndex:0];
-    UILabel *m_medthedLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 10, 150, 20)];
-    m_medthedLabel.text = @"物管联系方式";
-    m_medthedLabel.font = [UIFont boldSystemFontOfSize:15];
-    [m_ACView addSubview:m_medthedLabel];
-    
-    UIView *Gview = [[UIView alloc] initWithFrame:CGRectMake(15, m_medthedLabel.frame.size.height+21, self.view.frame.size.width - 30, 1)];
-    Gview.backgroundColor = [UIColor colorWithRed:229/255.0f green:229/255.0f blue:229/255.0f alpha:1];
-    [m_ACView addSubview:Gview];
-    
-    UILabel *m_QQLabel = [[UILabel alloc] initWithFrame:CGRectMake(16, 30, 150, 20)];
-    m_QQLabel.text = [temp objectForKey:@"contact"];
-    m_QQLabel.font = [UIFont boldSystemFontOfSize:13];
-    [m_QQLabel setTextColor:[UIColor grayColor]];
-    [m_ACView addSubview:m_QQLabel];
-    
-    UILabel *m_phoneLabel = [[UILabel alloc] initWithFrame:CGRectMake(16, 50, 150, 20)];
-    m_phoneLabel.text = @"电话:123456798"; //接口没有该数据
-    m_phoneLabel.font = [UIFont boldSystemFontOfSize:13];
-    [m_phoneLabel setTextColor:[UIColor grayColor]];
-    [m_ACView addSubview:m_phoneLabel];
-    
-    [m_view03 addSubview:m_ACView];
-    
-    m_liuView = [[UIView alloc] initWithFrame:CGRectMake(0, m_ACView.frame.size.height+12, 320, 35)];
-    m_liuView.backgroundColor = [UIColor whiteColor];
-    m_liuView.layer.borderWidth = 0.1;
-    
-    UILabel *liuLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 5, 80, 30)];
-    liuLabel.text = @"留言薄";
-    liuLabel.font = [UIFont boldSystemFontOfSize:15];
-    [m_liuView addSubview:liuLabel];
-    
-    UIButton * m_liuButton = [[UIButton alloc] initWithFrame:CGRectMake(222, 7, 80, 26)];
-    [m_liuButton setTitle:@"我要留言" forState:UIControlStateNormal];
-    [m_liuButton.titleLabel setFont:[UIFont boldSystemFontOfSize:14]];
-    [m_liuButton addTarget:self action:@selector(liuButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
-    m_liuButton.backgroundColor = [UIColor colorWithRed:(188/255.0f) green:(210/255.0f) blue:(94/255.0f) alpha:1.0];
-    m_liuButton.layer.cornerRadius = 5;
-    m_liuButton.layer.borderWidth = 0.1;
-    [m_liuView addSubview:m_liuButton];
-    [m_view03 addSubview:m_liuView];
-    
-    m_ACtableView = [[UITableView alloc] initWithFrame:CGRectMake(0, m_liuView.frame.origin.y+m_liuView.frame.size.height, m_view03.frame.size.width, m_view03.frame.size.height - 50)];
+    m_ACtableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 7.5, self.m_scrollView.frame.size.width, self.view.frame.size.height - 7.5)];
+    [m_ACtableView setBackgroundColor:BK_GRAY];
+    [m_ACtableView setContentInset:UIEdgeInsetsMake(0, 0, -7.5, 0)];
     m_ACtableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [m_ACtableView registerNib:[UINib nibWithNibName:@"MessageContentTableViewCell" bundle:nil] forCellReuseIdentifier:@"MessageContentTableViewCell"];
     [m_ACtableView registerNib:[UINib nibWithNibName:@"CommentTableViewCell" bundle:nil] forCellReuseIdentifier:@"CommentTableViewCell"];
-    m_view03.backgroundColor = [UIColor colorWithRed:229/255.0f green:229/255.0f blue:229/255.0f alpha:1];
+    [m_ACtableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"ContactCell"];
     m_ACtableView.delegate = self;
     m_ACtableView.dataSource = self;
     [m_view03 addSubview:m_ACtableView];
@@ -272,6 +236,7 @@
             [self.m_scrollView setContentOffset:CGPointMake(2* self.view.frame.size.width,0) animated:YES];
             m_segment.selectedSegmentIndex = 2;
             [self GetPropertyExchangeData];
+            [self getMessageList];
         }];}
     }
 }
@@ -381,9 +346,9 @@
             return 2;
         }
         
-    }else if (tableView == m_ACtableView) {
-        
-        return messageBoardListArray.count;
+    }
+    else if (tableView == m_ACtableView) {
+        return 2;
     }
     else if (tableView == m_MaintableView) {
         
@@ -408,11 +373,21 @@
                 break;
         }
     }
-    else if (tableView == m_ACtableView)
-    {
-        NSDictionary *temp = [messageBoardListArray objectAtIndex:section];
-        return 1 + [[temp objectForKey:@"replies"] count];
-        
+    else if (tableView == m_ACtableView) {
+        switch (section) {
+            case 0: {
+                return communicationStyle.count;
+            }
+                break;
+            case 1: {
+                return communicationInfo.count;
+            }
+                break;
+            default: {
+                return 0;
+            }
+                break;
+        }
     }else if (tableView == m_MaintableView)
     {
         return propertyService.count;
@@ -440,24 +415,40 @@
                 break;
         }
     }
-    else if (tableView == m_ACtableView)
-    {
-        NSDictionary *temp = [messageBoardListArray objectAtIndex:indexPath.section];
-        if (indexPath.row == 0) {
-            return [MessageContentTableViewCell cellHeightWithContent:[temp objectForKey:@"content"]];
+    else if (tableView == m_ACtableView) {
+        
+        CGFloat heightForRowAtIndexPath = 0;
+        switch (indexPath.section) {
+            case 0: {
+                heightForRowAtIndexPath = 28;
+            }
+                break;
+            case 1: {
+                
+                if (indexPath.row < communicationInfo.count) {
+                    NSNumber *indexNumber = [NSNumber numberWithInteger:indexPath.row];
+                    NSDictionary *info = [communicationInfo objectAtIndex:indexPath.row];
+                    if ([communicationInfoRange containsObject:indexNumber]) {
+                        heightForRowAtIndexPath = [MessageContentTableViewCell cellHeightWithContent:[info objectForKey:@"content"]];
+                    }
+                    else {
+                        heightForRowAtIndexPath = [CommentTableViewCell cellHeightWithContent:@[[info objectForKey:@"nick_name"], [info objectForKey:@"content"]]];
+                    }
+                }
+                else {
+                    return 0;
+                }
+            }
+                break;
+            default: {
+                return 0;
+            }
+                break;
         }
-        else {
-            NSInteger commentIndex = indexPath.row - 1;
-            NSDictionary *dic = [[temp objectForKey:@"replies"] objectAtIndex:commentIndex];
-            return [CommentTableViewCell cellHeightWithContent:@[[dic objectForKey:@"nick_name"], [dic objectForKey:@"content"]]];
-        }
-//        NSDictionary *temp = [messageBoardListArray objectAtIndex:indexPath.row];
-//        IDNumber = [[temp objectForKey:@"id"] integerValue];
-//        [NSThread detachNewThreadSelector:@selector(getMessageDetailData:) toTarget:self withObject:nil];
-//        NSInteger repliesCount = [[specifyMessageDictionary objectForKey:@"replies"] count];
-//        return 100 + 21*repliesCount;
-    }else if (tableView == m_MaintableView)
-    {
+        
+        return heightForRowAtIndexPath;
+    }
+    else if (tableView == m_MaintableView) {
         return 144;
     }
     return 0;
@@ -528,23 +519,51 @@
             }
                 break;
         }
-    }else if (tableView == m_ACtableView)
-    {
-        NSDictionary *temp = [messageBoardListArray objectAtIndex:indexPath.section];
-        if (indexPath.row == 0) {
-            MessageContentTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MessageContentTableViewCell" forIndexPath:indexPath];
-            [cell setImagePath:[temp objectForKey:@"head"]];
-            [cell setUserName:[temp objectForKey:@"nick_name"]];
-            [cell setTimestamp:[temp objectForKey:@"create_time"]];
-            [cell setContent:[temp objectForKey:@"content"]];
-            return cell;
-        }
-        else {
-            NSInteger commentIndex = indexPath.row - 1;
-            NSDictionary *dic = [[temp objectForKey:@"replies"] objectAtIndex:commentIndex];
-            CommentTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CommentTableViewCell" forIndexPath:indexPath];
-            [cell setContent:@[[dic objectForKey:@"nick_name"], [dic objectForKey:@"content"]]];
-            return cell;
+    }
+    else if (tableView == m_ACtableView) {
+        switch (indexPath.section) {
+            case 0: {
+                UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ContactCell" forIndexPath:indexPath];
+                NSString *contactText = @"";
+                if (indexPath.row < communicationStyle.count) {
+                    NSDictionary *contactInfo = [communicationStyle objectAtIndex:indexPath.row];
+                    contactText = [contactInfo objectForKey:@"contact"];
+                }
+                [cell.textLabel setFont:[UIFont systemFontOfSize:14]];
+                [cell.textLabel setTextColor:[UIColor grayColor]];
+                [cell.textLabel setText:contactText];
+                
+                return cell;
+            }
+                break;
+            case 1: {
+                if (indexPath.row < communicationInfo.count) {
+                    NSNumber *indexNumber = [NSNumber numberWithInteger:indexPath.row];
+                    NSDictionary *info = [communicationInfo objectAtIndex:indexPath.row];
+                    if ([communicationInfoRange containsObject:indexNumber]) {
+                        MessageContentTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MessageContentTableViewCell" forIndexPath:indexPath];
+                        [cell setImagePath:[info objectForKey:@"head"]];
+                        [cell setUserName:[info objectForKey:@"nick_name"]];
+                        [cell setTimestamp:[info objectForKey:@"create_time"]];
+                        [cell setContent:[info objectForKey:@"content"]];
+                        return cell;
+                    }
+                    else {
+                        CommentTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CommentTableViewCell" forIndexPath:indexPath];
+                        [cell setContent:@[[info objectForKey:@"nick_name"], [info objectForKey:@"content"]]];
+                        return cell;
+                    }
+                }
+                else {
+                    UITableViewCell *cell = [[UITableViewCell alloc] init];
+                    return cell;
+                }
+            }
+                break;
+            default: {
+                return 0;
+            }
+                break;
         }
     }
     else if (tableView == m_MaintableView)
@@ -604,13 +623,77 @@
         return headerView;//将视图（v_headerView）返回
     }
     else if (tableView == m_ACtableView) {
-        return nil;
+        switch (section) {
+            case 0: {
+                
+                CGFloat move = 13.5f;
+                
+                CGRect rect = tableView.frame;
+                rect.origin = CGPointMake(0, 0);
+                rect.size.height = 47;
+                UIView *header = [[UIView alloc] initWithFrame:rect];
+                [header setBackgroundColor:[UIColor whiteColor]];
+                
+                UILabel *m_medthedLabel = [[UILabel alloc] initWithFrame:CGRectMake(move, 0, 150, 40)];
+                m_medthedLabel.text = @"物管联系方式";
+                m_medthedLabel.font = [UIFont systemFontOfSize:16];
+                [header addSubview:m_medthedLabel];
+                
+                UIView *Gview = [[UIView alloc] initWithFrame:CGRectMake(move, CGRectGetMaxY(m_medthedLabel.frame), CGRectGetWidth(rect) - move * 2, 1)];
+                Gview.backgroundColor = [UIColor colorWithRed:229/255.0f green:229/255.0f blue:229/255.0f alpha:1];
+                [header addSubview:Gview];
+                
+                return header;
+            }
+                break;
+            case 1: {
+                CGFloat move = 13.5f;
+                
+                CGRect rect = tableView.frame;
+                rect.origin = CGPointMake(0, 0);
+                rect.size.height = 40;
+                UIView *header = [[UIView alloc] initWithFrame:rect];
+                [header setBackgroundColor:[UIColor whiteColor]];
+                
+                UILabel *liuLabel = [[UILabel alloc] initWithFrame:CGRectMake(move, 8, 80, 30)];
+                liuLabel.text = @"留言薄";
+                liuLabel.font = [UIFont systemFontOfSize:16];
+                [header addSubview:liuLabel];
+                
+                rect = CGRectMake(222, 10, 80, 26);
+                rect.origin.x = CGRectGetWidth(tableView.frame) - move - CGRectGetWidth(rect);
+                UIButton * m_liuButton = [[UIButton alloc] initWithFrame:rect];
+                [m_liuButton setTitle:@"我要留言" forState:UIControlStateNormal];
+                [m_liuButton.titleLabel setFont:[UIFont systemFontOfSize:14]];
+                [m_liuButton addTarget:self action:@selector(liuButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+                m_liuButton.backgroundColor = [UIColor colorWithRed:(188/255.0f) green:(210/255.0f) blue:(94/255.0f) alpha:1.0];
+                m_liuButton.layer.cornerRadius = 5;
+                m_liuButton.layer.borderWidth = 0.1;
+                [header addSubview:m_liuButton];
+                
+                return header;
+            }
+                break;
+            default: {
+                return nil;
+            }
+                break;
+        }
     }
     else if (tableView == m_MaintableView)
     {
         return nil;
     }
     return nil;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
+    UIView *footerView = nil;
+    if (tableView == m_ACtableView) {
+        footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(tableView.frame), 7.5)];
+        [footerView setBackgroundColor:BK_GRAY];
+    }
+    return footerView;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
@@ -622,8 +705,16 @@
         return 40;
     }
     else if (tableView == m_ACtableView) {
-        
-        return 0;
+        switch (section) {
+            case 0:
+                return 47;
+                break;
+            case 1:
+                return 40;
+                break;
+            default:
+                break;
+        }
     }
     else if (tableView == m_MaintableView) {
         
@@ -632,14 +723,30 @@
     return 0;
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
+    CGFloat heightForFooterInSection = 0;
+    if (tableView == m_ACtableView) {
+        
+        heightForFooterInSection = 7.5;
+    }
+    return heightForFooterInSection;
+}
+
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (tableView == m_AnntableVeiw) {
         selectedDictionary = [notification objectAtIndex:indexPath.row];
         [self performSegueWithIdentifier:@"NInformation" sender:self];
     }
-    if(tableView == m_ACtableView)
-    {
+    else if (tableView == m_ACtableView) {
+        NSInteger row = indexPath.row;
+        for (NSNumber *index in communicationInfoRange) {
+            if (row <= [index integerValue]) {
+                row = [index integerValue];
+                break;
+            }
+        }
+        specifyMessageDictionary = [communicationInfo objectAtIndex:row];
         [self performSegueWithIdentifier:@"replyMessage" sender:self];
     }
 }
@@ -653,14 +760,14 @@
             [[segue destinationViewController] setDetailData:selectedDictionary];
         }
     }
-//    if ([[segue identifier] isEqualToString:@"replyMessage"])
-//    {
-//        if (0 != selectedDictionary.count)
-//        {
-//            NSString *idString = [NSString stringWithFormat:@"%@",[specifyMessageDictionary objectForKey:@"id"]];
-//            [[segue destinationViewController] setMessageID:idString];
-//        }
-//    }
+    else if ([[segue identifier] isEqualToString:@"replyMessage"])
+    {
+        if (0 != specifyMessageDictionary.count)
+        {
+            NSString *idString = [NSString stringWithFormat:@"%@", [specifyMessageDictionary objectForKey:@"id"]];
+            [((LYReplyMessage *)segue.destinationViewController) setMessageID:idString];
+        }
+    }
 }
 //开始滑动隐藏button
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView{
@@ -736,14 +843,13 @@
                                                             repeat:YES
                                                              isGet:YES
                                                        resultBlock:^(BOOL bValidJSON, NSString *errorMsg, id result) {
-                                                           if(!bValidJSON)
-                                                           {
+                                                           if (!bValidJSON) {
                                                                NSLog(@"%@",errorMsg);
                                                                
-                                                           }else
-                                                           {
-                                                               messageBoardListArray = result;
-                                                               [m_ACtableView reloadData];
+                                                           }
+                                                           else {
+                                                               communicationStyle = result;
+                                                               [m_ACtableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationFade];
                                                            }
                                                        }];
 
@@ -813,4 +919,43 @@
                                                            }
                                                        }];
 }
+
+-(void)getMessageList {
+    [[StoreOnlineNetworkEngine shareInstance] startNetWorkWithPath:@"services/wuye/message/list"
+                                                            params:@{
+                                                                     @"pageSize" : [NSString stringWithFormat:@"%d", 20]
+                                                                     ,@"pageOffset" : [NSString stringWithFormat:@"%d", 0]
+                                                                     }
+                                                            repeat:YES
+                                                             isGet:YES
+                                                       resultBlock:^(BOOL bValidJSON, NSString *errorMsg, id result) {
+                                                           if (!bValidJSON) {
+                                                               NSLog(@"%@", errorMsg);
+                                                           }
+                                                           else {
+                                                               NSMutableArray *resultTemp = [[NSMutableArray alloc] init];
+                                                               NSMutableArray *rangelist = [[NSMutableArray alloc] init];
+                                                               NSInteger location = 0;
+                                                               for (NSDictionary *message in result) {
+                                                                   
+                                                                   [rangelist addObject:[NSNumber numberWithInteger:location]];
+                                                                   
+                                                                   [resultTemp addObject:message];
+                                                                   location += 1;
+                                                                   
+                                                                   NSArray *replies = [message objectForKey:@"replies"];
+                                                                   if (replies) {
+                                                                       [resultTemp addObjectsFromArray:[message objectForKey:@"replies"]];
+                                                                   }
+                                                                   location += replies.count;
+                                                               }
+                                                               
+                                                               communicationInfo = resultTemp;
+                                                               communicationInfoRange = rangelist;
+                                                               
+                                                               [m_ACtableView reloadSections:[NSIndexSet indexSetWithIndex:1] withRowAnimation:UITableViewRowAnimationFade];
+                                                           }
+                                                       }];
+}
+
 @end

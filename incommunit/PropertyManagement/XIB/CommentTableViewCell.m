@@ -49,7 +49,7 @@
     
     [self.contentLabel setAttributedText:stringNew];
     
-    CGFloat newHeight = [CommentTableViewCell stringHeightWithString:contentList size:self.contentLabel.frame.size font:[UIFont boldSystemFontOfSize:14]];
+    CGFloat newHeight = [CommentTableViewCell heightOfLabel:contentList size:self.contentLabel.frame.size font:[UIFont boldSystemFontOfSize:12]];
     CGRect newFrame = self.contentLabel.frame;
     newFrame.size.height = newHeight;
     self.contentLabel.frame = newFrame;
@@ -61,21 +61,31 @@
 
 + (CGFloat)cellHeightWithContent:(NSArray *)contentList {
     CGFloat cellHeight = 0;
-    cellHeight = [CommentTableViewCell stringHeightWithString:contentList size:CGSizeMake(206, 12) font:[UIFont boldSystemFontOfSize:12]] + 20 - 12;
+    cellHeight = [CommentTableViewCell heightOfLabel:contentList size:CGSizeMake(214, 12) font:[UIFont boldSystemFontOfSize:12]] + 20 - 12;
     cellHeight = MAX(20, cellHeight);
     return cellHeight;
 }
 
-+ (CGFloat)stringHeightWithString:(NSArray *)textList size:(CGSize)size font:(UIFont *)font {
-    NSMutableString *string = [[NSMutableString alloc] initWithString:@""];
-    for (NSMutableString *text in textList) {
-        [string appendString:text];
++ (CGFloat)heightOfLabel:(NSArray *)textList size:(CGSize)size font:(UIFont *)font {
+    int length = 0;
+    CGFloat height = 0;
+    for (NSString *text in textList) {
+        length += (int)[self widthOfString:text withFont:font];
     }
-    NSDictionary *attributes =@{NSFontAttributeName:font};//配置字体类型参数
-    NSStringDrawingOptions options = NSStringDrawingTruncatesLastVisibleLine | NSStringDrawingUsesFontLeading | NSStringDrawingUsesLineFragmentOrigin;//配置字符绘制规则
-    CGRect rect = [string boundingRectWithSize:CGSizeMake(size.width, CGFLOAT_MAX) options:options attributes:attributes context:NULL];//计算文本大小
-    
-    return rect.size.height;
+    if (length > 0) {
+        int count = (int)(length / size.width);
+        height = (count + 1) * font.lineHeight;
+    }
+    return height;
+}
+
+//根据字号计算字符串的宽度
++ (CGFloat)widthOfString:(NSString *)string withFont:(UIFont *)font {
+    if (string.length == 0) {
+        return 0;
+    }
+    NSDictionary *attributes = [NSDictionary dictionaryWithObjectsAndKeys:font, NSFontAttributeName, nil];
+    return [[[NSAttributedString alloc] initWithString:string attributes:attributes] size].width;
 }
 
 @end

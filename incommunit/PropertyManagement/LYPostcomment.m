@@ -7,7 +7,7 @@
 //
 
 #import "LYPostcomment.h"
-
+#import "StoreOnlineNetworkEngine.h"
 @interface LYPostcomment () {
     
 }
@@ -64,28 +64,37 @@
 
 -(BOOL)sendRequest:(NSString*)URL content:(NSString*)contentString
 {
-    NSError *error;
-    //    加载一个NSURL对象
-    NSString    *URLString = [NSString stringWithFormat:@"%@/services/wuye/message/deploy",URL];
-    NSURL *url = [NSURL URLWithString:URLString];
-    NSMutableURLRequest *request = [[NSMutableURLRequest alloc]initWithURL:url cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:10];
-    [request setHTTPMethod:@"POST"];//设置请求方式为POST，默认为GET
-    NSString *str = @"content=";//设置参数
-    str = [str stringByAppendingFormat:@"%@",contentString];
-    NSData *data = [str dataUsingEncoding:NSUTF8StringEncoding];
-    [request setHTTPBody:data];
-    //第三步，连接服务器
-    NSData *received = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
-    NSDictionary *weatherDic = [NSJSONSerialization JSONObjectWithData:received options:NSJSONReadingMutableLeaves error:&error];
-    if ([[weatherDic objectForKey:@"status"] isEqualToString:@"200"])
-    {
-        UIAlertView *al =[[UIAlertView alloc]initWithTitle:@"提示" message:@"留言发表成功！" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
-        [al show];
-        return YES;
-    }else
-    {
-        return NO;
+    if (!contentString) {
+        contentString = @"";
     }
+    
+    [[StoreOnlineNetworkEngine shareInstance] startNetWorkWithPath:@"services/wuye/message/deploy"
+                                                            params:@{
+                                                                     @"content" : contentString
+                                                                     }
+                                                            repeat:YES
+                                                             isGet:NO
+                                                       resultBlock:^(BOOL bValidJSON, NSString *errorMsg, id result) {
+                                                           if (!bValidJSON) {
+                                                               UIAlertView *al = [[UIAlertView alloc] initWithTitle:@"提示"
+                                                                                                            message:errorMsg
+                                                                                                           delegate:self
+                                                                                                  cancelButtonTitle:@"确定"
+                                                                                                  otherButtonTitles:nil, nil];
+                                                               [al show];
+                                                           }
+                                                           else {
+                                                               UIAlertView *al = [[UIAlertView alloc] initWithTitle:@"提示"
+                                                                                                            message:@"发表留言成功"
+                                                                                                           delegate:self
+                                                                                                  cancelButtonTitle:@"确定"
+                                                                                                  otherButtonTitles:nil, nil];
+                                                               [al show];
+                                                               [self.navigationController popViewControllerAnimated:YES];
+                                                           }
+                                                       }];
+    
+    return YES;
 }
 
 - (BOOL)textViewShouldBeginEditing:(UITextView *)textView {
