@@ -2756,6 +2756,7 @@
                         <outlet property="m_storesNumber" destination="UhS-B3-C9K" id="pLx-Nb-hhN"/>
                         <outlet property="m_tableView" destination="dCE-KY-zQ0" id="oE8-c6-nZO"/>
                         <outlet property="settlementButton" destination="Y1i-8l-JxI" id="Si4-Cn-sx6"/>
+                        <outlet property="totalLabel" destination="OuJ-pa-cXb" id="r4s-iM-IYg"/>
                         <segue destination="dF0-hD-JPC" kind="push" identifier="GoSettlement" id="v7h-1L-6V5"/>
                     </connections>
                 </viewController>
