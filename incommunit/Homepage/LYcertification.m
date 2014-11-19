@@ -50,10 +50,6 @@
     bgScrollView.showsHorizontalScrollIndicator = NO;
     [self.scrollView addSubview:bgScrollView];
     [self setUpBgScrollView];
-<<<<<<< HEAD
-=======
-    
->>>>>>> AndrewLee
     self.submitButton.layer.cornerRadius = 3.0f;
 }
 
@@ -85,10 +81,7 @@
 - (IBAction)positiveButon:(id)sender {
     
 }
-<<<<<<< HEAD
-=======
 
->>>>>>> AndrewLee
 //反面
 - (IBAction)reverseButton:(id)sender {
     UIAlertView *alert=[[UIAlertView alloc] initWithTitle:@"请选择图片来源"

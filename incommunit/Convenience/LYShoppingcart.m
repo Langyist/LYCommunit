@@ -310,11 +310,4 @@ typedef void (^ChangeNumberBlock)(ShopcartCell *cell, BOOL add);
     
     self.totalLabel.text = [[NSString alloc] initWithFormat:@"￥%.2f", totlePrice];
 }
--(IBAction)deleteGoods:(id)sender
-{
-    [LYSqllite delectGoods:@"1"];
-    Goodslist = [[NSMutableArray alloc] init];
-    Goodslist = [LYSqllite GetGoods];
-    [m_tableView reloadData];
-}
 @end
