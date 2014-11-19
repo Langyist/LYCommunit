@@ -12,11 +12,8 @@
 
 - (void)awakeFromNib {
     // Initialization code
-}
-
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
-    [super setSelected:selected animated:animated];
-    self.statusLabel.transform = CGAffineTransformMakeRotation(M_PI/4);
+    self.avatarImageView.layer.cornerRadius = CGRectGetHeight(self.avatarImageView.frame) / 2;
+    self.avatarImageView.clipsToBounds = YES;
 }
 
 @end

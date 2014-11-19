@@ -46,7 +46,6 @@
     int  temptag;
 }
 @property (weak, nonatomic) IBOutlet UILabel *m_lableinfo;
-
 @end
 
 @implementation LYcertification
@@ -64,6 +63,7 @@
 {
     [super viewDidLoad];
     _positiveimage.userInteractionEnabled=YES;
+
     _positiveimage.tag = 101;
     UITapGestureRecognizer *singleTap =[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(showActionSheet:)];
     [_positiveimage addGestureRecognizer:singleTap];
@@ -74,13 +74,13 @@
     [_reverseiamge addGestureRecognizer:singleTap1];
     
     [self.scrollView setContentSize:CGSizeMake(0, CGRectGetMaxY(self.submitButton.frame) + 70)];
-    
     bgScrollView = [[LMContainsLMComboxScrollView alloc]initWithFrame:self.addressView.frame];
     bgScrollView.backgroundColor = [UIColor clearColor];
     bgScrollView.showsVerticalScrollIndicator = NO;
     bgScrollView.showsHorizontalScrollIndicator = NO;
     [self.scrollView addSubview:bgScrollView];
     [self setUpBgScrollView];
+
     self.submitButton.layer.cornerRadius = 3.0f;
 }
 
@@ -189,7 +189,84 @@
 }];
 }
 
+- (void)didReceiveMemoryWarning
+{
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+//正面
+- (IBAction)positiveButon:(id)sender {
+    
+}
 
+//反面
+- (IBAction)reverseButton:(id)sender {
+    UIAlertView *alert=[[UIAlertView alloc] initWithTitle:@"请选择图片来源"
+                                                  message:@""
+                                                 delegate:self
+                                        cancelButtonTitle:@"取消"
+                                        otherButtonTitles:@"拍照",@"从手机相册选择", nil];
+    [alert show];
+}
+
+#pragma 拍照选择模块
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    if(buttonIndex==1){
+        [self shootPiicturePrVideo];
+    }
+    else if(buttonIndex==2){
+        [self selectExistingPictureOrVideo];
+    }
+}
+
+//从相机上选择
+-(void)shootPiicturePrVideo{
+    
+    [self getMediaFromSource:UIImagePickerControllerSourceTypeCamera];
+    
+}
+
+//从相册中选择
+-(void)selectExistingPictureOrVideo{
+    
+    [self getMediaFromSource:UIImagePickerControllerSourceTypePhotoLibrary];
+}
+
+
+-(void) imagePickerControllerDidCancel:(UIImagePickerController *)picker{
+    [picker dismissViewControllerAnimated:YES completion:nil];
+}
+
+-(void)getMediaFromSource:(UIImagePickerControllerSourceType)sourceType {
+    NSArray *mediatypes=[UIImagePickerController availableMediaTypesForSourceType:sourceType];
+    if([UIImagePickerController isSourceTypeAvailable:sourceType] &&[mediatypes count]>0){
+        NSArray *mediatypes=[UIImagePickerController availableMediaTypesForSourceType:sourceType];
+        UIImagePickerController *picker=[[UIImagePickerController alloc] init];
+        picker.mediaTypes=mediatypes;
+        picker.delegate = self;
+        picker.allowsEditing=YES;
+        picker.sourceType=sourceType;
+        NSString *requiredmediatype=(NSString *)kUTTypeImage;
+        NSArray *arrmediatypes=[NSArray arrayWithObject:requiredmediatype];
+        [picker setMediaTypes:arrmediatypes];
+        [self presentViewController:picker animated:YES completion:nil];
+    }
+    else{
+        UIAlertView *alert=[[UIAlertView alloc] initWithTitle:@"错误信息!" message:@"当前设备不支持拍摄功能" delegate:nil cancelButtonTitle:@"确认" otherButtonTitles: nil];
+        [alert show];
+    }
+}
+static UIImage *shrinkImage(UIImage *orignal,CGSize size) {
+    CGFloat scale=[UIScreen mainScreen].scale;
+    CGColorSpaceRef colorSpace=CGColorSpaceCreateDeviceRGB();
+    CGContextRef context=CGBitmapContextCreate(NULL, size.width *scale,size.height*scale, 8, 0, colorSpace, kCGImageAlphaPremultipliedFirst);
+    CGContextDrawImage(context, CGRectMake(0, 0, size.width*scale, size.height*scale), orignal.CGImage);
+    CGImageRef shrunken=CGBitmapContextCreateImage(context);
+    UIImage *final=[UIImage imageWithCGImage:shrunken];
+    CGContextRelease(context);
+    CGImageRelease(shrunken);
+    return  final;
+}
 
 - (IBAction)submitPress:(id)sender {
 }
@@ -209,67 +286,67 @@
 //    NSDictionary *dic = @{ @"community_id" : COMMUNITY_ID
 //                           ,@"pid" : PID
 //                           };
-    [[StoreOnlineNetworkEngine shareInstance] startNetWorkWithPath:@"services/community/level"
-                                                            params:dic
-                                                            repeat:YES
-                                                             isGet:YES
-                                                          activity:YES
-                                                       resultBlock:^(BOOL bValidJSON, NSString *errorMsg, id result) {
-                                                           if(!bValidJSON)
-                                                           {
-                                                               UIAlertView *al =[[UIAlertView alloc]initWithTitle:@"提示" message:errorMsg delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
-                                                               [al show];
-                                                           }else
-                                                           {
-                                                               if ([index isEqual:@"0"]) {
-                                                                   tempdata1 = result;
-                                                                   if (tempdata1.count>0) {
-                                                                       for (int i = 0; i<tempdata1.count; i++)
-                                                                       {
-                                                                           [PeriodData addObject:[[tempdata1 objectAtIndex:i] objectForKey:@"name"]];
-                                                                       }
-                                                                       BoxView.titlesList = PeriodData;
-                                                                       [BoxView reloadData];
-                                                                   }
-                                                               }else if ([index isEqual:@"1"])
-                                                               {
-                                                                   tempdata2 = result;
-                                                                   for (int i = 0; i<tempdata2.count; i++) {
-                                                                       [BuildingData addObject:[[tempdata2 objectAtIndex:i] objectForKey:@"name"]];
-                                                                   }
-                                                                   BoxView.titlesList = BuildingData;
-                                                                   [BoxView reloadData];
-                                                               }else if([index isEqual:@"2"])
-                                                               {
-                                                                   tempdata3 = result;
-                                                                   for (int i = 0; i<tempdata3.count; i++)
-                                                                   {
-                                                                       [UnitData addObject:[[tempdata3 objectAtIndex:i] objectForKey:@"name"]];
-                                                                       
-                                                                   }
-                                                                   BoxView.titlesList = UnitData;
-                                                                   [BoxView reloadData];
-                                                               }else if([index isEqual:@"3"])
-                                                               {
-                                                                   tempdata4 = result;
-                                                                   for (int i = 0; i<tempdata4.count; i++)
-                                                                   {
-                                                                       [HouseholdsData addObject:[[tempdata4 objectAtIndex:i] objectForKey:@"name"]];
-                                                                   }
-                                                                   BoxView.titlesList = HouseholdsData;
-                                                                   [BoxView reloadData];
-                                                               }else if([index isEqual:@"4"])
-                                                               {
-                                                                   tempdata5 = result;
-                                                                   for (int i = 0; i<tempdata5.count; i++)
-                                                                   {
-                                                                       [HomeNumber addObject:[[tempdata5 objectAtIndex:i] objectForKey:@"name"]];
-                                                                   }
-                                                                   BoxView.titlesList = HomeNumber;
-                                                                   [BoxView reloadData];
-                                                               }
-                                                           }
-                                                       }];
+//    [[StoreOnlineNetworkEngine shareInstance] startNetWorkWithPath:@"services/community/level"
+//                                                            params:dic
+//                                                            repeat:YES
+//                                                             isGet:YES
+//                                                          activity:YES
+//                                                       resultBlock:^(BOOL bValidJSON, NSString *errorMsg, id result) {
+//                                                           if(!bValidJSON)
+//                                                           {
+//                                                               UIAlertView *al =[[UIAlertView alloc]initWithTitle:@"提示" message:errorMsg delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+//                                                               [al show];
+//                                                           }else
+//                                                           {
+//                                                               if ([index isEqual:@"0"]) {
+//                                                                   tempdata1 = result;
+//                                                                   if (tempdata1.count>0) {
+//                                                                       for (int i = 0; i<tempdata1.count; i++)
+//                                                                       {
+//                                                                           [PeriodData addObject:[[tempdata1 objectAtIndex:i] objectForKey:@"name"]];
+//                                                                       }
+//                                                                       BoxView.titlesList = PeriodData;
+//                                                                       [BoxView reloadData];
+//                                                                   }
+//                                                               }else if ([index isEqual:@"1"])
+//                                                               {
+//                                                                   tempdata2 = result;
+//                                                                   for (int i = 0; i<tempdata2.count; i++) {
+//                                                                       [BuildingData addObject:[[tempdata2 objectAtIndex:i] objectForKey:@"name"]];
+//                                                                   }
+//                                                                   BoxView.titlesList = BuildingData;
+//                                                                   [BoxView reloadData];
+//                                                               }else if([index isEqual:@"2"])
+//                                                               {
+//                                                                   tempdata3 = result;
+//                                                                   for (int i = 0; i<tempdata3.count; i++)
+//                                                                   {
+//                                                                       [UnitData addObject:[[tempdata3 objectAtIndex:i] objectForKey:@"name"]];
+//                                                                       
+//                                                                   }
+//                                                                   BoxView.titlesList = UnitData;
+//                                                                   [BoxView reloadData];
+//                                                               }else if([index isEqual:@"3"])
+//                                                               {
+//                                                                   tempdata4 = result;
+//                                                                   for (int i = 0; i<tempdata4.count; i++)
+//                                                                   {
+//                                                                       [HouseholdsData addObject:[[tempdata4 objectAtIndex:i] objectForKey:@"name"]];
+//                                                                   }
+//                                                                   BoxView.titlesList = HouseholdsData;
+//                                                                   [BoxView reloadData];
+//                                                               }else if([index isEqual:@"4"])
+//                                                               {
+//                                                                   tempdata5 = result;
+//                                                                   for (int i = 0; i<tempdata5.count; i++)
+//                                                                   {
+//                                                                       [HomeNumber addObject:[[tempdata5 objectAtIndex:i] objectForKey:@"name"]];
+//                                                                   }
+//                                                                   BoxView.titlesList = HomeNumber;
+//                                                                   [BoxView reloadData];
+//                                                               }
+//                                                           }
+//                                                       }];
 }
 
 @end

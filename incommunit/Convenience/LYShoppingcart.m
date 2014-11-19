@@ -286,7 +286,6 @@ typedef void (^ChangeNumberBlock)(ShopcartCell *cell, BOOL add);
     m_storesNumber.text = [[NSString alloc] initWithFormat:@"共%d件商品", number];
     
     [self calculationTotlePrice];
-
 }
 
 - (IBAction)deleteGoods:(id)sender

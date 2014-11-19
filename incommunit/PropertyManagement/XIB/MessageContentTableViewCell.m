@@ -7,7 +7,7 @@
 //
 
 #import "MessageContentTableViewCell.h"
-#import "UIImageView+AsyncDownload.h"
+#import "UIImageView+MKNetworkKitAdditions.h"
 
 @interface MessageContentTableViewCell ()
 @property (weak, nonatomic) IBOutlet UIImageView *userPhotoImageView;
@@ -35,7 +35,10 @@
 - (void)setImagePath:(NSString *)imagePath {
     if (imagePath!=nil && ![imagePath isEqualToString:@""]) {
         NSURL *url = [NSURL URLWithString:imagePath];
-        [self.userPhotoImageView setImageWithURL:url placeholderImage:nil];
+        [self.userPhotoImageView setImageFromURL:url placeHolderImage:[UIImage imageNamed:@"default_icon"]];
+    }
+    else {
+        [self.userPhotoImageView setImage:[UIImage imageNamed:@"default_icon"]];
     }
 }
 
@@ -67,7 +70,7 @@
     }
     [self.contentLabel setText:content];
     
-    CGFloat contentHeight = [MessageContentTableViewCell stringHeightWithString:@[content] size:self.contentLabel.frame.size font:self.contentLabel.font];
+    CGFloat contentHeight = [MessageContentTableViewCell heightOfLabel:@[content] size:self.contentLabel.frame.size font:self.contentLabel.font];
     CGRect newFrame = self.contentLabel.frame;
     newFrame.size.height = contentHeight;
     self.contentLabel.frame = newFrame;
@@ -75,21 +78,34 @@
 
 + (CGFloat)cellHeightWithContent:(NSString *)content {
     CGFloat cellHeight = 0;
-    cellHeight = [MessageContentTableViewCell stringHeightWithString:@[content] size:CGSizeMake(222, 21) font:[UIFont boldSystemFontOfSize:14]] + 76 - 21;
-    cellHeight = MAX(76, cellHeight);
+    if (!content) {
+        content = @"";
+    }
+    cellHeight = [MessageContentTableViewCell heightOfLabel:@[content] size:CGSizeMake(230, 21) font:[UIFont boldSystemFontOfSize:14]] + 70 - 21;
+    cellHeight = MAX(70, cellHeight);
     return cellHeight;
 }
 
-+ (CGFloat)stringHeightWithString:(NSArray *)textList size:(CGSize)size font:(UIFont *)font {
-    NSMutableString *string = [[NSMutableString alloc] initWithString:@""];
-    for (NSMutableString *text in textList) {
-        [string appendString:text];
++ (CGFloat)heightOfLabel:(NSArray *)textList size:(CGSize)size font:(UIFont *)font {
+    int length = 0;
+    CGFloat height = 0;
+    for (NSString *text in textList) {
+        length += (int)[self widthOfString:text withFont:font];
     }
-    NSDictionary *attributes =@{NSFontAttributeName:font};//配置字体类型参数
-    NSStringDrawingOptions options = NSStringDrawingTruncatesLastVisibleLine | NSStringDrawingUsesFontLeading | NSStringDrawingUsesLineFragmentOrigin;//配置字符绘制规则
-    CGRect rect = [string boundingRectWithSize:CGSizeMake(size.width, CGFLOAT_MAX) options:options attributes:attributes context:NULL];//计算文本大小
-    
-    return rect.size.height;
+    if (length > 0) {
+        int count = (int)(length / size.width);
+        height = (count + 1) * font.lineHeight;
+    }
+    return height;
+}
+
+//根据字号计算字符串的宽度
++ (CGFloat)widthOfString:(NSString *)string withFont:(UIFont *)font {
+    if (string.length == 0) {
+        return 0;
+    }
+    NSDictionary *attributes = [NSDictionary dictionaryWithObjectsAndKeys:font, NSFontAttributeName, nil];
+    return [[[NSAttributedString alloc] initWithString:string attributes:attributes] size].width;
 }
 
 @end

@@ -16,10 +16,8 @@
 }
 
 -(void)setMessageID:(NSString*)idString;
-@property (strong, nonatomic) IBOutlet UILabel *firstNameLabel;
-@property (strong, nonatomic) IBOutlet UILabel *firstTimeLabel;
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) IBOutlet UITextField *replyTextField;
 @property (strong, nonatomic) IBOutlet UIButton *replyButton;
-@property (strong, nonatomic) IBOutlet UILabel *contentLabel;
 
 @end

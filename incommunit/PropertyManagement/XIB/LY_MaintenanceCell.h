@@ -13,12 +13,12 @@
     
 }
 
+@property (strong, nonatomic) IBOutlet UILabel *headNameLabel;
+@property (strong, nonatomic) IBOutlet UIImageView *statusImageView;
 @property (strong, nonatomic) IBOutlet UIImageView *avatarImageView;
 @property (strong, nonatomic) IBOutlet UILabel *nameLabel;
 @property (strong, nonatomic) IBOutlet UILabel *addressLabel;
 @property (strong, nonatomic) IBOutlet UILabel *timeLabel;
-@property (strong, nonatomic) IBOutlet UILabel *detailLabel;
-@property (strong, nonatomic) IBOutlet UILabel *headNameLabel;
-@property (strong, nonatomic) IBOutlet UILabel *statusLabel;
+@property (strong, nonatomic) IBOutlet UITextView *detailLabel;
 
 @end

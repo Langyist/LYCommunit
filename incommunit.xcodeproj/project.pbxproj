@@ -221,6 +221,10 @@
 		F14F51F41A0382B7006CC884 /* MyStoresTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F14F51F31A0382B7006CC884 /* MyStoresTableViewController.m */; };
 		F15AE49A1A0208180084009C /* 黄色小三角_03.png in Resources */ = {isa = PBXBuildFile; fileRef = F15AE4991A0208180084009C /* 黄色小三角_03.png */; };
 		F15D944F1A19E8DB00C2C7FD /* HLineLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = F15D944E1A19E8DB00C2C7FD /* HLineLabel.m */; };
+		F16297AA1A1C90E100DAEB33 /* repair_status1.png in Resources */ = {isa = PBXBuildFile; fileRef = F16297A71A1C90E100DAEB33 /* repair_status1.png */; };
+		F16297AB1A1C90E100DAEB33 /* repair_status2.png in Resources */ = {isa = PBXBuildFile; fileRef = F16297A81A1C90E100DAEB33 /* repair_status2.png */; };
+		F16297AC1A1C90E100DAEB33 /* status_closed.png in Resources */ = {isa = PBXBuildFile; fileRef = F16297A91A1C90E100DAEB33 /* status_closed.png */; };
+		F16297AF1A1C9CC000DAEB33 /* RepairDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F16297AE1A1C9CC000DAEB33 /* RepairDetailViewController.m */; };
 		F16D77AE1A033E680044D858 /* CommentTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F16D77AC1A033E680044D858 /* CommentTableViewCell.m */; };
 		F16D77AF1A033E680044D858 /* CommentTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F16D77AD1A033E680044D858 /* CommentTableViewCell.xib */; };
 		F18E640C1A10B4D9001BD189 /* default_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = F18E640B1A10B4D9001BD189 /* default_icon.png */; };
@@ -634,6 +638,11 @@
 		F15AE4991A0208180084009C /* 黄色小三角_03.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "黄色小三角_03.png"; sourceTree = "<group>"; };
 		F15D944D1A19E8DB00C2C7FD /* HLineLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HLineLabel.h; sourceTree = "<group>"; };
 		F15D944E1A19E8DB00C2C7FD /* HLineLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HLineLabel.m; sourceTree = "<group>"; };
+		F16297A71A1C90E100DAEB33 /* repair_status1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = repair_status1.png; sourceTree = "<group>"; };
+		F16297A81A1C90E100DAEB33 /* repair_status2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = repair_status2.png; sourceTree = "<group>"; };
+		F16297A91A1C90E100DAEB33 /* status_closed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = status_closed.png; sourceTree = "<group>"; };
+		F16297AD1A1C9CC000DAEB33 /* RepairDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RepairDetailViewController.h; sourceTree = "<group>"; };
+		F16297AE1A1C9CC000DAEB33 /* RepairDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RepairDetailViewController.m; sourceTree = "<group>"; };
 		F16D77AB1A033E680044D858 /* CommentTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommentTableViewCell.h; sourceTree = "<group>"; };
 		F16D77AC1A033E680044D858 /* CommentTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommentTableViewCell.m; sourceTree = "<group>"; };
 		F16D77AD1A033E680044D858 /* CommentTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CommentTableViewCell.xib; sourceTree = "<group>"; };
@@ -827,6 +836,9 @@
 		AD33ECC119FBCA2D00FE0C11 /* Image */ = {
 			isa = PBXGroup;
 			children = (
+				F16297A71A1C90E100DAEB33 /* repair_status1.png */,
+				F16297A81A1C90E100DAEB33 /* repair_status2.png */,
+				F16297A91A1C90E100DAEB33 /* status_closed.png */,
 				F1F04F6A1A15B11B00B9EABA /* ic_dismiss.png */,
 				AD5CD0071A14D55E0016E2C0 /* 58.png */,
 				AD5CD0081A14D55E0016E2C0 /* 80.png */,
@@ -1228,6 +1240,8 @@
 				AD7FBAB91A021919008CC80A /* LYPostcomment.h */,
 				AD7FBABA1A021919008CC80A /* LYPostcomment.m */,
 				AD7FBA8E1A021623008CC80A /* XIB */,
+				F16297AD1A1C9CC000DAEB33 /* RepairDetailViewController.h */,
+				F16297AE1A1C9CC000DAEB33 /* RepairDetailViewController.m */,
 			);
 			path = PropertyManagement;
 			sourceTree = "<group>";
@@ -1462,6 +1476,7 @@
 				AD33ED2819FBCA2D00FE0C11 /* logo.png in Resources */,
 				AD33ED4919FBCA2D00FE0C11 /* 箭头_04.png in Resources */,
 				AD33ED2719FBCA2D00FE0C11 /* logo.jpg in Resources */,
+				F16297AA1A1C90E100DAEB33 /* repair_status1.png in Resources */,
 				AD33ED2F19FBCA2D00FE0C11 /* 便民.png in Resources */,
 				AD33ED1C19FBCA2D00FE0C11 /* 8_10.png in Resources */,
 				AD33ED2119FBCA2D00FE0C11 /* ic_default_commodity.png in Resources */,
@@ -1506,6 +1521,7 @@
 				F14F18E81A08C96600731239 /* 添加_03.png in Resources */,
 				AD33ED4419FBCA2D00FE0C11 /* 物业管理--物业维修_03.png in Resources */,
 				EF486B031A075BA2003B5B54 /* 进行中_03.png in Resources */,
+				F16297AB1A1C90E100DAEB33 /* repair_status2.png in Resources */,
 				F14F51F11A0378CF006CC884 /* InfoHeader.xib in Resources */,
 				AD6A9B851A09CA420031B7C2 /* NewCell.xib in Resources */,
 				AD5CD00D1A14D55E0016E2C0 /* 87.png in Resources */,
@@ -1517,6 +1533,7 @@
 				F13D4C3A1A079C7100E23FDB /* 周边便民--未开店--帮帮娃_03.png in Resources */,
 				AD6A9B951A09CC4B0031B7C2 /* LYShopCell.xib in Resources */,
 				F18E64301A12EF3A001BD189 /* 小区开店_guide.png in Resources */,
+				F16297AC1A1C90E100DAEB33 /* status_closed.png in Resources */,
 				F10340C619FF4FCF00C5CB4E /* ic_password.png in Resources */,
 				AD33ED2219FBCA2D00FE0C11 /* ic_default_no_data.png in Resources */,
 				AD33ED0E19FBCA2D00FE0C11 /* 1_10.png in Resources */,
@@ -1617,6 +1634,7 @@
 				AD26EB211A11F22A0024403E /* LYHomeMyOrder.m in Sources */,
 				AD7FBAB51A0216FF008CC80A /* LY_AnnouncementNoCell.m in Sources */,
 				AD7FBAB31A0216FF008CC80A /* LY_ACCell1.m in Sources */,
+				F16297AF1A1C9CC000DAEB33 /* RepairDetailViewController.m in Sources */,
 				AD7FBAB41A0216FF008CC80A /* LY_AnnouncementCell.m in Sources */,
 				AD3DD40919FE362D00364854 /* LYBaiduMap.mm in Sources */,
 				AD197F151A0B660D00E05089 /* LYNumbersense.m in Sources */,
