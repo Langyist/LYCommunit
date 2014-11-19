@@ -16,8 +16,12 @@
     UILabel * m_storesNumber;
     NSMutableArray *m_textfiledlist;
 }
+
 @property (nonatomic,retain)IBOutlet UITableView *m_tableView;
 @property (nonatomic,retain)IBOutlet UILabel * m_storesNumber;
 @property (nonatomic,retain)IBOutlet UIButton * settlementButton;
+@property (weak, nonatomic) IBOutlet UILabel *totalLabel;
+
 @property (retain, nonatomic) NSMutableArray *items;
+
 @end
