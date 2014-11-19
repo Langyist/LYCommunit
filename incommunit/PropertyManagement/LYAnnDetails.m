@@ -34,6 +34,7 @@
         [m_iamgeview setImageWithURL:url placeholderImage:nil];
     }
     m_titleLabel.text= [detailDataDictorynary objectForKey:@"name"];
+    m_infoLabel.numberOfLines = 0;
     [self setTextContent:[detailDataDictorynary objectForKey:@"content"]];
     [self setTimestamp:[detailDataDictorynary objectForKey:@"create_time"]];
 
