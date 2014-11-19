@@ -71,6 +71,8 @@ typedef void (^ChangeNumberBlock)(ShopcartCell *cell, BOOL add);
     
     self.settlementButton.layer.cornerRadius = 3.0f;
     [self.settlementButton setBackgroundColor:SPECIAL_RED];
+    
+    [self calculationTotlePrice];
 }
 
 - (void)didReceiveMemoryWarning
@@ -235,7 +237,7 @@ typedef void (^ChangeNumberBlock)(ShopcartCell *cell, BOOL add);
                 numberOfItem -= 1;
             }
             numberOfItem = MAX(0, numberOfItem);
-            [itemInfo setObject:[NSString stringWithFormat:@"%d", numberOfItem] forKey:@"quantity"];
+            [itemInfo setObject:[NSString stringWithFormat:@"%ld", (long)numberOfItem] forKey:@"quantity"];
             [LYSqllite Modifyquantity:[itemInfo objectForKey:@"commodity_id"] quantity:[itemInfo objectForKey:@"quantity"]];
             [items setObject:itemInfo atIndexedSubscript:row];
             [Goodslist setObject:items atIndexedSubscript:section];
@@ -244,6 +246,7 @@ typedef void (^ChangeNumberBlock)(ShopcartCell *cell, BOOL add);
         }
     }
     
+    [self calculationTotlePrice];
 }
 
 -(IBAction)Settlement:(id)sender
@@ -288,6 +291,8 @@ typedef void (^ChangeNumberBlock)(ShopcartCell *cell, BOOL add);
         }
     }
     m_storesNumber.text = [[NSString alloc] initWithFormat:@"共%d件商品", number];
+    
+    [self calculationTotlePrice];
 }
 -(IBAction)deleteGoods:(id)sender
 {
@@ -296,4 +301,18 @@ typedef void (^ChangeNumberBlock)(ShopcartCell *cell, BOOL add);
     Goodslist = [LYSqllite GetGoods];
     [m_tableView reloadData];
 }
+
+- (void)calculationTotlePrice {
+    CGFloat totlePrice = 0;
+    for (NSArray *items in Goodslist) {
+        for (NSDictionary *itemInfo in items) {
+            NSInteger itemNumber = [[itemInfo objectForKey:@"quantity"] integerValue];
+            CGFloat itemPrice = [[itemInfo objectForKey:@"price"] floatValue];
+            totlePrice += itemNumber * itemPrice;
+        }
+    }
+    
+    self.totalLabel.text = [[NSString alloc] initWithFormat:@"￥%.2f", totlePrice];
+}
+
 @end
