@@ -27,16 +27,13 @@
 #import "InfoCell1.h"
 #import "NSDictionary+JsonNullToNil.h"
 #import "NumberSenceHeaderView.h"
+#import "NSString+Size.h"
 @interface LYProManagementMain () {
     UIView *m_liuView;
     UIButton *repairButton;//我要报修button
     
     UILabel *m_QQLabel;
     UILabel *m_phoneLabel;
-    
-    NSArray *communicationStyle;
-    NSArray *communicationInfo;
-    NSArray *communicationInfoRange;
 }
 
 @end
@@ -55,6 +52,12 @@
 
     announcementPageOffset = 0;
     announcementPageSize = 20;
+    
+    messagePageOffset = 0;
+    messagePageSize = 20;
+    
+    maintablePageOffset = 0;
+    maintablePageSize = 20;
     
     [m_segment addTarget:self action:@selector(doSomethingInSegment:)forControlEvents:UIControlEventValueChanged];
     CGRect rect = CGRectMake(0, 0, 1, 1);
@@ -129,7 +132,7 @@
     m_view03 = [[UIView alloc] initWithFrame:CGRectMake(self.view.frame.size.width * 2, 0, self.m_scrollView.frame.size.width, self.view.frame.size.height)];
     [m_view03 setBackgroundColor:BK_GRAY];
     
-    m_ACtableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 7.5, self.m_scrollView.frame.size.width, self.view.frame.size.height - 7.5)];
+    m_ACtableView = [[AWaterfallTableView alloc] initWithFrame:CGRectMake(0, 7.5, self.m_scrollView.frame.size.width, self.view.frame.size.height - 7.5)];
     [m_ACtableView setBackgroundColor:BK_GRAY];
     [m_ACtableView setContentInset:UIEdgeInsetsMake(0, 0, -7.5, 0)];
     m_ACtableView.separatorStyle = UITableViewCellSeparatorStyleNone;
@@ -144,7 +147,7 @@
     
     //物业维修
     m_view04 = [[UIView alloc] initWithFrame:CGRectMake(self.view.frame.size.width * 3, 0, self.m_scrollView.frame.size.width, self.m_scrollView.frame.size.height)];
-    m_MaintableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, m_view04.frame.size.width, m_view04.frame.size.height)];
+    m_MaintableView = [[AWaterfallTableView alloc] initWithFrame:CGRectMake(0, 0, m_view04.frame.size.width, m_view04.frame.size.height)];
     [m_MaintableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     m_MaintableView.delegate = self;
     m_MaintableView.dataSource = self;
@@ -576,7 +579,7 @@
             
             cell.nameLabel.text = [tempDic objectForKey:@"nick_name"];
             cell.addressLabel.text = [tempDic objectForKey:@"position"];
-            cell.timeLabel.text =  [NSString stringWithFormat:@"%@", [tempDic objectForKey:@"create_time"]];
+            cell.timeLabel.text = [[NSString stringWithFormat:@"%@", [tempDic objectForKey:@"create_time"]] convertTimeStampWithFormat:@"YYYY年MM月dd日 HH:mm"];
             cell.detailLabel.text = [tempDic  objectForKey:@"description"];
         }
         
@@ -599,7 +602,7 @@
         [headerView setTitle:titleArray[section]];
         if (0 == section) {
             if (propertyExpenseArray.count) {
-                NSDictionary *info  = propertyExchangeArray.lastObject;
+                NSDictionary *info  = propertyExpenseArray.lastObject;
                 [headerView setAddress:[info objectForKey:@"address"]];
             }
             else {
@@ -803,8 +806,6 @@
                                                            [alview show];
                                                        }
                                                        else {
-                                                           announcementPageOffset += announcementPageSize;
-                                                           
                                                            if (AWaterfallTableViewRefreshing == m_AnntableVeiw.status) {
                                                                m_AnntableVeiw.canMore = YES;
                                                                notification = nil;
@@ -815,6 +816,7 @@
                                                                [array addObjectsFromArray:notification];
                                                            }
                                                            if ([result count]) {
+                                                               announcementPageOffset += [result count];
                                                                [array addObjectsFromArray:result];
                                                            }
                                                            if ([result count] < announcementPageSize) {
@@ -893,33 +895,59 @@
                                                        resultBlock:^(BOOL bValidJSON, NSString *errorMsg, id result) {
                                                            if (!bValidJSON) {
                                                                NSLog(@"%@",errorMsg);
-                                                               
                                                            }
                                                            else {
                                                                communicationStyle = result;
                                                                [m_ACtableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationFade];
                                                            }
+                                                           
+                                                           [self getMessageList];
                                                        }];
 
     
 }
+
 //获取"物业维修"的相关数据
 -(void)GetPropertyServiceData
 {
-    NSDictionary *dic = @{};
     [[StoreOnlineNetworkEngine shareInstance] startNetWorkWithPath:@"services/wuye/service/list"
-                                                            params:dic
+                                                            params:@{
+                                                                     @"pageSize" : [NSString stringWithFormat:@"%d", maintablePageSize]
+                                                                     ,@"pageOffset" : [NSString stringWithFormat:@"%d", maintablePageOffset]
+                                                                     }
                                                             repeat:YES
                                                              isGet:YES
                                                        resultBlock:^(BOOL bValidJSON, NSString *errorMsg, id result) {
-                                                           if(!bValidJSON)
-                                                           {
+                                                           if (!bValidJSON) {
                                                                NSLog(@"%@",errorMsg);
+                                                           }
+                                                           else {
+                                                               if (AWaterfallTableViewRefreshing == m_MaintableView.status) {
+                                                                   m_MaintableView.canMore = YES;
+                                                                   propertyService = nil;
+                                                               }
                                                                
-                                                           }else
-                                                           {
-                                                               propertyService = result;
+                                                               NSMutableArray *array = [[NSMutableArray alloc] init];
+                                                               if (propertyService.count) {
+                                                                   [array addObjectsFromArray:propertyService];
+                                                               }
+                                                               if ([result count]) {
+                                                                   maintablePageOffset += [result count];
+                                                                   [array addObjectsFromArray:result];
+                                                               }
+                                                               if ([result count] < maintablePageSize) {
+                                                                   m_MaintableView.canMore = NO;
+                                                               }
+                                                               
+                                                               propertyService = array;
                                                                [m_MaintableView reloadData];
+                                                           }
+                                                           
+                                                           if (AWaterfallTableViewRefreshing == m_MaintableView.status) {
+                                                               [m_MaintableView refreshEnd];
+                                                           }
+                                                           else if (AWaterfallTableViewMoring == m_MaintableView.status) {
+                                                               [m_MaintableView moreEnd];
                                                            }
                                                        }];
     
@@ -929,8 +957,8 @@
 -(void)getMessageList {
     [[StoreOnlineNetworkEngine shareInstance] startNetWorkWithPath:@"services/wuye/message/list"
                                                             params:@{
-                                                                     @"pageSize" : [NSString stringWithFormat:@"%d", 20]
-                                                                     ,@"pageOffset" : [NSString stringWithFormat:@"%d", 0]
+                                                                     @"pageSize" : [NSString stringWithFormat:@"%d", messagePageSize]
+                                                                     ,@"pageOffset" : [NSString stringWithFormat:@"%d", messagePageOffset]
                                                                      }
                                                             repeat:YES
                                                              isGet:YES
@@ -939,9 +967,30 @@
                                                                NSLog(@"%@", errorMsg);
                                                            }
                                                            else {
+                                                               messagePageOffset += [result count];
+                                                               
+                                                               if ([result count] < announcementPageSize) {
+                                                                   m_AnntableVeiw.canMore = NO;
+                                                               }
+                                                               
+                                                               if (AWaterfallTableViewRefreshing == m_ACtableView.status) {
+                                                                   m_ACtableView.canMore = YES;
+                                                                   communicationInfo = nil;
+                                                                   communicationInfoRange = nil;
+                                                               }
+                                                               
                                                                NSMutableArray *resultTemp = [[NSMutableArray alloc] init];
                                                                NSMutableArray *rangelist = [[NSMutableArray alloc] init];
+                                                               if (communicationInfo.count) {
+                                                                   [resultTemp addObjectsFromArray:communicationInfo];
+                                                               }
+                                                               if (communicationInfoRange.count) {
+                                                                   [rangelist addObjectsFromArray:communicationInfoRange];
+                                                               }
                                                                NSInteger location = 0;
+                                                               if (rangelist.count) {
+                                                                   location += [rangelist.lastObject integerValue];
+                                                               }
                                                                for (NSDictionary *message in result) {
                                                                    
                                                                    [rangelist addObject:[NSNumber numberWithInteger:location]];
@@ -961,6 +1010,13 @@
                                                                
                                                                [m_ACtableView reloadSections:[NSIndexSet indexSetWithIndex:1] withRowAnimation:UITableViewRowAnimationFade];
                                                            }
+                                                           
+                                                           if (AWaterfallTableViewRefreshing == m_ACtableView.status) {
+                                                               [m_ACtableView refreshEnd];
+                                                           }
+                                                           else if (AWaterfallTableViewMoring == m_ACtableView.status) {
+                                                               [m_ACtableView moreEnd];
+                                                           }
                                                        }];
 }
 
@@ -975,11 +1031,25 @@
     else if (tableView == m_InfotableView) {
         [self GetInfomationInquiryData];
     }
+    else if (tableView == m_ACtableView) {
+        messagePageOffset = 0;
+        [self GetPropertyExchangeData];
+    }
+    else if (tableView == m_MaintableView) {
+        maintablePageOffset = 0;
+        [self GetPropertyServiceData];
+    }
 }
 
 - (void)more:(AWaterfallTableView *)tableView {
     if (tableView == m_AnntableVeiw) {
         [self Getnotification];
+    }
+    else if (tableView == m_ACtableView) {
+        [self getMessageList];
+    }
+    else if (tableView == m_MaintableView) {
+        [self GetPropertyServiceData];
     }
 }
 

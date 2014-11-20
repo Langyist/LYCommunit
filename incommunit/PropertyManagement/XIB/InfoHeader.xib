@@ -36,7 +36,7 @@
                     <color key="backgroundColor" red="0.97254901960784312" green="0.50196078431372548" blue="0.33333333333333331" alpha="1" colorSpace="calibratedRGB"/>
                 </view>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="675-JN-73S">
-                    <rect key="frame" x="186" y="19" width="126" height="21"/>
+                    <rect key="frame" x="98" y="19" width="214" height="21"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                     <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>

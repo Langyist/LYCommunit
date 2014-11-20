@@ -24,22 +24,26 @@
     
     //信息查询
     AWaterfallTableView *m_InfotableView;
-    
     NSArray *propertyExpenseArray;
     NSArray *expressInfomationArray;
     NSString *phone;
     NSString *updateTime;
     
     //物业交流
-    UITableView *m_ACtableView;
-    NSArray *propertyExchangeArray;
-    NSArray *messageBoardListArray;
+    AWaterfallTableView *m_ACtableView;
+    NSArray *communicationStyle;
+    NSArray *communicationInfo;
+    NSArray *communicationInfoRange;
+    NSInteger messagePageOffset;
+    NSInteger messagePageSize;
     NSDictionary *specifyMessageDictionary;
     
     //物业维护
-    UITableView *m_MaintableView;
+    AWaterfallTableView *m_MaintableView;
     NSArray *propertyService;
     NSDictionary *specifyPropertyService;
+    NSInteger maintablePageOffset;
+    NSInteger maintablePageSize;
     
     NSDictionary *selectedDictionary;
     NSInteger IDNumber;
