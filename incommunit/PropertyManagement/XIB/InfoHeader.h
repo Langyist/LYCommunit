@@ -9,7 +9,10 @@
 #import <UIKit/UIKit.h>
 
 @interface InfoHeader : UIView
-@property (weak, nonatomic) IBOutlet UILabel *titleLabel;
-@property (weak, nonatomic) IBOutlet UILabel *addressLabel;
+
+- (void)setTitle:(NSString *)title;
+- (void)setTime:(NSString *)timestamp;
+- (void)setAddress:(NSString *)address;
+- (void)setPhone:(NSString *)phone;
 
 @end

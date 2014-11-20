@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "AWaterfallTableView.h"
 
-@interface LYProManagementMain : UIViewController<UITableViewDataSource,UITableViewDelegate>{
+@interface LYProManagementMain : UIViewController<UITableViewDataSource,UITableViewDelegate,AWaterfallTableViewDelegate>{
     
     UISegmentedControl *m_segment;
     UIView * m_view01;
@@ -16,14 +17,18 @@
     UIView * m_view03;
     UIView * m_view04;
     //物业公告
-    UITableView *m_AnntableVeiw;
+    AWaterfallTableView *m_AnntableVeiw;
     NSArray *notification;
+    NSInteger announcementPageOffset;
+    NSInteger announcementPageSize;
     
     //信息查询
-    UITableView *m_InfotableView;
+    AWaterfallTableView *m_InfotableView;
     
     NSArray *propertyExpenseArray;
     NSArray *expressInfomationArray;
+    NSString *phone;
+    NSString *updateTime;
     
     //物业交流
     UITableView *m_ACtableView;
@@ -37,7 +42,7 @@
     NSDictionary *specifyPropertyService;
     
     NSDictionary *selectedDictionary;
-    NSInteger IDNumber ;
+    NSInteger IDNumber;
     UIView *m_messageView;
     int m_pageSize;
     int  m_pageOffset;
