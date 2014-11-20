@@ -46,6 +46,7 @@
     int  temptag;
 }
 @property (weak, nonatomic) IBOutlet UILabel *m_lableinfo;
+
 @end
 
 @implementation LYcertification
@@ -63,7 +64,7 @@
 {
     [super viewDidLoad];
     _positiveimage.userInteractionEnabled=YES;
-
+    
     _positiveimage.tag = 101;
     UITapGestureRecognizer *singleTap =[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(showActionSheet:)];
     [_positiveimage addGestureRecognizer:singleTap];
@@ -74,6 +75,7 @@
     [_reverseiamge addGestureRecognizer:singleTap1];
     
     [self.scrollView setContentSize:CGSizeMake(0, CGRectGetMaxY(self.submitButton.frame) + 70)];
+    
     bgScrollView = [[LMContainsLMComboxScrollView alloc]initWithFrame:self.addressView.frame];
     bgScrollView.backgroundColor = [UIColor clearColor];
     bgScrollView.showsVerticalScrollIndicator = NO;
@@ -188,7 +190,6 @@
 }];
 }
 
-
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
@@ -284,7 +285,7 @@ static UIImage *shrinkImage(UIImage *orignal,CGSize size) {
 
 - (void)done:(NSString *)COMMUNITY_ID pid:(NSString *)PID ComBoxView:(LMComBoxView *)BoxView index:(NSString *)index
 {
-
+    
     NSDictionary *dic = @{ @"community_id" : COMMUNITY_ID
                            ,@"pid" : PID
                            };

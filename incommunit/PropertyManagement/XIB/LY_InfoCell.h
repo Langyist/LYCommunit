@@ -9,14 +9,9 @@
 #import <UIKit/UIKit.h>
 
 @interface LY_InfoCell : UITableViewCell
-{
 
-}
-
-@property (strong, nonatomic) IBOutlet UILabel *nameLabel;
-
-@property (strong, nonatomic) IBOutlet UILabel *costLabel;
-
-@property (strong, nonatomic) IBOutlet UILabel *timeLabel;
+- (void)setNameText:(NSString *)name;
+- (void)setCostText:(NSString *)cost;
+- (void)setTimeText:(NSString *)timestamp;
 
 @end

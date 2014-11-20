@@ -225,6 +225,10 @@
 		F16297AB1A1C90E100DAEB33 /* repair_status2.png in Resources */ = {isa = PBXBuildFile; fileRef = F16297A81A1C90E100DAEB33 /* repair_status2.png */; };
 		F16297AC1A1C90E100DAEB33 /* status_closed.png in Resources */ = {isa = PBXBuildFile; fileRef = F16297A91A1C90E100DAEB33 /* status_closed.png */; };
 		F16297AF1A1C9CC000DAEB33 /* RepairDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F16297AE1A1C9CC000DAEB33 /* RepairDetailViewController.m */; };
+		F16297B51A1DBFBF00DAEB33 /* NSString+Size.m in Sources */ = {isa = PBXBuildFile; fileRef = F16297B41A1DBFBF00DAEB33 /* NSString+Size.m */; };
+		F16297B81A1DC1B200DAEB33 /* UILabel+Size.m in Sources */ = {isa = PBXBuildFile; fileRef = F16297B71A1DC1B200DAEB33 /* UILabel+Size.m */; };
+		F16297BB1A1DC8F700DAEB33 /* InfoCell1.m in Sources */ = {isa = PBXBuildFile; fileRef = F16297BA1A1DC8F700DAEB33 /* InfoCell1.m */; };
+		F16297BE1A1DD26300DAEB33 /* NSDictionary+JsonNullToNil.m in Sources */ = {isa = PBXBuildFile; fileRef = F16297BD1A1DD26300DAEB33 /* NSDictionary+JsonNullToNil.m */; };
 		F16D77AE1A033E680044D858 /* CommentTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F16D77AC1A033E680044D858 /* CommentTableViewCell.m */; };
 		F16D77AF1A033E680044D858 /* CommentTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F16D77AD1A033E680044D858 /* CommentTableViewCell.xib */; };
 		F18E640C1A10B4D9001BD189 /* default_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = F18E640B1A10B4D9001BD189 /* default_icon.png */; };
@@ -643,6 +647,14 @@
 		F16297A91A1C90E100DAEB33 /* status_closed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = status_closed.png; sourceTree = "<group>"; };
 		F16297AD1A1C9CC000DAEB33 /* RepairDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RepairDetailViewController.h; sourceTree = "<group>"; };
 		F16297AE1A1C9CC000DAEB33 /* RepairDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RepairDetailViewController.m; sourceTree = "<group>"; };
+		F16297B31A1DBFBF00DAEB33 /* NSString+Size.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Size.h"; sourceTree = "<group>"; };
+		F16297B41A1DBFBF00DAEB33 /* NSString+Size.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Size.m"; sourceTree = "<group>"; };
+		F16297B61A1DC1B200DAEB33 /* UILabel+Size.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UILabel+Size.h"; sourceTree = "<group>"; };
+		F16297B71A1DC1B200DAEB33 /* UILabel+Size.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UILabel+Size.m"; sourceTree = "<group>"; };
+		F16297B91A1DC8F700DAEB33 /* InfoCell1.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InfoCell1.h; sourceTree = "<group>"; };
+		F16297BA1A1DC8F700DAEB33 /* InfoCell1.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InfoCell1.m; sourceTree = "<group>"; };
+		F16297BC1A1DD26300DAEB33 /* NSDictionary+JsonNullToNil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+JsonNullToNil.h"; sourceTree = "<group>"; };
+		F16297BD1A1DD26300DAEB33 /* NSDictionary+JsonNullToNil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+JsonNullToNil.m"; sourceTree = "<group>"; };
 		F16D77AB1A033E680044D858 /* CommentTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommentTableViewCell.h; sourceTree = "<group>"; };
 		F16D77AC1A033E680044D858 /* CommentTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommentTableViewCell.m; sourceTree = "<group>"; };
 		F16D77AD1A033E680044D858 /* CommentTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CommentTableViewCell.xib; sourceTree = "<group>"; };
@@ -810,6 +822,8 @@
 		AD33ECBD19FBC35B00FE0C11 /* CustomControls */ = {
 			isa = PBXGroup;
 			children = (
+				F16297BC1A1DD26300DAEB33 /* NSDictionary+JsonNullToNil.h */,
+				F16297BD1A1DD26300DAEB33 /* NSDictionary+JsonNullToNil.m */,
 				F14F18EF1A09FD9A00731239 /* KxMenu.h */,
 				F14F18F01A09FD9A00731239 /* KxMenu.m */,
 				F14F18EC1A09D0FA00731239 /* AWaterfallTableView.h */,
@@ -829,6 +843,10 @@
 				AD5CD0051A149F170016E2C0 /* UIImageView+MKNetworkKitAdditions.m */,
 				F15D944D1A19E8DB00C2C7FD /* HLineLabel.h */,
 				F15D944E1A19E8DB00C2C7FD /* HLineLabel.m */,
+				F16297B31A1DBFBF00DAEB33 /* NSString+Size.h */,
+				F16297B41A1DBFBF00DAEB33 /* NSString+Size.m */,
+				F16297B61A1DC1B200DAEB33 /* UILabel+Size.h */,
+				F16297B71A1DC1B200DAEB33 /* UILabel+Size.m */,
 			);
 			path = CustomControls;
 			sourceTree = "<group>";
@@ -1274,6 +1292,8 @@
 				F14F51ED1A0378CF006CC884 /* InfoHeader.h */,
 				F14F51EE1A0378CF006CC884 /* InfoHeader.m */,
 				F14F51EF1A0378CF006CC884 /* InfoHeader.xib */,
+				F16297B91A1DC8F700DAEB33 /* InfoCell1.h */,
+				F16297BA1A1DC8F700DAEB33 /* InfoCell1.m */,
 			);
 			path = XIB;
 			sourceTree = "<group>";
@@ -1371,11 +1391,11 @@
 				TargetAttributes = {
 					AD33EC8919FBB13F00FE0C11 = {
 						CreatedOnToolsVersion = 6.1;
-						DevelopmentTeam = 95N42RGW4F;
+						DevelopmentTeam = RVMYYQYXU5;
 					};
 					AD33ECA219FBB13F00FE0C11 = {
 						CreatedOnToolsVersion = 6.1;
-						DevelopmentTeam = 95N42RGW4F;
+						DevelopmentTeam = RVMYYQYXU5;
 						TestTargetID = AD33EC8919FBB13F00FE0C11;
 					};
 				};
@@ -1608,6 +1628,7 @@
 				F14F190A1A0B6AA300731239 /* NumberSenceHeaderView.m in Sources */,
 				AD6211CC19FD5583009BECA6 /* LYMyCommunit.m in Sources */,
 				AD6211AE19FD46BD009BECA6 /* UIImageView+AsyncDownload.m in Sources */,
+				F16297BB1A1DC8F700DAEB33 /* InfoCell1.m in Sources */,
 				AD6211EF19FDA95E009BECA6 /* LYReal-name.m in Sources */,
 				AD6211E619FD90A8009BECA6 /* LYSignup.m in Sources */,
 				AD6211DA19FD5EFE009BECA6 /* LYPrivacySettings.m in Sources */,
@@ -1623,8 +1644,10 @@
 				AD3DD3C019FE13FE00364854 /* LY_FeaturedCell.m in Sources */,
 				F1392E8B1A0CD4C500329FFF /* StoreSettingCollectionViewCell.m in Sources */,
 				F18E64271A12EDE2001BD189 /* WelcomeViewController.m in Sources */,
+				F16297BE1A1DD26300DAEB33 /* NSDictionary+JsonNullToNil.m in Sources */,
 				AD6A9B811A09CA420031B7C2 /* LYAcceptedCell.m in Sources */,
 				AD6211E919FD9F1C009BECA6 /* LYForgotPassword.m in Sources */,
+				F16297B51A1DBFBF00DAEB33 /* NSString+Size.m in Sources */,
 				AD09555A1A08C71200C53A6F /* LYAbout.m in Sources */,
 				F14231571A032C490088ED59 /* MessageContentTableViewCell.m in Sources */,
 				AD6211D419FD5C1E009BECA6 /* LYconvenienceMain.m in Sources */,
@@ -1672,6 +1695,7 @@
 				AD6211E319FD88DE009BECA6 /* LYAnnouncementDetails.m in Sources */,
 				EF31A2111A0381D80039E52C /* XHFriendlyLoadingView.m in Sources */,
 				AD6211EC19FDA63C009BECA6 /* HomepageMain.m in Sources */,
+				F16297B81A1DC1B200DAEB33 /* UILabel+Size.m in Sources */,
 				F142314E1A024E3F0088ED59 /* StoreslistTableViewCell.m in Sources */,
 				F14F18E61A08B45E00731239 /* SendNCInfoTableViewController.m in Sources */,
 				AD3DD3B219FDEE5B00364854 /* LMContainsLMComboxScrollView.m in Sources */,

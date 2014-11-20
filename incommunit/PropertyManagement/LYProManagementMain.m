@@ -24,17 +24,16 @@
 #import "LYAnnDetails.h"
 #import "LYReplyMessage.h"
 #import "RepairDetailViewController.h"
+#import "InfoCell1.h"
+#import "NSDictionary+JsonNullToNil.h"
 #import "NumberSenceHeaderView.h"
+#import "NSString+Size.h"
 @interface LYProManagementMain () {
     UIView *m_liuView;
     UIButton *repairButton;//我要报修button
     
     UILabel *m_QQLabel;
     UILabel *m_phoneLabel;
-    
-    NSArray *communicationStyle;
-    NSArray *communicationInfo;
-    NSArray *communicationInfoRange;
 }
 
 @end
@@ -51,6 +50,15 @@
     m_pageOffset = 0;
     m_pageSize = 10;
 
+    announcementPageOffset = 0;
+    announcementPageSize = 20;
+    
+    messagePageOffset = 0;
+    messagePageSize = 20;
+    
+    maintablePageOffset = 0;
+    maintablePageSize = 20;
+    
     [m_segment addTarget:self action:@selector(doSomethingInSegment:)forControlEvents:UIControlEventValueChanged];
     CGRect rect = CGRectMake(0, 0, 1, 1);
     UIGraphicsBeginImageContext(rect.size);
@@ -74,7 +82,7 @@
     //物业公告
     m_view01 = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.m_scrollView.frame.size.width, self.m_scrollView.frame.size.height)];
     [m_view01 setBackgroundColor:BK_GRAY];
-    m_AnntableVeiw = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.m_scrollView.frame.size.height)];
+    m_AnntableVeiw = [[AWaterfallTableView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.m_scrollView.frame.size.height)];
     [m_AnntableVeiw setContentInset:UIEdgeInsetsMake(5, 0, 4, 0)];
     UINib *nib = [UINib nibWithNibName:@"AnnouncementCellNo" bundle:nil];
     [m_AnntableVeiw registerNib:nib forCellReuseIdentifier:@"AnnouncementNoCellidentifier"];
@@ -88,14 +96,15 @@
     [self.m_scrollView addSubview:m_view01];
     //信息查询
     m_view02 = [[UIView alloc] initWithFrame:CGRectMake(self.view.frame.size.width, 0, self.m_scrollView.frame.size.width, self.m_scrollView.frame.size.height)];
-    m_InfotableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, m_view02.frame.size.width, m_view02.frame.size.height)];
+    m_InfotableView = [[AWaterfallTableView alloc] initWithFrame:CGRectMake(0, 0, m_view02.frame.size.width, m_view02.frame.size.height)];
     [m_InfotableView registerNib:[UINib nibWithNibName:@"InfoCell" bundle:nil] forCellReuseIdentifier:@"InfoCellindentfier"];
+    [m_InfotableView registerNib:[UINib nibWithNibName:@"InfoCell1" bundle:nil] forCellReuseIdentifier:@"InfoCellindentfier1"];
     _m_scrollView.backgroundColor = [UIColor grayColor];
     m_InfotableView.delegate = self;
     m_InfotableView.dataSource = self;
+    m_InfotableView.canMore = NO;
     [m_view02 addSubview:m_InfotableView];
     [self.m_scrollView addSubview:m_view02];
-    
     
     UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(m_InfotableView.frame), 1)];
     [footerView setBackgroundColor:[UIColor clearColor]];
@@ -123,7 +132,7 @@
     m_view03 = [[UIView alloc] initWithFrame:CGRectMake(self.view.frame.size.width * 2, 0, self.m_scrollView.frame.size.width, self.view.frame.size.height)];
     [m_view03 setBackgroundColor:BK_GRAY];
     
-    m_ACtableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 7.5, self.m_scrollView.frame.size.width, self.view.frame.size.height - 7.5)];
+    m_ACtableView = [[AWaterfallTableView alloc] initWithFrame:CGRectMake(0, 7.5, self.m_scrollView.frame.size.width, self.view.frame.size.height - 7.5)];
     [m_ACtableView setBackgroundColor:BK_GRAY];
     [m_ACtableView setContentInset:UIEdgeInsetsMake(0, 0, -7.5, 0)];
     m_ACtableView.separatorStyle = UITableViewCellSeparatorStyleNone;
@@ -138,7 +147,7 @@
     
     //物业维修
     m_view04 = [[UIView alloc] initWithFrame:CGRectMake(self.view.frame.size.width * 3, 0, self.m_scrollView.frame.size.width, self.m_scrollView.frame.size.height)];
-    m_MaintableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, m_view04.frame.size.width, m_view04.frame.size.height)];
+    m_MaintableView = [[AWaterfallTableView alloc] initWithFrame:CGRectMake(0, 0, m_view04.frame.size.width, m_view04.frame.size.height)];
     [m_MaintableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     m_MaintableView.delegate = self;
     m_MaintableView.dataSource = self;
@@ -194,10 +203,7 @@
     [recognizer setDirection:(UISwipeGestureRecognizerDirectionRight)];
     [m_view04 addGestureRecognizer:recognizer];
     
-    [self Getnotification];
-    [self GetInfomationInquiryData];
-    [self GetPropertyExchangeData];
-    [self GetPropertyServiceData];
+    [m_AnntableVeiw refreshStart];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -229,10 +235,9 @@
     if(recognizer.direction==UISwipeGestureRecognizerDirectionLeft)
     {
         { [UIView animateWithDuration:0.3 animations:^{
-            
             [self.m_scrollView setContentOffset:CGPointMake(1* self.view.frame.size.width,0) animated:YES];
             m_segment.selectedSegmentIndex = 1;
-            [self GetInfomationInquiryData];
+            [m_InfotableView refreshStart];
         }];}
     }
 }
@@ -252,12 +257,8 @@
 -(void)m_view02rightSwipe:(UISwipeGestureRecognizer *)recognizer{
     
     if(recognizer.direction==UISwipeGestureRecognizerDirectionRight) {
-        { [UIView animateWithDuration:0.3 animations:^{
-            
-            [self.m_scrollView setContentOffset:CGPointMake(0* self.view.frame.size.width,0) animated:YES];
-            m_segment.selectedSegmentIndex = 0;
-            [self Getnotification];
-        }];}
+        [self.m_scrollView setContentOffset:CGPointMake(0* self.view.frame.size.width,0) animated:YES];
+        m_segment.selectedSegmentIndex = 0;
     }
 }
 
@@ -364,73 +365,57 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    if (tableView == m_AnntableVeiw)
-    {
-        return notification.count;
+    NSInteger numberOfRowsInSection = 0;
+    if (tableView == m_AnntableVeiw) {
+        numberOfRowsInSection = notification.count;
     }
     else if (tableView == m_InfotableView) {
-        
         switch (section) {
             case 0:
-                return propertyExpenseArray.count;
+                numberOfRowsInSection = propertyExpenseArray.count;
+                break;
+            case 1:
+                numberOfRowsInSection = expressInfomationArray.count;
                 break;
             default:
-                return 2;//expressInfomationArray.count;
                 break;
         }
     }
     else if (tableView == m_ACtableView) {
         switch (section) {
             case 0: {
-                return communicationStyle.count;
+                numberOfRowsInSection = communicationStyle.count;
             }
                 break;
             case 1: {
-                return communicationInfo.count;
+                numberOfRowsInSection = communicationInfo.count;
             }
                 break;
-            default: {
-                return 0;
-            }
+            default:
                 break;
         }
-    }else if (tableView == m_MaintableView)
-    {
-        return propertyService.count;
     }
-    return 0;
+    else if (tableView == m_MaintableView) {
+        numberOfRowsInSection = propertyService.count;
+    }
+    return numberOfRowsInSection;
 }
+
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    CGFloat heightForRowAtIndexPath = 0;
     if (tableView == m_AnntableVeiw) {
-        return 133;
+        heightForRowAtIndexPath = 133;
     }
     else if (tableView == m_InfotableView) {
-        
-        switch (indexPath.row) {
-            case 0:
-            {
-                return 60;
-            }
-                break;
-            case 1:
-            {
-                return 70;
-            }
-            default:
-                return 70;
-                break;
-        }
+        heightForRowAtIndexPath = 42;
     }
     else if (tableView == m_ACtableView) {
-        
-        CGFloat heightForRowAtIndexPath = 0;
         switch (indexPath.section) {
             case 0: {
                 heightForRowAtIndexPath = 28;
             }
                 break;
             case 1: {
-                
                 if (indexPath.row < communicationInfo.count) {
                     NSNumber *indexNumber = [NSNumber numberWithInteger:indexPath.row];
                     NSDictionary *info = [communicationInfo objectAtIndex:indexPath.row];
@@ -442,27 +427,22 @@
                     }
                 }
                 else {
-                    return 0;
+                    heightForRowAtIndexPath = 0;
                 }
             }
                 break;
-            default: {
-                return 0;
-            }
+            default:
                 break;
         }
-        
-        return heightForRowAtIndexPath;
     }
     else if (tableView == m_MaintableView) {
-        return 171;
+        heightForRowAtIndexPath = 171;
     }
-    return 0;
+    return heightForRowAtIndexPath;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (tableView == m_AnntableVeiw)
-    {
+    if (tableView == m_AnntableVeiw) {
         NSDictionary *temp = [notification objectAtIndex:indexPath.row];
         LY_AnnouncementCell *cell;
         LY_AnnouncementNoCell *NoCell;
@@ -487,39 +467,28 @@
         }
         
         
-    }else if (tableView == m_InfotableView)
-    {
+    }
+    else if (tableView == m_InfotableView) {
         switch (indexPath.section) {
             case 0:
             {
                 NSDictionary *temp = [propertyExpenseArray objectAtIndex:indexPath.row];
 
-                UINib *nib = [UINib nibWithNibName:@"InfoCell" bundle:nil];
-                [tableView registerNib:nib forCellReuseIdentifier:@"InfoCellindentfier"];
-                LY_InfoCell *cell = [tableView dequeueReusableCellWithIdentifier:@"InfoCellindentfier"];
-                cell.nameLabel.text = [temp objectForKey:@"name"];
-                cell.costLabel.text = [NSString stringWithFormat:@"%@",[temp objectForKey:@"price"]];
-                cell.timeLabel.text = [NSString stringWithFormat:@"%@",[temp objectForKey:@"time"]];   //时间需要转换
+                LY_InfoCell *cell = [tableView dequeueReusableCellWithIdentifier:@"InfoCellindentfier" forIndexPath:indexPath];
+                [cell setNameText:[temp objectForKey:@"name"]];
+                [cell setCostText:[NSString stringWithFormat:@"%@",[temp objectForKey:@"price"]]];
+                [cell setTimeText:[NSString stringWithFormat:@"%@",[temp objectForKey:@"time"]]];
                 cell.selectionStyle = UITableViewCellSelectionStyleNone;
                 return cell;
             }
                 break;
             default:
             {
-                //NSDictionary *temp = [expressInfomationArray objectAtIndex:indexPath.row];
-                UINib *nib = [UINib nibWithNibName:@"InfoCell" bundle:nil];
-                [tableView registerNib:nib forCellReuseIdentifier:@"InfoCellindentfier"];
-                LY_InfoCell *cell = [tableView dequeueReusableCellWithIdentifier:@"InfoCellindentfier"];
-                //                cell.nameLabel.text = [temp objectForKey:@"name"];
-                //                cell.numberLabel.text = [NSString stringWithFormat:@"%@件",[temp objectForKey:@"count"]];
-                //                if ([[temp objectForKey:@"status"] isEqualToString:@"0"])
-                //                {
-                //                    cell.statusLabel.text = @"已领";
-                //                }
-                //                else if([[temp objectForKey:@"status"] isEqualToString:@"1"])
-                //                {
-                //                    cell.statusLabel.text = @"未领";
-                //                }
+                NSDictionary *temp = [expressInfomationArray objectAtIndex:indexPath.row];
+                InfoCell1 *cell = [tableView dequeueReusableCellWithIdentifier:@"InfoCellindentfier1" forIndexPath:indexPath];
+                [cell setName:[temp objectForKey:@"cmp_name"]];
+                [cell setNumber:[temp objectForKey:@"count"]];
+                [cell setIsGet:[temp objectForKey:@"status"]];
                 cell.selectionStyle = UITableViewCellSelectionStyleNone;
                 return cell;
             }
@@ -610,7 +579,7 @@
             
             cell.nameLabel.text = [tempDic objectForKey:@"nick_name"];
             cell.addressLabel.text = [tempDic objectForKey:@"position"];
-            cell.timeLabel.text =  [NSString stringWithFormat:@"%@", [tempDic objectForKey:@"create_time"]];
+            cell.timeLabel.text = [[NSString stringWithFormat:@"%@", [tempDic objectForKey:@"create_time"]] convertTimeStampWithFormat:@"YYYY年MM月dd日 HH:mm"];
             cell.detailLabel.text = [tempDic  objectForKey:@"description"];
         }
         
@@ -630,8 +599,21 @@
         NSArray *titleArray = [NSArray arrayWithObjects:@"费用信息",@"快递信息", nil];
         NSArray *nibViews = [[NSBundle mainBundle] loadNibNamed:@"InfoHeader" owner:self options:nil]; //通过这个方法,取得我们的视图
         InfoHeader *headerView = [nibViews objectAtIndex:0];
-        headerView.titleLabel = titleArray[section];
-        return headerView;//将视图（v_headerView）返回
+        [headerView setTitle:titleArray[section]];
+        if (0 == section) {
+            if (propertyExpenseArray.count) {
+                NSDictionary *info  = propertyExpenseArray.lastObject;
+                [headerView setAddress:[info objectForKey:@"address"]];
+            }
+            else {
+                [headerView setAddress:@""];
+            }
+        }
+        else if (1 == section) {
+            [headerView setTime:updateTime];
+            [headerView setPhone:phone];
+        }
+        return headerView;
     }
     else if (tableView == m_ACtableView) {
         switch (section) {
@@ -708,36 +690,34 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    CGFloat heightForHeaderInSection = 0;
     if (tableView == m_AnntableVeiw) {
-        return 0;
+        heightForHeaderInSection = 0;
     }
     else if (tableView == m_InfotableView) {
-        
-        return 40;
+        heightForHeaderInSection = 47;
     }
     else if (tableView == m_ACtableView) {
         switch (section) {
             case 0:
-                return 47;
+                heightForHeaderInSection = 47;
                 break;
             case 1:
-                return 40;
+                heightForHeaderInSection = 40;
                 break;
             default:
                 break;
         }
     }
     else if (tableView == m_MaintableView) {
-        
-        return 0;
+        heightForHeaderInSection = 0;
     }
-    return 0;
+    return heightForHeaderInSection;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
     CGFloat heightForFooterInSection = 0;
     if (tableView == m_ACtableView) {
-        
         heightForFooterInSection = 7.5;
     }
     return heightForFooterInSection;
@@ -810,24 +790,48 @@
 //获取物业公告信息
 -(void)Getnotification
 {
-    NSDictionary* dic = @{@"pageSize" : [[NSString alloc] initWithFormat:@"%d",m_pageSize]
-                          ,@"pageOffset" : [[NSString alloc] initWithFormat:@"%d",m_pageOffset]
+    NSDictionary* dic = @{
+                          @"pageSize" : [[NSString alloc] initWithFormat:@"%d", announcementPageSize]
+                          ,@"pageOffset" : [[NSString alloc] initWithFormat:@"%d", announcementPageOffset]
                           };
     [[StoreOnlineNetworkEngine shareInstance] startNetWorkWithPath:@"services/wuye/notice/list"
                                                         params:dic
                                                         repeat:NO
                                                          isGet:YES
                                                    resultBlock:^(BOOL bValidJSON, NSString *errorMsg, id result) {
-                                                       if(!bValidJSON)
-                                                       {
+                                                       
+                                                       if (!bValidJSON) {
                                                            UIAlertView *alview = [[UIAlertView alloc] initWithTitle:@"提示" message:errorMsg delegate:self
                                                                                                   cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
                                                            [alview show];
+                                                       }
+                                                       else {
+                                                           if (AWaterfallTableViewRefreshing == m_AnntableVeiw.status) {
+                                                               m_AnntableVeiw.canMore = YES;
+                                                               notification = nil;
+                                                           }
                                                            
-                                                       }else
-                                                       {
-                                                           notification =result;
+                                                           NSMutableArray *array = [[NSMutableArray alloc] init];
+                                                           if (notification.count) {
+                                                               [array addObjectsFromArray:notification];
+                                                           }
+                                                           if ([result count]) {
+                                                               announcementPageOffset += [result count];
+                                                               [array addObjectsFromArray:result];
+                                                           }
+                                                           if ([result count] < announcementPageSize) {
+                                                               m_AnntableVeiw.canMore = NO;
+                                                           }
+                                                           
+                                                           notification = array;
                                                            [m_AnntableVeiw reloadData];
+                                                       }
+                                                       
+                                                       if (AWaterfallTableViewRefreshing == m_AnntableVeiw.status) {
+                                                           [m_AnntableVeiw refreshEnd];
+                                                       }
+                                                       else if (AWaterfallTableViewMoring == m_AnntableVeiw.status) {
+                                                           [m_AnntableVeiw moreEnd];
                                                        }
                                                    }];
 }
@@ -835,28 +839,51 @@
 //获取"信息查询"的相关数据
 -(void)GetInfomationInquiryData
 {
-
-    NSDictionary* dic = @{@"pageSize" : [[NSString alloc] initWithFormat:@"%d",m_pageSize]
-                          ,@"pageOffset" : [[NSString alloc] initWithFormat:@"%d",m_pageOffset]
-                          };
-    [[StoreOnlineNetworkEngine shareInstance] startNetWorkWithPath:@"services/wuye/express_infor"
-                                                            params:dic
-                                                            repeat:YES
+    [[StoreOnlineNetworkEngine shareInstance] startNetWorkWithPath:@"services/wuye/base_infor"
+                                                            params:nil
+                                                            repeat:NO
                                                              isGet:YES
                                                        resultBlock:^(BOOL bValidJSON, NSString *errorMsg, id result) {
-                                                           if(!bValidJSON)
+                                                           if (!bValidJSON)
                                                            {
                                                                UIAlertView *alview = [[UIAlertView alloc] initWithTitle:@"提示" message:errorMsg delegate:self
                                                                                                       cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
                                                                [alview show];
-                                                               
-                                                           }else
-                                                           {
-                                                               expressInfomationArray =result;
-                                                               [m_InfotableView reloadData];
                                                            }
+                                                           else {
+                                                               propertyExpenseArray = result;
+                                                               [m_InfotableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationFade];
+                                                           }
+                                                           
+                                                           [self GetInfomationExpressInfor];
                                                        }];
 }
+
+- (void)GetInfomationExpressInfor
+{
+    [[StoreOnlineNetworkEngine shareInstance] startNetWorkWithPath:@"services/wuye/express_infor"
+                                                            params:nil
+                                                            repeat:NO
+                                                             isGet:YES
+                                                       resultBlock:^(BOOL bValidJSON, NSString *errorMsg, id result) {
+                                                           if (!bValidJSON)
+                                                           {
+                                                               UIAlertView *alview = [[UIAlertView alloc] initWithTitle:@"提示" message:errorMsg delegate:self
+                                                                                                      cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+                                                               [alview show];
+                                                           }
+                                                           else {
+                                                               phone = [result objectForKey:@"phone"];
+                                                               updateTime = [result valueForKeyNullToNil:@"updateTime"];
+                                                               expressInfomationArray = [result objectForKey:@"expressInfo"];
+                                                               [m_InfotableView reloadSections:[NSIndexSet indexSetWithIndex:1] withRowAnimation:UITableViewRowAnimationFade];
+                                                           }
+                                                           
+                                                           [m_InfotableView refreshEnd];
+                                                           m_InfotableView.canMore = NO;
+                                                       }];
+}
+
 //获取"物业交流"的相关数据
 -(void)GetPropertyExchangeData
 {
@@ -868,86 +895,70 @@
                                                        resultBlock:^(BOOL bValidJSON, NSString *errorMsg, id result) {
                                                            if (!bValidJSON) {
                                                                NSLog(@"%@",errorMsg);
-                                                               
                                                            }
                                                            else {
                                                                communicationStyle = result;
                                                                [m_ACtableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationFade];
                                                            }
+                                                           
+                                                           [self getMessageList];
                                                        }];
 
     
 }
+
 //获取"物业维修"的相关数据
 -(void)GetPropertyServiceData
 {
-    NSDictionary *dic = @{};
     [[StoreOnlineNetworkEngine shareInstance] startNetWorkWithPath:@"services/wuye/service/list"
-                                                            params:dic
+                                                            params:@{
+                                                                     @"pageSize" : [NSString stringWithFormat:@"%d", maintablePageSize]
+                                                                     ,@"pageOffset" : [NSString stringWithFormat:@"%d", maintablePageOffset]
+                                                                     }
                                                             repeat:YES
                                                              isGet:YES
                                                        resultBlock:^(BOOL bValidJSON, NSString *errorMsg, id result) {
-                                                           if(!bValidJSON)
-                                                           {
+                                                           if (!bValidJSON) {
                                                                NSLog(@"%@",errorMsg);
+                                                           }
+                                                           else {
+                                                               if (AWaterfallTableViewRefreshing == m_MaintableView.status) {
+                                                                   m_MaintableView.canMore = YES;
+                                                                   propertyService = nil;
+                                                               }
                                                                
-                                                           }else
-                                                           {
-                                                               propertyService = result;
+                                                               NSMutableArray *array = [[NSMutableArray alloc] init];
+                                                               if (propertyService.count) {
+                                                                   [array addObjectsFromArray:propertyService];
+                                                               }
+                                                               if ([result count]) {
+                                                                   maintablePageOffset += [result count];
+                                                                   [array addObjectsFromArray:result];
+                                                               }
+                                                               if ([result count] < maintablePageSize) {
+                                                                   m_MaintableView.canMore = NO;
+                                                               }
+                                                               
+                                                               propertyService = array;
                                                                [m_MaintableView reloadData];
                                                            }
-                                                       }];
-    
-    
-}
-
--(void)GetPropertyServiceDetailData
-{
-    NSDictionary *dic = @{@"id" : [[NSString alloc] initWithFormat:@"%ld",(long)IDNumber]};
-    [[StoreOnlineNetworkEngine shareInstance] startNetWorkWithPath:@"services/wuye/service/detail"
-                                                            params:dic
-                                                            repeat:YES
-                                                             isGet:YES
-                                                       resultBlock:^(BOOL bValidJSON, NSString *errorMsg, id result) {
-                                                           if(!bValidJSON)
-                                                           {
-                                                               NSLog(@"%@",errorMsg);
-                                                               
-                                                           }else
-                                                           {
-                                                               specifyPropertyService = result;
-                                                               
+                                                           
+                                                           if (AWaterfallTableViewRefreshing == m_MaintableView.status) {
+                                                               [m_MaintableView refreshEnd];
+                                                           }
+                                                           else if (AWaterfallTableViewMoring == m_MaintableView.status) {
+                                                               [m_MaintableView moreEnd];
                                                            }
                                                        }];
-}
-
--(void)getMessageDetailData
-{
     
-    NSDictionary *dic = @{@"id" : [[NSString alloc] initWithFormat:@"%ld",(long)IDNumber]};
-    [[StoreOnlineNetworkEngine shareInstance] startNetWorkWithPath:@"services/wuye/message/detail"
-                                                            params:dic
-                                                            repeat:YES
-                                                             isGet:YES
-                                                       resultBlock:^(BOOL bValidJSON, NSString *errorMsg, id result) {
-                                                           if(!bValidJSON)
-                                                           {
-                                                               NSLog(@"%@",errorMsg);
-                                                               
-                                                           }else
-                                                           {
-                                                               specifyMessageDictionary = result;
-                                                                [m_AnntableVeiw reloadData];
-                                                               
-                                                           }
-                                                       }];
+    
 }
 
 -(void)getMessageList {
     [[StoreOnlineNetworkEngine shareInstance] startNetWorkWithPath:@"services/wuye/message/list"
                                                             params:@{
-                                                                     @"pageSize" : [NSString stringWithFormat:@"%d", 20]
-                                                                     ,@"pageOffset" : [NSString stringWithFormat:@"%d", 0]
+                                                                     @"pageSize" : [NSString stringWithFormat:@"%d", messagePageSize]
+                                                                     ,@"pageOffset" : [NSString stringWithFormat:@"%d", messagePageOffset]
                                                                      }
                                                             repeat:YES
                                                              isGet:YES
@@ -956,9 +967,30 @@
                                                                NSLog(@"%@", errorMsg);
                                                            }
                                                            else {
+                                                               messagePageOffset += [result count];
+                                                               
+                                                               if ([result count] < announcementPageSize) {
+                                                                   m_AnntableVeiw.canMore = NO;
+                                                               }
+                                                               
+                                                               if (AWaterfallTableViewRefreshing == m_ACtableView.status) {
+                                                                   m_ACtableView.canMore = YES;
+                                                                   communicationInfo = nil;
+                                                                   communicationInfoRange = nil;
+                                                               }
+                                                               
                                                                NSMutableArray *resultTemp = [[NSMutableArray alloc] init];
                                                                NSMutableArray *rangelist = [[NSMutableArray alloc] init];
+                                                               if (communicationInfo.count) {
+                                                                   [resultTemp addObjectsFromArray:communicationInfo];
+                                                               }
+                                                               if (communicationInfoRange.count) {
+                                                                   [rangelist addObjectsFromArray:communicationInfoRange];
+                                                               }
                                                                NSInteger location = 0;
+                                                               if (rangelist.count) {
+                                                                   location += [rangelist.lastObject integerValue];
+                                                               }
                                                                for (NSDictionary *message in result) {
                                                                    
                                                                    [rangelist addObject:[NSNumber numberWithInteger:location]];
@@ -978,7 +1010,47 @@
                                                                
                                                                [m_ACtableView reloadSections:[NSIndexSet indexSetWithIndex:1] withRowAnimation:UITableViewRowAnimationFade];
                                                            }
+                                                           
+                                                           if (AWaterfallTableViewRefreshing == m_ACtableView.status) {
+                                                               [m_ACtableView refreshEnd];
+                                                           }
+                                                           else if (AWaterfallTableViewMoring == m_ACtableView.status) {
+                                                               [m_ACtableView moreEnd];
+                                                           }
                                                        }];
+}
+
+#pragma mark -
+#pragma mark AWaterfallTableViewDelegate
+
+- (void)refresh:(AWaterfallTableView *)tableView {
+    if (tableView == m_AnntableVeiw) {
+        announcementPageOffset = 0;
+        [self Getnotification];
+    }
+    else if (tableView == m_InfotableView) {
+        [self GetInfomationInquiryData];
+    }
+    else if (tableView == m_ACtableView) {
+        messagePageOffset = 0;
+        [self GetPropertyExchangeData];
+    }
+    else if (tableView == m_MaintableView) {
+        maintablePageOffset = 0;
+        [self GetPropertyServiceData];
+    }
+}
+
+- (void)more:(AWaterfallTableView *)tableView {
+    if (tableView == m_AnntableVeiw) {
+        [self Getnotification];
+    }
+    else if (tableView == m_ACtableView) {
+        [self getMessageList];
+    }
+    else if (tableView == m_MaintableView) {
+        [self GetPropertyServiceData];
+    }
 }
 
 @end
