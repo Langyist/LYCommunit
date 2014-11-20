@@ -124,6 +124,35 @@
     return YES;
 }
 
+//开始编辑输入框
+- (void)textFieldDidBeginEditing:(UITextField *)textField
+{
+    if (textField==self.contentField) {
+        NSTimeInterval animationDuration = 20.0f;
+        CGRect frame = self.view.frame;
+        frame.origin.y -=80;
+        self.view.frame = frame;
+        [UIView beginAnimations:@"ResizeView" context:nil];
+        [UIView setAnimationDuration:animationDuration];
+        [UIView commitAnimations];
+    }
+}
+//结束编辑输入框
+- (void)textFieldDidEndEditing:(UITextField *)textField
+{
+    if (textField==self.contentField)
+    {
+        NSTimeInterval animationDuration = 20.0f;
+        CGRect frame = self.view.frame;
+        frame.origin.y +=80;
+        self.view.frame = frame;
+        [UIView beginAnimations:@"ResizeView" context:nil];
+        [UIView setAnimationDuration:animationDuration];
+        self.view.frame = frame;
+        [UIView commitAnimations];
+    }
+}
+
 #pragma mark 保存到网络数据
 - (void)getsaverepair:(NSString *)url
 {

@@ -69,15 +69,9 @@ static BOOL YTourist;
     imageView.frame = CGRectMake(0.0, 0.0, iconSize.width / 2, iconSize.height / 2);
     imageView.center = CGPointMake(textFiled.frame.size.height / 2, textFiled.frame.size.height / 2);
     imageView.contentMode = UIViewContentModeCenter;
-    //imageView.backgroundColor = [UIColor colorWithRed:86.0f / 255.0f green:190.0f / 255.0f blue:164.f / 255.0f alpha:1];
     [view addSubview:imageView];
-    
     textFiled.leftView = view;
     textFiled.leftViewMode = UITextFieldViewModeAlways;
-    
-    //textFiled.layer.cornerRadius = 8.0f;
-    //[textFiled setTextInset:UIEdgeInsetsMake(0, 5, 0, 3)];
-    //textFiled.returnKeyType = UIReturnKeyDone;
 }
 
 -(void)ClickView
@@ -198,7 +192,7 @@ static BOOL YTourist;
                                                            }else
                                                            {
                                                                [LYSqllite WriteComunitInfo:[LYSqllite selectedCommunit]];
-                                                               
+                                                               [LYSqllite Setheadiamge:[result objectForKey:@"head"]];
                                                                [userinfo setValue:[[result objectForKey:@"user_id"] stringValue] forKey:@"user_id"];
                                                                [userinfo setValue:[[result objectForKey:@"auth_status"] stringValue] forKey:@"auth_status"];
                                                                [LYSqllite  wuser:userinfo];

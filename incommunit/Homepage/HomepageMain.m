@@ -7,6 +7,8 @@
 //
 
 #import "HomepageMain.h"
+#import "LYSqllite.h"
+#import "UIImageView+AsyncDownload.h"
 @interface HomepageMain ()
 
 @property (weak, nonatomic) IBOutlet UIImageView *userPhoto;
@@ -25,10 +27,11 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
     CALayer *lay  = self.userPhoto.layer;//获取ImageView的层
     [lay setMasksToBounds:YES];
     [lay setCornerRadius:40.0];
+    NSURL *url = [NSURL URLWithString:[LYSqllite Getheadiamge]];
+    [_userPhoto setImageWithURL: url placeholderImage:nil];
 }
 
 - (void)didReceiveMemoryWarning {

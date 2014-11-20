@@ -247,7 +247,6 @@
                                                               
                                                            }
                                                        }];
-    
 }
 
 // 将数组转JSON
@@ -262,8 +261,7 @@
                                                 return nil;
                                             }
 }
-//NSString *jsonString = [[NSString alloc] initWithData:jsonDataencoding:NSUTF8StringEncoding];
-//NSString *jsonString = [[NSString alloc] initWithData:jsonDataencoding:NSUTF8StringEncoding];
+
 -(void)GetDeliverytime
 {
     NSDictionary *dic = @{@"shop_id" : Storesidstr};

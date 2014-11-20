@@ -34,6 +34,14 @@
     self.postButton.clipsToBounds = YES;
     
     [self.scrollView setContentSize:CGSizeMake(0, CGRectGetMaxY(self.postButton.frame) + 50)];
+    
+    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(closeKeyBoard)];
+    [self.view addGestureRecognizer:tapGesture];
+}
+
+- (void)closeKeyBoard {
+    
+    [self.m_messagetext resignFirstResponder];
 }
 
 - (void)viewDidAppear:(BOOL)animated {

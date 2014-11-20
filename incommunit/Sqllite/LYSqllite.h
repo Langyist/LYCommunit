@@ -29,4 +29,6 @@
 +(BOOL)Modifyquantity:(NSString *)GoodsID quantity:(NSString *)quantitystr;
 + (NSMutableArray*)GetGood:(NSString *)stattestr;
 + (NSString*)Storesid:(NSString *)stattestr;
++(NSString *)Getheadiamge;
++(void)Setheadiamge :(NSString *)path;
 @end
