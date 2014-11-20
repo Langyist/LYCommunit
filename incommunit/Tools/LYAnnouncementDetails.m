@@ -23,7 +23,7 @@
     }
     [self.titleLabel setText:[m_announMessage objectForKey:@"name"]];
     [self setTextContent:[m_announMessage objectForKey:@"content"]];
-    [self setTimestamp:@"create_time"];
+    [self setTimestamp:[m_announMessage objectForKey:@"create_time"]];
 }
 
 - (void)didReceiveMemoryWarning {
