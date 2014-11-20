@@ -155,11 +155,6 @@ typedef void (^ChangeNumberBlock)(ShopcartCell *cell, BOOL add);
         CGFloat price = [[temp objectForKey:@"price"] floatValue];
         [pricelb setText:[[NSString alloc] initWithFormat:@"￥%.02f", price]]; // 价格，小数点两位精度
         
-        CGFloat textFloat = [[temp objectForKey:@"quantity"] floatValue];
-        CGFloat totalFloat = price * textFloat;
-        
-        self.totalLabel.text = [[NSString alloc] initWithFormat:@"￥%.02f",totalFloat];
-        
         itemcell.tag = indexPath.section << MOVE | (indexPath.row - 1);
         [itemcell setBlock:^(ShopcartCell *acell, BOOL add) {
             [self changeNumberOfItem:add sender:acell];

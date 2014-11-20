@@ -24,6 +24,7 @@
 #import "LYAnnDetails.h"
 #import "LYReplyMessage.h"
 #import "RepairDetailViewController.h"
+#import "NumberSenceHeaderView.h"
 @interface LYProManagementMain () {
     UIView *m_liuView;
     UIButton *repairButton;//我要报修button
@@ -194,7 +195,9 @@
     [m_view04 addGestureRecognizer:recognizer];
     
     [self Getnotification];
-    
+    [self GetInfomationInquiryData];
+    [self GetPropertyExchangeData];
+    [self GetPropertyServiceData];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -296,12 +299,10 @@
 - (void)liuButtonPressed:(UIButton *)sender
 {
     [self performSegueWithIdentifier:@"Postcomment" sender:self];
-    NSLog(@"我要留言");
 }
 //我要报修
 - (void)repairButtonPressed:(UIButton *)sender {
     [self performSegueWithIdentifier:@"repair" sender:self];
-    NSLog(@"我要报修");
 }
 
 #pragma mark - Plain Segmented Control 协议函数
