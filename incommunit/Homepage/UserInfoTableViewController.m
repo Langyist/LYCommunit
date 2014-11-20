@@ -8,7 +8,8 @@
 
 #import "UserInfoTableViewController.h"
 #import "LYaddCommunit.h"
-
+#import "LYSqllite.h"
+#import "UIImageView+AsyncDownload.h"
 #define CAMERA @"相机"
 #define PHOTOES @"相册"
 
@@ -70,6 +71,8 @@
     self.userPhoto.userInteractionEnabled = YES;
     UITapGestureRecognizer *recognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(imageViewTap:)];
     [self.userPhoto addGestureRecognizer:recognizer];
+    NSURL *url = [NSURL URLWithString:[LYSqllite Getheadiamge]];
+    [_userPhoto setImageWithURL: url placeholderImage:nil];
 }
 
 - (void)didReceiveMemoryWarning {

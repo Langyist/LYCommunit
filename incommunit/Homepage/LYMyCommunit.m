@@ -274,7 +274,7 @@
                                                            }else
                                                            {
                                                                [LYSqllite WriteComunitInfo:temp];
-                                                               
+                                                               [LYSqllite Setheadiamge:[result objectForKey:@"head"]];
                                                                [userinfo setValue:[[result objectForKey:@"user_id"] stringValue] forKey:@"user_id"];
                                                                [userinfo setValue:[[result objectForKey:@"auth_status"] stringValue] forKey:@"auth_status"];
                                                                [LYSqllite  wuser:userinfo];

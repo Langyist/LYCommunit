@@ -9,6 +9,7 @@
 #import "sqlite3.h"
 
 static NSDictionary *selectedCommunitInfo;
+static NSString * headiamgepath;
 
 @implementation LYSqllite
 #pragma mark - 打开数据库
@@ -541,4 +542,12 @@ return bl;
     selectedCommunitInfo = communitInfo;
 }
 
++(NSString *)Getheadiamge
+{
+    return headiamgepath;
+}
++(void)Setheadiamge :(NSString *)path
+{
+    headiamgepath = path;
+}
 @end
