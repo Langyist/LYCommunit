@@ -322,7 +322,10 @@
     if ([segue.identifier isEqualToString: @"GoProductDetails"])
     {
         LYProductinformation *detailViewController = (LYProductinformation*) segue.destinationViewController;
+        detailViewController->m_Storesid = self->m_StoresID;
+        detailViewController->m_storeinfo = self->m_storesinfo;
         detailViewController->m_GoodsID = self->m_Goodsid;
+        
     }
 }
 
@@ -397,7 +400,7 @@
                                                                UIAlertView * alview = [[UIAlertView alloc] initWithTitle:@"提示" message:@"商品收藏成功！" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
                                                                [alview show];
                                                            }
-                                                       }];
+                                                   }];
 }
 
 #pragma mark 添加购物车
@@ -407,12 +410,11 @@
     if (!userInfo || [[userInfo objectForKey:@"auth_status"] isEqualToString:@"-2"]) {
         UIAlertView *alview = [[UIAlertView alloc] initWithTitle:@"提示" message:@"你当前是游客，不能使用该功能？" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil];
         [alview show];
-        
         return;
     }
     
     NSMutableDictionary *stored =[m_Goodslist objectAtIndex:sender.view.tag];
-    [LYSqllite addShoppingcart:stored number:@"1" StoresID:m_StoresID Storesname:[m_storesinfo objectForKey:@"name"] selectState:@"1"];
+    [LYSqllite addShoppingcart:stored number:@"1" StoresID:m_StoresID Storesname:[m_storesinfo objectForKey:@"name"] selectState:@"0"];
     m_addshopcatalert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"成功将商品加入了购物车" delegate:self cancelButtonTitle:@"继续购物" otherButtonTitles:@"去购物车结算", nil];
     [m_addshopcatalert show];
     

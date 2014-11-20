@@ -64,6 +64,7 @@
 {
     [super viewDidLoad];
     _positiveimage.userInteractionEnabled=YES;
+    
     _positiveimage.tag = 101;
     UITapGestureRecognizer *singleTap =[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(showActionSheet:)];
     [_positiveimage addGestureRecognizer:singleTap];
@@ -189,6 +190,84 @@
 }];
 }
 
+- (void)didReceiveMemoryWarning
+{
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+//正面
+- (IBAction)positiveButon:(id)sender {
+    
+}
+
+//反面
+- (IBAction)reverseButton:(id)sender {
+    UIAlertView *alert=[[UIAlertView alloc] initWithTitle:@"请选择图片来源"
+                                                  message:@""
+                                                 delegate:self
+                                        cancelButtonTitle:@"取消"
+                                        otherButtonTitles:@"拍照",@"从手机相册选择", nil];
+    [alert show];
+}
+
+#pragma 拍照选择模块
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    if(buttonIndex==1){
+        [self shootPiicturePrVideo];
+    }
+    else if(buttonIndex==2){
+        [self selectExistingPictureOrVideo];
+    }
+}
+
+//从相机上选择
+-(void)shootPiicturePrVideo{
+    
+    [self getMediaFromSource:UIImagePickerControllerSourceTypeCamera];
+    
+}
+
+//从相册中选择
+-(void)selectExistingPictureOrVideo{
+    
+    [self getMediaFromSource:UIImagePickerControllerSourceTypePhotoLibrary];
+}
+
+
+-(void) imagePickerControllerDidCancel:(UIImagePickerController *)picker{
+    [picker dismissViewControllerAnimated:YES completion:nil];
+}
+
+-(void)getMediaFromSource:(UIImagePickerControllerSourceType)sourceType {
+    NSArray *mediatypes=[UIImagePickerController availableMediaTypesForSourceType:sourceType];
+    if([UIImagePickerController isSourceTypeAvailable:sourceType] &&[mediatypes count]>0){
+        NSArray *mediatypes=[UIImagePickerController availableMediaTypesForSourceType:sourceType];
+        UIImagePickerController *picker=[[UIImagePickerController alloc] init];
+        picker.mediaTypes=mediatypes;
+        picker.delegate = self;
+        picker.allowsEditing=YES;
+        picker.sourceType=sourceType;
+        NSString *requiredmediatype=(NSString *)kUTTypeImage;
+        NSArray *arrmediatypes=[NSArray arrayWithObject:requiredmediatype];
+        [picker setMediaTypes:arrmediatypes];
+        [self presentViewController:picker animated:YES completion:nil];
+    }
+    else{
+        UIAlertView *alert=[[UIAlertView alloc] initWithTitle:@"错误信息!" message:@"当前设备不支持拍摄功能" delegate:nil cancelButtonTitle:@"确认" otherButtonTitles: nil];
+        [alert show];
+    }
+}
+static UIImage *shrinkImage(UIImage *orignal,CGSize size) {
+    CGFloat scale=[UIScreen mainScreen].scale;
+    CGColorSpaceRef colorSpace=CGColorSpaceCreateDeviceRGB();
+    CGContextRef context=CGBitmapContextCreate(NULL, size.width *scale,size.height*scale, 8, 0, colorSpace, kCGImageAlphaPremultipliedFirst);
+    CGContextDrawImage(context, CGRectMake(0, 0, size.width*scale, size.height*scale), orignal.CGImage);
+    CGImageRef shrunken=CGBitmapContextCreateImage(context);
+    UIImage *final=[UIImage imageWithCGImage:shrunken];
+    CGContextRelease(context);
+    CGImageRelease(shrunken);
+    return  final;
+}
 
 
 - (IBAction)submitPress:(id)sender {
@@ -206,6 +285,7 @@
 
 - (void)done:(NSString *)COMMUNITY_ID pid:(NSString *)PID ComBoxView:(LMComBoxView *)BoxView index:(NSString *)index
 {
+    
     NSDictionary *dic = @{ @"community_id" : COMMUNITY_ID
                            ,@"pid" : PID
                            };

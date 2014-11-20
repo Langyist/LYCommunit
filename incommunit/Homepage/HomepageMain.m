@@ -66,14 +66,32 @@
         }
     }else if (indexPath.section == 2) {
         switch (indexPath.row) {
-            case 0:
-                NSLog(@"我的相册");
+            case 0:{
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"温馨提示"
+                                                                message:@"该功能尚未开启"
+                                                               delegate:self
+                                                      cancelButtonTitle:@"确定"
+                                                      otherButtonTitles:@"取消", nil];
+                [alert show];
+            }
                 break;
-            case 1:
-                NSLog(@"朋友圈");
+            case 1:{
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"温馨提示"
+                                                                message:@"该功能尚未开启"
+                                                               delegate:self
+                                                      cancelButtonTitle:@"确定"
+                                                      otherButtonTitles:@"取消", nil];
+                [alert show];
+            }
                 break;
-            case 2:
-                NSLog(@"通讯录");
+            case 2: {
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"温馨提示"
+                                                                message:@"该功能尚未开启"
+                                                               delegate:self
+                                                      cancelButtonTitle:@"确定"
+                                                      otherButtonTitles:@"取消", nil];
+                [alert show];
+            }
                 break;
             default:
                 break;
@@ -82,8 +100,14 @@
     else if (indexPath.section == 3) {
         
         switch (indexPath.row) {
-            case 0:
-                NSLog(@"我的发布");
+            case 0:{
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"温馨提示"
+                                                                message:@"该功能尚未开启"
+                                                               delegate:self
+                                                      cancelButtonTitle:@"确定"
+                                                      otherButtonTitles:@"取消", nil];
+                [alert show];
+            }
                 break;
             case 1:
                 [self performSegueWithIdentifier:@"Gocollection" sender:self];
@@ -95,7 +119,6 @@
     else if (indexPath.section == 4) {
         if (indexPath.row == 0) {
             [self performSegueWithIdentifier:@"Goshopcat" sender:self];
-            NSLog(@"我的购物车");
         }else if (indexPath.row == 1) {
             
             [self performSegueWithIdentifier:@"GoMyorder" sender:self];
@@ -106,6 +129,14 @@
     else if (indexPath.section == 5) {
         
         [self performSegueWithIdentifier:@"Gonumbersense" sender:self];
+    }
+    else if (indexPath.section == 6) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"温馨提示"
+                                                        message:@"该功能尚未开启"
+                                                       delegate:self
+                                              cancelButtonTitle:@"确定"
+                                              otherButtonTitles:@"取消", nil];
+        [alert show];
     }
     
     [tableView deselectRowAtIndexPath:indexPath animated:NO];

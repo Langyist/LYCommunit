@@ -26,6 +26,7 @@
 #import "RepairDetailViewController.h"
 #import "InfoCell1.h"
 #import "NSDictionary+JsonNullToNil.h"
+#import "NumberSenceHeaderView.h"
 @interface LYProManagementMain () {
     UIView *m_liuView;
     UIButton *repairButton;//我要报修button
@@ -296,12 +297,10 @@
 - (void)liuButtonPressed:(UIButton *)sender
 {
     [self performSegueWithIdentifier:@"Postcomment" sender:self];
-    NSLog(@"我要留言");
 }
 //我要报修
 - (void)repairButtonPressed:(UIButton *)sender {
     [self performSegueWithIdentifier:@"repair" sender:self];
-    NSLog(@"我要报修");
 }
 
 #pragma mark - Plain Segmented Control 协议函数
@@ -716,7 +715,6 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
     CGFloat heightForFooterInSection = 0;
     if (tableView == m_ACtableView) {
-        
         heightForFooterInSection = 7.5;
     }
     return heightForFooterInSection;

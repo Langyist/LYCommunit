@@ -2312,7 +2312,7 @@
                                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
                                                 <connections>
-                                                    <action selector="laud:" destination="cSW-zU-IBM" eventType="touchUpInside" id="LrV-RU-r0Y"/>
+                                                    <action selector="SetChan" destination="cSW-zU-IBM" eventType="touchUpInside" id="c5R-Jf-doH"/>
                                                 </connections>
                                             </button>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="eNK-TC-KjK" customClass="HLineLabel">
@@ -2367,6 +2367,7 @@
                         <outlet property="desContainerView" destination="euc-RA-WJj" id="ru4-B8-jPc"/>
                         <outlet property="imageViewScroll" destination="3sT-lU-Dz1" id="gaL-KO-zu0"/>
                         <outlet property="m_GoodsName" destination="9CF-Vb-buF" id="IdW-p2-ycZ"/>
+                        <outlet property="m_Imagescrillview" destination="3sT-lU-Dz1" id="BF8-ex-f56"/>
                         <outlet property="m_Introduction" destination="Jiy-ra-Ur7" id="SVJ-0T-wwR"/>
                         <outlet property="m_Price" destination="cNf-ds-azL" id="obs-dY-dcn"/>
                         <outlet property="m_textField" destination="gix-b1-S44" id="5ve-Z0-YeK"/>
@@ -5407,5 +5408,12 @@
         <segue reference="e4p-wT-QTQ"/>
         <segue reference="vk7-fL-aT2"/>
         <segue reference="shx-Oe-7jn"/>
+        <segue reference="Bv1-7h-vqH"/>
+        <segue reference="yvO-v4-xXy"/>
+        <segue reference="Hdu-Tg-GNB"/>
+        <segue reference="N0t-b0-7PV"/>
+        <segue reference="5ST-dg-Gu3"/>
+        <segue reference="pnN-Mq-Lrm"/>
+        <segue reference="BZF-K6-2v2"/>
     </inferredMetricsTieBreakers>
 </document>
