@@ -1,7 +1,6 @@
 //
 //  LYcertification.h
 //  in_community
-//
 //  Created by LANGYI on 14-10-13.
 //  Copyright (c) 2014年 LANGYI. All rights reserved.
 //
@@ -20,6 +19,5 @@
 @property (weak, nonatomic) IBOutlet UIView *addressView;
 
 - (IBAction)submitPress:(id)sender;
-
 @property(nonatomic,copy) NSString *lastChosenMediaType;
 @end

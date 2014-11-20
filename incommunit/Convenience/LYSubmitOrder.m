@@ -10,7 +10,8 @@
 #import "AppDelegate.h"
 #import "InsetTextField.h"
 #import "SubmitOrderItemView.h"
-
+#import "LYSqllite.h"
+#import "StoreOnlineNetworkEngine.h"
 @interface Right : UIView
 
 @end
@@ -81,8 +82,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
-    
+    // Do any additional setup after loading the view
     [self.scrollView setBackgroundColor:BK_GRAY];
     [self modifyTextField:self.reciverTextField];
     [self modifyTextField:self.phoneTextField];
@@ -105,9 +105,9 @@
     self.submitButton.layer.cornerRadius = 3.0f;
     [self.submitButton setBackgroundColor:SPECIAL_RED];
     
-    dataList = @[@"", @""];
-    
+    dataList = [LYSqllite GetGood:@"1"];
     [self addItemsInfo];
+    [self GetDeliverytime];
 }
 
 - (void)modifyTextField:(InsetTextField *)textField {
@@ -118,7 +118,7 @@
     
     CGFloat y = CGRectGetMaxY(self.startLabel.frame) + 8;
     CGFloat realy = y;
-    for (NSString *item in dataList) {
+    for (int i = 0;i<dataList.count;i++) {
         NSArray *nibViews = [[NSBundle mainBundle] loadNibNamed:@"SubmitOrderItemView" owner:self options:nil];
         SubmitOrderItemView *item = [nibViews objectAtIndex:0];
         CGRect rect = item.frame;
@@ -130,11 +130,13 @@
         
         realy += CGRectGetHeight(rect);
         
-        [item setName:@"百事可乐"];
-        [item setPrice:5];
-        [item setNumber:2];
+        [item setName:[[dataList objectAtIndex:i] objectForKey:@"name"]];
+        [item setPrice:[[[dataList objectAtIndex:i] objectForKey:@"price"] intValue]];
+        [item setNumber:[[[dataList objectAtIndex:i] objectForKey:@"quantity"] intValue]];
+        Storesidstr = [LYSqllite Storesid:@"1"];
+        Totalprice= Totalprice+[[[dataList objectAtIndex:i] objectForKey:@"price"] intValue]*[[[dataList objectAtIndex:i] objectForKey:@"quantity"] intValue];
     }
-    
+    _priceLabel.text = [[NSString alloc] initWithFormat:@"￥%d.00",Totalprice];
     CGFloat move = realy - y;
     if (move) {
         move += 10;
@@ -217,6 +219,76 @@
 }
 
 - (IBAction)submitPress:(id)sender {
+    NSString *jsonString = [[NSString alloc] initWithData:[self toJSONData:dataList] encoding:NSUTF8StringEncoding];
+    jsonString = [[NSString alloc] initWithFormat:@"{\"commodityList\":%@}",jsonString];
+    NSDictionary *dic = @{@"address" : _addressTextField.text
+                          ,@"contacts" : _reciverTextField.text
+                          ,@"phone" : _phoneTextField.text
+                          ,@"time_id" : _timeTextField.text
+                          ,@"remark" : _markTextField.text
+                          ,@"total_price" : [[NSString alloc] initWithFormat:@"%d",Totalprice]
+                          ,@"shop_id" : Storesidstr
+                          ,@"commodity_info" : jsonString};
+    [[StoreOnlineNetworkEngine shareInstance] startNetWorkWithPath:@"services/order/add"
+                                                            params:dic
+                                                            repeat:YES
+                                                             isGet:NO
+                                                       resultBlock:^(BOOL bValidJSON, NSString *errorMsg, id result) {
+                                                           if(!bValidJSON)
+                                                           {
+                                                               UIAlertView * alview = [[UIAlertView alloc] initWithTitle:@"提示"
+                                                                                                                 message:errorMsg
+                                                                                                                delegate:self
+                                                                                                       cancelButtonTitle:@"确定"
+                                                                                                       otherButtonTitles:nil, nil];
+                                                               [alview show];
+                                                           }else
+                                                           {
+                                                              
+                                                           }
+                                                       }];
+    
 }
 
+// 将数组转JSON
+- (NSData *)toJSONData:(id)theData{
+    NSError *error = nil;
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:theData
+                                                       options:NSJSONWritingPrettyPrinted
+                                                         error:&error];
+                                            if ([jsonData length] > 0 && error == nil){
+                                                return jsonData;
+                                            }else{
+                                                return nil;
+                                            }
+}
+//NSString *jsonString = [[NSString alloc] initWithData:jsonDataencoding:NSUTF8StringEncoding];
+//NSString *jsonString = [[NSString alloc] initWithData:jsonDataencoding:NSUTF8StringEncoding];
+-(void)GetDeliverytime
+{
+    NSDictionary *dic = @{@"shop_id" : Storesidstr};
+    [[StoreOnlineNetworkEngine shareInstance] startNetWorkWithPath:@"services/order/send_time"
+                                                            params:dic
+                                                            repeat:YES
+                                                             isGet:YES
+                                                       resultBlock:^(BOOL bValidJSON, NSString *errorMsg, id result) {
+                                                           if(!bValidJSON)
+                                                           {
+                                                               UIAlertView * alview = [[UIAlertView alloc] initWithTitle:@"提示"
+                                                                                                                 message:errorMsg
+                                                                                                                delegate:self
+                                                                                                       cancelButtonTitle:@"确定"
+                                                                                                       otherButtonTitles:nil, nil];
+                                                               [alview show];
+                                                           }else
+                                                           {
+                                                               sendtimelist = result;
+                                                               if(sendtimelist.count==1)
+                                                               {
+                                                                   _timeTextField.text = [[sendtimelist objectAtIndex:0]objectForKey:@"name"];
+                                                                   m_timeID =[[sendtimelist objectAtIndex:0]objectForKey:@"id"];
+                                                               }
+                                                           }
+                                                       }];
+}
 @end

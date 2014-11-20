@@ -9,5 +9,11 @@
 #import <UIKit/UIKit.h>
 
 @interface LYSubmitOrder : UIViewController
+{
+    int Totalprice;//商品总价
+    NSString * Storesidstr;//商铺ID
+    NSMutableArray *sendtimelist;//送货时间
+    NSString * m_timeID;//时间ID
+}
 
 @end

@@ -41,35 +41,35 @@ static NSMutableDictionary  *m_selectCityInfo;
                                                         [mslaView show];
                                                     }else
                                                     {
-                                                   NSDictionary *data = result;
-                                                   m_hotCities =[data objectForKey:@"hotCities"];
-                                                   m_allcities = [data objectForKey:@"cities"];
-                                                   m_Acities = [[NSMutableArray alloc] init];
-                                                   m_Bcities = [[NSMutableArray alloc] init];
-                                                   m_Ccities = [[NSMutableArray alloc] init];
-                                                   m_Dcities = [[NSMutableArray alloc] init];
-                                                   m_Ecities = [[NSMutableArray alloc] init];
-                                                   m_Fcities = [[NSMutableArray alloc] init];
-                                                   m_Gcities = [[NSMutableArray alloc] init];
-                                                   m_Hcities = [[NSMutableArray alloc] init];
-                                                   m_Icities = [[NSMutableArray alloc] init];
-                                                   m_Jcities = [[NSMutableArray alloc] init];
-                                                   m_Kcities = [[NSMutableArray alloc] init];
-                                                   m_Lcities = [[NSMutableArray alloc] init];
-                                                   m_Mcities = [[NSMutableArray alloc] init];
-                                                   m_Ncities = [[NSMutableArray alloc] init];
-                                                   m_Ocities = [[NSMutableArray alloc] init];
-                                                   m_Pcities = [[NSMutableArray alloc] init];
-                                                   m_Qcities = [[NSMutableArray alloc] init];
-                                                   m_Rcities = [[NSMutableArray alloc] init];
-                                                   m_Scities = [[NSMutableArray alloc] init];
-                                                   m_Tcities = [[NSMutableArray alloc] init];
-                                                   m_Ucities = [[NSMutableArray alloc] init];
-                                                   m_Vcities = [[NSMutableArray alloc] init];
-                                                   m_Wcities = [[NSMutableArray alloc] init];
-                                                   m_Xcities = [[NSMutableArray alloc] init];
-                                                   m_Ycities = [[NSMutableArray alloc] init];
-                                                   m_Zcities = [[NSMutableArray alloc] init];
+                                                       NSDictionary *data = result;
+                                                       m_hotCities =[data objectForKey:@"hotCities"];
+                                                       m_allcities = [data objectForKey:@"cities"];
+                                                       m_Acities = [[NSMutableArray alloc] init];
+                                                       m_Bcities = [[NSMutableArray alloc] init];
+                                                       m_Ccities = [[NSMutableArray alloc] init];
+                                                       m_Dcities = [[NSMutableArray alloc] init];
+                                                       m_Ecities = [[NSMutableArray alloc] init];
+                                                       m_Fcities = [[NSMutableArray alloc] init];
+                                                       m_Gcities = [[NSMutableArray alloc] init];
+                                                       m_Hcities = [[NSMutableArray alloc] init];
+                                                       m_Icities = [[NSMutableArray alloc] init];
+                                                       m_Jcities = [[NSMutableArray alloc] init];
+                                                       m_Kcities = [[NSMutableArray alloc] init];
+                                                       m_Lcities = [[NSMutableArray alloc] init];
+                                                       m_Mcities = [[NSMutableArray alloc] init];
+                                                       m_Ncities = [[NSMutableArray alloc] init];
+                                                       m_Ocities = [[NSMutableArray alloc] init];
+                                                       m_Pcities = [[NSMutableArray alloc] init];
+                                                       m_Qcities = [[NSMutableArray alloc] init];
+                                                       m_Rcities = [[NSMutableArray alloc] init];
+                                                       m_Scities = [[NSMutableArray alloc] init];
+                                                       m_Tcities = [[NSMutableArray alloc] init];
+                                                       m_Ucities = [[NSMutableArray alloc] init];
+                                                       m_Vcities = [[NSMutableArray alloc] init];
+                                                       m_Wcities = [[NSMutableArray alloc] init];
+                                                       m_Xcities = [[NSMutableArray alloc] init];
+                                                       m_Ycities = [[NSMutableArray alloc] init];
+                                                       m_Zcities = [[NSMutableArray alloc] init];
                                                    for (int i= 0;i< [m_allcities count]; i++)
                                                    {
                                                        NSDictionary *temp = [m_allcities objectAtIndex:i];
@@ -156,9 +156,7 @@ static NSMutableDictionary  *m_selectCityInfo;
                                                        }
                                                    }
                                                    [self.m_tableview reloadData];
-                                               }}];
-                                                       
-    
+                                               }}];  
 }
 - (void)didReceiveMemoryWarning
 {

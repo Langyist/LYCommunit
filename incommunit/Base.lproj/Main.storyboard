@@ -831,7 +831,7 @@
                         <segue destination="11b-WJ-Ia4" kind="push" identifier="GoMyorder" id="Bv1-7h-vqH"/>
                         <segue destination="VzL-hf-L0Q" kind="push" identifier="Gonumbersense" id="gdj-7s-890"/>
                         <segue destination="nMO-1L-pRy" kind="push" identifier="MyStores" id="Iot-qf-cOv"/>
-                        <segue destination="CRG-7h-As7" kind="push" identifier="GoShoppingcart" id="BZF-K6-2v2"/>
+                        <segue destination="CRG-7h-As7" kind="push" identifier="Goshopcat" id="BZF-K6-2v2"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ryA-Oh-UMR" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1863,6 +1863,7 @@
                     <navigationItem key="navigationItem" title="实名认证" id="0cp-DR-3FO"/>
                     <connections>
                         <outlet property="addressView" destination="WVG-87-PKr" id="Lrg-X5-4qN"/>
+                        <outlet property="m_lableinfo" destination="iPP-Fy-Q9t" id="PoP-0Q-cK3"/>
                         <outlet property="positiveLabel" destination="sHv-GO-V5o" id="BnH-Nn-31o"/>
                         <outlet property="positiveimage" destination="QGn-RF-LAQ" id="g4A-hv-P5x"/>
                         <outlet property="reverseLabel" destination="nkN-NZ-z8B" id="Ttc-Ys-Mid"/>

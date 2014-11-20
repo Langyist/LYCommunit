@@ -435,6 +435,79 @@ return bl;
     return backlist ;
 }
 
+
+/*
+ 查询购物车数据
+ stattestr 商品状态 1为选中 0 为没选中
+ 
+*/
++ (NSMutableArray*)GetGood:(NSString *)stattestr
+{
+    int Totalprice = 0;//总价
+    sqlite3 *tempdatabase =  [[[LYSqllite alloc] init] openSqlite:@"LY_db.db"];
+    sqlite3_stmt *statementst = nil;
+    NSMutableArray *goodslist;
+    sqlite3_stmt *statement = nil;
+    NSString * sql = [[NSString alloc] initWithFormat:@"SELECT * FROM ShoppingCart WHERE selectState = '%@'",stattestr];
+    if (sqlite3_prepare_v2(tempdatabase, [sql UTF8String], -1, &statement, NULL) != SQLITE_OK)
+    {
+        NSLog(@"Error: failed to prepare statement with message:get testValue.");
+        return nil;
+    }
+    else
+    {
+        goodslist = [[NSMutableArray alloc] init];
+        while (sqlite3_step(statement)  == SQLITE_ROW)
+        {
+            NSMutableDictionary *temp = [[NSMutableDictionary alloc] init];
+            char* strText   = (char*)sqlite3_column_text(statement, 1);
+            [temp setValue:[NSString stringWithUTF8String:strText] forKey:@"name"];//商品名字
+            char* strText01   = (char*)sqlite3_column_text(statement, 2);
+            [temp setValue:[NSString stringWithUTF8String:strText01] forKey:@"price"];//商品价格
+            char* strText02   = (char*)sqlite3_column_text(statement, 3);
+            [temp setValue:[NSString stringWithUTF8String:strText02] forKey:@"quantity"];//商品数量
+            char* strText03   = (char*)sqlite3_column_text(statement, 4);
+            [temp setValue:[NSString stringWithUTF8String:strText03] forKey:@"commodity_id"];//商品ID
+            char* strText04   = (char*)sqlite3_column_text(statement, 5);
+            [temp setValue:[NSString stringWithUTF8String:strText04] forKey:@"cover_path"]; //商品logo
+            [goodslist addObject:temp];
+            Totalprice = Totalprice +[[NSString stringWithUTF8String:strText01] intValue]*[[NSString stringWithUTF8String:strText02] intValue];
+        }
+    }
+    NSLog(@"%d",Totalprice);
+    sqlite3_finalize(statement);
+    sqlite3_close(tempdatabase);
+    sqlite3_finalize(statementst);
+    sqlite3_close(tempdatabase);
+    return goodslist ;
+}
++ (NSString*)Storesid:(NSString *)stattestr
+{
+    NSString *Storesid;
+    int Totalprice = 0;//总价
+    sqlite3 *tempdatabase =  [[[LYSqllite alloc] init] openSqlite:@"LY_db.db"];
+    sqlite3_stmt *statementst = nil;
+    sqlite3_stmt *statement = nil;
+    NSString * sql = [[NSString alloc] initWithFormat:@"SELECT * FROM ShoppingCart WHERE selectState = '%@'",stattestr];
+    if (sqlite3_prepare_v2(tempdatabase, [sql UTF8String], -1, &statement, NULL) != SQLITE_OK)
+    {
+        NSLog(@"Error: failed to prepare statement with message:get testValue.");
+        return nil;
+    }
+    else
+    {       sqlite3_step(statement);
+            char* strText05   = (char*)sqlite3_column_text(statement, 6);
+            Storesid = [NSString stringWithUTF8String:strText05];
+    }
+    NSLog(@"%d",Totalprice);
+    sqlite3_finalize(statement);
+    sqlite3_close(tempdatabase);
+    sqlite3_finalize(statementst);
+    sqlite3_close(tempdatabase);
+    return Storesid ;
+}
+
+
 //删除指定的商品
 +(void)delectGoods:(NSString *)selectState
 {

@@ -43,7 +43,6 @@ typedef void (^ChangeNumberBlock)(ShopcartCell *cell, BOOL add);
 @end
 
 @implementation LYShoppingcart
-
 @synthesize m_tableView,m_storesNumber;
 
 - (void)viewDidLoad
@@ -275,7 +274,7 @@ typedef void (^ChangeNumberBlock)(ShopcartCell *cell, BOOL add);
     
     [Goodslist setObject:newGoodsList atIndexedSubscript:indexPath.section];
     [m_tableView reloadSections:[NSIndexSet indexSetWithIndex:indexPath.section] withRowAnimation:UITableViewRowAnimationFade];
-    
+
     number = 0;
     for (NSArray *listOne in Goodslist) {
         for (NSDictionary *goodsInfo in listOne) {
@@ -287,6 +286,7 @@ typedef void (^ChangeNumberBlock)(ShopcartCell *cell, BOOL add);
     m_storesNumber.text = [[NSString alloc] initWithFormat:@"共%d件商品", number];
     
     [self calculationTotlePrice];
+    
 }
 
 - (IBAction)deleteGoods:(id)sender

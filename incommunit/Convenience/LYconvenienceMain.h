@@ -54,6 +54,7 @@ UITextFieldDelegate
     
     int m_pagesize;
     int m_pageoffset;
+    int m_pagenumber;
 }
 
 @property (weak, nonatomic) IBOutlet UIScrollView *_scrollView;

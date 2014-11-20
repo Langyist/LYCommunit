@@ -37,7 +37,7 @@
 {
     [super viewDidLoad];
     
-    m_pagesize = 5;
+    m_pagesize = 20;
     m_pageoffset= 0;
     
     self->locationManager = [[CLLocationManager alloc] init];
@@ -655,5 +655,8 @@
     }
     return titleForHeaderOfSection;
 }
+
+
+
 
 @end
