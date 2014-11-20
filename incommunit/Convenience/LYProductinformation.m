@@ -10,7 +10,8 @@
 #import "CustomToolbarItem.h"
 #import "AppDelegate.h"
 #import "StoreOnlineNetworkEngine.h"
-
+#import "LYSqllite.h"
+#import "UIImageView+AsyncDownload.h"
 @interface InfoView : UIView
 
 @end
@@ -46,7 +47,7 @@
 @end
 
 @implementation LYProductinformation
-@synthesize m_iamgeview,m_GoodsName,m_Introduction,m_Price,m_textField,m_ProductDetails;
+@synthesize m_iamgeview,m_GoodsName,m_Introduction,m_Price,m_textField,m_ProductDetails,m_Imagescrillview;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -152,15 +153,24 @@
                                                            {
                                                            }else
                                                            {
+                                                               m_goodsinfo = result;
+                                                               [m_goodlis addObject:result];
                                                                [self Updata:result];
-                                                           
                                                            }}];
 }
 
-- (IBAction)laud:(id)sender {
-}
-
-- (IBAction)addShopingCart:(id)sender {
+- (IBAction)addShopingCart:(id)sender
+{
+    NSDictionary *userInfo = [LYSqllite Ruser];
+    if (!userInfo || [[userInfo objectForKey:@"auth_status"] isEqualToString:@"-2"]) {
+        UIAlertView *alview = [[UIAlertView alloc] initWithTitle:@"提示" message:@"你当前是游客，不能使用该功能？" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil];
+        [alview show];
+        
+        return;
+    }
+    [LYSqllite addShoppingcart:m_goodsinfo number: m_textField.text StoresID:m_Storesid Storesname:[m_storeinfo objectForKey:@"name"] selectState:@"0"];
+    UIAlertView *m_addshopcatalert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"成功将商品加入了购物车" delegate:self cancelButtonTitle:@"继续购物" otherButtonTitles:@"去购物车结算", nil];
+    [m_addshopcatalert show];
 }
 
 -(IBAction)SetChan
@@ -187,7 +197,7 @@
                                                                     [alert show];
                                                                }else
                                                                {
-                                                                   m_ProductDetails =result;
+//                                                                   int test =result;
                                                                    
                                                                }}];
         
@@ -252,6 +262,27 @@
         
         CGSize contentSize = CGSizeMake(0, CGRectGetMaxY(self.desContainerView.frame));
         [self.scrollView setContentSize:contentSize];
+        
+        NSMutableArray * temp = [m_goodsinfo objectForKey:@"images"];
+        self.page.numberOfPages =temp.count;
+        self.page.currentPage = 0;
+        
+        
+        
+        m_Imagescrillview.contentSize = CGSizeMake(temp.count * self.m_Imagescrillview.frame.size.width,0);
+        m_Imagescrillview.pagingEnabled = YES;
+        m_Imagescrillview.showsHorizontalScrollIndicator = NO;
+        for (int i = 0; i < temp.count; i++)
+        {
+            UIImageView * image = [[UIImageView alloc] initWithFrame:CGRectMake(i * self.view.frame.size.width, 0, self.view.frame.size.width, self.view.frame.size.height)];
+            NSString *imageUrl = [[temp objectAtIndex:i] objectForKey:@"path"];
+            if (imageUrl!=nil && ![imageUrl isEqualToString:@""])
+            {
+                NSURL *url = [NSURL URLWithString:imageUrl];
+                [image setImageWithURL:url placeholderImage:nil];
+            }
+            [m_Imagescrillview addSubview:image];
+        }
     }
 }
 

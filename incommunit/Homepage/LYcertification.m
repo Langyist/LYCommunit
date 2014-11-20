@@ -43,7 +43,7 @@
     NSString *l5str;
     
     NSArray *photoImageDataList;
-    int  temptag;
+    NSInteger temptag;
 }
 @property (weak, nonatomic) IBOutlet UILabel *m_lableinfo;
 @end
@@ -80,7 +80,6 @@
     bgScrollView.showsHorizontalScrollIndicator = NO;
     [self.scrollView addSubview:bgScrollView];
     [self setUpBgScrollView];
-
     self.submitButton.layer.cornerRadius = 3.0f;
 }
 
