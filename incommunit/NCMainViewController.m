@@ -12,7 +12,7 @@
 #import "UIView+Clone.h"
 #import "XHFriendlyLoadingView.h"
 #import "StoreOnlineNetworkEngine.h"
-
+#import "AWaterfallTableView.h"
 #import "NCDetailTableViewController.h"
 
 @interface NCMainViewController ()
@@ -27,7 +27,7 @@
 
 @property (weak, nonatomic) IBOutlet CustomSegmentedControl *segmentedControl;
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
-@property (weak, nonatomic) IBOutlet UITableView* allInfoTableView;
+@property (weak, nonatomic) IBOutlet AWaterfallTableView* allInfoTableView;
 @property (nonatomic, strong) XHFriendlyLoadingView *friendlyLoadingView;
 
 @end
@@ -125,6 +125,33 @@
     if (scrollView == self.scrollView) {
         NSInteger index = lroundf(_scrollView.contentOffset.x / _scrollView.frame.size.width);
         self.segmentedControl.selectedSegmentIndex = index;
+        switch (index) {
+            case 0:
+            {
+                selectType = @"0";
+                [self GetNetdata:0];
+            }
+                break;
+            case 1:
+            {
+                selectType = @"1";
+                [self GetNetdata:1];
+            }
+                break;
+            case 2:
+            {
+                selectType = @"2";
+                [self GetNetdata:2];
+            }
+                break;
+            case 3:
+            {
+                selectType = @"3";
+                [self GetNetdata:3];
+            }
+            default:
+                break;
+        }
     }
 }
 
@@ -238,10 +265,10 @@
                                                                    default:
                                                                        break;
                                                                 }
-                                                               }
+                                                                }
                                                            }
                                                        ];
-    
+
 }
 -(void)GetType
 {
