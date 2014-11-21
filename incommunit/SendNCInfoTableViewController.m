@@ -8,7 +8,7 @@
 
 #import "SendNCInfoTableViewController.h"
 #import "UIView+Clone.h"
-
+#import "StoreOnlineNetworkEngine.h"
 
 #define CAMERA @"相机"
 #define PHOTOES @"相册"
@@ -17,7 +17,6 @@
 
 - (void)layoutSubviews {
     [super layoutSubviews];
-    
     NSLog(@"%f", CGRectGetWidth(self.frame));
     NSLog(@"%f", CGRectGetWidth(self.contentView.frame));
     UIView *view = [self.contentView viewWithTag:100];
@@ -37,12 +36,12 @@
 @property (weak, nonatomic) IBOutlet UITextField *classTextField;
 @property (weak, nonatomic) IBOutlet UIButton *classButton;
 - (IBAction)classPress:(id)sender;
-@property (weak, nonatomic) IBOutlet UITextField *titleTextField;
-@property (weak, nonatomic) IBOutlet UITextView *detailTextField;
-@property (weak, nonatomic) IBOutlet UITextField *contactTextField;
-@property (weak, nonatomic) IBOutlet UITextField *contactStyleTextField;
-@property (weak, nonatomic) IBOutlet UIView *photoContainerView;
-@property (weak, nonatomic) IBOutlet UIButton *submitButton;
+@property (weak, nonatomic) IBOutlet UITextField *titleTextField;//标题
+@property (weak, nonatomic) IBOutlet UITextView *detailTextField;//详情
+@property (weak, nonatomic) IBOutlet UITextField *contactTextField;//联系人
+@property (weak, nonatomic) IBOutlet UITextField *contactStyleTextField;//联系方式
+@property (weak, nonatomic) IBOutlet UIView *photoContainerView; //照片view
+@property (weak, nonatomic) IBOutlet UIButton *submitButton;//提交按钮
 - (IBAction)submitPress:(id)sender;
 
 @end
@@ -158,6 +157,31 @@
 
 - (IBAction)submitPress:(id)sender {
     //保存数据
+    NSDictionary *  dic = @{@"title" : _titleTextField.text
+                            ,@"content" : @""
+                            ,@"contacts" : @""
+                            ,@"phone" : @""
+                            ,@"type_id" : @""
+                            ,@"sub_type_id" : @""
+                            ,@"filename" : @""
+                            };
+    
+    [[StoreOnlineNetworkEngine shareInstance] startNetWorkWithPath:@"services/neighbor/save"
+                                                            params:dic
+                                                            repeat:YES
+                                                             isGet:YES
+                                                       resultBlock:^(BOOL bValidJSON, NSString *errorMsg, id result) {
+                                                           if(!bValidJSON)
+                                                           {
+                                                               UIAlertView * alview = [[UIAlertView alloc] initWithTitle:@"提示" message:errorMsg delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+                                                               [alview show];
+                                                           }else
+                                                           {
+                                                               
+                                                           }
+                                                       }
+     ];
+
 }
 
 - (void)imageViewTap:(UITapGestureRecognizer *) tap {
@@ -259,5 +283,4 @@
     }
     return YES;
 }
-
 @end

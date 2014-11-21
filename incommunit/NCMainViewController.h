@@ -17,7 +17,11 @@
 >
 {
     NSMutableArray * m_type;
-    NSMutableArray * m_infodata;
+    NSMutableArray *  m_infodata;
+    NSMutableArray * m_infodata1;
+    NSMutableArray * m_infodata2;
+    NSMutableArray * m_infodata3;
+    
     int m_pagesize ;
     int m_pageOffset ;
     NSDictionary *detailData;
