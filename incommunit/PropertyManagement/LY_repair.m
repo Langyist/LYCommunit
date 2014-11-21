@@ -13,10 +13,13 @@
 #define CAMERA @"相机"
 #define PHOTOES @"相册"
 #import "StoreOnlineNetworkEngine.h"
+#import "AppDelegate.h"
 
 @interface LY_repair () <UIActionSheetDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,UIGestureRecognizerDelegate>{
     
     UIActionSheet *sheet;
+    
+    UIView *editView;
 }
 
 @end
@@ -36,23 +39,92 @@
 {
     [super viewDidLoad];
     
-    self.titletextField.delegate = self;
-    self.addresstextField.delegate = self;
-    self.contentField.delegate = self;
+    UIEdgeInsets inset = UIEdgeInsetsMake(0, 15, 0, 15);
+    [self.titletextField setTextInset:inset];
+    [self.addresstextField setTextInset:inset];
     self.submitButton.layer.cornerRadius = 5;
-    
-    UITapGestureRecognizer *closeKeyboard = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(closeKeyboard:)];
-    [self.view addGestureRecognizer:closeKeyboard];
-    
+    [self.submitButton setBackgroundColor:SPECIAL_GREEN];
+
     UITapGestureRecognizer *gesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(GestureImage:)];
     [self.addimageView addGestureRecognizer:gesture];
+    
+    [self.scrollView setContentSize:CGSizeMake(0, CGRectGetMaxY(self.submitButton.frame) + 50)];
 }
 
-- (void)closeKeyboard:(UITapGestureRecognizer *)tap {
+- (void)viewWillAppear:(BOOL)animated {
     
-    [self.titletextField resignFirstResponder];
-    [self.addresstextField resignFirstResponder];
-    [self.contentField resignFirstResponder];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyBoardWillShow:) name:UIKeyboardWillShowNotification object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyBoardWillHide:) name:UIKeyboardWillHideNotification object:nil];
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillShowNotification object:nil];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
+}
+
+#pragma mark -
+#pragma mark UIKeyboardNotificationMethod
+
+- (void)keyBoardWillShow:(NSNotification *)note{
+    
+    CGRect rect = [note.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
+    if (rect.origin.y >= self.view.frame.origin.y) {
+        CGFloat ty = -rect.size.height;
+        [UIView animateWithDuration:[note.userInfo[UIKeyboardAnimationDurationUserInfoKey] doubleValue]
+                         animations:^{
+                             UIEdgeInsets inset = UIEdgeInsetsMake(0, 0, -ty, 0);
+                             [self.scrollView setContentInset:inset];
+                             
+                             [self.scrollView setContentOffset:CGPointMake(0, CGRectGetMinY(editView.frame) - 50)];
+                         }];
+    }
+}
+
+- (void)keyBoardWillHide:(NSNotification *)note{
+    
+    [UIView animateWithDuration:[note.userInfo[UIKeyboardAnimationDurationUserInfoKey] doubleValue]
+                     animations:^{
+                         [self.scrollView setContentInset:UIEdgeInsetsZero];
+                     }];
+}
+
+#pragma mark -
+#pragma mark Method
+
+- (void)getsaverepair:(NSString *)url
+{
+    NSDictionary *dic = @{@"name" : self.titletextField.text
+                          ,@"position" : self.addresstextField.text
+                          ,@"description" : self.contentField.text
+                          ,@"picture" : self.addimageView};
+    [[StoreOnlineNetworkEngine shareInstance] startNetWorkWithPath:@"services/wuye/service/report"
+                                                            params:dic
+                                                            repeat:YES
+                                                             isGet:NO
+                                                       resultBlock:^(BOOL bValidJSON, NSString *errorMsg, id result) {
+                                                           if(!bValidJSON)
+                                                           {
+                                                               UIAlertView *al =[[UIAlertView alloc]initWithTitle:@"提示"
+                                                                                                          message:errorMsg
+                                                                                                         delegate:self
+                                                                                                cancelButtonTitle:@"确定"
+                                                                                                otherButtonTitles:nil, nil];
+                                                               [al show];
+                                                               
+                                                           }else
+                                                           {
+                                                               UIAlertView *al =[[UIAlertView alloc]initWithTitle:@"提示"
+                                                                                                          message:@"报修发表成功！"
+                                                                                                         delegate:self
+                                                                                                cancelButtonTitle:@"确定"
+                                                                                                otherButtonTitles:nil, nil];
+                                                               [al show];
+                                                               
+                                                           }
+                                                       }];
 }
 
 - (void)GestureImage:(UITapGestureRecognizer *) tap {
@@ -99,93 +171,36 @@
     }];
 }
 
-//提交
+#pragma mark -
+#pragma mark IBAction
+
 - (IBAction)submitButton:(id)sender {
-    
-    NSLog(@"提交");
     [self getsaverepair:@""];
 }
 
-- (BOOL)textFieldShouldReturn:(UITextField *)textField {
-    
-    if (textField == self.titletextField) {
-        [self.titletextField resignFirstResponder];
-        [self.addresstextField becomeFirstResponder];
-    }
-    else if (textField == self.addresstextField) {
-        
-        [self.addresstextField resignFirstResponder];
-        [self.contentField becomeFirstResponder];
-    }
-    else if (textField == self.contentField) {
-        
-        [self.contentField resignFirstResponder];
-    }
+#pragma mark -
+#pragma mark UITextFieldDelegate
+
+- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
+    editView = textField;
     return YES;
 }
 
-//开始编辑输入框
-- (void)textFieldDidBeginEditing:(UITextField *)textField
-{
-    if (textField==self.contentField) {
-        NSTimeInterval animationDuration = 20.0f;
-        CGRect frame = self.view.frame;
-        frame.origin.y -=80;
-        self.view.frame = frame;
-        [UIView beginAnimations:@"ResizeView" context:nil];
-        [UIView setAnimationDuration:animationDuration];
-        [UIView commitAnimations];
-    }
-}
-//结束编辑输入框
-- (void)textFieldDidEndEditing:(UITextField *)textField
-{
-    if (textField==self.contentField)
-    {
-        NSTimeInterval animationDuration = 20.0f;
-        CGRect frame = self.view.frame;
-        frame.origin.y +=80;
-        self.view.frame = frame;
-        [UIView beginAnimations:@"ResizeView" context:nil];
-        [UIView setAnimationDuration:animationDuration];
-        self.view.frame = frame;
-        [UIView commitAnimations];
-    }
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    [self.view endEditing:YES];
+    return YES;
 }
 
-#pragma mark 保存到网络数据
-- (void)getsaverepair:(NSString *)url
-{
-    NSDictionary *dic = @{@"name" : self.titletextField.text
-                          ,@"position" : self.addresstextField.text
-                          ,@"description" : self.contentField.text
-                          ,@"picture" : self.addimageView};
-    [[StoreOnlineNetworkEngine shareInstance] startNetWorkWithPath:@"services/wuye/service/report"
-                                                            params:dic
-                                                            repeat:YES
-                                                             isGet:NO
-                                                       resultBlock:^(BOOL bValidJSON, NSString *errorMsg, id result) {
-                                                           if(!bValidJSON)
-                                                           {
-                                                               UIAlertView *al =[[UIAlertView alloc]initWithTitle:@"提示"
-                                                                                                          message:errorMsg
-                                                                                                         delegate:self
-                                                                                                cancelButtonTitle:@"确定"
-                                                                                                otherButtonTitles:nil, nil];
-                                                               [al show];
+#pragma mark -
+#pragma mark UITextViewDelegate
 
-                                                           }else
-                                                           {
-                                                               UIAlertView *al =[[UIAlertView alloc]initWithTitle:@"提示"
-                                                                                                          message:@"报修发表成功！"
-                                                                                                         delegate:self
-                                                                                                cancelButtonTitle:@"确定"
-                                                                                                otherButtonTitles:nil, nil];
-                                                               [al show];
-                                                               
-                                                           }
-                                                       }];
+- (BOOL)textViewShouldBeginEditing:(UITextView *)textView {
+    editView = textView;
+    return YES;
 }
 
+- (void)textViewDidChange:(UITextView *)textView {
+    self.holdlabel.hidden = !(0 == textView.text.length);
+}
 
 @end
